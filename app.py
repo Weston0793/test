@@ -23,21 +23,17 @@ def authorize_google_drive():
         "auth_uri": st.secrets["google_drive"]["auth_uri"],
         "token_uri": st.secrets["google_drive"]["token_uri"],
         "auth_provider_x509_cert_url": st.secrets["google_drive"]["auth_provider_x509_cert_url"],
-        "client_x509_cert_url": st.secrets["google_drive"]["client_x509_cert_url"]
+        "client_x509_cert_url": st.secrets["google_drive"]["client_x509_cert_url"],
+        "client_user_email": st.secrets["google_drive"]["client_user_email"]
     }
-    
-    with open("service_account.json", "w") as f:
-        json.dump(credentials, f)
     
     gauth = GoogleAuth()
     gauth.settings['client_config_backend'] = 'service'
     gauth.settings['service_config'] = {
-        "client_json_file_path": "service_account.json"
+        "client_json_dict": credentials
     }
     gauth.ServiceAuth()
     drive = GoogleDrive(gauth)
-    
-    os.remove("service_account.json")
     
     return drive
 
