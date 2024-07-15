@@ -102,3 +102,17 @@ def get_counts():
                     data.append([main_region, sub_region, view, type, count, percentage])
 
     return counts, data
+
+def get_progress_summary(counts):
+    summary = {}
+    for main_region, sub_regions in counts.items():
+        summary[main_region] = {"total": 0, "progress": 0}
+        for sub_region, view_types in sub_regions.items():
+            sub_region_total = 0
+            sub_region_progress = 0
+            for view_type, percentage in view_types.items():
+                sub_region_total += 1
+                sub_region_progress += percentage
+            summary[main_region]["total"] += sub_region_total * 100
+            summary[main_region]["progress"] += sub_region_progress
+    return summary
