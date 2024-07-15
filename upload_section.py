@@ -3,29 +3,20 @@ from firebase_helpers import save_image
 import uuid
 
 def confirm_popup(upload_data):
-    st.session_state["confirm"] = st.checkbox("Ne kérdezzen többé")
-    if not st.session_state.get("confirm", False):
-        confirmed = st.button("Megerősít")
-        if confirmed:
-            return True
-        return False
-    return True
+    confirmed = st.button("Megerősít")
+    if confirmed:
+        return True
+    return False
 
 def upload_section():
     st.markdown(
         """
         <style>
-        .upload-box {
-            border: 2px solid black;
-            padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
         .upload-title {
             font-size: 24px;
             font-weight: bold;
-            color: #4CAF50;
-            padding: 10px;
+            color: black;
+            margin-bottom: 20px;
         }
         .upload-button {
             font-size: 20px;
@@ -34,6 +25,8 @@ def upload_section():
             padding: 10px 20px;
             border: none;
             cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
         }
         .upload-button:hover {
             background-color: #45a049;
@@ -71,7 +64,7 @@ def upload_section():
     age = st.slider("Életkor", min_value=0, max_value=120, step=1, format="%d", value=0)
     comment = st.text_area("Megjegyzés", key="comment", value="")
 
-    if st.button("Feltöltés", key="upload_button"):
+    if st.button("Feltöltés"):
         if uploaded_file and type and view and main_region and sub_region:
             upload_data = {
                 "patient_id": patient_id,
@@ -83,6 +76,15 @@ def upload_section():
                 "comment": comment + " " + type_comment + " " + view_comment,
                 "file": uploaded_file
             }
+
+            st.write("Megerősíti a következő adatokat?")
+            st.write(f"Beteg azonosító: {upload_data['patient_id']}")
+            st.write(f"Típus: {upload_data['type']}")
+            st.write(f"Nézet: {upload_data['view']}")
+            st.write(f"Fő régió: {upload_data['main_region']}")
+            st.write(f"Alrégió: {upload_data['sub_region']}")
+            st.write(f"Életkor: {upload_data['age']}")
+            st.write(f"Megjegyzés: {upload_data['comment']}")
 
             if confirm_popup(upload_data):
                 try:
