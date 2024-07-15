@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_helpers import get_counts
+from firebase_helpers import get_counts, get_progress_summary
 import uuid
 
 def tracker_section():
