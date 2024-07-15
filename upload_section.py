@@ -1,6 +1,6 @@
 import streamlit as st
 from firebase_helpers import save_image
-
+import uuid
 def confirm_popup(upload_data):
     st.session_state["confirm"] = st.checkbox("Ne kérdezzen többé")
     if not st.session_state.get("confirm", False):
