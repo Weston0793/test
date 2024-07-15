@@ -76,3 +76,29 @@ def create_zip(files):
             zip_file.writestr(arcname, file_url)
     zip_buffer.seek(0)
     return zip_buffer
+
+# Get counts from Firestore
+def get_counts():
+    counts = {
+        "Felső végtag": {"Clavicula": {}, "Scapula": {}, "Váll": {}, "Humerus": {}, "Könyök": {}, "Radius": {}, "Ulna": {}, "Csukló": {}, "Kéz": {}},
+        "Alsó végtag": {"Csípő": {}, "Comb": {}, "Térd": {}, "Tibia": {}, "Fibula": {}, "Boka": {}, "Láb": {}},
+        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}, "Kereszt- és farokcsonti": {}},
+        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}}
+    }
+    views = ["AP", "Lateral"]
+    types = ["Normál", "Törött"]
+
+    data = []
+
+    for main_region in counts:
+        for sub_region in counts[main_region]:
+            for view in views:
+                for type in types:
+                    docs = db.collection('images').where('main_region', '==', main_region).where('sub_region', '==', sub_region).where('view', '==', view).where('type', '==', type).stream()
+                    count = len(list(docs))
+                    total = 50  # Maximum 50 kép szükséges minden kombinációból
+                    percentage = (count / total) * 100
+                    counts[main_region][sub_region][f"{type}_{view}"] = percentage
+                    data.append([main_region, sub_region, view, type, count, percentage])
+
+    return counts, data
