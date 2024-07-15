@@ -1,5 +1,6 @@
 import streamlit as st
 from firebase_helpers import get_counts
+import uuid
 
 def tracker_section():
     st.markdown(
