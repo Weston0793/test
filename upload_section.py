@@ -3,9 +3,50 @@ from firebase_helpers import save_image
 import uuid
 
 def confirm_popup(upload_data):
+    st.markdown(
+        """
+        <style>
+        .modal {
+            display: block;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown('<div class="modal"><div class="modal-content">', unsafe_allow_html=True)
+    st.write("Megerősíti a következő adatokat?")
+    st.write(f"Beteg azonosító: {upload_data['patient_id']}")
+    st.write(f"Típus: {upload_data['type']}")
+    st.write(f"Nézet: {upload_data['view']}")
+    st.write(f"Fő régió: {upload_data['main_region']}")
+    st.write(f"Alrégió: {upload_data['sub_region']}")
+    st.write(f"Életkor: {upload_data['age']}")
+    st.write(f"Megjegyzés: {upload_data['comment']}")
+
     confirmed = st.button("Megerősít")
     if confirmed:
+        st.markdown('</div></div>', unsafe_allow_html=True)
         return True
+
+    st.markdown('</div></div>', unsafe_allow_html=True)
     return False
 
 def upload_section():
@@ -17,6 +58,7 @@ def upload_section():
             font-weight: bold;
             color: black;
             margin-bottom: 20px;
+            text-align: center;
         }
         .upload-button {
             font-size: 20px;
@@ -77,19 +119,18 @@ def upload_section():
                 "file": uploaded_file
             }
 
-            st.write("Megerősíti a következő adatokat?")
-            st.write(f"Beteg azonosító: {upload_data['patient_id']}")
-            st.write(f"Típus: {upload_data['type']}")
-            st.write(f"Nézet: {upload_data['view']}")
-            st.write(f"Fő régió: {upload_data['main_region']}")
-            st.write(f"Alrégió: {upload_data['sub_region']}")
-            st.write(f"Életkor: {upload_data['age']}")
-            st.write(f"Megjegyzés: {upload_data['comment']}")
-
             if confirm_popup(upload_data):
                 try:
                     save_image(**upload_data)
                     st.success("Kép sikeresen feltöltve!")
+                    st.write("Feltöltött adatok:")
+                    st.write(f"Beteg azonosító: {upload_data['patient_id']}")
+                    st.write(f"Típus: {upload_data['type']}")
+                    st.write(f"Nézet: {upload_data['view']}")
+                    st.write(f"Fő régió: {upload_data['main_region']}")
+                    st.write(f"Alrégió: {upload_data['sub_region']}")
+                    st.write(f"Életkor: {upload_data['age']}")
+                    st.write(f"Megjegyzés: {upload_data['comment']}")
                 except Exception as e:
                     st.error(f"Hiba a kép mentésekor: {e}")
         else:
