@@ -1,184 +1,75 @@
 import streamlit as st
-import sqlite3
-from sqlite3 import Error
 import os
-from PIL import Image
-import shutil
 import uuid
 import io
 import zipfile
-from pydrive2.auth import GoogleAuth
-from pydrive2.drive import GoogleDrive
-import json
+import firebase_admin
+from firebase_admin import credentials, firestore, storage
+from PIL import Image
 
-# Authorize Google Drive using a service account
-def authorize_google_drive():
-    credentials = {
-        "type": st.secrets["google_drive"]["type"],
-        "project_id": st.secrets["google_drive"]["project_id"],
-        "private_key_id": st.secrets["google_drive"]["private_key_id"],
-        "private_key": st.secrets["google_drive"]["private_key"].replace('\\n', '\n'),
-        "client_email": st.secrets["google_drive"]["client_email"],
-        "client_id": st.secrets["google_drive"]["client_id"],
-        "auth_uri": st.secrets["google_drive"]["auth_uri"],
-        "token_uri": st.secrets["google_drive"]["token_uri"],
-        "auth_provider_x509_cert_url": st.secrets["google_drive"]["auth_provider_x509_cert_url"],
-        "client_x509_cert_url": st.secrets["google_drive"]["client_x509_cert_url"],
-        "client_user_email": st.secrets["google_drive"]["client_user_email"]
-    }
-    
-    gauth = GoogleAuth()
-    gauth.settings['client_config_backend'] = 'service'
-    gauth.settings['service_config'] = {
-        "client_json_dict": credentials
-    }
-    gauth.ServiceAuth()
-    drive = GoogleDrive(gauth)
-    
-    return drive
+# Initialize Firebase
+firebase_config = {
+    "type": st.secrets["firebase"]["type"],
+    "project_id": st.secrets["firebase"]["project_id"],
+    "private_key_id": st.secrets["firebase"]["private_key_id"],
+    "private_key": st.secrets["firebase"]["private_key"].replace('\\n', '\n'),
+    "client_email": st.secrets["firebase"]["client_email"],
+    "client_id": st.secrets["firebase"]["client_id"],
+    "auth_uri": st.secrets["firebase"]["auth_uri"],
+    "token_uri": st.secrets["firebase"]["token_uri"],
+    "auth_provider_x509_cert_url": st.secrets["firebase"]["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": st.secrets["firebase"]["client_x509_cert_url"]
+}
 
-drive = authorize_google_drive()
+cred = credentials.Certificate(firebase_config)
+firebase_admin.initialize_app(cred, {
+    'storageBucket': f"{firebase_config['project_id']}.appspot.com"
+})
 
-# Upload file to Google Drive
-def upload_to_drive(file_path, folder_id=None):
-    file_name = os.path.basename(file_path)
-    gfile = drive.CreateFile({'parents': [{'id': folder_id}]} if folder_id else {})
-    gfile.SetContentFile(file_path)
-    gfile['title'] = file_name
-    gfile.Upload()
+db = firestore.client()
+bucket = storage.bucket()
 
-# Download file from Google Drive
-def download_from_drive(file_name, folder_id=None):
-    query = f"title='{file_name}'"
-    if folder_id:
-        query += f" and '{folder_id}' in parents"
-    file_list = drive.ListFile({'q': query}).GetList()
-    if file_list:
-        gfile = file_list[0]
-        gfile.GetContentFile(file_name)
+# Upload file to Firebase Storage
+def upload_to_storage(file_path, destination_blob_name):
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_filename(file_path)
+    blob.make_public()
+    return blob.public_url
 
-# Ensure the images and backup directories exist
-if not os.path.exists("images"):
-    os.makedirs("images")
-if not os.path.exists("backup"):
-    os.makedirs("backup")
+# Download file from Firebase Storage
+def download_from_storage(source_blob_name, destination_file_name):
+    blob = bucket.blob(source_blob_name)
+    blob.download_to_filename(destination_file_name)
 
-# SQLite database initialization
-def create_connection(db_file):
-    try:
-        conn = sqlite3.connect(db_file)
-        return conn
-    except Error as e:
-        st.error(f"Error creating connection: {e}")
-        return None
-
-def create_table(conn):
-    try:
-        sql_create_images_table = """CREATE TABLE IF NOT EXISTS images (
-                                        id integer PRIMARY KEY,
-                                        patient_id text NOT NULL,
-                                        filename text NOT NULL,
-                                        type text,
-                                        view text,
-                                        main_region text,
-                                        sub_region text,
-                                        age integer,
-                                        comment text
-                                    );"""
-        cur = conn.cursor()
-        cur.execute(sql_create_images_table)
-        conn.commit()
-    except Error as e:
-        st.error(f"Error creating table: {e}")
-
-def check_database(conn):
-    try:
-        cur = conn.cursor()
-        cur.execute("SELECT COUNT(*) FROM images")
-        count = cur.fetchone()[0]
-        return count
-    except Error as e:
-        st.error(f"Error checking database: {e}")
-        return 0
-
-def initialize_database():
-    if os.path.exists(database):
-        conn = create_connection(database)
-        if conn:
-            count = check_database(conn)
-            if count == 0:
-                download_from_drive(os.path.basename(backup_database))
-                if os.path.exists(backup_database):
-                    shutil.copy(backup_database, database)
-                    st.info("Database restored from backup.")
-            create_table(conn)
-            conn.close()
-        else:
-            st.error("Error! Cannot create the database connection.")
-    else:
-        download_from_drive(os.path.basename(backup_database))
-        if os.path.exists(backup_database):
-            shutil.copy(backup_database, database)
-            st.info("Database restored from backup.")
-        else:
-            conn = create_connection(database)
-            if conn:
-                create_table(conn)
-                conn.close()
-
-def backup_database():
-    if os.path.exists(database):
-        shutil.copy(database, backup_database)
-        upload_to_drive(backup_database)
-
-database = "images.db"
-backup_database = "backup/images_backup.db"
-initialize_database()
-
-# Generate unique patient ID
-def generate_patient_id():
-    return str(uuid.uuid4())
-
-# Save image to local storage and database
+# Save image and metadata to Firestore and Firebase Storage
 def save_image(patient_id, file, type, view, main_region, sub_region, age, comment):
     filename = file.name
-    file_path = os.path.join("images", filename)
-    try:
-        with open(file_path, "wb") as f:
-            f.write(file.getbuffer())
-        conn = create_connection(database)
-        if conn:
-            try:
-                sql = '''INSERT INTO images(patient_id, filename, type, view, main_region, sub_region, age, comment)
-                         VALUES(?,?,?,?,?,?,?,?)'''
-                cur = conn.cursor()
-                cur.execute(sql, (patient_id, filename, type, view, main_region, sub_region, age, comment))
-                conn.commit()
-                backup_database()
-            except Error as e:
-                st.error(f"Error saving image data to database: {e}")
-            finally:
-                conn.close()
-    except PermissionError as e:
-        st.error(f"Permission error: {e}")
-    except Exception as e:
-        st.error(f"Unexpected error: {e}")
+    unique_filename = f"{uuid.uuid4()}_{filename}"
+    file_path = os.path.join("/tmp", unique_filename)
 
-# Create ZIP of selected files
-def create_zip(files):
-    zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-        for file_path in files:
-            arcname = os.path.basename(file_path)
-            zip_file.write(file_path, arcname)
-    zip_buffer.seek(0)
-    return zip_buffer
+    with open(file_path, "wb") as f:
+        f.write(file.getbuffer())
+
+    public_url = upload_to_storage(file_path, unique_filename)
+
+    doc_ref = db.collection('images').document(unique_filename)
+    doc_ref.set({
+        'patient_id': patient_id,
+        'filename': unique_filename,
+        'type': type,
+        'view': view,
+        'main_region': main_region,
+        'sub_region': sub_region,
+        'age': age,
+        'comment': comment,
+        'url': public_url
+    })
 
 # Streamlit app
 st.title("Kép feltöltése és címkézése")
 
 # Create or select patient ID
-patient_id = st.text_input("Beteg azonosító (hagyja üresen új beteg esetén)", generate_patient_id())
+patient_id = st.text_input("Beteg azonosító (hagyja üresen új beteg esetén)", str(uuid.uuid4()))
 
 uploaded_file = st.file_uploader("Válassz egy képet", type=["jpg", "jpeg", "png"])
 
@@ -242,90 +133,44 @@ else:
     search_sub_region = ""
 
 if st.button("Keresés"):
-    conn = create_connection(database)
-    if conn:
-        try:
-            cur = conn.cursor()
-            query = "SELECT filename, type, view, main_region, sub_region FROM images WHERE 1=1"
-            values = []
-            if search_labels:
-                for label in search_labels.split(","):
-                    query += " AND (type LIKE ? OR view LIKE ? OR main_region LIKE ? OR sub_region LIKE ?)"
-                    values.extend([f"%{label.strip()}%", f"%{label.strip()}%", f"%{label.strip()}%", f"%{label.strip()}%"])
-            if search_type:
-                query += " AND type = ?"
-                values.append(search_type)
-            if search_view:
-                query += " AND view = ?"
-                values.append(search_view)
-            if search_main_region:
-                query += " AND main_region = ?"
-                values.append(search_main_region)
-            if search_sub_region:
-                query += " AND sub_region = ?"
-                values.append(search_sub_region)
+    results = db.collection('images')
 
-            cur.execute(query, values)
-            rows = cur.fetchall()
-            file_paths = [os.path.join("images", row[0]) for row in rows]
-            for i, row in enumerate(rows[:10]):  # Csak az első 10 kép megjelenítése
-                st.image(os.path.join("images", row[0]), caption=f"{row[1]}, {row[2]}, {row[3]}, {row[4]}")
-            if len(rows) > 10:
-                st.info(f"Összesen {len(rows)} kép található. Kérjük, szűkítse a keresést.")
-            
-            if file_paths:
-                zip_buffer = create_zip(file_paths)
-                st.download_button(
-                    label="Képek letöltése ZIP-ben",
-                    data=zip_buffer,
-                    file_name="images.zip",
-                    mime="application/zip"
-                )
-        except Error as e:
-            st.error(f"Hiba a keresés közben: {e}")
-        finally:
-            conn.close()
-    else:
-        st.error("Cannot connect to the database.")
+    if search_labels:
+        for label in search_labels.split(","):
+            results = results.where('type', '==', label.strip())
 
-# Display counts
-def get_counts(conn):
-    counts = {
-        "Felső végtag": {"Clavicula": {}, "Scapula": {}, "Váll": {}, "Felkar": {}, "Könyök": {}, "Radius": {}, "Ulna": {}, "Csukló": {}, "Kéz": {}},
-        "Alsó végtag": {"Csípő": {}, "Comb": {}, "Térd": {}, "Tibia": {}, "Fibula": {}, "Boka": {}, "Láb": {}},
-        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}, "Kereszt- és farokcsonti": {}},
-        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}}
-    }
-    views = ["AP", "Lateral"]
-    types = ["Normál", "Törött"]
+    if search_type:
+        results = results.where('type', '==', search_type)
+    if search_view:
+        results = results.where('view', '==', search_view)
+    if search_main_region:
+        results = results.where('main_region', '==', search_main_region)
+    if search_sub_region:
+        results = results.where('sub_region', '==', search_sub_region)
 
-    data = []
+    docs = results.stream()
+    file_paths = []
 
-    for main_region in counts:
-        for sub_region in counts[main_region]:
-            for view in views:
-                for type in types:
-                    cur = conn.cursor()
-                    cur.execute(f"SELECT COUNT(*) FROM images WHERE main_region=? AND sub_region=? AND view=? AND type=?", 
-                                (main_region, sub_region, view, type))
-                    count = cur.fetchone()[0]
-                    total = 50  # Maximum 50 kép szükséges minden kombinációból
-                    percentage = (count / total) * 100
-                    counts[main_region][sub_region][f"{type}_{view}"] = percentage
-                    data.append([main_region, sub_region, view, type, count, percentage])
+    for doc in docs:
+        data = doc.to_dict()
+        st.image(data['url'], caption=f"{data['type']}, {data['view']}, {data['main_region']}, {data['sub_region']}")
+        file_paths.append(data['url'])
 
-    return counts, data
+    if file_paths:
+        zip_buffer = create_zip(file_paths)
+        st.download_button(
+            label="Képek letöltése ZIP-ben",
+            data=zip_buffer,
+            file_name="images.zip",
+            mime="application/zip"
+        )
 
-conn = create_connection(database)
-if conn:
-    counts, data = get_counts(conn)
-    for main_region, sub_regions in counts.items():
-        st.subheader(main_region)
-        for sub_region, view_types in sub_regions.items():
-            st.text(sub_region)
-            for view_type, percentage in view_types.items():
-                if percentage > 0:
-                    st.text(f"{view_type}: {percentage:.2f}%")
-    conn.close()
-else:
-    st.error("Cannot connect to the database.")
+# Create ZIP of selected files
+def create_zip(files):
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        for file_path in files:
+            arcname = os.path.basename(file_path)
+            zip_file.write(file_path, arcname)
+    zip_buffer.seek(0)
+    return zip_buffer
