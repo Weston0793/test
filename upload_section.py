@@ -5,17 +5,10 @@ import uuid
 def confirm_popup(upload_data):
     st.session_state["confirm"] = st.checkbox("Ne kérdezzen többé")
     if not st.session_state.get("confirm", False):
-        st.warning(
-            "Megerősíti a következő adatokat?\n"
-            f"Beteg azonosító: {upload_data['patient_id']}\n"
-            f"Típus: {upload_data['type']}\n"
-            f"Nézet: {upload_data['view']}\n"
-            f"Fő régió: {upload_data['main_region']}\n"
-            f"Alrégió: {upload_data['sub_region']}\n"
-            f"Életkor: {upload_data['age']}\n"
-            f"Megjegyzés: {upload_data['comment']}"
-        )
-        return st.button("Megerősít")
+        confirmed = st.button("Megerősít")
+        if confirmed:
+            return True
+        return False
     return True
 
 def upload_section():
@@ -24,14 +17,15 @@ def upload_section():
         <style>
         .upload-box {
             border: 2px solid black;
-            padding: 20px;
+            padding: 10px;
             margin-bottom: 20px;
             text-align: center;
         }
         .upload-title {
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 20px;
+            color: #4CAF50;
+            padding: 10px;
         }
         .upload-button {
             font-size: 20px;
@@ -49,7 +43,6 @@ def upload_section():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="upload-box">', unsafe_allow_html=True)
     st.markdown('<div class="upload-title">Kép feltöltése és címkézése</div>', unsafe_allow_html=True)
 
     patient_id = st.text_input("Beteg azonosító (hagyja üresen új beteg esetén)", str(uuid.uuid4()))
@@ -99,5 +92,3 @@ def upload_section():
                     st.error(f"Hiba a kép mentésekor: {e}")
         else:
             st.error("Tölts fel egy képet és add meg a szükséges információkat.")
-
-    st.markdown('</div>', unsafe_allow_html=True)
