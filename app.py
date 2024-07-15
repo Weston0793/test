@@ -7,6 +7,16 @@ import firebase_admin
 from firebase_admin import credentials, firestore, storage
 from PIL import Image
 
+# Function to create ZIP of selected files
+def create_zip(files):
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        for file_url in files:
+            arcname = os.path.basename(file_url)
+            zip_file.writestr(arcname, file_url)
+    zip_buffer.seek(0)
+    return zip_buffer
+
 # Initialize Firebase
 def initialize_firebase():
     if not firebase_admin._apps:
@@ -167,13 +177,3 @@ if st.button("Keresés"):
             file_name="images.zip",
             mime="application/zip"
         )
-
-# Create ZIP of selected files
-def create_zip(files):
-    zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-        for file_path in files:
-            arcname = os.path.basename(file_path)
-            zip_file.write(file_path, arcname)
-    zip_buffer.seek(0)
-    return zip_buffer
