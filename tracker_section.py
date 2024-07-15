@@ -28,11 +28,17 @@ def tracker_section():
     st.markdown('<div class="tracker-title">Státusz követése</div>', unsafe_allow_html=True)
 
     counts, data = get_counts()
+    summary = get_progress_summary(counts)
+
     for main_region, sub_regions in counts.items():
         st.subheader(main_region)
+        st.progress(summary[main_region]["progress"] / summary[main_region]["total"])
         for sub_region, view_types in sub_regions.items():
             st.markdown(f'<div class="sub-region-title">{sub_region}</div>', unsafe_allow_html=True)
             for view_type, percentage in view_types.items():
                 if percentage > 0:
                     st.text(f"{view_type}: {percentage:.2f}%")
+            total_progress = sum(view_types.values()) / (len(view_types) * 100) * 100
+            st.progress(total_progress)
+
     st.markdown('</div>', unsafe_allow_html=True)
