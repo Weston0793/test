@@ -1,6 +1,6 @@
 import streamlit as st
 from firebase_helpers import db, create_zip
-
+import uuid
 def search_section():
     st.markdown(
         """
