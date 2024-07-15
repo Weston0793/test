@@ -6,9 +6,8 @@ import zipfile
 import firebase_admin
 from firebase_admin import credentials, firestore, storage
 from PIL import Image
-
 import streamlit as st
-from firebase_helpers import save_image, create_zip, db
+from firebase_helpers import save_image, create_zip, get_counts
 import uuid
 
 def confirm_popup(upload_data):
@@ -46,7 +45,8 @@ def upload_section():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="upload-box"><div class="upload-title">Kép feltöltése és címkézése</div>', unsafe_allow_html=True)
+    st.markdown('<div class="upload-box">', unsafe_allow_html=True)
+    st.markdown('<div class="upload-title">Kép feltöltése és címkézése</div>', unsafe_allow_html=True)
 
     patient_id = st.text_input("Beteg azonosító (hagyja üresen új beteg esetén)", str(uuid.uuid4()))
 
@@ -116,7 +116,8 @@ def search_section():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="search-box"><div class="search-title">Képek keresése</div>', unsafe_allow_html=True)
+    st.markdown('<div class="search-box">', unsafe_allow_html=True)
+    st.markdown('<div class="search-title">Képek keresése</div>', unsafe_allow_html=True)
 
     search_labels = st.text_input("Keresés címkék alapján (vesszővel elválasztva)")
 
@@ -170,10 +171,47 @@ def search_section():
 
     st.markdown('</div>', unsafe_allow_html=True)
 
+def tracker_section():
+    st.markdown(
+        """
+        <style>
+        .tracker-box {
+            border: 2px solid black;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .tracker-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .sub-region-title {
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown('<div class="tracker-box">', unsafe_allow_html=True)
+    st.markdown('<div class="tracker-title">Státusz követése</div>', unsafe_allow_html=True)
+
+    counts, data = get_counts()
+    for main_region, sub_regions in counts.items():
+        st.subheader(main_region)
+        for sub_region, view_types in sub_regions.items():
+            st.markdown(f'<div class="sub-region-title">{sub_region}</div>', unsafe_allow_html=True)
+            for view_type, percentage in view_types.items():
+                if percentage > 0:
+                    st.text(f"{view_type}: {percentage:.2f}%")
+    st.markdown('</div>', unsafe_allow_html=True)
+
 def main():
     st.title("Orvosi Röntgen Adatbázis")
     upload_section()
     search_section()
+    tracker_section()
 
 if __name__ == "__main__":
     main()
+
