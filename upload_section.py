@@ -74,6 +74,8 @@ def upload_section():
                 "comment": comment + " " + type_comment + " " + view_comment,
                 "file": uploaded_file
             }
+        else:
+            st.warning("Kérlek, töltsd ki az összes mezőt!")
 
     if st.session_state["confirm_data"]:
         upload_data = st.session_state["confirm_data"]
@@ -86,14 +88,18 @@ def upload_section():
         st.write(f"**Életkor:** {upload_data['age']}")
         st.write(f"**Megjegyzés:** {upload_data['comment']}")
 
-        if st.button("Megerősít"):
-            try:
-                save_image(**upload_data)
-                st.success("Kép sikeresen feltöltve!")
-                st.session_state["confirm_data"] = None
-            except Exception as e:
-                st.error(f"Hiba a kép mentésekor: {e}")
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            if st.button("Megerősít"):
+                try:
+                    save_image(**upload_data)
+                    st.success("Kép sikeresen feltöltve!")
+                    st.session_state["confirm_data"] = None
+                except Exception as e:
+                    st.error(f"Hiba a kép mentésekor: {e}")
+                    st.session_state["confirm_data"] = None
+        with col2:
+            if st.button("Mégse"):
                 st.session_state["confirm_data"] = None
 
-        if st.button("Mégse"):
-            st.session_state["confirm_data"] = None
+upload_section()
