@@ -2,53 +2,6 @@ import streamlit as st
 from firebase_helpers import save_image
 import uuid
 
-def confirm_popup(upload_data):
-    st.markdown(
-        """
-        <style>
-        .modal {
-            display: block;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown('<div class="modal"><div class="modal-content">', unsafe_allow_html=True)
-    st.write("Megerősíti a következő adatokat?")
-    st.write(f"Beteg azonosító: {upload_data['patient_id']}")
-    st.write(f"Típus: {upload_data['type']}")
-    st.write(f"Nézet: {upload_data['view']}")
-    st.write(f"Fő régió: {upload_data['main_region']}")
-    st.write(f"Alrégió: {upload_data['sub_region']}")
-    st.write(f"Életkor: {upload_data['age']}")
-    st.write(f"Megjegyzés: {upload_data['comment']}")
-
-    confirmed = st.button("Megerősít")
-    if confirmed:
-        st.markdown('</div></div>', unsafe_allow_html=True)
-        return True
-
-    st.markdown('</div></div>', unsafe_allow_html=True)
-    return False
-
 def upload_section():
     st.markdown(
         """
@@ -106,7 +59,10 @@ def upload_section():
     age = st.slider("Életkor", min_value=0, max_value=120, step=1, format="%d", value=0)
     comment = st.text_area("Megjegyzés", key="comment", value="")
 
-    if st.button("Feltöltés"):
+    if "confirm_step" not in st.session_state:
+        st.session_state["confirm_step"] = False
+
+    if st.button("Feltöltés") or st.session_state["confirm_step"]:
         if uploaded_file and type and view and main_region and sub_region:
             upload_data = {
                 "patient_id": patient_id,
@@ -119,7 +75,19 @@ def upload_section():
                 "file": uploaded_file
             }
 
-            if confirm_popup(upload_data):
+            if not st.session_state["confirm_step"]:
+                st.write("Megerősíti a következő adatokat?")
+                st.write(f"Beteg azonosító: {upload_data['patient_id']}")
+                st.write(f"Típus: {upload_data['type']}")
+                st.write(f"Nézet: {upload_data['view']}")
+                st.write(f"Fő régió: {upload_data['main_region']}")
+                st.write(f"Alrégió: {upload_data['sub_region']}")
+                st.write(f"Életkor: {upload_data['age']}")
+                st.write(f"Megjegyzés: {upload_data['comment']}")
+
+                if st.button("Megerősít"):
+                    st.session_state["confirm_step"] = True
+            else:
                 try:
                     save_image(**upload_data)
                     st.success("Kép sikeresen feltöltve!")
@@ -131,6 +99,7 @@ def upload_section():
                     st.write(f"Alrégió: {upload_data['sub_region']}")
                     st.write(f"Életkor: {upload_data['age']}")
                     st.write(f"Megjegyzés: {upload_data['comment']}")
+                    st.session_state["confirm_step"] = False
                 except Exception as e:
                     st.error(f"Hiba a kép mentésekor: {e}")
         else:
