@@ -1,6 +1,7 @@
 import streamlit as st
 from firebase_helpers import save_image
 import uuid
+
 def confirm_popup(upload_data):
     st.session_state["confirm"] = st.checkbox("Ne kérdezzen többé")
     if not st.session_state.get("confirm", False):
@@ -25,10 +26,23 @@ def upload_section():
             border: 2px solid black;
             padding: 20px;
             margin-bottom: 20px;
+            text-align: center;
         }
         .upload-title {
             font-size: 24px;
             font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .upload-button {
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .upload-button:hover {
+            background-color: #45a049;
         }
         </style>
         """,
@@ -64,7 +78,7 @@ def upload_section():
     age = st.slider("Életkor", min_value=0, max_value=120, step=1, format="%d", value=0)
     comment = st.text_area("Megjegyzés", key="comment", value="")
 
-    if st.button("Feltöltés"):
+    if st.button("Feltöltés", key="upload_button"):
         if uploaded_file and type and view and main_region and sub_region:
             upload_data = {
                 "patient_id": patient_id,
