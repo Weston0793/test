@@ -2,12 +2,6 @@ import streamlit as st
 from firebase_helpers import save_image
 import uuid
 
-def confirm_popup(upload_data):
-    confirmed = st.button("Megerősít")
-    if confirmed:
-        return True
-    return False
-
 def upload_section():
     st.markdown(
         """
@@ -17,6 +11,7 @@ def upload_section():
             font-weight: bold;
             color: black;
             margin-bottom: 20px;
+            text-align: center;
         }
         .upload-button {
             font-size: 20px;
@@ -64,9 +59,12 @@ def upload_section():
     age = st.slider("Életkor", min_value=0, max_value=120, step=1, format="%d", value=0)
     comment = st.text_area("Megjegyzés", key="comment", value="")
 
+    if "confirm_data" not in st.session_state:
+        st.session_state["confirm_data"] = None
+
     if st.button("Feltöltés"):
         if uploaded_file and type and view and main_region and sub_region:
-            upload_data = {
+            st.session_state["confirm_data"] = {
                 "patient_id": patient_id,
                 "type": type,
                 "view": view,
@@ -77,20 +75,25 @@ def upload_section():
                 "file": uploaded_file
             }
 
-            st.write("Megerősíti a következő adatokat?")
-            st.write(f"Beteg azonosító: {upload_data['patient_id']}")
-            st.write(f"Típus: {upload_data['type']}")
-            st.write(f"Nézet: {upload_data['view']}")
-            st.write(f"Fő régió: {upload_data['main_region']}")
-            st.write(f"Alrégió: {upload_data['sub_region']}")
-            st.write(f"Életkor: {upload_data['age']}")
-            st.write(f"Megjegyzés: {upload_data['comment']}")
+    if st.session_state["confirm_data"]:
+        upload_data = st.session_state["confirm_data"]
+        st.write("Kérlek, erősítsd meg a következő adatokat:")
+        st.write(f"**Beteg azonosító:** {upload_data['patient_id']}")
+        st.write(f"**Típus:** {upload_data['type']}")
+        st.write(f"**Nézet:** {upload_data['view']}")
+        st.write(f"**Fő régió:** {upload_data['main_region']}")
+        st.write(f"**Alrégió:** {upload_data['sub_region']}")
+        st.write(f"**Életkor:** {upload_data['age']}")
+        st.write(f"**Megjegyzés:** {upload_data['comment']}")
 
-            if confirm_popup(upload_data):
-                try:
-                    save_image(**upload_data)
-                    st.success("Kép sikeresen feltöltve!")
-                except Exception as e:
-                    st.error(f"Hiba a kép mentésekor: {e}")
-        else:
-            st.error("Tölts fel egy képet és add meg a szükséges információkat.")
+        if st.button("Megerősít"):
+            try:
+                save_image(**upload_data)
+                st.success("Kép sikeresen feltöltve!")
+                st.session_state["confirm_data"] = None
+            except Exception as e:
+                st.error(f"Hiba a kép mentésekor: {e}")
+                st.session_state["confirm_data"] = None
+
+        if st.button("Mégse"):
+            st.session_state["confirm_data"] = None
