@@ -32,9 +32,9 @@ def main():
             background-color: #45a049;
         }
         .confirmation-box {
-            background-color: #fbe7c6;
             padding: 20px;
             margin-top: 20px;
+            text-align: center;
         }
         .confirmation-title, .confirmation-text {
             font-size: 20px;
@@ -79,7 +79,7 @@ def main():
     if "confirm_data" not in st.session_state:
         st.session_state["confirm_data"] = None
 
-    if st.button("Feltöltés", key="upload"):
+    if st.button("Feltöltés", key="upload", css_class="upload-button"):
         if uploaded_file and type and view and main_region and sub_region:
             st.session_state["confirm_data"] = {
                 "patient_id": patient_id,
@@ -97,15 +97,15 @@ def main():
         upload_data = st.session_state["confirm_data"]
         st.markdown('<div class="confirmation-box">', unsafe_allow_html=True)
         st.markdown('<div class="confirmation-title">Kérlek, erősítsd meg a következő adatokat:</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="confirmation-text">**Beteg azonosító:** {upload_data["patient_id"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="confirmation-text">**Típus:** {upload_data["type"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="confirmation-text">**Nézet:** {upload_data["view"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="confirmation-text">**Fő régió:** {upload_data["main_region"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="confirmation-text">**Alrégió:** {upload_data["sub_region"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="confirmation-text">**Életkor:** {upload_data["age"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="confirmation-text">**Megjegyzés:** {upload_data["comment"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'**Beteg azonosító:** {upload_data["patient_id"]}')
+        st.markdown(f'**Típus:** {upload_data["type"]}')
+        st.markdown(f'**Nézet:** {upload_data["view"]}')
+        st.markdown(f'**Fő régió:** {upload_data["main_region"]}')
+        st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
+        st.markdown(f'**Életkor:** {upload_data["age"]}')
+        st.markdown(f'**Megjegyzés:** {upload_data["comment"]}')
 
-        if st.button("Megerősít és Feltölt", key="confirm_upload"):
+        if st.button("Megerősít és Feltölt", key="confirm_upload", css_class="confirm-button"):
             try:
                 save_image(**upload_data)
                 st.success("Kép sikeresen feltöltve!")
