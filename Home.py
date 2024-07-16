@@ -2,6 +2,7 @@ import streamlit as st
 from firebase_helpers import save_image
 import uuid
 
+
 def main():
     st.markdown(
         """
@@ -12,26 +13,42 @@ def main():
             color: black;
             margin-bottom: 20px;
             text-align: center;
+            border: 2px solid black;
+            padding: 10px;
         }
         .upload-button {
-            font-size: 20px;
+            font-size: 24px;
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
             cursor: pointer;
             text-align: center;
             margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid black;
         }
         .upload-button:hover {
             background-color: #45a049;
+        }
+        .confirmation-box {
+            border: 2px solid black;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .confirmation-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="upload-title">Kép feltöltése és címkézése</div>', unsafe_allow_html=True)
+    st.markdown('<div class="upload-title">Törések és röntgenek gyűjtése és elemzése</div>', unsafe_allow_html=True)
 
     patient_id = st.text_input("Beteg azonosító (hagyja üresen új beteg esetén)", str(uuid.uuid4()))
 
@@ -59,9 +76,12 @@ def main():
     age = st.slider("Életkor", min_value=0, max_value=120, step=1, format="%d", value=0)
     comment = st.text_area("Megjegyzés", key="comment", value="")
 
+    if "confirm_data" not in st.session_state:
+        st.session_state["confirm_data"] = None
+
     if st.button("Feltöltés"):
         if uploaded_file and type and view and main_region and sub_region:
-            upload_data = {
+            st.session_state["confirm_data"] = {
                 "patient_id": patient_id,
                 "type": type,
                 "view": view,
@@ -71,13 +91,28 @@ def main():
                 "comment": comment + " " + type_comment + " " + view_comment,
                 "file": uploaded_file
             }
+            st.experimental_rerun()
+
+    if st.session_state["confirm_data"]:
+        upload_data = st.session_state["confirm_data"]
+        st.markdown('<div class="confirmation-box">', unsafe_allow_html=True)
+        st.markdown('<div class="confirmation-title">Kérlek, erősítsd meg a következő adatokat:</div>', unsafe_allow_html=True)
+        st.write(f"**Beteg azonosító:** {upload_data['patient_id']}")
+        st.write(f"**Típus:** {upload_data['type']}")
+        st.write(f"**Nézet:** {upload_data['view']}")
+        st.write(f"**Fő régió:** {upload_data['main_region']}")
+        st.write(f"**Alrégió:** {upload_data['sub_region']}")
+        st.write(f"**Életkor:** {upload_data['age']}")
+        st.write(f"**Megjegyzés:** {upload_data['comment']}")
+
+        if st.button("Megerősít és Feltölt"):
             try:
                 save_image(**upload_data)
                 st.success("Kép sikeresen feltöltve!")
+                st.session_state["confirm_data"] = None
             except Exception as e:
                 st.error(f"Hiba a kép mentésekor: {e}")
-        else:
-            st.warning("Kérlek, töltsd ki az összes mezőt!")
+                st.session_state["confirm_data"] = None
 
 if __name__ == "__main__":
     main()
