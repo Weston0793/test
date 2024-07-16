@@ -36,8 +36,8 @@ def main():
     summary = get_progress_summary(counts)
 
     # Grand total progress
-    total_done = sum(summary[region]["progress"] for region in summary)
-    total_tasks = sum(summary[region]["total"] for region in summary)
+    total_done = sum(region["progress"] for region in summary.values())
+    total_tasks = sum(region["total"] for region in summary.values())
     if total_tasks > 0:
         total_progress = (total_done / total_tasks) * 100
     else:
