@@ -44,7 +44,7 @@ def download_from_storage(source_blob_name, destination_file_name):
     blob.download_to_filename(destination_file_name)
 
 # Save image and metadata to Firestore and Firebase Storage
-def save_image(patient_id, file, type, view, main_region, sub_region, age, comment):
+def save_image(patient_id, file, type, view, main_region, sub_region, age, comment, associated_conditions):
     filename = file.name
     unique_filename = f"{uuid.uuid4()}_{filename}"
     file_path = os.path.join("/tmp", unique_filename)
@@ -64,7 +64,8 @@ def save_image(patient_id, file, type, view, main_region, sub_region, age, comme
         'sub_region': sub_region,
         'age': age,
         'comment': comment,
-        'url': public_url
+        'url': public_url,
+        'associated_conditions': associated_conditions
     })
 
 # Create ZIP of selected files
