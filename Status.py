@@ -35,18 +35,15 @@ def main():
     counts, data = get_counts()
     summary = get_progress_summary(counts)
 
-    # Debugging print to check the structure of summary
-    st.write("Summary structure:", summary)
-
-    # Grand total progress
-    total_done = sum(summary[region]["progress"] for region in summary.keys())
-    grand_total_tasks = len(counts) * 200  # Each subregion should have 200 tasks in total
-    if grand_total_tasks > 0:
-        grand_total_progress = (total_done / grand_total_tasks) * 100
+    # Calculate grand total progress
+    total_done = sum(summary[region]["progress"] for region in summary)
+    total_tasks = len(summary) * 200 * len(next(iter(counts.values())))  # Number of regions * 200 tasks per subregion * Number of subregions in the first region
+    if total_tasks > 0:
+        grand_total_progress = (total_done / total_tasks) * 100
     else:
         grand_total_progress = 0
 
-    st.markdown(f"**Grand Total Progress: {total_done}/{grand_total_tasks} ({int(grand_total_progress)}%)**")
+    st.markdown(f"**Grand Total Progress: {total_done}/{total_tasks} ({int(grand_total_progress)}%)**")
     st.progress(grand_total_progress / 100)
 
     # Region and subregion progress
