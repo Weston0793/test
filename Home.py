@@ -128,12 +128,11 @@ def main():
                     "sub_region": sub_region,
                     "age": age,
                     "comment": comment + " " + st.session_state.get("type_comment", "") + " " + st.session_state.get("view_comment", ""),
-                    "file": uploaded_file
+                    "file": uploaded_file,
+                    "associated_conditions": selected_conditions if "selected_conditions" in locals() else []
                 }
-                if "selected_conditions" in locals():
-                    upload_data["associated_conditions"] = selected_conditions
                 st.session_state["confirm_data"] = upload_data
-                st.experimental_rerun()
+                st.rerun()
 
         if st.session_state["confirm_data"]:
             upload_data = st.session_state["confirm_data"]
@@ -146,6 +145,8 @@ def main():
             st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
             st.markdown(f'**Életkor:** {upload_data["age"]}')
             st.markdown(f'**Megjegyzés:** {upload_data["comment"]}')
+            if upload_data["associated_conditions"]:
+                st.markdown(f'**Társuló Komplikációk:** {", ".join(upload_data["associated_conditions"])}')
 
             st.markdown('<div class="center-button">', unsafe_allow_html=True)
             if st.button("Megerősít és Feltölt", key="confirm_upload"):
