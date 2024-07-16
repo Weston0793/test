@@ -5,9 +5,9 @@ def main():
 
     st.write("""
     ### Kapcsolat
-    - **Email:** example@example.com
-    - **Telefon:** +36 1 234 5678
-    - **Cím:** 1234 Budapest, Példa utca 1.
+    - **Email:** aba.lorincz@gmail.com
+    - **Telefon:** +36 30 954 2176
+    - **Cím:** Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary
     """)
 
 if __name__ == "__main__":
