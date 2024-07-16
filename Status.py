@@ -38,12 +38,13 @@ def main():
     # Calculate grand total progress
     total_done = sum(summary[region]["progress"] for region in summary)
     total_tasks = len(summary) * 200 * len(next(iter(counts.values())))  # Number of regions * 200 tasks per subregion * Number of subregions in the first region
+    total_tasks = total_tasks / 2  # Halve the total tasks for correct calculation
     if total_tasks > 0:
         grand_total_progress = (total_done / total_tasks) * 100
     else:
         grand_total_progress = 0
 
-    st.markdown(f"**Grand Total Progress: {total_done}/{total_tasks} ({int(grand_total_progress)}%)**")
+    st.markdown(f"**Fázis 1 Státusz: {total_done}/{int(total_tasks)} ({int(grand_total_progress)}%)**")
     st.progress(grand_total_progress / 100)
 
     # Region and subregion progress
@@ -56,7 +57,7 @@ def main():
             main_progress = 0
 
         st.subheader(main_region)
-        st.markdown(f"**{main_region} Progress: {main_done}/{main_total_tasks} ({int(main_progress)}%)**")
+        st.markdown(f"**{main_region} Státusz: {main_done}/{main_total_tasks} ({int(main_progress)}%)**")
         st.progress(main_progress / 100)  # st.progress expects a value between 0 and 1
         
         for sub_region, view_types in sub_regions.items():
@@ -67,7 +68,7 @@ def main():
             else:
                 sub_progress = 0
 
-            st.markdown(f'<div class="sub-region-title">{sub_region} Progress: {int(sub_done)}/{sub_total_tasks} ({int(sub_progress)}%)</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="sub-region-title">{sub_region} Státusz: {int(sub_done)}/{sub_total_tasks} ({int(sub_progress)}%)</div>', unsafe_allow_html=True)
             st.progress(sub_progress / 100)  # st.progress expects a value between 0 and 1
             
             for view_type, percentage in view_types.items():
