@@ -32,9 +32,6 @@ def main():
         .upload-button:hover, .confirm-button:hover {
             background-color: #45a049;
         }
-        .selected {
-            background-color: #FF5733 !important;
-        }
         .confirmation-box {
             padding: 20px;
             margin-top: 20px;
@@ -67,44 +64,23 @@ def main():
 
     if uploaded_file:
         st.write("Típus")
-        if "type" not in st.session_state:
-            st.session_state["type"] = ""
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("Normál", key="norm_button", help="Válassza ezt a lehetőséget, ha a kép normál."):
-                st.session_state["type"] = "Normál"
-        with col2:
-            if st.button("Törött", key="fracture_button", help="Válassza ezt a lehetőséget, ha a kép törött."):
-                st.session_state["type"] = "Törött"
-        with col3:
-            type_other = st.selectbox("Egyéb", ["", "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"], key="type_other")
-            if type_other:
-                st.session_state["type"] = type_other
-                if type_other in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
-                    type_comment = st.text_input("Specifikálás (Egyéb)")
-                    st.session_state["type_comment"] = type_comment
+        type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="type")
+        type_comment = ""
+        if type == "Egyéb":
+            type_comment = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"])
+            if type_comment in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
+                type_comment = st.text_input("Specifikálás (Egyéb)")
 
-        if "type" in st.session_state and st.session_state["type"] != "Normál":
+        if type != "Normál":
             st.write("Társuló Komplikációk")
-            associated_conditions = ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"]
-            selected_conditions = st.multiselect("Társuló Komplikációk", associated_conditions)
+            associated_conditions = st.multiselect("Társuló Komplikációk", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"])
 
         st.write("Nézet")
-        if "view" not in st.session_state:
-            st.session_state["view"] = ""
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("AP", key="ap_view", help="Válassza ezt a lehetőséget, ha a kép AP nézetből készült."):
-                st.session_state["view"] = "AP"
-        with col2:
-            if st.button("Lateral", key="lateral_view", help="Válassza ezt a lehetőséget, ha a kép laterális nézetből készült."):
-                st.session_state["view"] = "Lateral"
-        with col3:
-            view_other = st.selectbox("Egyéb Nézet", ["", "Ferde", "PA", "Speciális"], key="view_other")
-            if view_other:
-                st.session_state["view"] = view_other
-                view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
-                st.session_state["view_comment"] = view_comment
+        view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
+        view_comment = ""
+        if view == "Egyéb":
+            view_comment = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
+            view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
 
         main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya"])
 
@@ -126,17 +102,17 @@ def main():
             st.session_state["confirm_data"] = None
 
         if st.button("Feltöltés"):
-            if uploaded_file and "type" in st.session_state and "view" in st.session_state and main_region and sub_region:
+            if uploaded_file and type and view and main_region and sub_region:
                 upload_data = {
                     "patient_id": patient_id,
-                    "type": st.session_state["type"],
-                    "view": st.session_state["view"],
+                    "type": type,
+                    "view": view,
                     "main_region": main_region,
                     "sub_region": sub_region,
                     "age": age,
-                    "comment": comment + " " + st.session_state.get("type_comment", "") + " " + st.session_state.get("view_comment", ""),
+                    "comment": comment + " " + type_comment + " " + view_comment,
                     "file": uploaded_file,
-                    "associated_conditions": selected_conditions if "selected_conditions" in locals() else []
+                    "associated_conditions": associated_conditions if type != "Normál" else []
                 }
                 st.session_state["confirm_data"] = upload_data
                 st.rerun()
@@ -165,21 +141,6 @@ def main():
                     st.error(f"Hiba a kép mentésekor: {e}")
                     st.session_state["confirm_data"] = None
             st.markdown('</div>', unsafe_allow_html=True)
-
-    # Apply selected styles
-    if st.session_state.get("type") == "Normál":
-        st.markdown("<style>#norm_button { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
-    elif st.session_state.get("type") == "Törött":
-        st.markdown("<style>#fracture_button { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
-    elif st.session_state.get("type") == st.session_state.get("type_other"):
-        st.markdown("<style>#type_other { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
-
-    if st.session_state.get("view") == "AP":
-        st.markdown("<style>#ap_view { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
-    elif st.session_state.get("view") == "Lateral":
-        st.markdown("<style>#lateral_view { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
-    elif st.session_state.get("view") == st.session_state.get("view_other"):
-        st.markdown("<style>#view_other { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
