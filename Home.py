@@ -15,6 +15,10 @@ def main():
             border: 2px solid black;
             padding: 10px;
         }
+        .center-button {
+            display: flex;
+            justify-content: center;
+        }
         .upload-button, .confirm-button {
             font-size: 24px;
             background-color: #4CAF50;
@@ -22,11 +26,8 @@ def main():
             padding: 15px 30px;
             border: none;
             cursor: pointer;
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
             border: 2px solid black;
+            margin: 10px;
         }
         .upload-button:hover, .confirm-button:hover {
             background-color: #45a049;
@@ -79,7 +80,7 @@ def main():
     if "confirm_data" not in st.session_state:
         st.session_state["confirm_data"] = None
 
-    if st.button("Feltöltés", key="upload", css_class="upload-button"):
+    if st.button("Feltöltés"):
         if uploaded_file and type and view and main_region and sub_region:
             st.session_state["confirm_data"] = {
                 "patient_id": patient_id,
@@ -104,8 +105,9 @@ def main():
         st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
         st.markdown(f'**Életkor:** {upload_data["age"]}')
         st.markdown(f'**Megjegyzés:** {upload_data["comment"]}')
-
-        if st.button("Megerősít és Feltölt", key="confirm_upload", css_class="confirm-button"):
+        
+        st.markdown('<div class="center-button">', unsafe_allow_html=True)
+        if st.button("Megerősít és Feltölt", key="confirm_upload"):
             try:
                 save_image(**upload_data)
                 st.success("Kép sikeresen feltöltve!")
@@ -113,7 +115,6 @@ def main():
             except Exception as e:
                 st.error(f"Hiba a kép mentésekor: {e}")
                 st.session_state["confirm_data"] = None
-
         st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
