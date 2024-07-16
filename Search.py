@@ -21,8 +21,6 @@ def main():
 
     st.markdown('<div class="search-title">Képek keresése</div>', unsafe_allow_html=True)
 
-    search_labels = st.text_input("Keresés címkék alapján (vesszővel elválasztva)")
-
     predefined_types = ["", "Törött", "Normál", "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"]
     predefined_views = ["", "AP", "Lateral", "Ferde", "PA", "Speciális"]
     associated_conditions = ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"]
@@ -51,11 +49,6 @@ def main():
     if st.button("Keresés"):
         results = db.collection('images')
         query_filters = []
-
-        if search_labels:
-            labels = [label.strip() for label in search_labels.split(",")]
-            for label in labels:
-                query_filters.append(('labels', 'array_contains', label))
 
         if search_type:
             query_filters.append(('type', '==', search_type))
@@ -110,14 +103,6 @@ def main():
                 file_name="images.zip",
                 mime="application/zip"
             )
-
-    if search_conditions:
-        current_labels = st.session_state.get('search_labels', '')
-        for condition in search_conditions:
-            if condition not in current_labels:
-                current_labels += f"{condition}, "
-        st.session_state['search_labels'] = current_labels
-        search_labels = st.session_state['search_labels']
 
 if __name__ == "__main__":
     main()
