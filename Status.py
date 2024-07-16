@@ -4,12 +4,13 @@ import uuid
 import sqlite3
 import time
 
+
 # Initialize SQLite database
 def init_db():
     conn = sqlite3.connect('progress.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS progress
-                 (main_region TEXT, sub_region TEXT, view_type TEXT, type TEXT, count INTEGER, percentage REAL)''')
+                 (main_region TEXT, sub_region TEXT, view_type TEXT, type TEXT, percentage REAL)''')
     conn.commit()
     conn.close()
 
@@ -19,7 +20,7 @@ def save_progress_to_db(data):
     c = conn.cursor()
     c.execute('DELETE FROM progress')  # Clear existing data
     for row in data:
-        c.execute('INSERT INTO progress VALUES (?,?,?,?,?,?)', row)
+        c.execute('INSERT INTO progress VALUES (?,?,?,?,?)', row)
     conn.commit()
     conn.close()
 
@@ -36,15 +37,16 @@ def load_progress_from_db():
 def update_progress():
     counts, data = get_counts()
     save_progress_to_db(data)
+    return counts
 
 # Display progress
-def display_progress():
+def display_progress(counts):
     data = load_progress_from_db()
-    summary = get_progress_summary(data)
+    summary = get_progress_summary(counts)
 
     progress_dict = {}
     for row in data:
-        main_region, sub_region, view_type, type, count, percentage = row
+        main_region, sub_region, view_type, type, percentage = row
         if main_region not in progress_dict:
             progress_dict[main_region] = {}
         if sub_region not in progress_dict[main_region]:
@@ -103,14 +105,14 @@ def main():
     # Option to update progress
     if st.button("Frissítés"):
         with st.spinner('Frissítés folyamatban...'):
-            update_progress()
+            counts = update_progress()
             time.sleep(2)
         st.success('Frissítés kész!')
+    else:
+        counts, _ = get_counts()
 
     # Display progress
-    display_progress()
+    display_progress(counts)
 
 if __name__ == "__main__":
     main()
-
-
