@@ -15,7 +15,7 @@ def main():
             border: 2px solid black;
             padding: 10px;
         }
-        .upload-button {
+        .upload-button, .confirm-button {
             font-size: 24px;
             background-color: #4CAF50;
             color: white;
@@ -23,17 +23,16 @@ def main():
             border: none;
             cursor: pointer;
             text-align: center;
-            margin-top: 20px;
             display: block;
             margin-left: auto;
             margin-right: auto;
             border: 2px solid black;
         }
-        .upload-button:hover {
+        .upload-button:hover, .confirm-button:hover {
             background-color: #45a049;
         }
         .confirmation-box {
-            border: 2px solid black;
+            background-color: #fbe7c6;
             padding: 20px;
             margin-top: 20px;
         }
@@ -74,13 +73,13 @@ def main():
     else:
         sub_region = ""
 
-    age = st.slider("Életkor", min_value=0, max_value=120, step=1, format="%d", value=0)
+    age = st.select_slider("Életkor", options=["NA"] + list(range(0, 121)), value="NA")
     comment = st.text_area("Megjegyzés", key="comment", value="")
 
     if "confirm_data" not in st.session_state:
         st.session_state["confirm_data"] = None
 
-    if st.button("Feltöltés"):
+    if st.button("Feltöltés", key="upload"):
         if uploaded_file and type and view and main_region and sub_region:
             st.session_state["confirm_data"] = {
                 "patient_id": patient_id,
@@ -106,7 +105,7 @@ def main():
         st.write(f"**Életkor:** {upload_data['age']}")
         st.write(f"**Megjegyzés:** {upload_data['comment']}")
 
-        if st.button("Megerősít és Feltölt"):
+        if st.button("Megerősít és Feltölt", key="confirm_upload", on_click=confirm_upload):
             try:
                 save_image(**upload_data)
                 st.success("Kép sikeresen feltöltve!")
@@ -116,6 +115,17 @@ def main():
                 st.session_state["confirm_data"] = None
 
         st.markdown('</div>', unsafe_allow_html=True)
+
+def confirm_upload():
+    if "confirm_data" in st.session_state:
+        upload_data = st.session_state["confirm_data"]
+        try:
+            save_image(**upload_data)
+            st.success("Kép sikeresen feltöltve!")
+            st.session_state["confirm_data"] = None
+        except Exception as e:
+            st.error(f"Hiba a kép mentésekor: {e}")
+            st.session_state["confirm_data"] = None
 
 if __name__ == "__main__":
     main()
