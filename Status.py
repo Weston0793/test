@@ -10,7 +10,7 @@ def init_db():
     conn = sqlite3.connect('progress.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS progress
-                 (main_region TEXT, sub_region TEXT, view_type TEXT, type TEXT, percentage REAL)''')
+                 (main_region TEXT, sub_region TEXT, view_type TEXT, type TEXT, count INTEGER, percentage REAL)''')
     conn.commit()
     conn.close()
 
@@ -20,7 +20,7 @@ def save_progress_to_db(data):
     c = conn.cursor()
     c.execute('DELETE FROM progress')  # Clear existing data
     for row in data:
-        c.execute('INSERT INTO progress VALUES (?,?,?,?,?)', row)
+        c.execute('INSERT INTO progress VALUES (?,?,?,?,?,?)', row)
     conn.commit()
     conn.close()
 
@@ -46,7 +46,7 @@ def display_progress(counts):
 
     progress_dict = {}
     for row in data:
-        main_region, sub_region, view_type, type, percentage = row
+        main_region, sub_region, view_type, type, count, percentage = row
         if main_region not in progress_dict:
             progress_dict[main_region] = {}
         if sub_region not in progress_dict[main_region]:
