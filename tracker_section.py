@@ -2,7 +2,6 @@ import streamlit as st
 from firebase_helpers import get_counts, get_progress_summary
 import uuid
 
-
 def tracker_section():
     st.markdown(
         """
@@ -33,20 +32,18 @@ def tracker_section():
 
     for main_region, sub_regions in counts.items():
         st.subheader(main_region)
-        main_progress = summary[main_region]["progress"] / summary[main_region]["total"]
-        st.progress(main_progress)
+        main_progress = summary[main_region]["progress"] / summary[main_region]["total"] * 100
+        st.progress(main_progress / 100)  # st.progress expects a value between 0 and 1
         
         for sub_region, view_types in sub_regions.items():
             st.markdown(f'<div class="sub-region-title">{sub_region}</div>', unsafe_allow_html=True)
             
-            for view_type, count in view_types.items():
-                percentage = count / 100  # Assuming the percentage is calculated as count / 100
+            for view_type, percentage in view_types.items():
                 if percentage > 0:
                     st.text(f"{view_type}: {percentage:.2f}%")
             
-            total_progress = sum(view_types.values()) / (len(view_types) * 100)
-            st.progress(total_progress)
+            total_progress = sum(view_types.values()) / (len(view_types) * 100) * 100
+            st.progress(total_progress / 100)  # st.progress expects a value between 0 and 1
 
     st.markdown('</div>', unsafe_allow_html=True)
-
 tracker_section()
