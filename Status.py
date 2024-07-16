@@ -4,7 +4,6 @@ import uuid
 import sqlite3
 import time
 
-
 def main():
     st.markdown(
         """
@@ -36,9 +35,11 @@ def main():
     counts, data = get_counts()
     summary = get_progress_summary(counts)
 
+    # Debugging print to check the structure of summary
+    st.write("Summary structure:", summary)
+
     # Grand total progress
-    total_done = sum(summary[region]["progress"] for region in summary.values())
-    total_tasks = sum(summary[region]["total"] for region in summary.values())
+    total_done = sum(summary[region]["progress"] for region in summary.keys())
     grand_total_tasks = len(counts) * 200  # Each subregion should have 200 tasks in total
     if grand_total_tasks > 0:
         grand_total_progress = (total_done / grand_total_tasks) * 100
@@ -51,7 +52,6 @@ def main():
     # Region and subregion progress
     for main_region, sub_regions in counts.items():
         main_done = summary[main_region]["progress"]
-        main_total = summary[main_region]["total"]
         main_total_tasks = len(sub_regions) * 200  # Each subregion should have 200 tasks in total
         if main_total_tasks > 0:
             main_progress = (main_done / main_total_tasks) * 100
@@ -81,4 +81,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
