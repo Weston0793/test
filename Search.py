@@ -23,7 +23,6 @@ def main():
 
     search_labels = st.text_input("Keresés címkék alapján (vesszővel elválasztva)")
 
-    # Predefined categories and conditions
     predefined_types = ["", "Törött", "Normál", "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"]
     predefined_views = ["", "AP", "Lateral", "Ferde", "PA", "Speciális"]
     associated_conditions = ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"]
@@ -44,6 +43,9 @@ def main():
         search_sub_region = ""
 
     search_conditions = st.multiselect("Társuló Komplikációk keresése", associated_conditions)
+
+    page = st.number_input("Oldal", min_value=1, step=1, value=1)
+    items_per_page = 10
 
     if st.button("Keresés"):
         results = db.collection('images')
@@ -68,13 +70,29 @@ def main():
         docs = results.stream()
         file_paths = []
 
-        for doc in docs:
+        all_docs = list(docs)
+        total_docs = len(all_docs)
+        total_pages = (total_docs + items_per_page - 1) // items_per_page
+
+        start_idx = (page - 1) * items_per_page
+        end_idx = start_idx + items_per_page
+        page_docs = all_docs[start_idx:end_idx]
+
+        for doc in page_docs:
             data = doc.to_dict()
             st.image(data['url'], caption=f"{data['type']}, {data['view']}, {data['main_region']}, {data['sub_region']}")
             file_paths.append(data['url'])
 
+        st.write(f"Összesen {total_docs} találat. {total_pages} oldal.")
+
+        if page > 1:
+            st.button("Előző oldal", key="prev_page", on_click=lambda: st.session_state.update({"page": page - 1}))
+
+        if page < total_pages:
+            st.button("Következő oldal", key="next_page", on_click=lambda: st.session_state.update({"page": page + 1}))
+
         if file_paths:
-            zip_buffer = create_zip(file_paths)
+            zip_buffer = create_zip([data['url'] for data in (doc.to_dict() for doc in all_docs)])
             st.download_button(
                 label="Képek letöltése ZIP-ben",
                 data=zip_buffer,
@@ -82,7 +100,6 @@ def main():
                 mime="application/zip"
             )
 
-    # Add the selected conditions to the text input field
     if search_conditions:
         current_labels = st.session_state.get('search_labels', '')
         for condition in search_conditions:
