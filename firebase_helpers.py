@@ -38,6 +38,11 @@ def upload_to_storage(file_path, destination_blob_name):
     blob.make_public()
     return blob.public_url
 
+# Download file from Firebase Storage
+def download_from_storage(source_blob_name, destination_file_name):
+    blob = bucket.blob(source_blob_name)
+    blob.download_to_filename(destination_file_name)
+
 # Save image and metadata to Firestore and Firebase Storage
 def save_image(patient_id, file, type, view, main_region, sub_region, age, comment, associated_conditions):
     filename = file.name
@@ -81,8 +86,8 @@ def get_counts():
         "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}, "Kereszt- és farokcsonti": {}},
         "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}}
     }
-    views = ["AP", "Lateral", "Ferde", "PA", "Speciális"]
-    types = ["Normál", "Törött", "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"]
+    views = ["AP", "Lateral"]
+    types = ["Normál", "Törött"]
 
     data = []
 
