@@ -43,29 +43,36 @@ def main():
         search_sub_region = ""
 
     search_conditions = st.multiselect("Társuló Komplikációk keresése", associated_conditions)
+    search_age = st.slider("Életkor keresése", min_value=0, max_value=120, step=1, format="%d")
 
     page = st.number_input("Oldal", min_value=1, step=1, value=1)
     items_per_page = 10
 
     if st.button("Keresés"):
         results = db.collection('images')
+        query_filters = []
 
         if search_labels:
             labels = [label.strip() for label in search_labels.split(",")]
             for label in labels:
-                results = results.where('labels', 'array_contains', label)
+                query_filters.append(('labels', 'array_contains', label))
 
         if search_type:
-            results = results.where('type', '==', search_type)
+            query_filters.append(('type', '==', search_type))
         if search_view:
-            results = results.where('view', '==', search_view)
+            query_filters.append(('view', '==', search_view))
         if search_main_region:
-            results = results.where('main_region', '==', search_main_region)
+            query_filters.append(('main_region', '==', search_main_region))
         if search_sub_region:
-            results = results.where('sub_region', '==', search_sub_region)
+            query_filters.append(('sub_region', '==', search_sub_region))
         if search_conditions:
             for condition in search_conditions:
-                results = results.where('associated_conditions', 'array_contains', condition)
+                query_filters.append(('associated_conditions', 'array_contains', condition))
+        if search_age is not None:
+            query_filters.append(('age', '==', search_age))
+
+        for filter_field, filter_op, filter_value in query_filters:
+            results = results.where(filter_field, filter_op, filter_value)
 
         docs = results.stream()
         file_paths = []
@@ -86,10 +93,14 @@ def main():
         st.write(f"Összesen {total_docs} találat. {total_pages} oldal.")
 
         if page > 1:
-            st.button("Előző oldal", key="prev_page", on_click=lambda: st.session_state.update({"page": page - 1}))
+            if st.button("Előző oldal", key="prev_page"):
+                st.session_state.page = page - 1
+                st.experimental_rerun()
 
         if page < total_pages:
-            st.button("Következő oldal", key="next_page", on_click=lambda: st.session_state.update({"page": page + 1}))
+            if st.button("Következő oldal", key="next_page"):
+                st.session_state.page = page + 1
+                st.experimental_rerun()
 
         if file_paths:
             zip_buffer = create_zip([data['url'] for data in (doc.to_dict() for doc in all_docs)])
