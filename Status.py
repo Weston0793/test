@@ -4,6 +4,7 @@ import uuid
 import sqlite3
 import time
 
+
 def main():
     st.markdown(
         """
@@ -36,38 +37,40 @@ def main():
     summary = get_progress_summary(counts)
 
     # Grand total progress
-    total_done = sum(region["progress"] for region in summary.values())
-    total_tasks = sum(region["total"] for region in summary.values())
-    if total_tasks > 0:
-        total_progress = (total_done / total_tasks) * 100
+    total_done = sum(summary[region]["progress"] for region in summary.values())
+    total_tasks = sum(summary[region]["total"] for region in summary.values())
+    grand_total_tasks = len(counts) * 200  # Each subregion should have 200 tasks in total
+    if grand_total_tasks > 0:
+        grand_total_progress = (total_done / grand_total_tasks) * 100
     else:
-        total_progress = 0
+        grand_total_progress = 0
 
-    st.markdown(f"**Grand Total Progress: {total_done}/{total_tasks} ({int(total_progress)}%)**")
-    st.progress(total_progress / 100)
+    st.markdown(f"**Grand Total Progress: {total_done}/{grand_total_tasks} ({int(grand_total_progress)}%)**")
+    st.progress(grand_total_progress / 100)
 
     # Region and subregion progress
     for main_region, sub_regions in counts.items():
         main_done = summary[main_region]["progress"]
         main_total = summary[main_region]["total"]
-        if main_total > 0:
-            main_progress = (main_done / main_total) * 100
+        main_total_tasks = len(sub_regions) * 200  # Each subregion should have 200 tasks in total
+        if main_total_tasks > 0:
+            main_progress = (main_done / main_total_tasks) * 100
         else:
             main_progress = 0
 
         st.subheader(main_region)
-        st.markdown(f"**{main_region} Progress: {main_done}/{main_total} ({int(main_progress)}%)**")
+        st.markdown(f"**{main_region} Progress: {main_done}/{main_total_tasks} ({int(main_progress)}%)**")
         st.progress(main_progress / 100)  # st.progress expects a value between 0 and 1
         
         for sub_region, view_types in sub_regions.items():
             sub_done = sum(view_types.values())
-            sub_total = len(view_types) * 100  # Assuming each view type is out of 100
-            if sub_total > 0:
-                sub_progress = (sub_done / sub_total) * 100
+            sub_total_tasks = 200  # Each subregion has 200 tasks
+            if sub_total_tasks > 0:
+                sub_progress = (sub_done / sub_total_tasks) * 100
             else:
                 sub_progress = 0
 
-            st.markdown(f'<div class="sub-region-title">{sub_region} Progress: {int(sub_done)}/{sub_total} ({int(sub_progress)}%)</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="sub-region-title">{sub_region} Progress: {int(sub_done)}/{sub_total_tasks} ({int(sub_progress)}%)</div>', unsafe_allow_html=True)
             st.progress(sub_progress / 100)  # st.progress expects a value between 0 and 1
             
             for view_type, percentage in view_types.items():
@@ -78,3 +81,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
