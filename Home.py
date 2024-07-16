@@ -67,20 +67,19 @@ def main():
 
     if uploaded_file:
         st.write("Típus")
+        if "type" not in st.session_state:
+            st.session_state["type"] = ""
         col1, col2, col3 = st.columns(3)
         with col1:
             if st.button("Normál", key="norm_button", help="Válassza ezt a lehetőséget, ha a kép normál."):
                 st.session_state["type"] = "Normál"
-                st.session_state["selected_type"] = "norm_button"
         with col2:
             if st.button("Törött", key="fracture_button", help="Válassza ezt a lehetőséget, ha a kép törött."):
                 st.session_state["type"] = "Törött"
-                st.session_state["selected_type"] = "fracture_button"
         with col3:
             type_other = st.selectbox("Egyéb", ["", "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"], key="type_other")
             if type_other:
                 st.session_state["type"] = type_other
-                st.session_state["selected_type"] = "type_other"
                 if type_other in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
                     type_comment = st.text_input("Specifikálás (Egyéb)")
                     st.session_state["type_comment"] = type_comment
@@ -91,20 +90,19 @@ def main():
             selected_conditions = st.multiselect("Társuló Komplikációk", associated_conditions)
 
         st.write("Nézet")
+        if "view" not in st.session_state:
+            st.session_state["view"] = ""
         col1, col2, col3 = st.columns(3)
         with col1:
             if st.button("AP", key="ap_view", help="Válassza ezt a lehetőséget, ha a kép AP nézetből készült."):
                 st.session_state["view"] = "AP"
-                st.session_state["selected_view"] = "ap_view"
         with col2:
             if st.button("Lateral", key="lateral_view", help="Válassza ezt a lehetőséget, ha a kép laterális nézetből készült."):
                 st.session_state["view"] = "Lateral"
-                st.session_state["selected_view"] = "lateral_view"
         with col3:
             view_other = st.selectbox("Egyéb Nézet", ["", "Ferde", "PA", "Speciális"], key="view_other")
             if view_other:
                 st.session_state["view"] = view_other
-                st.session_state["selected_view"] = "view_other"
                 view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
                 st.session_state["view_comment"] = view_comment
 
@@ -169,16 +167,19 @@ def main():
             st.markdown('</div>', unsafe_allow_html=True)
 
     # Apply selected styles
-    if "selected_type" in st.session_state:
-        st.markdown(
-            f"<style>#{st.session_state['selected_type']} {{ background-color: #FF5733 !important; }}</style>",
-            unsafe_allow_html=True
-        )
-    if "selected_view" in st.session_state:
-        st.markdown(
-            f"<style>#{st.session_state['selected_view']} {{ background-color: #FF5733 !important; }}</style>",
-            unsafe_allow_html=True
-        )
+    if st.session_state.get("type") == "Normál":
+        st.markdown("<style>#norm_button { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
+    elif st.session_state.get("type") == "Törött":
+        st.markdown("<style>#fracture_button { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
+    elif st.session_state.get("type") == st.session_state.get("type_other"):
+        st.markdown("<style>#type_other { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
+
+    if st.session_state.get("view") == "AP":
+        st.markdown("<style>#ap_view { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
+    elif st.session_state.get("view") == "Lateral":
+        st.markdown("<style>#lateral_view { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
+    elif st.session_state.get("view") == st.session_state.get("view_other"):
+        st.markdown("<style>#view_other { background-color: #FF5733 !important; }</style>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
