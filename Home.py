@@ -36,7 +36,7 @@ def main():
             padding: 20px;
             margin-top: 20px;
         }
-        .confirmation-title {
+        .confirmation-title, .confirmation-text {
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 10px;
@@ -97,15 +97,15 @@ def main():
         upload_data = st.session_state["confirm_data"]
         st.markdown('<div class="confirmation-box">', unsafe_allow_html=True)
         st.markdown('<div class="confirmation-title">Kérlek, erősítsd meg a következő adatokat:</div>', unsafe_allow_html=True)
-        st.write(f"**Beteg azonosító:** {upload_data['patient_id']}")
-        st.write(f"**Típus:** {upload_data['type']}")
-        st.write(f"**Nézet:** {upload_data['view']}")
-        st.write(f"**Fő régió:** {upload_data['main_region']}")
-        st.write(f"**Alrégió:** {upload_data['sub_region']}")
-        st.write(f"**Életkor:** {upload_data['age']}")
-        st.write(f"**Megjegyzés:** {upload_data['comment']}")
+        st.markdown(f'<div class="confirmation-text">**Beteg azonosító:** {upload_data["patient_id"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="confirmation-text">**Típus:** {upload_data["type"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="confirmation-text">**Nézet:** {upload_data["view"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="confirmation-text">**Fő régió:** {upload_data["main_region"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="confirmation-text">**Alrégió:** {upload_data["sub_region"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="confirmation-text">**Életkor:** {upload_data["age"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="confirmation-text">**Megjegyzés:** {upload_data["comment"]}</div>', unsafe_allow_html=True)
 
-        if st.button("Megerősít és Feltölt", key="confirm_upload", on_click=confirm_upload):
+        if st.button("Megerősít és Feltölt", key="confirm_upload"):
             try:
                 save_image(**upload_data)
                 st.success("Kép sikeresen feltöltve!")
@@ -115,17 +115,6 @@ def main():
                 st.session_state["confirm_data"] = None
 
         st.markdown('</div>', unsafe_allow_html=True)
-
-def confirm_upload():
-    if "confirm_data" in st.session_state:
-        upload_data = st.session_state["confirm_data"]
-        try:
-            save_image(**upload_data)
-            st.success("Kép sikeresen feltöltve!")
-            st.session_state["confirm_data"] = None
-        except Exception as e:
-            st.error(f"Hiba a kép mentésekor: {e}")
-            st.session_state["confirm_data"] = None
 
 if __name__ == "__main__":
     main()
