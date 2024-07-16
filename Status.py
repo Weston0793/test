@@ -4,7 +4,6 @@ import uuid
 import sqlite3
 import time
 
-
 # Initialize SQLite database
 def init_db():
     conn = sqlite3.connect('progress.db')
