@@ -9,25 +9,24 @@ def main():
     st.markdown(
         """
         <style>
-        .tracker-box {
-            border: 2px solid black;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
         .tracker-title {
             font-size: 24px;
             font-weight: bold;
+            text-align: center;
+            border: 2px solid black;
+            padding: 10px;
+            margin-bottom: 20px;
         }
         .sub-region-title {
             margin-left: 20px;
             font-weight: bold;
+            margin-top: 10px;
         }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="tracker-box">', unsafe_allow_html=True)
     st.markdown('<div class="tracker-title">Státusz követése</div>', unsafe_allow_html=True)
 
     counts, data = get_counts()
