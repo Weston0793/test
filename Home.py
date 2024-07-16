@@ -55,8 +55,26 @@ def main():
 
     uploaded_file = st.file_uploader("Válassz egy képet", type=["jpg", "jpeg", "png"])
 
-    type = st.selectbox("Típus", ["Törött", "Normál", "Egyéb"])
-    type_comment = st.text_input("Specifikálás (Egyéb)") if type == "Egyéb" else ""
+    st.write("Típus")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button("Normál"):
+            st.session_state["type"] = "Normál"
+    with col2:
+        if st.button("Törött"):
+            st.session_state["type"] = "Törött"
+    with col3:
+        type_other = st.selectbox("Egyéb", ["", "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett"])
+        if type_other:
+            st.session_state["type"] = type_other
+            if type_other in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett"]:
+                type_comment = st.text_input("Specifikálás (Egyéb)")
+                st.session_state["type_comment"] = type_comment
+
+    if "type" in st.session_state and st.session_state["type"] != "Normál":
+        st.write("Társultak")
+        associated_conditions = ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epihysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"]
+        selected_conditions = st.multiselect("Társult feltételek", associated_conditions)
 
     view = st.selectbox("Nézet", ["AP", "Lateral", "Egyéb"])
     view_comment = st.text_input("Specifikálás (Egyéb Nézet)") if view == "Egyéb" else ""
@@ -81,17 +99,20 @@ def main():
         st.session_state["confirm_data"] = None
 
     if st.button("Feltöltés"):
-        if uploaded_file and type and view and main_region and sub_region:
-            st.session_state["confirm_data"] = {
+        if uploaded_file and "type" in st.session_state and view and main_region and sub_region:
+            upload_data = {
                 "patient_id": patient_id,
-                "type": type,
+                "type": st.session_state["type"],
                 "view": view,
                 "main_region": main_region,
                 "sub_region": sub_region,
                 "age": age,
-                "comment": comment + " " + type_comment + " " + view_comment,
+                "comment": comment + " " + st.session_state.get("type_comment", "") + " " + view_comment,
                 "file": uploaded_file
             }
+            if "selected_conditions" in locals():
+                upload_data["associated_conditions"] = selected_conditions
+            st.session_state["confirm_data"] = upload_data
             st.experimental_rerun()
 
     if st.session_state["confirm_data"]:
@@ -105,7 +126,9 @@ def main():
         st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
         st.markdown(f'**Életkor:** {upload_data["age"]}')
         st.markdown(f'**Megjegyzés:** {upload_data["comment"]}')
-        
+        if "associated_conditions" in upload_data:
+            st.markdown(f'**Társult feltételek:** {", ".join(upload_data["associated_conditions"])}')
+
         st.markdown('<div class="center-button">', unsafe_allow_html=True)
         if st.button("Megerősít és Feltölt", key="confirm_upload"):
             try:
