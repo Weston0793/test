@@ -2,7 +2,6 @@ import streamlit as st
 from firebase_helpers import save_image
 import uuid
 
-
 def main():
     st.markdown(
         """
@@ -48,9 +47,11 @@ def main():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="upload-title">Törések és röntgenek gyűjtése és elemzése</div>', unsafe_allow_html=True)
+    st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
-    patient_id = st.text_input("Beteg azonosító (hagyja üresen új beteg esetén)", str(uuid.uuid4()))
+    patient_id = str(uuid.uuid4())
+
+    st.text_input("Beteg azonosító", patient_id, disabled=True)
 
     uploaded_file = st.file_uploader("Válassz egy képet", type=["jpg", "jpeg", "png"])
 
@@ -113,6 +114,8 @@ def main():
             except Exception as e:
                 st.error(f"Hiba a kép mentésekor: {e}")
                 st.session_state["confirm_data"] = None
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
