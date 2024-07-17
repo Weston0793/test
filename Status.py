@@ -35,24 +35,28 @@ def main():
     counts, data = get_counts()
     summary = get_progress_summary(counts)
 
-    # Calculate grand total progress correctly
+    # Debugging print to check the structure of summary
+    st.write("Summary structure:", summary)
+
+    # Calculate grand total progress correctly using count values
     total_done = 0
-    total_tasks = 0
     for region in summary:
-        total_done += summary[region]["progress"]
-        total_tasks += len(counts[region]) * 200  # Each subregion should have 200 tasks in total
+        for sub_region in summary[region]["subregions"]:
+            total_done += summary[region]["subregions"][sub_region]["count"]
+
+    total_tasks = 4600  # Set the total number of tasks to 4600 as required
 
     if total_tasks > 0:
         grand_total_progress = (total_done / total_tasks) * 100
     else:
         grand_total_progress = 0
 
-    st.markdown(f"**Fázis 1 Státusz: {total_done}/{total_tasks} ({grand_total_progress:.1f}%)**")
+    st.markdown(f"**Fázis 1 Státusz: {total_done}/{int(total_tasks)} ({grand_total_progress:.1f}%)**")
     st.progress(grand_total_progress / 100)
 
     # Region and subregion progress
     for main_region, sub_regions in counts.items():
-        main_done = summary[main_region]["progress"]
+        main_done = sum(summary[main_region]["subregions"][sub]["count"] for sub in sub_regions)  # Use count instead of progress
         main_total_tasks = len(sub_regions) * 200  # Each subregion should have 200 tasks in total
         if main_total_tasks > 0:
             main_progress = (main_done / main_total_tasks) * 100
@@ -71,14 +75,13 @@ def main():
             else:
                 sub_progress = 0
 
-            st.markdown(f"**{sub_region} Státusz: {int(sub_done)}/{sub_total_tasks} ({sub_progress:.1f}%)**")
+            st.markdown(f"**{sub_region} Státusz: {sub_done}/{sub_total_tasks} ({sub_progress:.1f}%)**")
             st.progress(sub_progress / 100)  # st.progress expects a value between 0 and 1
             
             for view_type, count in view_types.items():
-                corrected_count = count / 2  # Correct the count value
-                percentage = (corrected_count / 50) * 100  # Assuming each view type within a subregion has 50 tasks
+                percentage = (count / 50) * 100  # Assuming each view type within a subregion has 50 tasks
                 if count > 0:
-                    st.markdown(f"{view_type}: {int(corrected_count)}/50 ({percentage:.1f}%)")
+                    st.markdown(f"{view_type}: {count}/50 ({percentage:.1f}%)")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
