@@ -37,11 +37,8 @@ def main():
 
     # Calculate grand total progress
     total_done = sum(summary[region]["progress"] for region in summary)
-    total_tasks = len(summary) * 200 * len(next(iter(counts.values())))  # Number of regions * 200 tasks per subregion * Number of subregions in the first region
-    
-    # Adjust total_tasks to 4600 directly
-    total_tasks = 4600
-    
+    total_tasks = 4600  # Set total_tasks directly to 4600
+
     if total_tasks > 0:
         grand_total_progress = (total_done / total_tasks) * 100
     else:
@@ -74,9 +71,10 @@ def main():
             st.markdown(f'<div class="sub-region-title">{sub_region} Státusz: {int(sub_done)}/{sub_total_tasks} ({int(sub_progress)}%)</div>', unsafe_allow_html=True)
             st.progress(sub_progress / 100)  # st.progress expects a value between 0 and 1
             
-            for view_type, percentage in view_types.items():
+            for view_type, count in view_types.items():
+                percentage = (count / 200) * 100  # Assuming each subregion has 200 tasks
                 if percentage > 0:
-                    st.markdown(f'<div class="view-type">{view_type}: {int(percentage)}%</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="view-type">{view_type}: {int(percentage)}% ({count})</div>', unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
