@@ -35,10 +35,14 @@ def main():
     counts, data = get_counts()
     summary = get_progress_summary(counts)
 
+    # Debugging print to check the structure of summary
+    st.write("Summary structure:", summary)
+
     # Calculate grand total progress correctly using count values
     total_done = 0
     for region in summary:
-        total_done += summary[region]["count"]  # Use count instead of progress for aggregation
+        for sub_region in summary[region]["subregions"]:
+            total_done += summary[region]["subregions"][sub_region]["count"]
 
     total_tasks = 4600  # Set the total number of tasks to 4600 as required
 
