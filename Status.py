@@ -37,8 +37,9 @@ def main():
 
     # Calculate grand total progress correctly
     total_done = 0
-    for region in summary:
-        total_done += summary[region]["progress"]
+    for region, sub_regions in counts.items():
+        for sub_region, view_types in sub_regions.items():
+            total_done += sum(view_types.values())
 
     total_tasks = 4600  # Set the total number of tasks to 4600 as required
 
@@ -52,7 +53,10 @@ def main():
 
     # Region and subregion progress
     for main_region, sub_regions in counts.items():
-        main_done = summary[main_region]["progress"]
+        main_done = 0
+        for sub_region, view_types in sub_regions.items():
+            main_done += sum(view_types.values())
+        
         main_total_tasks = len(sub_regions) * 200  # Each subregion should have 200 tasks in total
         if main_total_tasks > 0:
             main_progress = (main_done / main_total_tasks) * 100
@@ -75,8 +79,7 @@ def main():
             st.progress(sub_progress / 100)  # st.progress expects a value between 0 and 1
             
             for view_type, count in view_types.items():
-                # Ensure the count is correctly divided by 50 for each view type
-                corrected_count = count / 2  # Correct the count value
+                corrected_count = count
                 percentage = (corrected_count / 50) * 100  # Assuming each view type within a subregion has 50 tasks
                 if count > 0:
                     st.markdown(f"{view_type}: {int(corrected_count)}/50 ({percentage:.1f}%)")
