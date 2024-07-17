@@ -77,7 +77,8 @@ def main():
 
     if search_button_clicked:
         page = 1  # Reset to the first page on new search
-        st.experimental_set_query_params(
+        st.query_params.clear()
+        st.query_params.update(
             search_button_clicked=True,
             type=search_type,
             view=search_view,
@@ -89,10 +90,10 @@ def main():
             page=page,
             items_per_page=items_per_page
         )
-        st.experimental_rerun()
+        st.rerun()
 
     # Get query params to manage pagination and search state
-    query_params = st.experimental_get_query_params()
+    query_params = st.query_params
     if 'search_button_clicked' in query_params:
         search_type = query_params.get("type", [""])[0]
         search_view = query_params.get("view", [""])[0]
@@ -132,6 +133,7 @@ def main():
         try:
             docs = results.stream()
             file_paths = []
+            metadata_list = []
 
             all_docs = list(docs)
             total_docs = len(all_docs)
@@ -148,6 +150,7 @@ def main():
                     data = doc.to_dict()
                     st.markdown(f'<div class="result-image"><img src="{data["url"]}" alt="{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}" style="width:100%;"><br><strong>{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}</strong></div>', unsafe_allow_html=True)
                     file_paths.append(data['url'])
+                    metadata_list.append(data)
 
                 st.write(f"Összesen {total_docs} találat. {total_pages} oldal.")
 
@@ -155,7 +158,7 @@ def main():
                 with col7:
                     if page > 1:
                         if st.button("Előző oldal", key="prev_page"):
-                            st.experimental_set_query_params(
+                            st.query_params.update(
                                 search_button_clicked=True,
                                 type=search_type,
                                 view=search_view,
@@ -167,11 +170,11 @@ def main():
                                 page=page-1,
                                 items_per_page=items_per_page
                             )
-                            st.experimental_rerun()
+                            st.rerun()
                 with col8:
                     if page < total_pages:
                         if st.button("Következő oldal", key="next_page"):
-                            st.experimental_set_query_params(
+                            st.query_params.update(
                                 search_button_clicked=True,
                                 type=search_type,
                                 view=search_view,
@@ -183,10 +186,10 @@ def main():
                                 page=page+1,
                                 items_per_page=items_per_page
                             )
-                            st.experimental_rerun()
+                            st.rerun()
 
                 if file_paths:
-                    zip_buffer = create_zip([data['url'] for data in (doc.to_dict() for doc in all_docs)])
+                    zip_buffer = create_zip(file_paths, metadata_list)  # Include metadata in the zip
                     st.download_button(
                         label="Képek letöltése ZIP-ben",
                         data=zip_buffer,
@@ -196,5 +199,5 @@ def main():
         except GoogleAPICallError as e:
             st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
 
-if __name__ == "___MAIN__":
+if __name__ == "__main__":
     main()
