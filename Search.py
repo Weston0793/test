@@ -196,5 +196,5 @@ def main():
         except GoogleAPICallError as e:
             st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
 
-if __name__ == "__main__":
+if __name__ == "___MAIN__":
     main()
