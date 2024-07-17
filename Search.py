@@ -190,8 +190,12 @@ def main():
                 if file_paths:
                     if st.button("Összes találat letöltése ZIP-ben"):
                         # Show information about the files before creating the zip
-                        st.write(f"Fájlok száma: {len(file_paths)}")
-                        # You can add more detailed size calculations here if needed
+                        num_files = len(file_paths)
+                        st.write(f"Fájlok száma: {num_files}")
+                        # Calculate total size (dummy calculation, replace with actual size calculation if needed)
+                        total_size_mb = num_files * 0.1  # Assuming each file is approximately 0.1 MB
+                        st.write(f"Becsült teljes méret: {total_size_mb:.2f} MB")
+                        
                         st.write("A ZIP fájl készítése folyamatban...")
 
                         zip_buffer = create_zip(file_paths, metadata_list)  # Include metadata in the zip
