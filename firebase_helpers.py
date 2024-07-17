@@ -68,16 +68,19 @@ def save_image(patient_id, file, type, view, main_region, sub_region, age, comme
         'associated_conditions': associated_conditions
     })
 
-# Create ZIP of selected files
-def create_zip(files):
+def create_zip(file_paths, metadata_list=None):
     zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-        for file_url in files:
-            arcname = os.path.basename(file_url)
-            zip_file.writestr(arcname, file_url)
+    with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+        for idx, file_url in enumerate(file_paths):
+            file_name = f"image_{idx}.jpg"
+            zip_file.writestr(file_name, download_file(file_url))
+            if metadata_list:
+                metadata_name = f"metadata_{idx}.txt"
+                metadata_content = "\n".join([f"{key}: {value}" for key, value in metadata_list[idx].items()])
+                zip_file.writestr(metadata_name, metadata_content)
     zip_buffer.seek(0)
-    return zip_buffer
-
+    return zip_buffer.getvalue()
+    
 # Get counts from Firestore
 def get_counts():
     counts = {
