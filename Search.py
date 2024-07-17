@@ -1,6 +1,8 @@
 import streamlit as st
+from google.cloud import firestore
 from firebase_helpers import db, create_zip
 import uuid
+from google.api_core.exceptions import GoogleAPICallError
 
 def main():
     st.markdown(
@@ -127,69 +129,72 @@ def main():
         for filter_field, filter_op, filter_value in query_filters:
             results = results.where(filter_field, filter_op, filter_value)
 
-        docs = results.stream()
-        file_paths = []
+        try:
+            docs = results.stream()
+            file_paths = []
 
-        all_docs = list(docs)
-        total_docs = len(all_docs)
-        total_pages = (total_docs + items_per_page - 1) // items_per_page
+            all_docs = list(docs)
+            total_docs = len(all_docs)
+            total_pages = (total_docs + items_per_page - 1) // items_per_page
 
-        if total_docs == 0:
-            st.warning("Nem található a keresési feltételeknek megfelelő elem.")
-        else:
-            start_idx = (page - 1) * items_per_page
-            end_idx = start_idx + items_per_page
-            page_docs = all_docs[start_idx:end_idx]
+            if total_docs == 0:
+                st.warning("Nem található a keresési feltételeknek megfelelő elem.")
+            else:
+                start_idx = (page - 1) * items_per_page
+                end_idx = start_idx + items_per_page
+                page_docs = all_docs[start_idx:end_idx]
 
-            for doc in page_docs:
-                data = doc.to_dict()
-                st.markdown(f'<div class="result-image"><img src="{data["url"]}" alt="{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}" style="width:100%;"><br><strong>{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}</strong></div>', unsafe_allow_html=True)
-                file_paths.append(data['url'])
+                for doc in page_docs:
+                    data = doc.to_dict()
+                    st.markdown(f'<div class="result-image"><img src="{data["url"]}" alt="{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}" style="width:100%;"><br><strong>{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}</strong></div>', unsafe_allow_html=True)
+                    file_paths.append(data['url'])
 
-            st.write(f"Összesen {total_docs} találat. {total_pages} oldal.")
+                st.write(f"Összesen {total_docs} találat. {total_pages} oldal.")
 
-            col7, col8 = st.columns(2)
-            with col7:
-                if page > 1:
-                    if st.button("Előző oldal", key="prev_page"):
-                        st.experimental_set_query_params(
-                            search_button_clicked=True,
-                            type=search_type,
-                            view=search_view,
-                            main_region=search_main_region,
-                            sub_region=search_sub_region,
-                            conditions=search_conditions,
-                            age_filter_active=age_filter_active,
-                            age=str(search_age) if search_age else "",
-                            page=page-1,
-                            items_per_page=items_per_page
-                        )
-                        st.experimental_rerun()
-            with col8:
-                if page < total_pages:
-                    if st.button("Következő oldal", key="next_page"):
-                        st.experimental_set_query_params(
-                            search_button_clicked=True,
-                            type=search_type,
-                            view=search_view,
-                            main_region=search_main_region,
-                            sub_region=search_sub_region,
-                            conditions=search_conditions,
-                            age_filter_active=age_filter_active,
-                            age=str(search_age) if search_age else "",
-                            page=page+1,
-                            items_per_page=items_per_page
-                        )
-                        st.experimental_rerun()
+                col7, col8 = st.columns(2)
+                with col7:
+                    if page > 1:
+                        if st.button("Előző oldal", key="prev_page"):
+                            st.experimental_set_query_params(
+                                search_button_clicked=True,
+                                type=search_type,
+                                view=search_view,
+                                main_region=search_main_region,
+                                sub_region=search_sub_region,
+                                conditions=search_conditions,
+                                age_filter_active=age_filter_active,
+                                age=str(search_age) if search_age else "",
+                                page=page-1,
+                                items_per_page=items_per_page
+                            )
+                            st.experimental_rerun()
+                with col8:
+                    if page < total_pages:
+                        if st.button("Következő oldal", key="next_page"):
+                            st.experimental_set_query_params(
+                                search_button_clicked=True,
+                                type=search_type,
+                                view=search_view,
+                                main_region=search_main_region,
+                                sub_region=search_sub_region,
+                                conditions=search_conditions,
+                                age_filter_active=age_filter_active,
+                                age=str(search_age) if search_age else "",
+                                page=page+1,
+                                items_per_page=items_per_page
+                            )
+                            st.experimental_rerun()
 
-            if file_paths:
-                zip_buffer = create_zip([data['url'] for data in (doc.to_dict() for doc in all_docs)])
-                st.download_button(
-                    label="Képek letöltése ZIP-ben",
-                    data=zip_buffer,
-                    file_name="images.zip",
-                    mime="application/zip"
-                )
+                if file_paths:
+                    zip_buffer = create_zip([data['url'] for data in (doc.to_dict() for doc in all_docs)])
+                    st.download_button(
+                        label="Képek letöltése ZIP-ben",
+                        data=zip_buffer,
+                        file_name="images.zip",
+                        mime="application/zip"
+                    )
+        except GoogleAPICallError as e:
+            st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
 
 if __name__ == "__main__":
     main()
