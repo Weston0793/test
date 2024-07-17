@@ -77,8 +77,7 @@ def main():
 
     if search_button_clicked:
         page = 1  # Reset to the first page on new search
-        st.query_params.clear()
-        st.query_params.update(
+        st.experimental_set_query_params(
             search_button_clicked=True,
             type=search_type,
             view=search_view,
@@ -90,10 +89,10 @@ def main():
             page=page,
             items_per_page=items_per_page
         )
-        st.rerun()
+        st.experimental_rerun()
 
     # Get query params to manage pagination and search state
-    query_params = st.query_params
+    query_params = st.experimental_get_query_params()
     if 'search_button_clicked' in query_params:
         search_type = query_params.get("type", [""])[0]
         search_view = query_params.get("view", [""])[0]
@@ -103,8 +102,8 @@ def main():
         age_filter_active = query_params.get("age_filter_active", [""])[0] == "True"
         search_age_str = query_params.get("age", [""])[0]
         search_age = eval(search_age_str) if search_age_str else None
-        page = int(query_params.get("page", [1])[0])
-        items_per_page = int(query_params.get("items_per_page", [10])[0])
+        page = int(query_params.get("page", ["1"])[0])
+        items_per_page = int(query_params.get("items_per_page", ["10"])[0])
 
         results = db.collection('images')
         query_filters = []
@@ -189,11 +188,14 @@ def main():
                             st.rerun()
 
                 if file_paths:
-                    zip_buffer = create_zip(file_paths, metadata_list)  # Include metadata in the zip
+                    # Include all documents in the zip
+                    full_file_paths = [doc.to_dict()['url'] for doc in all_docs]
+                    full_metadata_list = [doc.to_dict() for doc in all_docs]
+                    zip_buffer = create_zip(full_file_paths, full_metadata_list)  # Include metadata in the zip
                     st.download_button(
-                        label="Képek letöltése ZIP-ben",
+                        label="Összes találat letöltése ZIP-ben",
                         data=zip_buffer,
-                        file_name="images.zip",
+                        file_name="all_images.zip",
                         mime="application/zip"
                     )
         except GoogleAPICallError as e:
