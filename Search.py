@@ -22,6 +22,25 @@ def main():
             padding: 5px;
             margin-bottom: 10px;
         }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .button-container button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button-container button:hover {
+            background-color: #45a049;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -73,7 +92,7 @@ def main():
         items_per_page = st.selectbox("Találatok száma oldalanként", options=[10, 25, 50, 100], index=0)
 
     # Button for search
-    search_button_clicked = st.button("Keresés")
+    search_button_clicked = st.button("Keresés", key="search_button")
 
     if search_button_clicked:
         page = 1  # Reset to the first page on new search
@@ -187,24 +206,25 @@ def main():
                             )
                             st.rerun()
 
-                if file_paths:
-                    if st.button("Összes találat letöltése ZIP-ben"):
-                        # Show information about the files before creating the zip
-                        num_files = len(all_docs)
-                        st.write(f"Fájlok száma: {num_files}")
-                        # Calculate total size (dummy calculation, replace with actual size calculation if needed)
-                        total_size_mb = num_files * 0.1  # Assuming each file is approximately 0.1 MB
-                        st.write(f"Becsült teljes méret: {total_size_mb:.2f} MB")
-                        
-                        st.write("A ZIP fájl készítése folyamatban...")
+                st.markdown('<div class="button-container">', unsafe_allow_html=True)
+                if st.button("Összes találat letöltése ZIP-ben"):
+                    # Show information about the files before creating the zip
+                    num_files = len(all_docs)
+                    st.write(f"Fájlok száma: {num_files}")
+                    # Calculate total size (dummy calculation, replace with actual size calculation if needed)
+                    total_size_mb = num_files * 0.1  # Assuming each file is approximately 0.1 MB
+                    st.write(f"Becsült teljes méret: {total_size_mb:.2f} MB")
+                    
+                    st.write("A ZIP fájl készítése folyamatban...")
 
-                        zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])  # Include metadata in the zip
-                        st.download_button(
-                            label="Letöltés",
-                            data=zip_buffer,
-                            file_name="all_images.zip",
-                            mime="application/zip"
-                        )
+                    zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])  # Include metadata in the zip
+                    st.download_button(
+                        label="Letöltés",
+                        data=zip_buffer,
+                        file_name="all_images.zip",
+                        mime="application/zip"
+                    )
+                st.markdown('</div>', unsafe_allow_html=True)
         except GoogleAPICallError as e:
             st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
 
