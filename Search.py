@@ -157,7 +157,7 @@ def main():
                 with col7:
                     if page > 1:
                         if st.button("Előző oldal", key="prev_page"):
-                            st.query_params.update(
+                            st.experimental_set_query_params(
                                 search_button_clicked=True,
                                 type=search_type,
                                 view=search_view,
@@ -169,11 +169,11 @@ def main():
                                 page=page-1,
                                 items_per_page=items_per_page
                             )
-                            st.rerun()
+                            st.experimental_rerun()
                 with col8:
                     if page < total_pages:
                         if st.button("Következő oldal", key="next_page"):
-                            st.query_params.update(
+                            st.experimental_set_query_params(
                                 search_button_clicked=True,
                                 type=search_type,
                                 view=search_view,
@@ -185,7 +185,7 @@ def main():
                                 page=page+1,
                                 items_per_page=items_per_page
                             )
-                            st.rerun()
+                            st.experimental_rerun()
 
                 if file_paths:
                     # Include all documents in the zip
