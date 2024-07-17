@@ -41,10 +41,16 @@ def main():
         search_sub_region = ""
 
     search_conditions = st.multiselect("Társuló Komplikációk keresése", associated_conditions)
-    search_age = st.slider("Életkor keresése", min_value=0, max_value=120, step=1, format="%d")
 
+    # Age filter with interval and reset
+    search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=(0, 18), step=1, format="%d")
+    age_filter_active = st.checkbox("Életkor keresése (intervallum)", value=False)
+    if st.button("Életkor reset"):
+        search_age = (0, 18)
+        age_filter_active = False
+
+    items_per_page = st.selectbox("Találatok száma oldalanként", options=[10, 25, 50, 100], index=0)
     page = st.number_input("Oldal", min_value=1, step=1, value=1)
-    items_per_page = 10
 
     if st.button("Keresés"):
         results = db.collection('images')
@@ -61,8 +67,9 @@ def main():
         if search_conditions:
             for condition in search_conditions:
                 query_filters.append(('associated_conditions', 'array_contains', condition))
-        if search_age is not None:
-            query_filters.append(('age', '==', search_age))
+        if age_filter_active:
+            query_filters.append(('age', '>=', search_age[0]))
+            query_filters.append(('age', '<=', search_age[1]))
 
         for filter_field, filter_op, filter_value in query_filters:
             results = results.where(filter_field, filter_op, filter_value)
