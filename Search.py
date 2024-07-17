@@ -14,21 +14,6 @@ def main():
             padding: 10px;
             margin-bottom: 20px;
         }
-        .search-row {
-            display: flex;
-            justify-content: space-between;
-        }
-        .search-column {
-            display: flex;
-            flex-direction: column;
-            width: 48%;
-        }
-        .search-container {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
         .result-image {
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -47,35 +32,27 @@ def main():
     associated_conditions = ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"]
 
     # Type and view in one row
-    st.markdown('<div class="search-row">', unsafe_allow_html=True)
-    st.markdown('<div class="search-column">', unsafe_allow_html=True)
-    search_type = st.selectbox("Típus keresése", predefined_types)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<div class="search-column">', unsafe_allow_html=True)
-    search_view = st.selectbox("Nézet keresése", predefined_views)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        search_type = st.selectbox("Típus keresése", predefined_types)
+    with col2:
+        search_view = st.selectbox("Nézet keresése", predefined_views)
 
     # Main and sub region in one row
-    st.markdown('<div class="search-row">', unsafe_allow_html=True)
-    st.markdown('<div class="search-column">', unsafe_allow_html=True)
-    search_main_region = st.selectbox("Fő régió keresése", ["", "Felső végtag", "Alsó végtag", "Gerinc", "Koponya"])
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<div class="search-column">', unsafe_allow_html=True)
-
-    if search_main_region == "Felső végtag":
-        search_sub_region = st.selectbox("Alrégió keresése", ["", "Clavicula", "Scapula", "Váll", "Humerus", "Könyök", "Radius", "Ulna", "Csukló", "Kéz"])
-    elif search_main_region == "Alsó végtag":
-        search_sub_region = st.selectbox("Alrégió keresése", ["", "Csípő", "Comb", "Térd", "Tibia", "Fibula", "Boka", "Láb"])
-    elif search_main_region == "Gerinc":
-        search_sub_region = st.selectbox("Alrégió keresése", ["", "Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
-    elif search_main_region == "Koponya":
-        search_sub_region = st.selectbox("Alrégió keresése", ["", "Arckoponya", "Agykoponya", "Állkapocs"])
-    else:
-        search_sub_region = ""
-
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    with col3:
+        search_main_region = st.selectbox("Fő régió keresése", ["", "Felső végtag", "Alsó végtag", "Gerinc", "Koponya"])
+    with col4:
+        if search_main_region == "Felső végtag":
+            search_sub_region = st.selectbox("Alrégió keresése", ["", "Clavicula", "Scapula", "Váll", "Humerus", "Könyök", "Radius", "Ulna", "Csukló", "Kéz"])
+        elif search_main_region == "Alsó végtag":
+            search_sub_region = st.selectbox("Alrégió keresése", ["", "Csípő", "Comb", "Térd", "Tibia", "Fibula", "Boka", "Láb"])
+        elif search_main_region == "Gerinc":
+            search_sub_region = st.selectbox("Alrégió keresése", ["", "Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
+        elif search_main_region == "Koponya":
+            search_sub_region = st.selectbox("Alrégió keresése", ["", "Arckoponya", "Agykoponya", "Állkapocs"])
+        else:
+            search_sub_region = ""
 
     search_conditions = st.multiselect("Társuló Komplikációk keresése", associated_conditions)
 
@@ -87,14 +64,11 @@ def main():
         search_age = None
 
     # Page and items per page in one row
-    st.markdown('<div class="search-row">', unsafe_allow_html=True)
-    st.markdown('<div class="search-column">', unsafe_allow_html=True)
-    page = st.number_input("Oldal", min_value=1, step=1, value=1)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<div class="search-column">', unsafe_allow_html=True)
-    items_per_page = st.selectbox("Találatok száma oldalanként", options=[10, 25, 50, 100], index=0)
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    col5, col6 = st.columns(2)
+    with col5:
+        page = st.number_input("Oldal", min_value=1, step=1, value=1)
+    with col6:
+        items_per_page = st.selectbox("Találatok száma oldalanként", options=[10, 25, 50, 100], index=0)
 
     if st.button("Keresés"):
         results = db.collection('images')
