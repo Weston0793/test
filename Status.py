@@ -25,18 +25,22 @@ def main():
             margin-left: 40px;
             font-style: italic;
         }
+        .update-note {
+            font-size: 16px;
+            text-align: center;
+            color: red;
+            margin-bottom: 20px;
+        }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown('<div class="tracker-title">Státusz követése</div>', unsafe_allow_html=True)
+    st.markdown('<div class="update-note">Kérjük, várjon kb. 10 másodpercet a frissítéshez</div>', unsafe_allow_html=True)
 
     counts, data = get_counts()
     summary = get_progress_summary(counts)
-
-    # Debugging print to check the structure of summary
-    st.write("Summary structure:", summary)
 
     # Calculate grand total progress correctly using count values
     total_done = 0
