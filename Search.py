@@ -151,7 +151,7 @@ def main():
                     file_paths.append(data['url'])
                     metadata_list.append(data)
 
-                st.write(f"Összesen {total_docs} találat. {total_pages} oldal.")
+                st.write(f"Összesen {total_docs} találat. Oldal: {page} / {total_pages}")
 
                 col7, col8 = st.columns(2)
                 with col7:
@@ -190,7 +190,7 @@ def main():
                 if file_paths:
                     if st.button("Összes találat letöltése ZIP-ben"):
                         # Show information about the files before creating the zip
-                        num_files = len(file_paths)
+                        num_files = len(all_docs)
                         st.write(f"Fájlok száma: {num_files}")
                         # Calculate total size (dummy calculation, replace with actual size calculation if needed)
                         total_size_mb = num_files * 0.1  # Assuming each file is approximately 0.1 MB
@@ -198,7 +198,7 @@ def main():
                         
                         st.write("A ZIP fájl készítése folyamatban...")
 
-                        zip_buffer = create_zip(file_paths, metadata_list)  # Include metadata in the zip
+                        zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])  # Include metadata in the zip
                         st.download_button(
                             label="Letöltés",
                             data=zip_buffer,
