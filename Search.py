@@ -75,7 +75,7 @@ def main():
 
     if search_button_clicked:
         page = 1  # Reset to the first page on new search
-        st.experimental_set_query_params(
+        st.set_query_params(
             search_button_clicked=True,
             type=search_type,
             view=search_view,
@@ -87,7 +87,7 @@ def main():
             page=page,
             items_per_page=items_per_page
         )
-        st.experimental_rerun()
+        st.rerun()
 
     # Get query params to manage pagination and search state
     query_params = st.experimental_get_query_params()
@@ -117,8 +117,11 @@ def main():
             for condition in search_conditions:
                 query_filters.append(('associated_conditions', 'array_contains', condition))
         if search_age is not None:
-            query_filters.append(('age', '>=', search_age[0]))
-            query_filters.append(('age', '<=', search_age[1]))
+            if isinstance(search_age, tuple):
+                query_filters.append(('age', '>=', search_age[0]))
+                query_filters.append(('age', '<=', search_age[1]))
+            else:
+                query_filters.append(('age', '==', search_age))
 
         for filter_field, filter_op, filter_value in query_filters:
             results = results.where(filter_field, filter_op, filter_value)
@@ -148,7 +151,7 @@ def main():
             with col7:
                 if page > 1:
                     if st.button("Előző oldal", key="prev_page"):
-                        st.experimental_set_query_params(
+                        st.set_query_params(
                             search_button_clicked=True,
                             type=search_type,
                             view=search_view,
@@ -160,11 +163,11 @@ def main():
                             page=page-1,
                             items_per_page=items_per_page
                         )
-                        st.experimental_rerun()
+                        st.rerun()
             with col8:
                 if page < total_pages:
                     if st.button("Következő oldal", key="next_page"):
-                        st.experimental_set_query_params(
+                        st.set_query_params(
                             search_button_clicked=True,
                             type=search_type,
                             view=search_view,
@@ -176,7 +179,7 @@ def main():
                             page=page+1,
                             items_per_page=items_per_page
                         )
-                        st.experimental_rerun()
+                        st.rerun()
 
             if file_paths:
                 zip_buffer = create_zip([data['url'] for data in (doc.to_dict() for doc in all_docs)])
