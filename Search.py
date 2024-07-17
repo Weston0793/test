@@ -29,11 +29,10 @@ def main():
             margin: 10px 0;
         }
         .button-container button {
-            font-size: 20px;
-            font-weight: bold;
-            padding: 15px 30px;
-            margin: 0 10px;
-            border-radius: 10px;
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
             background-color: #4CAF50; /* Green */
             color: white;
             border: none;
@@ -188,8 +187,6 @@ def main():
                                 page=page+1
                             )
                             st.experimental_rerun()
-
-                st.markdown('</div>', unsafe_allow_html=True)
 
                 st.markdown('<div class="button-container">', unsafe_allow_html=True)
                 if st.button("Összes találat letöltése ZIP-ben"):
