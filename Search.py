@@ -73,9 +73,10 @@ def main():
     # Button for search
     search_button_clicked = st.button("Keresés")
 
-    # Only perform search if the search button is clicked
     if search_button_clicked:
+        page = 1  # Reset to the first page on new search
         st.experimental_set_query_params(
+            search_button_clicked=True,
             type=search_type,
             view=search_view,
             main_region=search_main_region,
@@ -86,6 +87,20 @@ def main():
             page=page,
             items_per_page=items_per_page
         )
+        st.experimental_rerun()
+
+    # Get query params to manage pagination and search state
+    query_params = st.experimental_get_query_params()
+    if 'search_button_clicked' in query_params:
+        search_type = query_params.get("type", [""])[0]
+        search_view = query_params.get("view", [""])[0]
+        search_main_region = query_params.get("main_region", [""])[0]
+        search_sub_region = query_params.get("sub_region", [""])[0]
+        search_conditions = query_params.get("conditions", [])
+        age_filter_active = query_params.get("age_filter_active", [""])[0] == "True"
+        search_age = eval(query_params.get("age", ["(0, 18)"])[0])
+        page = int(query_params.get("page", [1])[0])
+        items_per_page = int(query_params.get("items_per_page", [10])[0])
 
         results = db.collection('images')
         query_filters = []
@@ -134,6 +149,7 @@ def main():
                 if page > 1:
                     if st.button("Előző oldal", key="prev_page"):
                         st.experimental_set_query_params(
+                            search_button_clicked=True,
                             type=search_type,
                             view=search_view,
                             main_region=search_main_region,
@@ -149,6 +165,7 @@ def main():
                 if page < total_pages:
                     if st.button("Következő oldal", key="next_page"):
                         st.experimental_set_query_params(
+                            search_button_clicked=True,
                             type=search_type,
                             view=search_view,
                             main_region=search_main_region,
