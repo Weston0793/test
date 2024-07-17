@@ -77,7 +77,7 @@ def main():
 
     if search_button_clicked:
         page = 1  # Reset to the first page on new search
-        st.experimental_set_query_params(
+        st.query_params.update(
             search_button_clicked=True,
             type=search_type,
             view=search_view,
@@ -89,10 +89,10 @@ def main():
             page=page,
             items_per_page=items_per_page
         )
-        st.experimental_rerun()
+        st.rerun()
 
     # Get query params to manage pagination and search state
-    query_params = st.experimental_get_query_params()
+    query_params = st.query_params
     if 'search_button_clicked' in query_params:
         search_type = query_params.get("type", [""])[0]
         search_view = query_params.get("view", [""])[0]
