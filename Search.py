@@ -96,33 +96,33 @@ def main():
 
     if search_button_clicked:
         page = 1  # Reset to the first page on new search
-        st.query_params.update(
-            search_button_clicked=True,
-            type=search_type,
-            view=search_view,
-            main_region=search_main_region,
-            sub_region=search_sub_region,
-            conditions=search_conditions,
-            age_filter_active=age_filter_active,
-            age=str(search_age) if search_age else "",
-            page=page,
-            items_per_page=items_per_page
-        )
-        st.rerun()
+        st.session_state.search_button_clicked = True
+        st.session_state.query_params = {
+            "search_button_clicked": True,
+            "type": search_type,
+            "view": search_view,
+            "main_region": search_main_region,
+            "sub_region": search_sub_region,
+            "conditions": search_conditions,
+            "age_filter_active": age_filter_active,
+            "age": str(search_age) if search_age else "",
+            "page": page,
+            "items_per_page": items_per_page
+        }
+        st.experimental_rerun()
 
-    # Get query params to manage pagination and search state
-    query_params = st.query_params
-    if 'search_button_clicked' in query_params:
-        search_type = query_params.get("type", [""])[0] if query_params.get("type", [""]) else ""
-        search_view = query_params.get("view", [""])[0] if query_params.get("view", [""]) else ""
-        search_main_region = query_params.get("main_region", [""])[0] if query_params.get("main_region", [""]) else ""
-        search_sub_region = query_params.get("sub_region", [""])[0] if query_params.get("sub_region", [""]) else ""
-        search_conditions = query_params.get("conditions", []) if query_params.get("conditions", []) else []
-        age_filter_active = query_params.get("age_filter_active", [""])[0] == "True"
-        search_age_str = query_params.get("age", [""])[0] if query_params.get("age", [""]) else ""
+    if 'search_button_clicked' in st.session_state:
+        query_params = st.session_state.query_params
+        search_type = query_params.get("type", "")
+        search_view = query_params.get("view", "")
+        search_main_region = query_params.get("main_region", "")
+        search_sub_region = query_params.get("sub_region", "")
+        search_conditions = query_params.get("conditions", [])
+        age_filter_active = query_params.get("age_filter_active", False)
+        search_age_str = query_params.get("age", "")
         search_age = eval(search_age_str) if search_age_str else None
-        page = int(query_params.get("page", ["1"])[0])
-        items_per_page = int(query_params.get("items_per_page", ["10"])[0])
+        page = int(query_params.get("page", 1))
+        items_per_page = int(query_params.get("items_per_page", 10))
 
         results = db.collection('images')
         query_filters = []
@@ -176,35 +176,17 @@ def main():
                 with col7:
                     if page > 1:
                         if st.button("Előző oldal", key="prev_page"):
-                            st.query_params.update(
-                                search_button_clicked=True,
-                                type=search_type,
-                                view=search_view,
-                                main_region=search_main_region,
-                                sub_region=search_sub_region,
-                                conditions=search_conditions,
-                                age_filter_active=age_filter_active,
-                                age=str(search_age) if search_age else "",
-                                page=page-1,
-                                items_per_page=items_per_page
+                            st.session_state.query_params.update(
+                                page=page-1
                             )
-                            st.rerun()
+                            st.experimental_rerun()
                 with col8:
                     if page < total_pages:
                         if st.button("Következő oldal", key="next_page"):
-                            st.query_params.update(
-                                search_button_clicked=True,
-                                type=search_type,
-                                view=search_view,
-                                main_region=search_main_region,
-                                sub_region=search_sub_region,
-                                conditions=search_conditions,
-                                age_filter_active=age_filter_active,
-                                age=str(search_age) if search_age else "",
-                                page=page+1,
-                                items_per_page=items_per_page
+                            st.session_state.query_params.update(
+                                page=page+1
                             )
-                            st.rerun()
+                            st.experimental_rerun()
 
                 st.markdown('<div class="button-container">', unsafe_allow_html=True)
                 if st.button("Összes találat letöltése ZIP-ben"):
