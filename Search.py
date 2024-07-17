@@ -94,13 +94,13 @@ def main():
     # Get query params to manage pagination and search state
     query_params = st.query_params
     if 'search_button_clicked' in query_params:
-        search_type = query_params.get("type", [""])[0]
-        search_view = query_params.get("view", [""])[0]
-        search_main_region = query_params.get("main_region", [""])[0]
-        search_sub_region = query_params.get("sub_region", [""])[0]
-        search_conditions = query_params.get("conditions", [])
+        search_type = query_params.get("type", [""])[0] if query_params.get("type", [""]) else ""
+        search_view = query_params.get("view", [""])[0] if query_params.get("view", [""]) else ""
+        search_main_region = query_params.get("main_region", [""])[0] if query_params.get("main_region", [""]) else ""
+        search_sub_region = query_params.get("sub_region", [""])[0] if query_params.get("sub_region", [""]) else ""
+        search_conditions = query_params.get("conditions", []) if query_params.get("conditions", []) else []
         age_filter_active = query_params.get("age_filter_active", [""])[0] == "True"
-        search_age_str = query_params.get("age", [""])[0]
+        search_age_str = query_params.get("age", [""])[0] if query_params.get("age", [""]) else ""
         search_age = eval(search_age_str) if search_age_str else None
         page = int(query_params.get("page", ["1"])[0])
         items_per_page = int(query_params.get("items_per_page", ["10"])[0])
