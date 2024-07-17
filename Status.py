@@ -47,7 +47,7 @@ def main():
     else:
         grand_total_progress = 0
 
-    st.markdown(f"**Fázis 1 Státusz: {total_done}/{int(total_tasks)} ({int(grand_total_progress)}%)**")
+    st.markdown(f"**Fázis 1 Státusz: {total_done}/{int(total_tasks)} ({grand_total_progress:.1f}%)**")
     st.progress(grand_total_progress / 100)
 
     # Region and subregion progress
@@ -60,7 +60,7 @@ def main():
             main_progress = 0
 
         st.subheader(main_region)
-        st.markdown(f"**{main_region} Státusz: {main_done}/{main_total_tasks} ({int(main_progress)}%)**")
+        st.markdown(f"**{main_region} Státusz: {main_done}/{main_total_tasks} ({main_progress:.1f}%)**")
         st.progress(main_progress / 100)  # st.progress expects a value between 0 and 1
         
         for sub_region, view_types in sub_regions.items():
@@ -71,13 +71,13 @@ def main():
             else:
                 sub_progress = 0
 
-            st.markdown(f"**{sub_region} Státusz: {sub_done}/{sub_total_tasks} ({int(sub_progress)}%)**")
+            st.markdown(f"**{sub_region} Státusz: {sub_done}/{sub_total_tasks} ({sub_progress:.1f}%)**")
             st.progress(sub_progress / 100)  # st.progress expects a value between 0 and 1
             
             for view_type, count in view_types.items():
-                percentage = (count / 200) * 100  # Assuming each subregion has 200 tasks
-                if percentage > 0:
-                    st.markdown(f"{view_type}: {count}/200 ({int(percentage)}%)")
+                percentage = (count / 50) * 100  # Assuming each view type within a subregion has 50 tasks
+                if count > 0:
+                    st.markdown(f"{view_type}: {count}/50 ({percentage:.1f}%)")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
