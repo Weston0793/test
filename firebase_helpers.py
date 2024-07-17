@@ -5,6 +5,7 @@ import zipfile
 import firebase_admin
 from firebase_admin import credentials, firestore, storage
 import streamlit as st
+import requests
 
 # Initialize Firebase
 def initialize_firebase():
@@ -80,6 +81,10 @@ def create_zip(file_paths, metadata_list=None):
                 zip_file.writestr(metadata_name, metadata_content)
     zip_buffer.seek(0)
     return zip_buffer.getvalue()
+
+def download_file(url):
+    response = requests.get(url)
+    return response.content
     
 # Get counts from Firestore
 def get_counts():
