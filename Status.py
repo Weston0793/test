@@ -26,13 +26,16 @@ def update_db(data):
     c = conn.cursor()
     c.execute('DELETE FROM status')  # Clear the table before inserting new data
     for row in data:
-        main_region, sub_region, view, type_, count = row[:5]
-        try:
-            count = int(count)  # Ensure count is an integer
-            c.execute('INSERT INTO status (main_region, sub_region, view_type, count, percentage) VALUES (?, ?, ?, ?, ?)', 
-                      (main_region, sub_region, f"{type_}_{view}", count, row[5]))
-        except ValueError:
-            st.error(f"Invalid count value for {main_region}-{sub_region}-{type_}-{view}: {count}")
+        if len(row) >= 5:
+            main_region, sub_region, view, type_, count = row[:5]
+            try:
+                count = int(count)  # Ensure count is an integer
+                c.execute('INSERT INTO status (main_region, sub_region, view_type, count, percentage) VALUES (?, ?, ?, ?, ?)', 
+                          (main_region, sub_region, f"{type_}_{view}", count, row[5] if len(row) > 5 else 0))
+            except ValueError:
+                st.error(f"Invalid count value for {main_region}-{sub_region}-{type_}-{view}: {count}")
+        else:
+            st.error(f"Invalid row data: {row}")
     conn.commit()
     conn.close()
 
@@ -156,8 +159,7 @@ def main():
             
             for view_type, count in view_types.items():
                 percentage = (count / 50) * 100  # Assuming each view type within a subregion has 50 tasks
-                if count > 0:
-                    st.markdown(f"{view_type}: {count}/50 ({percentage:.1f}%)")
+                st.markdown(f"{view_type}: {count}/50 ({percentage:.1f}%)")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
