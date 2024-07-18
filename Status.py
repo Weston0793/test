@@ -38,6 +38,22 @@ def fetch_from_db():
     conn.close()
     return rows
 
+def fetch_summary_from_db():
+    rows = fetch_from_db()
+    counts = {}
+    for row in rows:
+        main_region = row[1]
+        sub_region = row[2]
+        view_type = row[3]
+        count = row[4]
+        if main_region not in counts:
+            counts[main_region] = {}
+        if sub_region not in counts[main_region]:
+            counts[main_region][sub_region] = {}
+        counts[main_region][sub_region][view_type] = count
+    summary = get_progress_summary(counts)
+    return counts, summary
+
 def main():
     st.markdown(
         """
@@ -73,23 +89,20 @@ def main():
     st.markdown('<div class="tracker-title">Státusz követése</div>', unsafe_allow_html=True)
     st.markdown('<div class="update-note">Kérjük, várjon kb. 10 másodpercet a frissítéshez</div>', unsafe_allow_html=True)
 
+    # Ellenőrizzük, hogy létezik-e a helyi adatbázis
     if not os.path.exists(DB_PATH):
         create_db()
-        update_data = True
+        data_exists = False
     else:
-        update_data = False
+        data_exists = True
 
-    if st.button('Frissítés'):
-        update_data = True
-
-    if update_data:
+    if st.button('Frissítés') or not data_exists:
         counts, data = get_counts()
         summary = get_progress_summary(counts)
         update_db(data)
+        st.success('Adatok frissítve!')
     else:
-        rows = fetch_from_db()
-        counts = {row[1]: {row[2]: {row[3]: row[4] for row in rows if row[1] == row[1] and row[2] == row[2]}} for row in rows}
-        summary = get_progress_summary(counts)
+        counts, summary = fetch_summary_from_db()
 
     # Calculate grand total progress correctly using count values
     total_done = 0
