@@ -88,7 +88,8 @@ def main():
                 view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
 
         if type != "Normál":
-            associated_conditions = st.multiselect("Társuló Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"])
+            complications = st.multiselect("Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés" ])
+            associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Rheumatoid Arthritis", "Cysta",  "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"])
 
         col3, col4 = st.columns(2)
         with col3:
@@ -107,6 +108,10 @@ def main():
                 sub_region = ""
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
+        age_group = ""
+        if age != "NA":
+            age_group = "Gyermek" if age <= 18 else "Felnőtt"
+
         comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
 
         if "confirm_data" not in st.session_state:
@@ -121,8 +126,10 @@ def main():
                     "main_region": main_region,
                     "sub_region": sub_region,
                     "age": age,
+                    "age_group": age_group,
                     "comment": comment + " " + type_comment + " " + view_comment,
                     "file": uploaded_file,
+                    "complications": complications if type != "Normál" else [],
                     "associated_conditions": associated_conditions if type != "Normál" else []
                 }
                 st.session_state["confirm_data"] = upload_data
