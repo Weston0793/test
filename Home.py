@@ -63,37 +63,43 @@ def main():
             st.image(uploaded_file, caption="Feltöltött kép", use_column_width=True)
 
     if uploaded_file:
-        st.write("Típus")
-        type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="type")
-        type_comment = ""
-        if type == "Egyéb":
-            type_comment = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"])
-            if type_comment in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
-                type_comment = st.text_input("Specifikálás (Egyéb)")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("Típus")
+            type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="type")
+            type_comment = ""
+            if type == "Egyéb":
+                type_comment = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"])
+                if type_comment in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
+                    type_comment = st.text_input("Specifikálás (Egyéb)")
+
+        with col2:
+            st.write("Nézet")
+            view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
+            view_comment = ""
+            if view == "Egyéb":
+                view_comment = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
+                view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
 
         if type != "Normál":
             st.write("Társuló Komplikációk")
             associated_conditions = st.multiselect("Társuló Komplikációk", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"])
 
-        st.write("Nézet")
-        view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
-        view_comment = ""
-        if view == "Egyéb":
-            view_comment = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
-            view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
+        col3, col4 = st.columns(2)
+        with col3:
+            main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya"])
 
-        main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya"])
-
-        if main_region == "Felső végtag":
-            sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Váll", "Humerus", "Könyök", "Radius", "Ulna", "Csukló", "Kéz"])
-        elif main_region == "Alsó végtag":
-            sub_region = st.selectbox("Alrégió", ["Csípő", "Comb", "Térd", "Tibia", "Fibula", "Boka", "Láb"])
-        elif main_region == "Gerinc":
-            sub_region = st.selectbox("Alrégió", ["Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
-        elif main_region == "Koponya":
-            sub_region = st.selectbox("Alrégió", ["Arckoponya", "Agykoponya", "Állkapocs"])
-        else:
-            sub_region = ""
+        with col4:
+            if main_region == "Felső végtag":
+                sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Váll", "Humerus", "Könyök", "Radius", "Ulna", "Csukló", "Kéz"])
+            elif main_region == "Alsó végtag":
+                sub_region = st.selectbox("Alrégió", ["Csípő", "Comb", "Térd", "Tibia", "Fibula", "Boka", "Láb"])
+            elif main_region == "Gerinc":
+                sub_region = st.selectbox("Alrégió", ["Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
+            elif main_region == "Koponya":
+                sub_region = st.selectbox("Alrégió", ["Arckoponya", "Agykoponya", "Állkapocs"])
+            else:
+                sub_region = ""
 
         age = st.select_slider("Életkor", options=["NA"] + list(range(0, 121)), value="NA")
         comment = st.text_area("Megjegyzés", key="comment", value="")
@@ -115,7 +121,7 @@ def main():
                     "associated_conditions": associated_conditions if type != "Normál" else []
                 }
                 st.session_state["confirm_data"] = upload_data
-                st.rerun()
+                st.experimental_rerun()
 
         if st.session_state["confirm_data"]:
             upload_data = st.session_state["confirm_data"]
