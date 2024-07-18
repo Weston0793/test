@@ -45,7 +45,7 @@ def fetch_summary_from_db():
         main_region = row[1]
         sub_region = row[2]
         view_type = row[3]
-        count = row[4]
+        count = int(row[4])  # Ensure count is an integer
         if main_region not in counts:
             counts[main_region] = {}
         if sub_region not in counts[main_region]:
