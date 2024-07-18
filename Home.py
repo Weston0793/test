@@ -131,7 +131,7 @@ def main():
                     "associated_conditions": associated_conditions if type != "Normál" else []
                 }
                 st.session_state["confirm_data"] = upload_data
-                st.experimental_rerun()
+                st.rerun()
 
         if st.session_state["confirm_data"]:
             upload_data = st.session_state["confirm_data"]
@@ -153,10 +153,14 @@ def main():
                     save_image(**upload_data)
                     st.success("Kép sikeresen feltöltve!")
                     st.session_state["confirm_data"] = None
+                    st.experimental_set_query_params(scroll_to="confirmation")
                 except Exception as e:
                     st.error(f"Hiba a kép mentésekor: {e}")
                     st.session_state["confirm_data"] = None
             st.markdown('</div>', unsafe_allow_html=True)
+
+    if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
+        st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
