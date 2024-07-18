@@ -26,7 +26,9 @@ def update_db(data):
     c = conn.cursor()
     c.execute('DELETE FROM status')  # Clear the table before inserting new data
     for row in data:
-        c.execute('INSERT INTO status (main_region, sub_region, view_type, count, percentage) VALUES (?, ?, ?, ?, ?)', row)
+        main_region, sub_region, view, type, count = row[:5]
+        if isinstance(count, int):  # Ensure only integers are inserted
+            c.execute('INSERT INTO status (main_region, sub_region, view_type, count, percentage) VALUES (?, ?, ?, ?, ?)', row)
     conn.commit()
     conn.close()
 
@@ -45,12 +47,13 @@ def fetch_summary_from_db():
         main_region = row[0]
         sub_region = row[1]
         view_type = row[2]
-        count = int(row[3])  # Ensure count is an integer
-        if main_region not in counts:
-            counts[main_region] = {}
-        if sub_region not in counts[main_region]:
-            counts[main_region][sub_region] = {}
-        counts[main_region][sub_region][view_type] = count
+        count = row[3]
+        if isinstance(count, int):  # Ensure only integers are processed
+            if main_region not in counts:
+                counts[main_region] = {}
+            if sub_region not in counts[main_region]:
+                counts[main_region][sub_region] = {}
+            counts[main_region][sub_region][view_type] = count
     summary = get_progress_summary(counts)
     return counts, summary
 
@@ -73,13 +76,13 @@ def main():
         }
         .view-type {
             margin-left: 40px;
-            font-style: italic;
+            font-style: italic.
         }
         .update-note {
             font-size: 16px;
             text-align: center;
-            color: red;
-            margin-bottom: 20px;
+            color: red.
+            margin-bottom: 20px.
         }
         </style>
         """,
