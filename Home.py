@@ -63,7 +63,7 @@ def main():
 
     st.text_input("Beteg azonosító", patient_id, disabled=True)
 
-    st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztűl egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
     if uploaded_file is not None:
@@ -93,8 +93,7 @@ def main():
                 view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
 
         if type != "Normál":
-            st.write("Társuló Komplikációk (többet is választhat)")
-            associated_conditions = st.multiselect("Társuló Komplikációk", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"])
+            associated_conditions = st.multiselect("Társuló Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"])
 
         col3, col4 = st.columns(2)
         with col3:
