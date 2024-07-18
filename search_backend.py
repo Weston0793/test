@@ -1,6 +1,8 @@
 import streamlit as st
 from firebase_helpers import db, create_zip
 from google.api_core.exceptions import GoogleAPICallError
+from google.cloud import firestore
+import uuid
 
 def perform_search(query_params):
     search_type = query_params.get("type", "")
