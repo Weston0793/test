@@ -11,7 +11,7 @@ def handle_file_upload(uploaded_file):
 
 def confirm_and_upload_data(upload_data):
     if upload_data['age'] == "NA":
-        age_group = st.radio("Kérem válassza ki az életkori csoportot", ["Gyermek", "Felnőtt"], index=1 if upload_data['age'] > 18 else 0)
+        age_group = st.radio("Kérem válassza ki az életkori csoportot", ["Gyermek", "Felnőtt"])
         upload_data['age_group'] = age_group
 
     st.markdown('<div class="confirmation-box">', unsafe_allow_html=True)
