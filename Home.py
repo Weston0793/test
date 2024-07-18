@@ -110,7 +110,7 @@ def main():
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
         if age != "NA":
-            age_group = "Gyermek" if age <= 18 else "Felnőtt"
+            age_group = "Gyermek" if int(age) <= 18 else "Felnőtt"
 
         comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
 
