@@ -33,7 +33,7 @@ def update_db(data):
 def fetch_from_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute('SELECT * FROM status')
+    c.execute('SELECT main_region, sub_region, view_type, count FROM status')
     rows = c.fetchall()
     conn.close()
     return rows
@@ -42,10 +42,10 @@ def fetch_summary_from_db():
     rows = fetch_from_db()
     counts = {}
     for row in rows:
-        main_region = row[1]
-        sub_region = row[2]
-        view_type = row[3]
-        count = int(row[4])  # Ensure count is an integer
+        main_region = row[0]
+        sub_region = row[1]
+        view_type = row[2]
+        count = int(row[3])  # Ensure count is an integer
         if main_region not in counts:
             counts[main_region] = {}
         if sub_region not in counts[main_region]:
