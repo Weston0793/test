@@ -10,6 +10,10 @@ def handle_file_upload(uploaded_file):
         return uploaded_file
 
 def confirm_and_upload_data(upload_data):
+    if upload_data['age'] == "NA":
+        age_group = st.radio("Kérem válassza ki az életkori csoportot", ["Gyermek", "Felnőtt"], index=1 if upload_data['age'] > 18 else 0)
+        upload_data['age_group'] = age_group
+
     st.markdown('<div class="confirmation-box">', unsafe_allow_html=True)
     st.markdown('<div class="confirmation-title">Kérlek, a feltöltéshez erősítsd meg a következő adatokat:</div>', unsafe_allow_html=True)
     st.markdown(f'**Beteg azonosító:** {upload_data["patient_id"]}')
@@ -18,9 +22,12 @@ def confirm_and_upload_data(upload_data):
     st.markdown(f'**Fő régió:** {upload_data["main_region"]}')
     st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
     st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}')
+    st.markdown(f'**Életkori Csoport:** {upload_data["age_group"]}')
     st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}')
+    if upload_data["complications"]:
+        st.markdown(f'**Komplikációk: (többet is választhat)** {", ".join(upload_data["complications"])}')
     if upload_data["associated_conditions"]:
-        st.markdown(f'**Társuló Komplikációk: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}')
+        st.markdown(f'**Társuló Kórállapotok: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}')
 
     st.markdown('<div class="center-button">', unsafe_allow_html=True)
     if st.button("Megerősít és Feltölt", key="confirm_upload"):
