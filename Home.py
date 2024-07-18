@@ -82,7 +82,7 @@ def main():
                 view_comment = st.text_input("Specifikálás (Egyéb Nézet)")
 
         if type != "Normál":
-            st.write("Társuló Komplikációk")
+            st.write("Társuló Komplikációk (többet is választhat)")
             associated_conditions = st.multiselect("Társuló Komplikációk", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés", "Cysta", "Tumor", "Genetikai"])
 
         col3, col4 = st.columns(2)
@@ -101,8 +101,8 @@ def main():
             else:
                 sub_region = ""
 
-        age = st.select_slider("Életkor", options=["NA"] + list(range(0, 121)), value="NA")
-        comment = st.text_area("Megjegyzés", key="comment", value="")
+        age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
+        comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
 
         if "confirm_data" not in st.session_state:
             st.session_state["confirm_data"] = None
@@ -132,10 +132,10 @@ def main():
             st.markdown(f'**Nézet:** {upload_data["view"]}')
             st.markdown(f'**Fő régió:** {upload_data["main_region"]}')
             st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
-            st.markdown(f'**Életkor:(Opcionális)** {upload_data["age"]}')
-            st.markdown(f'**Megjegyzés: (Opcionális)** {upload_data["comment"]}')
+            st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}')
+            st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}')
             if upload_data["associated_conditions"]:
-                st.markdown(f'**Társuló Komplikációk:(Többet is választhat!)** {", ".join(upload_data["associated_conditions"])}')
+                st.markdown(f'**Társuló Komplikációk: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}')
 
             st.markdown('<div class="center-button">', unsafe_allow_html=True)
             if st.button("Megerősít és Feltölt", key="confirm_upload"):
