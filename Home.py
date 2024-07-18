@@ -42,6 +42,16 @@ def main():
             font-weight: bold;
             margin-bottom: 10px;
         }
+        .file-upload-instruction {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid black;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -53,7 +63,8 @@ def main():
 
     st.text_input("Beteg azonosító", patient_id, disabled=True)
 
-    uploaded_file = st.file_uploader("Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztűl egy röntgenképet", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
+    st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztűl egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
+    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
     if uploaded_file is not None:
         if uploaded_file.size > 15 * 1024 * 1024:
