@@ -1,8 +1,42 @@
 import streamlit as st
 from firebase_helpers import get_counts, get_progress_summary
-import uuid
 import sqlite3
-import time
+import os
+
+DB_PATH = 'status.db'
+
+def create_db():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS status (
+            id INTEGER PRIMARY KEY,
+            main_region TEXT,
+            sub_region TEXT,
+            view_type TEXT,
+            count INTEGER,
+            percentage REAL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+def update_db(data):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('DELETE FROM status')  # Clear the table before inserting new data
+    for row in data:
+        c.execute('INSERT INTO status (main_region, sub_region, view_type, count, percentage) VALUES (?, ?, ?, ?, ?)', row)
+    conn.commit()
+    conn.close()
+
+def fetch_from_db():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('SELECT * FROM status')
+    rows = c.fetchall()
+    conn.close()
+    return rows
 
 def main():
     st.markdown(
@@ -39,8 +73,23 @@ def main():
     st.markdown('<div class="tracker-title">Státusz követése</div>', unsafe_allow_html=True)
     st.markdown('<div class="update-note">Kérjük, várjon kb. 10 másodpercet a frissítéshez</div>', unsafe_allow_html=True)
 
-    counts, data = get_counts()
-    summary = get_progress_summary(counts)
+    if not os.path.exists(DB_PATH):
+        create_db()
+        update_data = True
+    else:
+        update_data = False
+
+    if st.button('Frissítés'):
+        update_data = True
+
+    if update_data:
+        counts, data = get_counts()
+        summary = get_progress_summary(counts)
+        update_db(data)
+    else:
+        rows = fetch_from_db()
+        counts = {row[1]: {row[2]: {row[3]: row[4] for row in rows if row[1] == row[1] and row[2] == row[2]}} for row in rows}
+        summary = get_progress_summary(counts)
 
     # Calculate grand total progress correctly using count values
     total_done = 0
