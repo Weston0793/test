@@ -68,9 +68,9 @@ def search_section():
         if search_main_region == "Felső végtag":
             search_sub_region = st.selectbox("Régió keresése", ["", "Váll", "Kar", "Könyök", "Alkar", "Csukló", "Kéz"])
         elif search_main_region == "Alsó végtag":
-            search_sub_region = st.selectbox("Régió keresése", ["", "Medence", "Sacralis", "Coccygealis", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"])
+            search_sub_region = st.selectbox("Régió keresése", ["", "Medence", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"])
         elif search_main_region == "Gerinc":
-            search_sub_region = st.selectbox("Régió keresése", ["", "Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
+            search_sub_region = st.selectbox("Régió keresése", ["", "Nyaki", "Háti", "Ágyéki", "Sacralis", "Coccygealis"])
         elif search_main_region == "Koponya":
             search_sub_region = st.selectbox("Régió keresése", ["", "Arckoponya", "Agykoponya", "Állkapocs"])
         elif search_main_region == "Mellkas":
