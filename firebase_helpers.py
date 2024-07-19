@@ -90,29 +90,6 @@ def download_file(url):
     response = requests.get(url)
     return response.content
     
-# Get counts from Firestore
-def get_counts():
-    counts = {
-        "Felső végtag": {"Clavicula": {}, "Scapula": {}, "Váll": {}, "Humerus": {}, "Könyök": {}, "Radius": {}, "Ulna": {}, "Csukló": {}, "Kéz": {}},
-        "Alsó végtag": {"Csípő": {}, "Comb": {}, "Térd": {}, "Tibia": {}, "Fibula": {}, "Boka": {}, "Láb": {}},
-        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}, "Kereszt- és farokcsonti": {}},
-        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}}
-    }
-    views = ["AP", "Lateral"]
-    types = ["Normál", "Törött"]
-
-    data = []
-
-    for main_region in counts:
-        for sub_region in counts[main_region]:
-            for view in views:
-                for type in types:
-                    docs = db.collection('images').where('main_region', '==', main_region).where('sub_region', '==', sub_region).where('view', '==', view).where('type', '==', type).stream()
-                    count = len(list(docs))
-                    counts[main_region][sub_region][f"{type}_{view}"] = count
-                    data.append([main_region, sub_region, view, type, count])
-
-    return counts, data
 
 def get_progress_summary(counts):
     summary = {}
