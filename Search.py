@@ -33,23 +33,31 @@ def search_section():
     st.markdown('<div class="search-title">Képek keresése</div>', unsafe_allow_html=True)
 
     types = ["", "Normál", "Törött", "Egyéb"]
+    sub_types = ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta",  "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis","Genetikai/Veleszületett", "Egyéb"]
     views = ["", "AP", "Lateral", "Ferde", "PA", "Speciális"]
     regions = ["", "Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"]
 
     # Type and view in one row
     col1, col2 = st.columns(2)
     with col1:
+        if st.session_state.query_params["type"] not in types:
+            st.session_state.query_params["type"] = types[0]
         search_type = st.selectbox("Típus keresése", types, index=types.index(st.session_state.query_params["type"]))
         if search_type == "Egyéb": 
-            search_type = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta",  "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis","Genetikai/Veleszületett", "Egyéb"])
-            if search_type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
-                search_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
+            specific_type = st.selectbox("Specifikálás (Egyéb)", sub_types)
+            if specific_type == "Egyéb":
+                specific_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
+            search_type = specific_type
     with col2:
+        if st.session_state.query_params["view"] not in views:
+            st.session_state.query_params["view"] = views[0]
         search_view = st.selectbox("Nézet keresése", views, index=views.index(st.session_state.query_params["view"]))
 
     # Main and sub region in one row
     col3, col4 = st.columns(2)
     with col3:
+        if st.session_state.query_params["main_region"] not in regions:
+            st.session_state.query_params["main_region"] = regions[0]
         search_main_region = st.selectbox("Fő régió keresése", regions, index=regions.index(st.session_state.query_params["main_region"]))
     with col4:
         search_sub_region = select_subregion(search_main_region)
