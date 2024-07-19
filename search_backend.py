@@ -48,14 +48,12 @@ def perform_search(query_params):
         elif search_age_group == "Felnőtt":
             query_filters.append(('age', '>=', 19))
             query_filters.append(('age', '<=', 120))
-    elif age_filter_active and search_age is not None:
+    if age_filter_active and search_age is not None:
         if isinstance(search_age, tuple):
             query_filters.append(('age', '>=', search_age[0]))
             query_filters.append(('age', '<=', search_age[1]))
         else:
             query_filters.append(('age', '==', search_age))
-    if search_age_group:
-        query_filters.append(('age_group', '==', search_age_group))
 
     for filter_field, filter_op, filter_value in query_filters:
         results = results.where(filter_field, filter_op, filter_value)
