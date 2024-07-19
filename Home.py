@@ -35,11 +35,19 @@ def main():
                 if view == "Speciális":
                     view = st.text_input("Adja meg a specifikus nézetet (Speciális)")
 
-        main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
+        # Main and sub region in one row
+        col3, col4 = st.columns(2)
+        with col3:
+            main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
+        with col4:
+            sub_region = select_subregion(main_region)
 
-        sub_region = select_subregion(main_region)
-        sub_sub_region = select_sub_subregion(sub_region)
-        sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
+        # Sub-subregion and sub-sub-subregion in one row
+        col5, col6 = st.columns(2)
+        with col5:
+            sub_sub_region = select_sub_subregion(sub_region)
+        with col6:
+            sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
 
         if type != "Normál":
             complications = st.multiselect("Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"])
@@ -80,4 +88,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
