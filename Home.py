@@ -25,8 +25,10 @@ def main():
         col1, col2 = st.columns(2)
         with col1:
             type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="type")
-            if type == "Egyéb":
-                type = st.text_input("Adja meg a specifikus típust (Egyéb)")
+            if type == "Egyéb": 
+                type = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta",  "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis","Genetikai/Veleszületett", "Egyéb"])
+                if type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
+                    type = st.text_input("Adja meg a specifikus típust (Egyéb)")
 
         with col2:
             view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
@@ -51,7 +53,7 @@ def main():
 
         if type != "Normál":
             complications = st.multiselect("Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"])
-            associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Rheumatoid Arthritis", "Cysta", "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"])
+            associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", "Rheumatoid Arthritis",  "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"])
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
