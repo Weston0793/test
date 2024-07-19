@@ -1,4 +1,58 @@
 import streamlit as st
+def style_markdown2():
+    st.markdown(
+        """
+        <style>
+        .upload-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid black;
+            padding: 10px;
+        }
+        .center-button {
+            display: flex;
+            justify-content: center;
+        }
+        .upload-button, .confirm-button {
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            border: 2px solid black;
+            margin: 10px;
+        }
+        .upload-button:hover, .confirm-button:hover {
+            background-color: #45a049;
+        }
+        .confirmation-box {
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .confirmation-title, .confirmation-text {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .file-upload-instruction {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid black;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def style_markdown():
     st.markdown(
