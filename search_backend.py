@@ -117,3 +117,6 @@ def perform_search(query_params):
                         st.experimental_rerun()
 
             st.markdown('<div class="button-container">', unsafe_allow_html
+
+if __name__ == "__main__":
+    search_section()
