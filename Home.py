@@ -95,66 +95,87 @@ def main():
             if main_region == "Felső végtag":
                 sub_region = st.selectbox("Régió", ["Váll", "Kar", "Könyök", "Alkar", "Csukló", "Kéz"])
                 if sub_region == "Váll":
-                    sub_sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Humerus fej", "Proximális humerus", "Humerus nyak"])
-                    if sub_sub_region == "Clavicula":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Sternoclavicularis", "Középső szakasz", "Acromioclavicularis"])
-                    elif sub_sub_region == "Scapula":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Acromion", "Coracoid processus", "Glenoid"])
-                    elif sub_sub_region == "Humerus fej":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Hill-Sachs", "Fordított Hill-Sachs"])
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        sub_sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Humerus fej", "Proximális humerus", "Humerus nyak"])
+                    with col6:
+                        if sub_sub_region == "Clavicula":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Sternoclavicularis", "Középső szakasz", "Acromioclavicularis"])
+                        elif sub_sub_region == "Scapula":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Acromion", "Coracoid processus", "Glenoid"])
+                        elif sub_sub_region == "Humerus fej":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Hill-Sachs", "Fordított Hill-Sachs"])
                 elif sub_region == "Kar":
                     sub_sub_region = st.selectbox("Alrégió", ["Humerus szár"])
                 elif sub_region == "Könyök":
-                    sub_sub_region = st.selectbox("Alrégió", ["Distalis humerus", "Humerus condylus", "Epicondylus", "Capitellum", "Olecranon", "Supracondylaris", "Coronoid processus"])
-                    if sub_sub_region == "Humerus condylus":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Lateralis", "Medialis"])
-                    elif sub_sub_region == "Epicondylus":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Medialis", "Lateralis"])
-                    elif sub_sub_region == "Supracondylaris":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Extensio", "Flexio"])
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        sub_sub_region = st.selectbox("Alrégió", ["Distalis humerus", "Humerus condylus", "Epicondylus", "Capitellum", "Olecranon", "Supracondylaris", "Coronoid processus"])
+                    with col6:
+                        if sub_sub_region == "Humerus condylus":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Lateralis", "Medialis"])
+                        elif sub_sub_region == "Epicondylus":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Medialis", "Lateralis"])
+                        elif sub_sub_region == "Supracondylaris":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Extensio", "Flexio"])
                 elif sub_region == "Alkar":
                     sub_sub_region = st.selectbox("Alrégió", ["Ulna", "Radius", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"])
                 elif sub_region == "Csukló":
-                    sub_sub_region = st.selectbox("Alrégió", ["Distalis radius", "Distalis ulna"])
-                    if sub_sub_region == "Distalis radius":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"])
-                    elif sub_sub_region == "Carpalis csontok":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Scaphoid", "Lunate", "Capitate", "Triquetral", "Pisiform", "Hamate", "Trapezoid", "Trapezium"])
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        sub_sub_region = st.selectbox("Alrégió", ["Distalis radius", "Distalis ulna"])
+                    with col6:
+                        if sub_sub_region == "Distalis radius":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"])
+                        elif sub_sub_region == "Carpalis csontok":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Scaphoid", "Lunate", "Capitate", "Triquetral", "Pisiform", "Hamate", "Trapezoid", "Trapezium"])
                 elif sub_region == "Kéz":
-                    sub_sub_region = st.selectbox("Alrégió", ["Metacarpalis", "Hüvelykujj", "Phalanx"])
-                    if sub_sub_region == "Metacarpalis":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Boxer", "Fordított Bennett"])
-                    elif sub_sub_region == "Hüvelykujj":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"])
-                    elif sub_sub_region == "Phalanx":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsion", "Pilon", "Proximális phalanx"])
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        sub_sub_region = st.selectbox("Alrégió", ["Metacarpalis", "Hüvelykujj", "Phalanx"])
+                    with col6:
+                        if sub_sub_region == "Metacarpalis":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Boxer", "Fordított Bennett"])
+                        elif sub_sub_region == "Hüvelykujj":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"])
+                        elif sub_sub_region == "Phalanx":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsion", "Pilon", "Proximális phalanx"])
 
             elif main_region == "Alsó végtag":
                 sub_region = st.selectbox("Régió", ["Medence", "Sacralis", "Coccygealis", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"])
                 if sub_region == "Medence":
                     sub_sub_region = st.selectbox("Részletes régió", ["Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Pelvic insufficiency", "Anterior inferior iliac spine avulsion", "Duverney", "Open book", "Pubic rami", "Anterior superior iliac spine (ASIS) avulsion"])
                 elif sub_region == "Csípő":
-                    sub_sub_region = st.selectbox("Részletes régió", ["Acetabular", "Femoral head", "Femoral neck", "Trochanteric"])
-                    if sub_sub_region == "Femoral neck":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Subcapital", "Transcervical", "Basicervical"])
-                    elif sub_sub_region == "Trochanteric":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Pertrochanteric", "Intertrochanteric", "Subtrochanteric"])
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        sub_sub_region = st.selectbox("Részletes régió", ["Acetabular", "Femoral head", "Femoral neck", "Trochanteric"])
+                    with col6:
+                        if sub_sub_region == "Femoral neck":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Subcapital", "Transcervical", "Basicervical"])
+                        elif sub_sub_region == "Trochanteric":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Pertrochanteric", "Intertrochanteric", "Subtrochanteric"])
                 elif sub_region == "Femur":
                     sub_sub_region = st.selectbox("Részletes régió", ["Mid-shaft", "Bisphosphonate-related", "Distal femoral"])
                 elif sub_region == "Térd":
-                    sub_sub_region = st.selectbox("Részletes régió", ["Avulsion", "Patellar", "Tibial plateau"])
-                    if sub_sub_region == "Avulsion":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Segond", "Reverse Segond", "Anterior cruciate ligament avulsion", "Posterior cruciate ligament avulsion", "Arcuate complex avulsion (arcuate sign)", "Biceps femoris avulsion", "Iliotibial band avulsion", "Semimembranosus tendon avulsion", "Stieda (MCL avulsion fracture)"])
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        sub_sub_region = st.selectbox("Részletes régió", ["Avulsion", "Patellar", "Tibial plateau"])
+                    with col6:
+                        if sub_sub_region == "Avulsion":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Segond", "Reverse Segond", "Anterior cruciate ligament avulsion", "Posterior cruciate ligament avulsion", "Arcuate complex avulsion (arcuate sign)", "Biceps femoris avulsion", "Iliotibial band avulsion", "Semimembranosus tendon avulsion", "Stieda (MCL avulsion fracture)"])
                 elif sub_region == "Lábszár":
                     sub_sub_region = st.selectbox("Részletes régió", ["Tibial tuberosity avulsion", "Tibial shaft", "Fibular shaft", "Maisonneuve"])
                 elif sub_region == "Boka":
                     sub_sub_region = st.selectbox("Részletes régió", ["Bimalleolar", "Trimalleolar", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"])
                 elif sub_region == "Láb":
-                    sub_sub_region = st.selectbox("Részletes régió", ["Tarsal bones", "Metatarsal bones", "Toes"])
-                    if sub_sub_region == "Tarsal bones":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["Chopart", "Calcaneal", "Lover's", "Calcaneal tuberosity avulsion", "Talar", "Talar body", "Talar dome osteochondral", "Posterior talar process", "Lateral talar process", "Talar neck", "Aviator astragalus", "Talar head", "Navicular", "Medial cuneiform", "Intermediate cuneiform", "Lateral cuneiform", "Cuboid"])
-                    elif sub_sub_region == "Metatarsal bones":
-                        sub_sub_sub_region = st.selectbox("Részletes régió", ["March", "Lisfranc fracture-dislocation", "Stress fracture of the 5th metatarsal", "Jones", "Pseudo-Jones", "Avulsion fracture of the proximal 5th metatarsal"])
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        sub_sub_region = st.selectbox("Részletes régió", ["Tarsal bones", "Metatarsal bones", "Toes"])
+                    with col6:
+                        if sub_sub_region == "Tarsal bones":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["Chopart", "Calcaneal", "Lover's", "Calcaneal tuberosity avulsion", "Talar", "Talar body", "Talar dome osteochondral", "Posterior talar process", "Lateral talar process", "Talar neck", "Aviator astragalus", "Talar head", "Navicular", "Medial cuneiform", "Intermediate cuneiform", "Lateral cuneiform", "Cuboid"])
+                        elif sub_sub_region == "Metatarsal bones":
+                            sub_sub_sub_region = st.selectbox("Részletes régió", ["March", "Lisfranc fracture-dislocation", "Stress fracture of the 5th metatarsal", "Jones", "Pseudo-Jones", "Avulsion fracture of the proximal 5th metatarsal"])
 
             elif main_region == "Gerinc":
                 sub_region = st.selectbox("Régió", ["Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
