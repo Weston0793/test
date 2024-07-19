@@ -78,7 +78,14 @@ def search_section():
         search_age = (19, 120)
         age_filter_active = False
     else:
-        search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=(0, 120), step=1, format="%d")
+        if age_filter_active:
+            try:
+                age_value = eval(st.session_state.query_params["age"]) if st.session_state.query_params["age"] else (0, 120)
+            except ValueError:
+                age_value = (0, 120)
+            search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=age_value, step=1, format="%d")
+        else:
+            search_age = None
 
     col7, col8 = st.columns(2)
     with col7:
