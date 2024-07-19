@@ -29,15 +29,13 @@ def initialize_session_state():
 
 def search_section():
     initialize_session_state()
-    style_markdown()
     st.markdown('<div class="search-title">Képek keresése</div>', unsafe_allow_html=True)
 
     types = ["", "Normál", "Törött", "Egyéb"]
-    sub_types = ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta",  "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis","Genetikai/Veleszületett", "Egyéb"]
+    sub_types = ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Genetikai/Veleszületett", "Egyéb"]
     views = ["", "AP", "Lateral", "Ferde", "PA", "Speciális"]
     regions = ["", "Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"]
 
-    # Type and view in one row
     col1, col2 = st.columns(2)
     with col1:
         if st.session_state.query_params["type"] not in types:
@@ -49,13 +47,12 @@ def search_section():
                 specific_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
             search_type = specific_type
         else:
-            search_type = st.session_state.query_params["type"]
+            search_type = search_type
     with col2:
         if st.session_state.query_params["view"] not in views:
             st.session_state.query_params["view"] = views[0]
         search_view = st.selectbox("Nézet keresése", views, index=views.index(st.session_state.query_params["view"]))
 
-    # Main and sub region in one row
     col3, col4 = st.columns(2)
     with col3:
         if st.session_state.query_params["main_region"] not in regions:
@@ -64,18 +61,15 @@ def search_section():
     with col4:
         search_sub_region = select_subregion(search_main_region)
 
-    # Sub-subregion and sub-sub-subregion in one row
     col5, col6 = st.columns(2)
     with col5:
         search_sub_sub_region = select_sub_subregion(search_sub_region)
     with col6:
         search_sub_sub_sub_region = select_sub_sub_subregion(search_sub_sub_region)
 
-    # Multiselects for complications and associated conditions
     search_complications = st.multiselect("Komplikációk keresése", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"], default=st.session_state.query_params["complications"])
     search_associated_conditions = st.multiselect("Társuló Kórállapotok keresése", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Rheumatoid Arthritis", "Cysta", "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"], default=st.session_state.query_params["associated_conditions"])
 
-    # Age filter with checkbox
     age_filter_active = st.checkbox("Életkor keresése (intervallum)", value=st.session_state.query_params["age_filter_active"])
     if age_filter_active:
         try:
@@ -88,18 +82,16 @@ def search_section():
 
     search_age_group = st.selectbox("Életkori csoport keresése", ["", "Gyermek", "Felnőtt"], index=["", "Gyermek", "Felnőtt"].index(st.session_state.query_params["age_group"]))
 
-    # Page and items per page in one row
     col7, col8 = st.columns(2)
     with col7:
         page = st.number_input("Oldal", min_value=1, step=1, value=st.session_state.query_params["page"])
     with col8:
         items_per_page = st.selectbox("Találatok száma oldalanként", options=[10, 25, 50, 100], index=[10, 25, 50, 100].index(st.session_state.query_params["items_per_page"]))
 
-    # Button for search
     search_button_clicked = st.button("Keresés", key="search_button")
 
     if search_button_clicked:
-        page = 1  # Reset to the first page on new search
+        page = 1
         st.session_state.search_button_clicked = True
         st.session_state.query_params = {
             "search_button_clicked": True,
