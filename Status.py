@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_helpers import get_progress_summary
+from firebase_helpers import get_counts, get_progress_summary
 import sqlite3
 import os
 
