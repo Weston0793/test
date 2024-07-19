@@ -111,3 +111,6 @@ def search_section():
 
     if st.session_state.search_button_clicked:
         perform_search(st.session_state.query_params)
+
+if __name__ == "__main__":
+    search_section()
