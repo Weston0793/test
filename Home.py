@@ -82,18 +82,17 @@ def main():
                 view = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
                 if view == "Speciális":
                     view = st.text_input("Adja meg a specifikus nézetet (Speciális)")
-
-        main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
+        col3, col4 = st.columns(2)
+        with col3:
+            main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
 
         sub_region = ""
         sub_sub_region = ""
         sub_sub_sub_region = ""
-
-        col3, col4 = st.columns(2)
-        with col3:
+        
             if main_region == "Felső végtag":
+        with col4:
                 sub_region = st.selectbox("Régió", ["Váll", "Kar", "Könyök", "Alkar", "Csukló", "Kéz"])
-
                 if sub_region == "Váll":
                     sub_sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Humerus fej", "Proximális humerus", "Humerus nyak"])
                     if sub_sub_region == "Clavicula":
