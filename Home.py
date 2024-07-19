@@ -96,9 +96,9 @@ def main():
         if main_region == "Felső végtag":
             sub_region_options = ["Váll", "Kar", "Könyök", "Alkar", "Csukló", "Kéz"]
         elif main_region == "Alsó végtag":
-            sub_region_options = ["Medence", "Sacralis", "Coccygealis", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"]
+            sub_region_options = ["Medence", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"]
         elif main_region == "Gerinc":
-            sub_region_options = ["Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"]
+            sub_region_options = ["Nyaki", "Háti", "Ágyéki", "Sacralis", "Coccygealis"]
         elif main_region == "Koponya":
             sub_region_options = ["Arckoponya", "Agykoponya", "Állkapocs"]
         elif main_region == "Mellkas":
