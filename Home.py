@@ -82,6 +82,7 @@ def main():
                 view = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
                 if view == "Speciális":
                     view = st.text_input("Adja meg a specifikus nézetet (Speciális)")
+
         col3, col4 = st.columns(2)
         with col3:
             main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
@@ -89,9 +90,9 @@ def main():
         sub_region = ""
         sub_sub_region = ""
         sub_sub_sub_region = ""
-        
-            if main_region == "Felső végtag":
+
         with col4:
+            if main_region == "Felső végtag":
                 sub_region = st.selectbox("Régió", ["Váll", "Kar", "Könyök", "Alkar", "Csukló", "Kéz"])
                 if sub_region == "Váll":
                     sub_sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Humerus fej", "Proximális humerus", "Humerus nyak"])
@@ -101,10 +102,8 @@ def main():
                         sub_sub_sub_region = st.selectbox("Részletes régió", ["Acromion", "Coracoid processus", "Glenoid"])
                     elif sub_sub_region == "Humerus fej":
                         sub_sub_sub_region = st.selectbox("Részletes régió", ["Hill-Sachs", "Fordított Hill-Sachs"])
-
                 elif sub_region == "Kar":
                     sub_sub_region = st.selectbox("Alrégió", ["Humerus szár"])
-
                 elif sub_region == "Könyök":
                     sub_sub_region = st.selectbox("Alrégió", ["Distalis humerus", "Humerus condylus", "Epicondylus", "Capitellum", "Olecranon", "Supracondylaris", "Coronoid processus"])
                     if sub_sub_region == "Humerus condylus":
@@ -113,17 +112,14 @@ def main():
                         sub_sub_sub_region = st.selectbox("Részletes régió", ["Medialis", "Lateralis"])
                     elif sub_sub_region == "Supracondylaris":
                         sub_sub_sub_region = st.selectbox("Részletes régió", ["Extensio", "Flexio"])
-
                 elif sub_region == "Alkar":
                     sub_sub_region = st.selectbox("Alrégió", ["Ulna", "Radius", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"])
-
                 elif sub_region == "Csukló":
                     sub_sub_region = st.selectbox("Alrégió", ["Distalis radius", "Distalis ulna"])
                     if sub_sub_region == "Distalis radius":
                         sub_sub_sub_region = st.selectbox("Részletes régió", ["Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"])
                     elif sub_sub_region == "Carpalis csontok":
                         sub_sub_sub_region = st.selectbox("Részletes régió", ["Scaphoid", "Lunate", "Capitate", "Triquetral", "Pisiform", "Hamate", "Trapezoid", "Trapezium"])
-
                 elif sub_region == "Kéz":
                     sub_sub_region = st.selectbox("Alrégió", ["Metacarpalis", "Hüvelykujj", "Phalanx"])
                     if sub_sub_region == "Metacarpalis":
@@ -162,15 +158,16 @@ def main():
 
             elif main_region == "Gerinc":
                 sub_region = st.selectbox("Régió", ["Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
-        
+
             elif main_region == "Koponya":
                 sub_region = st.selectbox("Régió", ["Arckoponya", "Agykoponya", "Állkapocs"])
-        
+
             elif main_region == "Mellkas":
                 sub_region = st.selectbox("Régió", ["Borda", "Sternum", "Kulcscsont", "Tüdő", "Szív"])
-        
+
             elif main_region == "Has":
                 sub_region = st.selectbox("Régió", ["Máj", "Lép", "Vese", "Bél", "Hólyag"])
+
         if type != "Normál":
             complications = st.multiselect("Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"])
             associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Rheumatoid Arthritis", "Cysta", "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"])
