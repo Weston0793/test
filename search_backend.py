@@ -71,7 +71,23 @@ def perform_search(query_params):
 
             for doc in page_docs:
                 data = doc.to_dict()
-                st.markdown(f'<div class="result-image"><img src="{data["url"]}" alt="{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}" style="width:100%;"><br><strong>{data["type"]}, {data["view"]}, {data["main_region"]}, {data["sub_region"]}</strong></div>', unsafe_allow_html=True)
+                display_data = f"""
+                <div class="result-image">
+                    <img src="{data['url']}" alt="{data.get('type', 'N/A')}, {data.get('view', 'N/A')}, {data.get('main_region', 'N/A')}, {data.get('sub_region', 'N/A')}" style="width:100%;">
+                    <br><strong>Típus: {data.get('type', 'N/A')}</strong>
+                    <br><strong>Nézet: {data.get('view', 'N/A')}</strong>
+                    <br><strong>Fő régió: {data.get('main_region', 'N/A')}</strong>
+                    <br><strong>Régió: {data.get('sub_region', 'N/A')}</strong>
+                    <br><strong>Alrégió: {data.get('sub_sub_region', 'N/A')}</strong>
+                    <br><strong>Részletes régió: {data.get('sub_sub_sub_region', 'N/A')}</strong>
+                    <br><strong>Életkor: {data.get('age', 'N/A')}</strong>
+                    <br><strong>Életkori csoport: {data.get('age_group', 'N/A')}</strong>
+                    <br><strong>Megjegyzés: {data.get('comment', 'N/A')}</strong>
+                    <br><strong>Komplikációk: {", ".join(data.get('complications', []))}</strong>
+                    <br><strong>Társuló Kórállapotok: {", ".join(data.get('associated_conditions', []))}</strong>
+                </div>
+                """
+                st.markdown(display_data, unsafe_allow_html=True)
                 file_paths.append(data['url'])
                 metadata_list.append(data)
 
@@ -114,3 +130,5 @@ def perform_search(query_params):
             st.markdown('</div>', unsafe_allow_html=True)
     except GoogleAPICallError as e:
         st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
+
+
