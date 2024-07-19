@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_helpers import get_counts, get_progress_summary
+from firebase_helpers import get_progress_summary
 import sqlite3
 import os
 
@@ -66,6 +66,30 @@ def fetch_summary_from_db():
             st.error(f"Invalid count value in database for {main_region}-{sub_region}-{view_type}: {count}")
     summary = get_progress_summary(counts)
     return counts, summary
+
+def get_counts():
+    counts = {
+        "Felső végtag": {"Felkar": {}, "Alkar": {}, "Csukló": {}, "Kéz": {}},
+        "Alsó végtag": {"Csípő": {}, "Comb": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
+        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}, "Kereszt- és farokcsonti": {}},
+        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}},
+        "Mellkas": {"Borda": {}, "Sternum": {}, "Kulcscsont": {}, "Tüdő": {}, "Szív": {}},
+        "Has": {"Máj": {}, "Lép": {}, "Vese": {}, "Bél": {}, "Hólyag": {}}
+    }
+    views = ["AP", "Lateral"]
+    types = ["Normál", "Törött"]
+
+    data = []
+
+    for main_region in counts:
+        for sub_region in counts[main_region]:
+            for view in views:
+                for type in types:
+                    docs = db.collection('images').where('main_region', '==', main_region).where('sub_region', '==', sub_region).where('view', '==', view).where('type', '==', type).stream()
+                    count = len(list(docs))
+                    counts[main_region][sub_region][f"{type}_{view}"] = count
+                    data.append([main_region, sub_region, view, type, count])
+    return counts, data
 
 def main():
     st.markdown(
