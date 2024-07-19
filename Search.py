@@ -64,7 +64,11 @@ def search_section():
     # Age filter with checkbox
     age_filter_active = st.checkbox("Életkor keresése (intervallum)", value=st.session_state.query_params["age_filter_active"])
     if age_filter_active:
-        search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=eval(st.session_state.query_params["age"]), step=1, format="%d")
+        try:
+            age_value = int(st.session_state.query_params["age"]) if st.session_state.query_params["age"] else (0, 120)
+        except ValueError:
+            age_value = (0, 120)
+        search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=age_value, step=1, format="%d")
     else:
         search_age = None
 
