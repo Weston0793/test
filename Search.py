@@ -38,9 +38,9 @@ def search_section():
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.session_state.query_params["type"] not in types:
+        if st.session_state.query_params["type"] not in types and st.session_state.query_params["type"] not in sub_types:
             st.session_state.query_params["type"] = types[0]
-        search_type = st.selectbox("Típus keresése", types, index=types.index(st.session_state.query_params["type"]))
+        search_type = st.selectbox("Típus keresése", types, index=types.index(st.session_state.query_params["type"]) if st.session_state.query_params["type"] in types else 0)
         if search_type == "Egyéb": 
             specific_type = st.selectbox("Specifikálás (Egyéb)", sub_types)
             if specific_type == "Egyéb":
@@ -73,7 +73,7 @@ def search_section():
     age_filter_active = st.checkbox("Életkor keresése (intervallum)", value=st.session_state.query_params["age_filter_active"])
     if age_filter_active:
         try:
-            age_value = int(st.session_state.query_params["age"]) if st.session_state.query_params["age"] else (0, 120)
+            age_value = eval(st.session_state.query_params["age"]) if st.session_state.query_params["age"] else (0, 120)
         except ValueError:
             age_value = (0, 120)
         search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=age_value, step=1, format="%d")
