@@ -73,9 +73,9 @@ def search_section():
 
     if age_filter_active:
         if search_age_group == "Gyermek":
-            search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=18, value=(0, 18), step=1, format="%d", disabled=True)
+            search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=18, value=(0, 18), step=1, format="%d")
         elif search_age_group == "Felnőtt":
-            search_age = st.slider("Életkor keresése (intervallum)", min_value=19, max_value=120, value=(19, 120), step=1, format="%d", disabled=True)
+            search_age = st.slider("Életkor keresése (intervallum)", min_value=19, max_value=120, value=(19, 120), step=1, format="%d")
         else:
             try:
                 age_value = eval(st.session_state.query_params["age"]) if st.session_state.query_params["age"] else (0, 120)
