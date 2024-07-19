@@ -71,19 +71,19 @@ def search_section():
     age_filter_active = st.checkbox("Életkor keresése (intervallum)", value=st.session_state.query_params["age_filter_active"])
     search_age_group = st.selectbox("Életkori csoport keresése", ["", "Gyermek", "Felnőtt"], index=["", "Gyermek", "Felnőtt"].index(st.session_state.query_params["age_group"]))
 
-    if search_age_group == "Gyermek":
-        search_age = (0, 18)
-    elif search_age_group == "Felnőtt":
-        search_age = (19, 120)
-    else:
-        if age_filter_active:
+    if age_filter_active:
+        if search_age_group == "Gyermek":
+            search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=18, value=(0, 18), step=1, format="%d", disabled=True)
+        elif search_age_group == "Felnőtt":
+            search_age = st.slider("Életkor keresése (intervallum)", min_value=19, max_value=120, value=(19, 120), step=1, format="%d", disabled=True)
+        else:
             try:
                 age_value = eval(st.session_state.query_params["age"]) if st.session_state.query_params["age"] else (0, 120)
             except ValueError:
                 age_value = (0, 120)
             search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=age_value, step=1, format="%d")
-        else:
-            search_age = None
+    else:
+        search_age = None
 
     col7, col8 = st.columns(2)
     with col7:
