@@ -90,6 +90,30 @@ def download_file(url):
     response = requests.get(url)
     return response.content
     
+def get_counts():
+    counts = {
+        "Felső végtag": {"Váll": {},  "Felkar": {}, "Könyök": {},"Alkar": {}, "Csukló": {}, "Kéz": {}},
+        "Alsó végtag": {"Csípő": {}, "Comb": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
+        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}},
+        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}},
+        "Mellkas": {"Borda": {}, "Sternum": {}, "Kulcscsont": {}, "Tüdő": {}, "Szív": {}},
+        "Has": {"Máj": {}, "Lép": {}, "Vese": {}, "Bél": {}, "Hólyag": {}}
+    }
+    views = ["AP", "Lateral"]
+    types = ["Normál", "Törött"]
+
+    data = []
+
+    for main_region in counts:
+        for sub_region in counts[main_region]:
+            for view in views:
+                for type in types:
+                    docs = db.collection('images').where('main_region', '==', main_region).where('sub_region', '==', sub_region).where('view', '==', view).where('type', '==', type).stream()
+                    count = len(list(docs))
+                    counts[main_region][sub_region][f"{type}_{view}"] = count
+                    data.append([main_region, sub_region, view, type, count])
+    return counts, data
+    
 
 def get_progress_summary(counts):
     summary = {}
