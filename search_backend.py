@@ -111,16 +111,14 @@ def perform_search(query_params):
 
             st.markdown('<div class="button-container">', unsafe_allow_html=True)
             if st.button("Összes találat letöltése ZIP-ben"):
-                # Show information about the files before creating the zip
                 num_files = len(all_docs)
                 st.write(f"Fájlok száma: {num_files}")
-                # Calculate total size (dummy calculation, replace with actual size calculation if needed)
-                total_size_mb = num_files * 0.1  # Assuming each file is approximately 0.1 MB
+                total_size_mb = num_files * 0.1
                 st.write(f"Becsült teljes méret: {total_size_mb:.2f} MB")
                 
                 st.write("A ZIP fájl készítése folyamatban...")
 
-                zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])  # Include metadata in the zip
+                zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])
                 st.download_button(
                     label="Letöltés",
                     data=zip_buffer,
@@ -130,5 +128,3 @@ def perform_search(query_params):
             st.markdown('</div>', unsafe_allow_html=True)
     except GoogleAPICallError as e:
         st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
-
-
