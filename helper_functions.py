@@ -98,11 +98,11 @@ def style_markdown():
 
 def select_subregion(main_reg):
     regions = {
-        "Felső végtag": ["", "Váll", "Kar", "Könyök", "Alkar", "Csukló", "Kéz"],
-        "Alsó végtag": ["", "Medence", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
-        "Gerinc": ["", "Nyaki", "Háti", "Ágyéki", "Sacralis", "Coccygealis"],
-        "Koponya": ["", "Arckoponya", "Agykoponya", "Állkapocs"],
-        "Mellkas": ["", "Borda", "Sternum", "Kulcscsont", "Tüdő", "Szív"],
+        "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
+        "Alsó végtag": ["", "Medence", "Pelvis", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
+        "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbaris", "Sacralis", "Coccygealis"],
+        "Koponya": ["", "Arckoponya", "Agykoponya", "Mandibula"],
+        "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív"],
         "Has": ["", "Máj", "Lép", "Vese", "Bél", "Hólyag"]
     }
     return st.selectbox("Régió keresése", regions.get(main_reg, [""]))
@@ -110,38 +110,37 @@ def select_subregion(main_reg):
 def select_sub_subregion(sub_reg):
     sub_regions = {
         "Váll": ["", "Clavicula", "Scapula", "Humerus fej", "Proximális humerus", "Humerus nyak"],
-        "Kar": ["", "Humerus szár"],
-        "Könyök": ["", "Distalis humerus", "Humerus condylus", "Epicondylus", "Capitellum", "Olecranon", "Supracondylaris", "Coronoid processus"],
+        "Humerus": ["", "Humerus diaphysis"],
+        "Könyök": ["", "Distalis humerus", "Supracondylaris", "Humerus condylus", "Epicondylus", "Capitellum", "Olecranon", "Coronoid processus"],
         "Alkar": ["", "Ulna", "Radius", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
-        "Csukló": ["", "Distalis radius", "Distalis ulna"],
-        "Kéz": ["", "Metacarpalis", "Hüvelykujj", "Phalanx"],
-        "Medence": ["", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Pelvic insufficiency", "Anterior inferior iliac spine avulsion", "Duverney", "Open book", "Pubic rami", "Anterior superior iliac spine (ASIS) avulsion"],
-        "Csípő": ["", "Acetabular", "Femoral head", "Femoral neck", "Trochanteric"],
-        "Femur": ["", "Mid-shaft", "Bisphosphonate-related", "Distal femoral"],
-        "Térd": ["", "Avulsion", "Patellar", "Tibial plateau"],
-        "Lábszár": ["", "Tibial tuberosity avulsion", "Tibial shaft", "Fibular shaft", "Maisonneuve"],
-        "Boka": ["", "Bimalleolar", "Trimalleolar", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
-        "Láb": ["", "Tarsal bones", "Metatarsal bones", "Toes"]
+        "Csukló": ["", "Distalis radius", "Distalis ulna", "Carpus"],
+        "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
+        "Pelvis": ["", "Ramus Pubicus ",  "Anterior inferior iliac csípőtövis avulsio",  "Anterior superior csípőtövis (ASIS) avulsion", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
+        "Csípő": ["", "Acetabulum", "Femur fej", "Femur nyak", "Trochanterikus"],
+        "Femur": ["", "Femur diaphysis", "Distalis femur", "Bisphosphonáthoz kapcsolódó"],
+        "Térd": ["", "Avulsio", "Patella", "Tibia plateau"],
+        "Lábszár": ["", "Tibialis tuberositas avulsio", "Tibia diaphysis", "Fibula diaphysis", "Maisonneuve"],
+        "Boka": ["", "Bimallleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
+        "Láb": ["", "Tarsus", "Metatarsus ", "Lábujjak"]
     }
     return st.selectbox("Alrégió keresése", sub_regions.get(sub_reg, [""]))
-
+    
 def select_sub_sub_subregion(sub_sub_reg):
     sub_sub_regions = {
         "Clavicula": ["", "Sternoclavicularis", "Középső szakasz", "Acromioclavicularis"],
         "Scapula": ["", "Acromion", "Coracoid processus", "Glenoid"],
         "Humerus fej": ["", "Hill-Sachs", "Fordított Hill-Sachs"],
-        "Humerus condylus": ["", "Lateralis", "Medialis"],
-        "Epicondylus": ["", "Medialis", "Lateralis"],
+        "Humerus condylus", "Epicondylus": ["", "Medialis", "Lateralis"],
         "Supracondylaris": ["", "Extensio", "Flexio"],
         "Distalis radius": ["", "Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"],
-        "Carpalis csontok": ["", "Scaphoid", "Lunate", "Capitate", "Triquetral", "Pisiform", "Hamate", "Trapezoid", "Trapezium"],
-        "Metacarpalis": ["", "Boxer", "Fordított Bennett"],
-        "Hüvelykujj": ["", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
-        "Phalanx": ["", "Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsion", "Pilon", "Proximális phalanx"],
-        "Femoral neck": ["", "Subcapital", "Transcervical", "Basicervical"],
-        "Trochanteric": ["", "Pertrochanteric", "Intertrochanteric", "Subtrochanteric"],
-        "Avulsion": ["", "Segond", "Reverse Segond", "Anterior cruciate ligament avulsion", "Posterior cruciate ligament avulsion", "Arcuate complex avulsion (arcuate sign)", "Biceps femoris avulsion", "Iliotibial band avulsion", "Semimembranosus tendon avulsion", "Stieda (MCL avulsion fracture)"],
-        "Tarsal bones": ["", "Chopart", "Calcaneal", "Lover's", "Calcaneal tuberosity avulsion", "Talar", "Talar body", "Talar dome osteochondral", "Posterior talar process", "Lateral talar process", "Talar neck", "Aviator astragalus", "Talar head", "Navicular", "Medial cuneiform", "Intermediate cuneiform", "Lateral cuneiform", "Cuboid"],
-        "Metatarsal bones": ["", "March", "Lisfranc fracture-dislocation", "Stress fracture of the 5th metatarsal", "Jones", "Pseudo-Jones", "Avulsion fracture of the proximal 5th metatarsal"]
+        "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapezoidum", "Trapezium"],
+        "Metacarpus": ["", "Boxer", "Fordított Bennett"],
+        "Pollex": ["", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
+        "Phalanx": ["", "Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsio", "Pilon", "Proximális phalanx"],
+        "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
+        "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
+        "Avulsio": ["", "Segond", "Fordított Segond", "Anterior cruciatum ligamentum avulsio", "Posterior cruciatum ligamentum avulsio", "Arcuatus komplex avulsio (arcuatus jel)"", "Biceps femoris avulsio", "Iliotibial ligamentum avulsio", "Semimembranosus tendon avulsio", "Stieda (MCL avulsion fracture)"],
+        "Tarsus": ["", "Chopart", "Calcaneus", "Lover's", "Calcaneus tuberositas avulsio", "Talus test", "Talus kupola osteochondralis", "Posterior talus processus", "Lateralis talus processus", "Talus nyak", "Aviator astragalus", "Talus fej", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboid"],
+        "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "Az 5. metatarsus stressz törés", "Jones", "Pseudo-Jones", "Az 5. metatarsus proximalis avulsiós törés"]
     }
     return st.selectbox("Részletes régió keresése", sub_sub_regions.get(sub_sub_reg, [""]))
