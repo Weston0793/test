@@ -74,11 +74,9 @@ def main():
         col1, col2 = st.columns(2)
         with col1:
             type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="type")
-            if type == "Egyéb": 
-                type = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis", "Cysta", "Genetikai/Veleszületett", "Egyéb"])
-                if type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
-                    type = st.text_input("Adja meg a specifikus típust (Egyéb)")
-        
+            if type == "Egyéb":
+                type = st.text_input("Adja meg a specifikus típust (Egyéb)")
+
         with col2:
             view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
             if view == "Egyéb":
@@ -86,25 +84,51 @@ def main():
                 if view == "Speciális":
                     view = st.text_input("Adja meg a specifikus nézetet (Speciális)")
 
-        if type != "Normál":
-            complications = st.multiselect("Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"])
-            associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Rheumatoid Arthritis", "Cysta", "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"])
+        main_region = "Felső végtag"
+        sub_region = st.selectbox("Fő régió", ["Váll", "Kar", "Könyök", "Alkar", "Csukló", "Kéz"])
 
-        col3, col4 = st.columns(2)
-        with col3:
-            main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya"])
+        sub_sub_region = ""
+        sub_sub_sub_region = ""
 
-        with col4:
-            if main_region == "Felső végtag":
-                sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Váll", "Humerus", "Könyök", "Radius", "Ulna", "Csukló", "Kéz"])
-            elif main_region == "Alsó végtag":
-                sub_region = st.selectbox("Alrégió", ["Csípő", "Comb", "Térd", "Tibia", "Fibula", "Boka", "Láb"])
-            elif main_region == "Gerinc":
-                sub_region = st.selectbox("Alrégió", ["Nyaki", "Háti", "Ágyéki", "Kereszt- és farokcsonti"])
-            elif main_region == "Koponya":
-                sub_region = st.selectbox("Alrégió", ["Arckoponya", "Agykoponya", "Állkapocs"])
-            else:
-                sub_region = ""
+        if sub_region == "Váll":
+            sub_sub_region = st.selectbox("Alrégió", ["Clavicula", "Scapula", "Humerus fej", "Proximális humerus", "Humerus nyak"])
+            if sub_sub_region == "Clavicula":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Sternoclavicularis", "Középső szakasz", "Acromioclavicularis"])
+            elif sub_sub_region == "Scapula":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Acromion", "Coracoid processus", "Glenoid"])
+            elif sub_sub_region == "Humerus fej":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Hill-Sachs", "Fordított Hill-Sachs"])
+
+        elif sub_region == "Kar":
+            sub_sub_region = st.selectbox("Alrégió", ["Humerus szár"])
+
+        elif sub_region == "Könyök":
+            sub_sub_region = st.selectbox("Alrégió", ["Distalis humerus", "Humerus condylus", "Epicondylus", "Capitellum", "Olecranon", "Supracondylaris", "Coronoid processus"])
+            if sub_sub_region == "Humerus condylus":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Lateralis", "Medialis"])
+            elif sub_sub_region == "Epicondylus":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Medialis", "Lateralis"])
+            elif sub_sub_region == "Supracondylaris":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Extensio", "Flexio"])
+
+        elif sub_region == "Alkar":
+            sub_sub_region = st.selectbox("Alrégió", ["Ulna", "Radius", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"])
+
+        elif sub_region == "Csukló":
+            sub_sub_region = st.selectbox("Alrégió", ["Distalis radius", "Distalis ulna"])
+            if sub_sub_region == "Distalis radius":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"])
+            elif sub_sub_region == "Carpalis csontok":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Scaphoid", "Lunate", "Capitate", "Triquetral", "Pisiform", "Hamate", "Trapezoid", "Trapezium"])
+
+        elif sub_region == "Kéz":
+            sub_sub_region = st.selectbox("Alrégió", ["Metacarpalis", "Hüvelykujj", "Phalanx"])
+            if sub_sub_region == "Metacarpalis":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Boxer", "Fordított Bennett"])
+            elif sub_sub_region == "Hüvelykujj":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"])
+            elif sub_sub_region == "Phalanx":
+                sub_sub_sub_region = st.selectbox("Részletes régió", ["Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsion", "Pilon", "Proximális phalanx"])
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
@@ -118,22 +142,23 @@ def main():
             st.session_state["confirm_data"] = None
 
         if st.button("Feltöltés"):
-            if uploaded_file and type and view and main_region and sub_region:
-                upload_data = {
-                    "patient_id": patient_id,
-                    "type": type,
-                    "view": view,
-                    "main_region": main_region,
-                    "sub_region": sub_region,
-                    "age": age,
-                    "age_group": age_group,
-                    "comment": comment,
-                    "file": uploaded_file,
-                    "complications": complications if type != "Normál" else [],
-                    "associated_conditions": associated_conditions if type != "Normál" else []
-                }
-                st.session_state["confirm_data"] = upload_data
-                st.rerun()
+            upload_data = {
+                "patient_id": patient_id,
+                "type": type,
+                "view": view,
+                "main_region": main_region,
+                "sub_region": sub_region,
+                "sub_sub_region": sub_sub_region,
+                "sub_sub_sub_region": sub_sub_sub_region if type != "Normál" else "",
+                "age": age,
+                "age_group": age_group,
+                "comment": comment,
+                "file": uploaded_file,
+                "complications": complications if type != "Normál" else [],
+                "associated_conditions": associated_conditions if type != "Normál" else []
+            }
+            st.session_state["confirm_data"] = upload_data
+            st.rerun()
 
         if st.session_state["confirm_data"]:
             confirm_and_upload_data(st.session_state["confirm_data"])
@@ -143,4 +168,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
