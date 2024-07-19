@@ -93,11 +93,9 @@ def download_file(url):
 def get_counts():
     counts = {
         "Felső végtag": {"Váll": {},  "Felkar": {}, "Könyök": {},"Alkar": {}, "Csukló": {}, "Kéz": {}},
-        "Alsó végtag": {"Csípő": {}, "Comb": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
-        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}},
+        "Alsó végtag": {"Medence": {}, "Csípő": {}, "Comb": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
+        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}, "Sacralis": {}, "Coccygealis": {}},
         "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}},
-        "Mellkas": {"Borda": {}, "Sternum": {}, "Kulcscsont": {}, "Tüdő": {}, "Szív": {}},
-        "Has": {"Máj": {}, "Lép": {}, "Vese": {}, "Bél": {}, "Hólyag": {}}
     }
     views = ["AP", "Lateral"]
     types = ["Normál", "Törött"]
