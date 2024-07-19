@@ -73,10 +73,8 @@ def search_section():
 
     if search_age_group == "Gyermek":
         search_age = (0, 18)
-        age_filter_active = False
     elif search_age_group == "Felnőtt":
         search_age = (19, 120)
-        age_filter_active = False
     else:
         if age_filter_active:
             try:
