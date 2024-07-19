@@ -9,6 +9,8 @@ def perform_search(query_params):
     search_view = query_params.get("view", "")
     search_main_region = query_params.get("main_region", "")
     search_sub_region = query_params.get("sub_region", "")
+    search_sub_sub_region = query_params.get("sub_sub_region", "")
+    search_sub_sub_sub_region = query_params.get("sub_sub_sub_region", "")
     search_complications = query_params.get("complications", [])
     search_associated_conditions = query_params.get("associated_conditions", [])
     age_filter_active = query_params.get("age_filter_active", False)
@@ -29,6 +31,10 @@ def perform_search(query_params):
         query_filters.append(('main_region', '==', search_main_region))
     if search_sub_region:
         query_filters.append(('sub_region', '==', search_sub_region))
+    if search_sub_sub_region:
+        query_filters.append(('sub_sub_region', '==', search_sub_sub_region))
+    if search_sub_sub_sub_region:
+        query_filters.append(('sub_sub_sub_region', '==', search_sub_sub_sub_region))
     if search_complications:
         for complication in search_complications:
             query_filters.append(('complications', 'array_contains', complication))
