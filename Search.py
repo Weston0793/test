@@ -48,6 +48,8 @@ def search_section():
             if specific_type == "Egyéb":
                 specific_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
             search_type = specific_type
+        else:
+            search_type = st.session_state.query_params["type"]
     with col2:
         if st.session_state.query_params["view"] not in views:
             st.session_state.query_params["view"] = views[0]
