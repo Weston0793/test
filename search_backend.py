@@ -41,7 +41,14 @@ def perform_search(query_params):
     if search_associated_conditions:
         for condition in search_associated_conditions:
             query_filters.append(('associated_conditions', 'array_contains', condition))
-    if search_age is not None:
+    if search_age_group:
+        if search_age_group == "Gyermek":
+            query_filters.append(('age', '>=', 0))
+            query_filters.append(('age', '<=', 18))
+        elif search_age_group == "Felnőtt":
+            query_filters.append(('age', '>=', 19))
+            query_filters.append(('age', '<=', 120))
+    elif search_age is not None:
         if isinstance(search_age, tuple):
             query_filters.append(('age', '>=', search_age[0]))
             query_filters.append(('age', '<=', search_age[1]))
@@ -109,22 +116,4 @@ def perform_search(query_params):
                         )
                         st.experimental_rerun()
 
-            st.markdown('<div class="button-container">', unsafe_allow_html=True)
-            if st.button("Összes találat letöltése ZIP-ben"):
-                num_files = len(all_docs)
-                st.write(f"Fájlok száma: {num_files}")
-                total_size_mb = num_files * 0.1
-                st.write(f"Becsült teljes méret: {total_size_mb:.2f} MB")
-                
-                st.write("A ZIP fájl készítése folyamatban...")
-
-                zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])
-                st.download_button(
-                    label="Letöltés",
-                    data=zip_buffer,
-                    file_name="all_images.zip",
-                    mime="application/zip"
-                )
-            st.markdown('</div>', unsafe_allow_html=True)
-    except GoogleAPICallError as e:
-        st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
+            st.markdown('<div class="button-container">', unsafe_allow_html
