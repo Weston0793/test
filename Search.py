@@ -46,8 +46,6 @@ def search_section():
             if specific_type == "Egyéb":
                 specific_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
             search_type = specific_type
-        else:
-            search_type = search_type
     with col2:
         if st.session_state.query_params["view"] not in views:
             st.session_state.query_params["view"] = views[0]
@@ -71,16 +69,16 @@ def search_section():
     search_associated_conditions = st.multiselect("Társuló Kórállapotok keresése", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Rheumatoid Arthritis", "Cysta", "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"], default=st.session_state.query_params["associated_conditions"])
 
     age_filter_active = st.checkbox("Életkor keresése (intervallum)", value=st.session_state.query_params["age_filter_active"])
-    if age_filter_active:
-        try:
-            age_value = eval(st.session_state.query_params["age"]) if st.session_state.query_params["age"] else (0, 120)
-        except ValueError:
-            age_value = (0, 120)
-        search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=age_value, step=1, format="%d")
-    else:
-        search_age = None
-
     search_age_group = st.selectbox("Életkori csoport keresése", ["", "Gyermek", "Felnőtt"], index=["", "Gyermek", "Felnőtt"].index(st.session_state.query_params["age_group"]))
+
+    if search_age_group == "Gyermek":
+        search_age = (0, 18)
+        age_filter_active = False
+    elif search_age_group == "Felnőtt":
+        search_age = (19, 120)
+        age_filter_active = False
+    else:
+        search_age = st.slider("Életkor keresése (intervallum)", min_value=0, max_value=120, value=(0, 120), step=1, format="%d")
 
     col7, col8 = st.columns(2)
     with col7:
@@ -113,6 +111,3 @@ def search_section():
 
     if st.session_state.search_button_clicked:
         perform_search(st.session_state.query_params)
-
-if __name__ == "__main__":
-    search_section()
