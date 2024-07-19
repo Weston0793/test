@@ -40,6 +40,10 @@ def search_section():
     col1, col2 = st.columns(2)
     with col1:
         search_type = st.selectbox("Típus keresése", types, index=types.index(st.session_state.query_params["type"]))
+            if type == "Egyéb": 
+                type = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta",  "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis","Genetikai/Veleszületett", "Egyéb"])
+                if type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
+                    type = st.text_input("Adja meg a specifikus típust (Egyéb)")
     with col2:
         search_view = st.selectbox("Nézet keresése", views, index=views.index(st.session_state.query_params["view"]))
 
