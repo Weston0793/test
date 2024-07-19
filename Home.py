@@ -145,10 +145,8 @@ def main():
             sub_sub_sub_region_options = ["Acromion", "Coracoid processus", "Glenoid"]
         elif sub_sub_region == "Humerus fej":
             sub_sub_sub_region_options = ["Hill-Sachs", "Fordított Hill-Sachs"]
-        elif sub_sub_region == "Humerus condylus":
+        elif sub_sub_region in ["Humerus condylus", "Epicondylus"]:
             sub_sub_sub_region_options = ["Lateralis", "Medialis"]
-        elif sub_sub_region == "Epicondylus":
-            sub_sub_sub_region_options = ["Medialis", "Lateralis"]
         elif sub_sub_region == "Supracondylaris":
             sub_sub_sub_region_options = ["Extensio", "Flexio"]
         elif sub_sub_region == "Distalis radius":
