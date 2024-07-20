@@ -130,7 +130,8 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Clavicula": ["", "Sternoclavicularis", "Középső szakasz", "Acromioclavicularis"],
         "Scapula": ["", "Acromion", "Coracoid processus", "Glenoid"],
         "Humerus fej": ["", "Hill-Sachs", "Fordított Hill-Sachs"],
-        "Humerus condylus", "Epicondylus": ["", "Medialis", "Lateralis"],
+        "Humerus condylus": ["", "Medialis", "Lateralis"],
+        "Epicondylus": ["", "Medialis", "Lateralis"],
         "Supracondylaris": ["", "Extensio", "Flexio"],
         "Distalis radius": ["", "Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"],
         "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapezoidum", "Trapezium"],
@@ -139,7 +140,7 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Phalanx": ["", "Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsio", "Pilon", "Proximális phalanx"],
         "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
         "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
-        "Avulsio": ["", "Segond", "Fordított Segond", "Anterior cruciatum ligamentum avulsio", "Posterior cruciatum ligamentum avulsio", "Arcuatus komplex avulsio (arcuatus jel)"", "Biceps femoris avulsio", "Iliotibial ligamentum avulsio", "Semimembranosus tendon avulsio", "Stieda (MCL avulsion fracture)"],
+        "Avulsio": ["", "Segond", "Fordított Segond", "Anterior cruciatum ligamentum avulsio", "Posterior cruciatum ligamentum avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Iliotibial ligamentum avulsio", "Semimembranosus tendon avulsio", "Stieda (MCL avulsion fracture)"],
         "Tarsus": ["", "Chopart", "Calcaneus", "Lover's", "Calcaneus tuberositas avulsio", "Talus test", "Talus kupola osteochondralis", "Posterior talus processus", "Lateralis talus processus", "Talus nyak", "Aviator astragalus", "Talus fej", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboid"],
         "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "Az 5. metatarsus stressz törés", "Jones", "Pseudo-Jones", "Az 5. metatarsus proximalis avulsiós törés"]
     }
