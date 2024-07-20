@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_helpers import initialize_firebase, save_comment
+from firebase_helpers import initialize_firebase, save_comment, get_comments
 import random
 
 def generate_funny_name():
@@ -28,6 +28,26 @@ def main():
             st.success("Köszönjük a hozzászólást!")
         else:
             st.error("A komment mező nem lehet üres!")
+
+    # Display last 5 comments with navigation
+    st.write("### Legutóbbi Kommentek")
+    page = st.session_state.get("page", 0)
+    comments = get_comments(page * 5, 5)
+
+    for c in comments:
+        st.write(f"**{c['name']}**: {c['comment']}")
+
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col1:
+        if st.button("<< Előző", key="prev"):
+            if page > 0:
+                st.session_state.page = page - 1
+    with col2:
+        st.write(f"Oldal: {page + 1}")
+    with col3:
+        if st.button("Következő >>", key="next"):
+            if len(comments) == 5:
+                st.session_state.page = page + 1
 
 if __name__ == "__main__":
     main()
