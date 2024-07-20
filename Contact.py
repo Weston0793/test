@@ -6,8 +6,12 @@ import random
 initialize_firebase()
 
 def generate_funny_name():
-    first_parts = ["Fluffy", "Sparkly", "Wiggly", "Silly", "Funky", "Giggles", "Cheery", "Dizzy", "Bouncy", "Jumpy"]
-    second_parts = ["Penguin", "Banana", "Unicorn", "Muffin", "Pickle", "Cupcake", "Bunny", "Monkey", "Noodle", "Puppy"]
+    first_parts = ["Fluffy", "Sparkly", "Wiggly", "Silly", "Funky", "Giggles", "Cheery", "Dizzy", "Bouncy", "Jumpy",
+                   "Zippy", "Snazzy", "Bubbly", "Quirky", "Jolly", "Peppy", "Giddy", "Chirpy", "Frisky", "Perky",
+                   "Whizzy", "Fizzy", "Nifty", "Ducky", "Zappy", "Chipper", "Jazzy", "Snappy", "Zany"]
+    second_parts = ["Penguin", "Banana", "Unicorn", "Muffin", "Pickle", "Cupcake", "Bunny", "Monkey", "Noodle", "Puppy",
+                    "Sprout", "Pancake", "Mango", "Gizmo", "Taco", "Bubble", "Pudding", "Doodle", "Coconut", "Waffle",
+                    "Marshmallow", "Pepper", "Sundae", "Snickers", "Button", "Tinker", "Pebble", "Cookie", "Biscuit"]
     return f"{random.choice(first_parts)} {random.choice(second_parts)}"
 
 def main():
@@ -27,6 +31,10 @@ def main():
 
     name = st.text_input("Név", value=st.session_state.name)
     comment = st.text_area("Komment")
+
+    if st.button("Új vicces név generálása"):
+        st.session_state.name = generate_funny_name()
+        name = st.session_state.name
 
     if st.button("Küldés"):
         if comment:
