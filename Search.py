@@ -29,6 +29,7 @@ def initialize_session_state():
 
 def search_section():
     initialize_session_state()
+    style_markdown()
     st.markdown('<div class="search-title">Képek keresése</div>', unsafe_allow_html=True)
 
     types = ["", "Normál", "Törött", "Egyéb"]
