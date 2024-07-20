@@ -96,6 +96,12 @@ def save_comment(name, comment):
         'name': name,
         'comment': comment
     })
+    
+def get_comments(start, limit):
+    comments_ref = db.collection('comments').order_by('timestamp', direction=firestore.Query.DESCENDING).offset(start).limit(limit)
+    docs = comments_ref.stream()
+    comments = [{'name': doc.to_dict().get('name'), 'comment': doc.to_dict().get('comment')} for doc in docs]
+    return comments
 
 def get_counts():
     counts = {
@@ -120,8 +126,6 @@ def get_counts():
                     data.append([main_region, sub_region, view, type, count])
     return counts, data
     
-
-        
 def get_progress_summary(counts):
     summary = {}
     for main_region, sub_regions in counts.items():
