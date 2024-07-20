@@ -89,7 +89,14 @@ def create_zip(file_paths, metadata_list=None):
 def download_file(url):
     response = requests.get(url)
     return response.content
-    
+
+def save_comment(name, comment):
+    doc_ref = db.collection('comments').document()
+    doc_ref.set({
+        'name': name,
+        'comment': comment
+    })
+
 def get_counts():
     counts = {
         "Felső végtag": {"Váll": {},  "Humerus": {}, "Könyök": {},"Alkar": {}, "Csukló": {}, "Kéz": {}},
