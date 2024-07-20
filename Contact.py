@@ -29,12 +29,15 @@ def main():
     if 'name' not in st.session_state:
         st.session_state.name = generate_funny_name()
 
-    name = st.text_input("Név", value=st.session_state.name)
-    comment = st.text_area("Komment")
+    col1, col2 = st.columns([4, 1])
+    with col1:
+        name = st.text_input("Név", value=st.session_state.name)
+    with col2:
+        if st.button("Új nevet kérek!"):
+            st.session_state.name = generate_funny_name()
+            name = st.session_state.name
 
-    if st.button("Új vicces név generálása"):
-        st.session_state.name = generate_funny_name()
-        name = st.session_state.name
+    comment = st.text_area("Komment")
 
     if st.button("Küldés"):
         if comment:
