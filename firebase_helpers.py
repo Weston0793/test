@@ -6,6 +6,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore, storage
 import streamlit as st
 import requests
+import datetime
 
 # Initialize Firebase
 def initialize_firebase():
@@ -89,14 +90,15 @@ def create_zip(file_paths, metadata_list=None):
 def download_file(url):
     response = requests.get(url)
     return response.content
-
+    
 def save_comment(name, comment):
     doc_ref = db.collection('comments').document()
     doc_ref.set({
         'name': name,
-        'comment': comment
+        'comment': comment,
+        'timestamp': firestore.SERVER_TIMESTAMP
     })
-    
+
 def get_comments(start, limit):
     comments_ref = db.collection('comments').order_by('timestamp', direction=firestore.Query.DESCENDING).offset(start).limit(limit)
     docs = comments_ref.stream()
