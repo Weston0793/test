@@ -2,6 +2,9 @@ import streamlit as st
 from firebase_helpers import initialize_firebase, save_comment, get_comments
 import random
 
+# Ensure Firebase is initialized
+initialize_firebase()
+
 def generate_funny_name():
     first_parts = ["Fluffy", "Sparkly", "Wiggly", "Silly", "Funky", "Giggles", "Cheery", "Dizzy", "Bouncy", "Jumpy"]
     second_parts = ["Penguin", "Banana", "Unicorn", "Muffin", "Pickle", "Cupcake", "Bunny", "Monkey", "Noodle", "Puppy"]
@@ -19,7 +22,10 @@ def main():
 
     st.write("### Kommentek")
     
-    name = st.text_input("Név", value=generate_funny_name())
+    if 'name' not in st.session_state:
+        st.session_state.name = generate_funny_name()
+
+    name = st.text_input("Név", value=st.session_state.name)
     comment = st.text_area("Komment")
 
     if st.button("Küldés"):
@@ -29,25 +35,32 @@ def main():
         else:
             st.error("A komment mező nem lehet üres!")
 
-    # Display last 5 comments with navigation
+    # Display last comments with navigation
     st.write("### Legutóbbi Kommentek")
-    page = st.session_state.get("page", 0)
-    comments = get_comments(page * 5, 5)
+    
+    if 'page' not in st.session_state:
+        st.session_state.page = 0
 
-    for c in comments:
-        st.write(f"**{c['name']}**: {c['comment']}")
+    page = st.session_state.page
+    comments = get_comments(page * 2, 2)
+
+    if comments:
+        for c in comments:
+            st.write(f"**{c['name']}**: {c['comment']}")
+    else:
+        st.write("Nincsenek kommentek.")
 
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         if st.button("<< Előző", key="prev"):
             if page > 0:
-                st.session_state.page = page - 1
+                st.session_state.page -= 1
     with col2:
         st.write(f"Oldal: {page + 1}")
     with col3:
         if st.button("Következő >>", key="next"):
-            if len(comments) == 5:
-                st.session_state.page = page + 1
+            if len(comments) == 2:
+                st.session_state.page += 1
 
 if __name__ == "__main__":
     main()
