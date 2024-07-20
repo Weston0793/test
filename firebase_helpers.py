@@ -92,10 +92,11 @@ def download_file(url):
     
 def get_counts():
     counts = {
-        "Felső végtag": {"Váll": {},  "Felkar": {}, "Könyök": {},"Alkar": {}, "Csukló": {}, "Kéz": {}},
-        "Alsó végtag": {"Medence": {}, "Csípő": {}, "Comb": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
-        "Gerinc": {"Nyaki": {}, "Háti": {}, "Ágyéki": {}, "Sacralis": {}, "Coccygealis": {}},
-        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Állkapocs": {}},
+        "Felső végtag": {"Váll": {},  "Humerus": {}, "Könyök": {},"Alkar": {}, "Csukló": {}, "Kéz": {}},
+        "Alsó végtag": {"Medence": {}, "Pelvis": {}, "Femur": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
+        "Gerinc": {"Cervicalis": {}, "Thoracalis": {}, "Lumbaris": {}, "Sacralis": {}, "Coccygealis": {}},
+        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Mandibula": {}},
+        "Mellkas": {"Borda": {}, "Sternum": {}},
     }
     views = ["AP", "Lateral"]
     types = ["Normál", "Törött"]
@@ -113,6 +114,7 @@ def get_counts():
     return counts, data
     
 
+        
 def get_progress_summary(counts):
     summary = {}
     for main_region, sub_regions in counts.items():
