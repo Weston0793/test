@@ -136,7 +136,7 @@ def main():
     else:
         grand_total_progress = 0
 
-    st.markdown(f'<div class="grand-total">Grand Total Státusz: {total_done}/{int(total_tasks)} ({grand_total_progress:.1f}%)</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="grand-total">Fázis 1 Státusz: {total_done}/{int(total_tasks)} ({grand_total_progress:.1f}%)</div>', unsafe_allow_html=True)
     st.progress(grand_total_progress / 100)
 
     # Region and subregion progress
