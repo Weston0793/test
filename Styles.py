@@ -40,7 +40,7 @@ def search_markdown():
         """,
         unsafe_allow_html=True,
     )
-def home_markdown():
+def upload_markdown():
     st.markdown(
         """
         <style>
