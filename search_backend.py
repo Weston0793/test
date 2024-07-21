@@ -5,8 +5,12 @@ from google.cloud import firestore
 import uuid
 
 def perform_search(query_params):
-    search_type = query_params.get("type", "")
+    search_type = query_params.get("main_type", "")
+    search_sub_type = query_params.get("sub_type", "")
+    search_sub_sub_type = query_params.get("sub_sub_type", "")
     search_view = query_params.get("view", "")
+    search_sub_view = query_params.get("sub_view", "")
+    search_sub_sub_view = query_params.get("sub_sub_view", "")
     search_main_region = query_params.get("main_region", "")
     search_sub_region = query_params.get("sub_region", "")
     search_sub_sub_region = query_params.get("sub_sub_region", "")
@@ -25,8 +29,16 @@ def perform_search(query_params):
 
     if search_type:
         query_filters.append(('type', '==', search_type))
+    if search_sub_type:
+        query_filters.append(('sub_type', '==', search_sub_type))
+    if search_sub_sub_type:
+        query_filters.append(('sub_sub_type', '==', search_sub_sub_type))
     if search_view:
         query_filters.append(('view', '==', search_view))
+    if search_sub_view:
+        query_filters.append(('sub_view', '==', search_sub_view))
+    if search_sub_sub_view:
+        query_filters.append(('sub_sub_view', '==', search_sub_sub_view))
     if search_main_region:
         query_filters.append(('main_region', '==', search_main_region))
     if search_sub_region:
@@ -80,7 +92,11 @@ def perform_search(query_params):
                 <div class="result-image">
                     <img src="{data['url']}" alt="{data.get('type', 'N/A')}, {data.get('view', 'N/A')}, {data.get('main_region', 'N/A')}, {data.get('sub_region', 'N/A')}" style="width:100%;">
                     <br><strong>Típus: {data.get('type', 'N/A')}</strong>
+                    <br><strong>Specifikus típus: {data.get('sub_type', 'N/A')}</strong>
+                    <br><strong>Legspecifikusabb típus: {data.get('sub_sub_type', 'N/A')}</strong>
                     <br><strong>Nézet: {data.get('view', 'N/A')}</strong>
+                    <br><strong>Specifikus nézet: {data.get('sub_view', 'N/A')}</strong>
+                    <br><strong>Legspecifikusabb nézet: {data.get('sub_sub_view', 'N/A')}</strong>
                     <br><strong>Fő régió: {data.get('main_region', 'N/A')}</strong>
                     <br><strong>Régió: {data.get('sub_region', 'N/A')}</strong>
                     <br><strong>Alrégió: {data.get('sub_sub_region', 'N/A')}</strong>
