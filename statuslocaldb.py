@@ -3,6 +3,8 @@ from firebase_helpers import get_counts, get_progress_summary
 import sqlite3
 import os
 
+DB_PATH = 'status.db'
+
 def create_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
