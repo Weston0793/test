@@ -1,7 +1,8 @@
 import streamlit as st
 from home_backend import handle_file_upload, confirm_and_upload_data
 import uuid
-from helper_functions import style_markdown2, select_subregion, select_sub_subregion, select_sub_sub_subregion
+from helper_functions import select_subregion, select_sub_subregion, select_sub_sub_subregion
+from Styles import upload_markdown
 
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
@@ -9,7 +10,7 @@ def initialize_home_session_state():
 
 def main():
     initialize_home_session_state()
-    style_markdown2()
+    upload_markdown()
     st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
     patient_id = str(uuid.uuid4())
