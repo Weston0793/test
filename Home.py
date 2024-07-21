@@ -1,17 +1,23 @@
 import streamlit as st
 from home_backend import handle_file_upload, confirm_and_upload_data
 import uuid
-from helper_functions import select_subregion, select_sub_subregion, select_sub_sub_subregion
+from helper_functions import (
+    select_main_type, select_view, select_main_region, 
+    select_subregion, select_sub_subregion, select_sub_sub_subregion, 
+    select_complications, select_associated_conditions
+)
 from Styles import upload_markdown
 
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
 
+def upload_markdown():
+    st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
+
 def main():
     initialize_home_session_state()
     upload_markdown()
-    st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
     patient_id = str(uuid.uuid4())
     st.text_input("Beteg azonosító", patient_id, disabled=True)
@@ -25,36 +31,26 @@ def main():
     if uploaded_file:
         col1, col2 = st.columns(2)
         with col1:
-            type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="type")
-            if type == "Egyéb": 
-                type = st.selectbox("Specifikálás (Egyéb)", ["Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta",  "Malignus Tumor", "Benignus Tumor", "Metastasis", "Rheumatoid Arthritis","Genetikai/Veleszületett", "Egyéb"])
-                if type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
-                    type = st.text_input("Adja meg a specifikus típust (Egyéb)")
+            main_type, sub_type, sub_sub_type = select_main_type()
 
         with col2:
-            view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
-            if view == "Egyéb":
-                view = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
-                if view == "Speciális":
-                    view = st.text_input("Adja meg a specifikus nézetet (Speciális)")
+            view, sub_view, sub_sub_view = select_view()
 
-        # Main and sub region in one row
         col3, col4 = st.columns(2)
         with col3:
-            main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
+            main_region = select_main_region()
         with col4:
             sub_region = select_subregion(main_region)
 
-        # Sub-subregion and sub-sub-subregion in one row
         col5, col6 = st.columns(2)
         with col5:
             sub_sub_region = select_sub_subregion(sub_region)
         with col6:
             sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
 
-        if type != "Normál":
-            complications = st.multiselect("Komplikációk (többet is választhat)", ["Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"])
-            associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", ["Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", "Rheumatoid Arthritis",  "Metastasis", "Malignus Tumor", "Benignus Tumor", "Genetikai"])
+        if main_type != "Normál":
+            complications = select_complications()
+            associated_conditions = select_associated_conditions()
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
@@ -67,18 +63,22 @@ def main():
         if st.button("Feltöltés"):
             upload_data = {
                 "patient_id": patient_id,
-                "type": type,
+                "main_type": main_type,
+                "sub_type": sub_type,
+                "sub_sub_type": sub_sub_type,
                 "view": view,
+                "sub_view": sub_view,
+                "sub_sub_view": sub_sub_view,
                 "main_region": main_region,
-                "sub_region": sub_region if type != "Normál" else "",
+                "sub_region": sub_region if main_type != "Normál" else "",
                 "sub_sub_region": sub_sub_region if sub_sub_region != "NA" else "",
                 "sub_sub_sub_region": sub_sub_sub_region if sub_sub_sub_region != "NA" else "",
                 "age": age,
                 "age_group": age_group,
                 "comment": comment,
                 "file": uploaded_file,
-                "complications": complications if type != "Normál" else [],
-                "associated_conditions": associated_conditions if type != "Normál" else []
+                "complications": complications if main_type != "Normál" else [],
+                "associated_conditions": associated_conditions if main_type != "Normál" else []
             }
             st.session_state.confirm_data = upload_data
             st.experimental_rerun()
