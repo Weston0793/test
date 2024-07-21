@@ -5,7 +5,7 @@ import uuid
 from google.api_core.exceptions import GoogleAPICallError
 from search_backend import perform_search
 from helper_functions import (
-    select_main_type, select_view, select_subregion, 
+    select_main_type, select_view, select_main_region, select_subregion, 
     select_sub_subregion, select_sub_sub_subregion, select_complications, select_associated_conditions
 )
 from Styles import search_markdown
