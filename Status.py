@@ -3,7 +3,7 @@ from firebase_helpers import get_counts, get_progress_summary
 import sqlite3
 import os
 from Styles import status_markdown
-from statuslocaldb import create_db, update_db, fetch_from_db
+from statuslocaldb import create_db, update_db, fetch_from_db, fetch_summary_from_db
 
 DB_PATH = 'status.db'
 
