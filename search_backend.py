@@ -86,31 +86,23 @@ def perform_search(query_params):
             end_idx = start_idx + items_per_page
             page_docs = all_docs[start_idx:end_idx]
 
-            for doc in page_docs:
-                data = doc.to_dict()
-                display_data = f"""
-                <div class="result-image">
-                    <img src="{data['url']}" alt="{data.get('type', 'N/A')}, {data.get('view', 'N/A')}, {data.get('main_region', 'N/A')}, {data.get('sub_region', 'N/A')}" style="width:100%;">
-                    <br><strong>Típus: {data.get('main_type', 'N/A')}</strong>
-                    <br><strong>Specifikus típus: {data.get('sub_type', 'N/A')}</strong>
-                    <br><strong>Legspecifikusabb típus: {data.get('sub_sub_type', 'N/A')}</strong>
-                    <br><strong>Nézet: {data.get('view', 'N/A')}</strong>
-                    <br><strong>Specifikus nézet: {data.get('sub_view', 'N/A')}</strong>
-                    <br><strong>Legspecifikusabb nézet: {data.get('sub_sub_view', 'N/A')}</strong>
-                    <br><strong>Fő régió: {data.get('main_region', 'N/A')}</strong>
-                    <br><strong>Régió: {data.get('sub_region', 'N/A')}</strong>
-                    <br><strong>Alrégió: {data.get('sub_sub_region', 'N/A')}</strong>
-                    <br><strong>Részletes régió: {data.get('sub_sub_sub_region', 'N/A')}</strong>
-                    <br><strong>Életkor: {data.get('age', 'N/A')}</strong>
-                    <br><strong>Életkori csoport: {data.get('age_group', 'N/A')}</strong>
-                    <br><strong>Megjegyzés: {data.get('comment', 'N/A')}</strong>
-                    <br><strong>Komplikációk: {", ".join(data.get('complications', []))}</strong>
-                    <br><strong>Társuló Kórállapotok: {", ".join(data.get('associated_conditions', []))}</strong>
-                </div>
-                """
-                st.markdown(display_data, unsafe_allow_html=True)
-                file_paths.append(data['url'])
-                metadata_list.append(data)
+            col1, col2 = st.columns(2)
+            with col1:
+                for idx, doc in enumerate(page_docs):
+                    if idx % 2 == 0:
+                        data = doc.to_dict()
+                        display_data = format_data(data)
+                        st.markdown(display_data, unsafe_allow_html=True)
+                        file_paths.append(data['url'])
+                        metadata_list.append(data)
+            with col2:
+                for idx, doc in enumerate(page_docs):
+                    if idx % 2 != 0:
+                        data = doc.to_dict()
+                        display_data = format_data(data)
+                        st.markdown(display_data, unsafe_allow_html=True)
+                        file_paths.append(data['url'])
+                        metadata_list.append(data)
 
             st.write(f"Összesen {total_docs} találat. Oldal: {page} / {total_pages}")
 
@@ -149,3 +141,29 @@ def perform_search(query_params):
             st.markdown('</div>', unsafe_allow_html=True)
     except GoogleAPICallError as e:
         st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
+
+def format_data(data):
+    def format_field(label, value):
+        return f"<br><strong>{label}: {value}</strong>" if value not in [None, 'N/A', [], ''] else ""
+
+    display_data = f"""
+    <div class="result-image">
+        <img src="{data['url']}" alt="{data.get('type', 'N/A')}, {data.get('view', 'N/A')}, {data.get('main_region', 'N/A')}, {data.get('sub_region', 'N/A')}" style="width:100%;">
+        {format_field('Típus', data.get('main_type'))}
+        {format_field('Specifikus típus', data.get('sub_type'))}
+        {format_field('Legspecifikusabb típus', data.get('sub_sub_type'))}
+        {format_field('Nézet', data.get('view'))}
+        {format_field('Specifikus nézet', data.get('sub_view'))}
+        {format_field('Legspecifikusabb nézet', data.get('sub_sub_view'))}
+        {format_field('Fő régió', data.get('main_region'))}
+        {format_field('Régió', data.get('sub_region'))}
+        {format_field('Alrégió', data.get('sub_sub_region'))}
+        {format_field('Részletes régió', data.get('sub_sub_sub_region'))}
+        {format_field('Életkor', data.get('age'))}
+        {format_field('Életkori csoport', data.get('age_group'))}
+        {format_field('Megjegyzés', data.get('comment'))}
+        {format_field('Komplikációk', ", ".join(data.get('complications', [])))}
+        {format_field('Társuló Kórállapotok', ", ".join(data.get('associated_conditions', [])))}
+    </div>
+    """
+    return display_data
