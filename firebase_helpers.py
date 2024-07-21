@@ -121,18 +121,18 @@ def get_counts():
         "Mellkas": {"Borda": {}, "Sternum": {}},
     }
     views = ["AP", "Lateral"]
-    types = ["Normál", "Törött"]
+    main_types = ["Normál", "Törött"]
 
     data = []
 
     for main_region in counts:
         for sub_region in counts[main_region]:
             for view in views:
-                for type in types:
+                for main_type in main_types:
                     docs = db.collection('images').where('main_region', '==', main_region).where('sub_region', '==', sub_region).where('view', '==', view).where('type', '==', type).stream()
                     count = len(list(docs))
                     counts[main_region][sub_region][f"{type}_{view}"] = count
-                    data.append([main_region, sub_region, view, type, count])
+                    data.append([main_region, sub_region, view, main_type, count])
     return counts, data
     
 def get_progress_summary(counts):
