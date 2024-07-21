@@ -9,7 +9,7 @@ DB_PATH = 'status.db'
 
 
 def main():
-    st.status_markdown()
+    status_markdown()
     st.markdown('<div class="tracker-title">Státusz követése</div>', unsafe_allow_html=True)
     st.markdown('<div class="update-note">Kérjük, várjon kb. 10 másodpercet a frissítéshez</div>', unsafe_allow_html=True)
 
