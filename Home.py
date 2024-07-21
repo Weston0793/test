@@ -15,6 +15,7 @@ def initialize_home_session_state():
 def main():
     initialize_home_session_state()
     upload_markdown()
+    st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
     patient_id = str(uuid.uuid4())
     st.text_input("Beteg azonosító", patient_id, disabled=True)
