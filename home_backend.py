@@ -17,12 +17,23 @@ def confirm_and_upload_data(upload_data):
     st.markdown('<div class="confirmation-box">', unsafe_allow_html=True)
     st.markdown('<div class="confirmation-title">Kérlek, a feltöltéshez erősítsd meg a következő adatokat:</div>', unsafe_allow_html=True)
     st.markdown(f'**Beteg azonosító:** {upload_data["patient_id"]}')
-    st.markdown(f'**Típus:** {upload_data["type"]}')
+    st.markdown(f'**Típus:** {upload_data["main_type"]}')
+    if upload_data["sub_type"]:
+        st.markdown(f'**Specifikus típus:** {upload_data["sub_type"]}')
+    if upload_data["sub_sub_type"]:
+        st.markdown(f'**Legspecifikusabb típus:** {upload_data["sub_sub_type"]}')
     st.markdown(f'**Nézet:** {upload_data["view"]}')
+    if upload_data["sub_view"]:
+        st.markdown(f'**Specifikus nézet:** {upload_data["sub_view"]}')
+    if upload_data["sub_sub_view"]:
+        st.markdown(f'**Legspecifikusabb nézet:** {upload_data["sub_sub_view"]}')
     st.markdown(f'**Fő régió:** {upload_data["main_region"]}')
-    st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
-    st.markdown(f'**Részletes régió:** {upload_data["sub_sub_region"]}')
-    st.markdown(f'**Legpontosabb régió:** {upload_data["sub_sub_sub_region"]}')
+    if upload_data["sub_region"]:
+        st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
+    if upload_data["sub_sub_region"]:
+        st.markdown(f'**Részletes régió:** {upload_data["sub_sub_region"]}')
+    if upload_data["sub_sub_sub_region"]:
+        st.markdown(f'**Legpontosabb régió:** {upload_data["sub_sub_sub_region"]}')
     st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}')
     st.markdown(f'**Életkori Csoport:** {upload_data["age_group"]}')
     st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}')
