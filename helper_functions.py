@@ -1,100 +1,44 @@
 import streamlit as st
-def style_markdown2():
-    st.markdown(
-        """
-        <style>
-        .upload-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 2px solid black;
-            padding: 10px;
-        }
-        .center-button {
-            display: flex;
-            justify-content: center;
-        }
-        .upload-button, .confirm-button {
-            font-size: 24px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
-            border: 2px solid black;
-            margin: 10px;
-        }
-        .upload-button:hover, .confirm-button:hover {
-            background-color: #45a049;
-        }
-        .confirmation-box {
-            padding: 20px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .confirmation-title, .confirmation-text {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .file-upload-instruction {
-            font-size: 18px;
-            font-weight: bold;
-            color: black;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 2px solid black;
-            padding: 10px;
-            background-color: #f9f9f9;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 
-def style_markdown():
-    st.markdown(
-        """
-        <style>
-        .search-title {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            border: 2px solid black;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .result-image {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px 0;
-        }
-        .button-container button {
-            font-size: 18px;
-            padding: 10px 20px;
-            margin: 0 5px;
-            border-radius: 5px;
-            background-color: #4CAF50; /* Green */
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .button-container button:hover {
-            background-color: #45a049;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+def select_main_type():
+    main_type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="main_type")
+    if main_type == "Egyéb":
+        sub_type = st.selectbox("Specifikálás (Egyéb)", [
+            "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", 
+            "Osteomyelitis", "Cysta", "Malignus Tumor", "Benignus Tumor", 
+            "Metastasis", "Rheumatoid Arthritis", "Genetikai/Veleszületett", "Egyéb"
+        ])
+        if sub_type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
+            sub_sub_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
+    return main_type, sub_type, sub_sub_type
+
+def select_view():
+    view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
+    if view == "Egyéb":
+        sub_view = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
+        if sub_view == "Speciális":
+            sub_sub_view = st.text_input("Adja meg a specifikus nézetet (Speciális)")
+    return view, sub_view, sub_sub_view
+
+def select_main_region():
+    main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
+    return main_region
+
+def select_complications():
+    complications = st.multiselect("Komplikációk (többet is választhat)", [
+        "Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", 
+        "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", 
+        "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"
+    ])
+    return complications
+
+def select_associated_conditions():
+    associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", [
+        "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", 
+        "Rheumatoid Arthritis", "Metastasis", "Malignus Tumor", 
+        "Benignus Tumor", "Genetikai"
+    ])
+    return associated_conditions
 
 def select_subregion(main_reg):
     regions = {
