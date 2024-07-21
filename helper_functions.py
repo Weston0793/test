@@ -2,6 +2,8 @@ import streamlit as st
 
 def select_main_type():
     main_type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="main_type")
+    sub_type = ""
+    sub_sub_type = ""
     if main_type == "Egyéb":
         sub_type = st.selectbox("Specifikálás (Egyéb)", [
             "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", 
@@ -14,6 +16,8 @@ def select_main_type():
 
 def select_view():
     view = st.radio("Válassza ki a nézetet", ["AP", "Lateral", "Egyéb"], key="view")
+    sub_view = ""
+    sub_sub_view = ""
     if view == "Egyéb":
         sub_view = st.selectbox("Specifikálás (Egyéb Nézet)", ["Ferde", "PA", "Speciális"])
         if sub_view == "Speciális":
