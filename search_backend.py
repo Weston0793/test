@@ -86,23 +86,11 @@ def perform_search(query_params):
             end_idx = start_idx + items_per_page
             page_docs = all_docs[start_idx:end_idx]
 
-            col1, col2 = st.columns(2)
-            with col1:
-                for idx, doc in enumerate(page_docs):
-                    if idx % 2 == 0:
-                        data = doc.to_dict()
-                        display_data = format_data(data)
-                        st.markdown(display_data, unsafe_allow_html=True)
-                        file_paths.append(data['url'])
-                        metadata_list.append(data)
-            with col2:
-                for idx, doc in enumerate(page_docs):
-                    if idx % 2 != 0:
-                        data = doc.to_dict()
-                        display_data = format_data(data)
-                        st.markdown(display_data, unsafe_allow_html=True)
-                        file_paths.append(data['url'])
-                        metadata_list.append(data)
+            for doc in page_docs:
+                data = doc.to_dict()
+                display_data(data)
+                file_paths.append(data['url'])
+                metadata_list.append(data)
 
             st.write(f"Összesen {total_docs} találat. Oldal: {page} / {total_pages}")
 
@@ -142,28 +130,32 @@ def perform_search(query_params):
     except GoogleAPICallError as e:
         st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
 
+def display_data(data):
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image(data['url'], use_column_width=True)
+    with col2:
+        st.markdown(format_data(data))
+
 def format_data(data):
     def format_field(label, value):
-        return f"<br><strong>{label}: {value}</strong>" if value not in [None, 'N/A', [], ''] else ""
+        return f"**{label}:** {value}<br>" if value not in [None, 'N/A', [], ''] else ""
 
     display_data = f"""
-    <div class="result-image">
-        <img src="{data['url']}" alt="{data.get('type', 'N/A')}, {data.get('view', 'N/A')}, {data.get('main_region', 'N/A')}, {data.get('sub_region', 'N/A')}" style="width:100%;">
-        {format_field('Típus', data.get('main_type'))}
-        {format_field('Specifikus típus', data.get('sub_type'))}
-        {format_field('Legspecifikusabb típus', data.get('sub_sub_type'))}
-        {format_field('Nézet', data.get('view'))}
-        {format_field('Specifikus nézet', data.get('sub_view'))}
-        {format_field('Legspecifikusabb nézet', data.get('sub_sub_view'))}
-        {format_field('Fő régió', data.get('main_region'))}
-        {format_field('Régió', data.get('sub_region'))}
-        {format_field('Alrégió', data.get('sub_sub_region'))}
-        {format_field('Részletes régió', data.get('sub_sub_sub_region'))}
-        {format_field('Életkor', data.get('age'))}
-        {format_field('Életkori csoport', data.get('age_group'))}
-        {format_field('Megjegyzés', data.get('comment'))}
-        {format_field('Komplikációk', ", ".join(data.get('complications', [])))}
-        {format_field('Társuló Kórállapotok', ", ".join(data.get('associated_conditions', [])))}
-    </div>
+    {format_field('Típus', data.get('main_type'))}
+    {format_field('Specifikus típus', data.get('sub_type'))}
+    {format_field('Legspecifikusabb típus', data.get('sub_sub_type'))}
+    {format_field('Nézet', data.get('view'))}
+    {format_field('Specifikus nézet', data.get('sub_view'))}
+    {format_field('Legspecifikusabb nézet', data.get('sub_sub_view'))}
+    {format_field('Fő régió', data.get('main_region'))}
+    {format_field('Régió', data.get('sub_region'))}
+    {format_field('Alrégió', data.get('sub_sub_region'))}
+    {format_field('Részletes régió', data.get('sub_sub_sub_region'))}
+    {format_field('Életkor', data.get('age'))}
+    {format_field('Életkori csoport', data.get('age_group'))}
+    {format_field('Megjegyzés', data.get('comment'))}
+    {format_field('Komplikációk', ", ".join(data.get('complications', [])))}
+    {format_field('Társuló Kórállapotok', ", ".join(data.get('associated_conditions', [])))}
     """
-    return display_data
+    return display_data.replace("<br>", "\n")
