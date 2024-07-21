@@ -4,7 +4,8 @@ from firebase_helpers import db, create_zip
 import uuid
 from google.api_core.exceptions import GoogleAPICallError
 from search_backend import perform_search
-from helper_functions import style_markdown, select_subregion, select_sub_subregion, select_sub_sub_subregion
+from helper_functions import select_subregion, select_sub_subregion, select_sub_sub_subregion
+from Styles import search_markdown
 
 def initialize_session_state():
     if 'search_button_clicked' not in st.session_state:
@@ -29,7 +30,7 @@ def initialize_session_state():
 
 def search_section():
     initialize_session_state()
-    style_markdown()
+    search_markdown()
     st.markdown('<div class="search-title">Képek keresése</div>', unsafe_allow_html=True)
 
     types = ["", "Normál", "Törött", "Egyéb"]
