@@ -12,9 +12,6 @@ def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
 
-def upload_markdown():
-    st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
-
 def main():
     initialize_home_session_state()
     upload_markdown()
