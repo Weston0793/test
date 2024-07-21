@@ -28,7 +28,7 @@ def perform_search(query_params):
     query_filters = []
 
     if search_type:
-        query_filters.append(('type', '==', search_type))
+        query_filters.append(('main_type', '==', search_type))
     if search_sub_type:
         query_filters.append(('sub_type', '==', search_sub_type))
     if search_sub_sub_type:
@@ -91,7 +91,7 @@ def perform_search(query_params):
                 display_data = f"""
                 <div class="result-image">
                     <img src="{data['url']}" alt="{data.get('type', 'N/A')}, {data.get('view', 'N/A')}, {data.get('main_region', 'N/A')}, {data.get('sub_region', 'N/A')}" style="width:100%;">
-                    <br><strong>Típus: {data.get('type', 'N/A')}</strong>
+                    <br><strong>Típus: {data.get('main_type', 'N/A')}</strong>
                     <br><strong>Specifikus típus: {data.get('sub_type', 'N/A')}</strong>
                     <br><strong>Legspecifikusabb típus: {data.get('sub_sub_type', 'N/A')}</strong>
                     <br><strong>Nézet: {data.get('view', 'N/A')}</strong>
