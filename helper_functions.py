@@ -53,7 +53,7 @@ def select_subregion(main_reg):
         "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív"],
         "Has": ["", "Máj", "Lép", "Vese", "Bél", "Hólyag"]
     }
-    return st.selectbox("Régió keresése", regions.get(main_reg, [""]))
+    return st.selectbox("Főrégió keresése", regions.get(main_reg, [""]))
 
 def select_sub_subregion(sub_reg):
     sub_regions = {
@@ -71,7 +71,7 @@ def select_sub_subregion(sub_reg):
         "Boka": ["", "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
         "Láb": ["", "Tarsus", "Metatarsus", "Hallux", "Lábujjak"]
     }
-    return st.selectbox("Alrégió keresése", sub_regions.get(sub_reg, [""]))
+    return st.selectbox("Régió ", sub_regions.get(sub_reg, [""]))
     
 def select_sub_sub_subregion(sub_sub_reg):
     sub_sub_regions = {
@@ -93,7 +93,7 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Tarsus": ["", "Chopart", "Calcaneus", "Lover's", "Calcaneus tuberositas avulsio", "Talus", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboideum"],
         "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "V. metatarsus stressz törés", "Jones", "Pseudo-Jones", "V. metatarsus proximalis avulsio"]
     }
-    return st.selectbox("Részletes régió keresése", sub_sub_regions.get(sub_sub_reg, [""]))
+    return st.selectbox("Alrégió", sub_sub_regions.get(sub_sub_reg, [""]))
 
 def select_sub_sub_sub_subregion(sub_sub_sub_reg):
     sub_sub_sub_regions = {
@@ -111,5 +111,5 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"],
         "Cuboideum": ["","Nutcracker"],
     }
-    return st.selectbox("Legrészletesebb régió keresése", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
+    return st.selectbox("Részletes régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
 
