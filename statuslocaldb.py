@@ -1,6 +1,7 @@
 import streamlit as st
 import sqlite3
 import os
+from firebase_helpers import get_counts, get_progress_summary
 
 DB_PATH = 'status.db'
 
