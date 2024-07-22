@@ -6,9 +6,9 @@ def select_main_type():
     sub_sub_type = ""
     if main_type == "Egyéb":
         sub_type = st.selectbox("Specifikálás (Egyéb)", [
-            "Luxatio", "Subluxatio", "Osteoarthritis", "Osteoporosis", 
-            "Osteomyelitis", "Cysta", "Malignus Tumor", "Benignus Tumor", 
-            "Metastasis", "Rheumatoid Arthritis", "Genetikai/Veleszületett", "Egyéb"
+            "Luxatio", "Subluxatio", "Szalagszakadás", "Osteoarthritis", "Osteoporosis", 
+            "Osteomyelitis", "Cysta", "Álízűlet", "Malignus Tumor", "Benignus Tumor", 
+            "Metastasis", "Rheumatoid Arthritis", "Genetikai/Veleszületett", "Implant", "Egyéb"
         ])
         if sub_type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
             sub_sub_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
@@ -30,7 +30,7 @@ def select_main_region():
 
 def select_complications():
     complications = st.multiselect("Komplikációk (többet is választhat)", [
-        "Nyílt", "Darabos", "Avulsio", "Luxatio", "Subluxatio", 
+        "Elmozdulás", "Intraarticularis", "Nyílt", "Fragmentált", "Avulsio", "Luxatio", "Subluxatio", 
         "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", 
         "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"
     ])
@@ -38,7 +38,7 @@ def select_complications():
 
 def select_associated_conditions():
     associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", [
-        "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", 
+        "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", "Álízűlet", "Implant"
         "Rheumatoid Arthritis", "Metastasis", "Malignus Tumor", 
         "Benignus Tumor", "Genetikai"
     ])
@@ -57,9 +57,9 @@ def select_subregion(main_reg):
 
 def select_sub_subregion(sub_reg):
     sub_regions = {
-        "Váll": ["", "Clavicula", "Scapula", "Humerus fej", "Proximális humerus", "Humerus nyak"],
+        "Váll": ["", "Clavicula", "Scapula","Proximális humerus"],
         "Humerus": ["", "Humerus diaphysis"],
-        "Könyök": ["", "Distalis humerus", "Supracondylaris", "Humerus condylus", "Epicondylus", "Capitellum", "Proximalis ulna", "Proximalis radius"],
+        "Könyök": ["", "Distalis humerus", "Proximalis ulna", "Proximalis radius"],
         "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
         "Csukló": ["", "Distalis radius", "Distalis ulna", "Carpus"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
@@ -75,23 +75,33 @@ def select_sub_subregion(sub_reg):
     
 def select_sub_sub_subregion(sub_sub_reg):
     sub_sub_regions = {
-        "Clavicula": ["", "Sternoclavicularis", "Középső szakasz", "Acromioclavicularis"],
-        "Scapula": ["", "Acromion", "Coracoid processus", "Glenoid"],
-        "Humerus fej": ["", "Hill-Sachs", "Fordított Hill-Sachs"],
-        "Humerus condylus": ["", "Medialis", "Lateralis"],
-        "Epicondylus": ["", "Medialis", "Lateralis"],
-        "Supracondylaris": ["", "Extensio", "Flexio"],
+        "Clavicula": ["", "Perfifériás harmad", "Középső harmad", "Centrális harmad"],
+        "Scapula": ["", "Scapula nyúlványok", "Scapula test", "Scapula nyak", "Cavitas glenoidalis", "Kombinált/Romos"],
+        "Distalis humerus": ["", "Supracondylaris", "Humerus condylus", "Epicondylus", "Capitellum"], 
+        "Proximalis humerus ": ["", "Humerus nyak", "Tuberculum majus", "Tuberculum minus", "Humerus fej", "Hill-Sachs", "Fordított Hill-Sachs"],
         "Proximalis ulna": ["", "Olecranon", "Coronoid processus"], 
         "Proximalis radius": ["", "Radius fej", "Radius nyak"],
         "Distalis radius": ["", "Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"],
-        "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapezoidum", "Trapezium"],
+        "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
         "Metacarpus": ["", "Boxer", "Fordított Bennett"],
         "Pollex": ["", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
         "Phalanx": ["", "Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsio", "Pilon", "Proximális phalanx"],
         "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
         "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
         "Avulsio": ["", "Segond", "Fordított Segond", "Anterior cruciatum ligamentum avulsio", "Posterior cruciatum ligamentum avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Iliotibial ligamentum avulsio", "Semimembranosus tendon avulsio", "Stieda (MCL avulsion fracture)"],
-        "Tarsus": ["", "Chopart", "Calcaneus", "Lover's", "Calcaneus tuberositas avulsio", "Talus test", "Talus kupola osteochondralis", "Posterior talus processus", "Lateralis talus processus", "Talus nyak", "Aviator astragalus", "Talus fej", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboid"],
+        "Tarsus": ["", "Chopart", "Calcaneus", "Lover's", "Calcaneus tuberositas avulsio",  "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboid"],
         "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "Az 5. metatarsus stressz törés", "Jones", "Pseudo-Jones", "Az 5. metatarsus proximalis avulsiós törés"]
     }
     return st.selectbox("Részletes régió keresése", sub_sub_regions.get(sub_sub_reg, [""]))
+
+def select_sub_sub_sub_subregion(sub_sub_sub_reg):
+    sub_sub_sub_regions = {
+       "Nyúlványtörések": ["", "Acromion", "Coracoid processus"],
+        "Scapula nyak"": ["", "Stabil", "Instabil"],
+        "Humerus nyak": ["", "Collum anatomicum", "Collum chirurgicum"], 
+        "Humerus condylus": ["", "Medialis", "Lateralis"],
+        "Epicondylus": ["", "Medialis", "Lateralis"],
+        "Supracondylaris": ["", "Extensio", "Flexio"],
+        "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"]
+    }
+    return st.selectbox("Legrészletes régió keresése", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
