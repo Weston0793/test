@@ -112,3 +112,40 @@ def get_comments(start, limit):
             comment['timestamp'] = comment['timestamp'].astimezone().replace(tzinfo=None)
     return comments
 
+def get_counts():
+    counts = {
+        "Felső végtag": {"Váll": {},  "Humerus": {}, "Könyök": {},"Alkar": {}, "Csukló": {}, "Kéz": {}},
+        "Alsó végtag": {"Medence": {}, "Pelvis": {}, "Femur": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
+        "Gerinc": {"Cervicalis": {}, "Thoracalis": {}, "Lumbaris": {}, "Sacralis": {}, "Coccygealis": {}},
+        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Mandibula": {}},
+        "Mellkas": {"Borda": {}, "Sternum": {}},
+    }
+    views = ["AP", "Lateral"]
+    main_types = ["Normál", "Törött"]
+
+    data = []
+
+    for main_region in counts:
+        for sub_region in counts[main_region]:
+            for view in views:
+                for main_type in main_types:
+                    docs = db.collection('images').where('main_region', '==', main_region).where('sub_region', '==', sub_region).where('view', '==', view).where('main_type', '==', main_type).stream()
+                    count = len(list(docs))
+                    counts[main_region][sub_region][f"{main_type}_{view}"] = count
+                    data.append([main_region, sub_region, view, main_type, count])
+    return counts, data
+    
+def get_progress_summary(counts):
+    summary = {}
+    for main_region, sub_regions in counts.items():
+        summary[main_region] = {"total": 0, "progress": 0, "subregions": {}}
+        for sub_region, view_types in sub_regions.items():
+            sub_region_total = 0
+            sub_region_progress = 0
+            for view_type, count in view_types.items():
+                sub_region_total += 50
+                sub_region_progress += count
+            summary[main_region]["total"] += sub_region_total
+            summary[main_region]["progress"] += sub_region_progress
+            summary[main_region]["subregions"][sub_region] = {"total": sub_region_total, "count": sub_region_progress}
+    return summary
