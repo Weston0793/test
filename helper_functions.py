@@ -69,7 +69,7 @@ def select_sub_subregion(sub_reg):
         "Térd": ["", "Avulsio", "Patella", "Tibia plateau"],
         "Lábszár": ["", "Tuberositas tibiae avulsio", "Tibia diaphysis", "Fibula diaphysis", "Maisonneuve"],
         "Boka": ["", "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
-        "Láb": ["", "Tarsus", "Metatarsus ", "Lábujjak"]
+        "Láb": ["", "Tarsus", "Metatarsus", "Hallux", "Lábujjak"]
     }
     return st.selectbox("Alrégió keresése", sub_regions.get(sub_reg, [""]))
     
