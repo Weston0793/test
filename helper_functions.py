@@ -57,18 +57,18 @@ def select_subregion(main_reg):
 
 def select_sub_subregion(sub_reg):
     sub_regions = {
-        "Váll": ["", "Clavicula", "Scapula","Proximális humerus"],
+        "Váll": ["", "Clavicula", "Scapula", "Proximális humerus"],
         "Humerus": ["", "Humerus diaphysis"],
         "Könyök": ["", "Distalis humerus", "Proximalis ulna", "Proximalis radius"],
         "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
         "Csukló": ["", "Distalis radius", "Distalis ulna", "Carpus"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
         "Pelvis": ["", "Ramus Pubicus ",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis (ASIS) avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
-        "Csípő": ["", "Acetabulum", "Femur fej", "Femur nyak", "Trochanterikus"],
+        "Csípő": ["", "Acetabulum", "Proximalis femur" "Femur fej", "Femur nyak", "Trochanterikus"],
         "Femur": ["", "Femur diaphysis", "Distalis femur", "Bisphosphonáthoz kapcsolódó"],
-        "Térd": ["", "Avulsio", "Patella", "Tibia plateau"],
-        "Lábszár": ["", "Tuberositas tibiae avulsio", "Tibia diaphysis", "Fibula diaphysis", "Maisonneuve"],
-        "Boka": ["", "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
+        "Térd": ["", "Avulsio", "Patella",  "Proximalis tibia", "Proximalis fibula"],
+        "Lábszár": ["", "Tibia diaphysis", "Fibula diaphysis", "Tuberositas tibiae avulsio", "Maisonneuve"],
+        "Boka": ["", "Distalis tibia", "Distalis fibula", "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
         "Láb": ["", "Tarsus", "Metatarsus", "Hallux", "Lábujjak"]
     }
     return st.selectbox("Régió ", sub_regions.get(sub_reg, [""]))
@@ -77,20 +77,20 @@ def select_sub_sub_subregion(sub_sub_reg):
     sub_sub_regions = {
         "Clavicula": ["", "Perifériás harmad", "Középső harmad", "Centrális harmad"],
         "Scapula": ["", "Scapula nyúlványok", "Scapula test", "Scapula nyak", "Cavitas glenoidalis", "Kombinált/Romos"],
+        "Proximalis humerus": ["", "Humerus nyak", "Tuberculum majus", "Tuberculum minus", "Humerus fej", "Hill-Sachs", "Fordított Hill-Sachs"],
         "Distalis humerus": ["", "Supracondylaris", "Humerus condylus", "Epicondylus", "Capitellum"], 
-        "Proximalis humerus ": ["", "Humerus nyak", "Tuberculum majus", "Tuberculum minus", "Humerus fej", "Hill-Sachs", "Fordított Hill-Sachs"],
         "Proximalis ulna": ["", "Olecranon", "Coronoid processus"], 
         "Proximalis radius": ["", "Radius fej", "Radius nyak"],
         "Distalis radius": ["", "Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"],
-        "Distalis ulna": ["", "Processus styloideus"], 
+        "Distalis ulna": ["", "Processus styloideus ulnae"], 
         "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
-        "Metacarpus": ["", "I", "II", "III", "IV", "V", "Boxer", "Fordított Bennett"],
+        "Metacarpus": ["",  "Boxer", "Fordított Bennett"],
         "Pollex": ["", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
         "Phalanx": ["", "Distalis phalanx", "Középső phalanx", "Proximális phalanx"],
-        "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
-        "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
-        "Avulsio": ["", "Segond", "Fordított Segond", "Anterior cruciatum ligamentum avulsio", "Posterior cruciatum ligamentum avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Iliotibial ligamentum avulsio", "Semimembranosus tendon avulsio", "Stieda (MCL avulsion fracture)"],
-        "Tarsus": ["", "Chopart", "Calcaneus", "Lover's", "Calcaneus tuberositas avulsio", "Talus", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboideum"],
+        "Avulsio": ["", "Lig. cruciatum anterior avulsio", " Lig. cruciatum posterior avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Lig. iliotibiale avulsio", "Semimembranosus tendon avulsio","Segond", "Fordított Segond", "Stieda (MCL avulsion fracture)"],
+        "Proximalis tibia": ["", "Tibia plateau"],
+        "Proximalis fibula": ["", "Fibula fej", "Fibula nyak"],
+        "Tarsus": ["", "Chopart", "Calcaneus", "Talus", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboideum"],
         "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "V. metatarsus stressz törés", "Jones", "Pseudo-Jones", "V. metatarsus proximalis avulsio"]
     }
     return st.selectbox("Alrégió", sub_sub_regions.get(sub_sub_reg, [""]))
@@ -104,12 +104,21 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Humerus condylus": ["", "Medialis", "Lateralis"],
         "Epicondylus": ["", "Medialis", "Lateralis"],
         "Supracondylaris": ["", "Extensio", "Flexio"],
+        "Scaphoideum": ["", "De Quervain", ],
         "Distalis phalanx": ["", "Basis", "Corpus", "Caput", "Jersey Finger", "Mallet Finger", "Seymour",],
         "Középső phalanx": ["", "Basis", "Corpus", "Caput", "Volar Plate avulsio", "Pilon",],
         "Proximális phalanx": ["", "Basis", "Corpus", "Caput"],
+        "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
+        "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
         "Calcaneus": ["", "Lover's", "Calcaneus tuberositas avulsio"],
         "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"],
         "Cuboideum": ["","Nutcracker"],
     }
     return st.selectbox("Részletes régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
+    
+def select_finger(sub_sub_regions):
+    finger = None
+    if sub_sub_regions in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak"]:
+        finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
+    return finger
 
