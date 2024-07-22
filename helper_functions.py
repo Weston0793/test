@@ -67,7 +67,7 @@ def select_sub_subregion(sub_reg):
         "Csípő": ["", "Acetabulum", "Femur fej", "Femur nyak", "Trochanterikus"],
         "Femur": ["", "Femur diaphysis", "Distalis femur", "Bisphosphonáthoz kapcsolódó"],
         "Térd": ["", "Avulsio", "Patella", "Tibia plateau"],
-        "Lábszár": ["", "Tibialis tuberositas avulsio", "Tibia diaphysis", "Fibula diaphysis", "Maisonneuve"],
+        "Lábszár": ["", "Tuberositas tibiae avulsio", "Tibia diaphysis", "Fibula diaphysis", "Maisonneuve"],
         "Boka": ["", "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
         "Láb": ["", "Tarsus", "Metatarsus ", "Lábujjak"]
     }
