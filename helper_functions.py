@@ -82,10 +82,11 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Proximalis ulna": ["", "Olecranon", "Coronoid processus"], 
         "Proximalis radius": ["", "Radius fej", "Radius nyak"],
         "Distalis radius": ["", "Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"],
+        "Distalis ulna": ["", "Processus styloideus"], 
         "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
         "Metacarpus": ["", "I", "II", "III", "IV", "V", "Boxer", "Fordított Bennett"],
         "Pollex": ["", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
-        "Phalanx": ["", "Distalis phalanx", "Jersey Finger", "Mallet Finger", "Seymour", "Középső phalanx", "Volar Plate Avulsio", "Pilon", "Proximális phalanx"],
+        "Phalanx": ["", "Distalis phalanx", "Középső phalanx", "Proximális phalanx"],
         "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
         "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
         "Avulsio": ["", "Segond", "Fordított Segond", "Anterior cruciatum ligamentum avulsio", "Posterior cruciatum ligamentum avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Iliotibial ligamentum avulsio", "Semimembranosus tendon avulsio", "Stieda (MCL avulsion fracture)"],
@@ -96,16 +97,19 @@ def select_sub_sub_subregion(sub_sub_reg):
 
 def select_sub_sub_sub_subregion(sub_sub_sub_reg):
     sub_sub_sub_regions = {
-       "Nyúlványtörések": ["", "Acromion", "Coracoid processus"],
+        "Nyúlványtörések": ["", "Acromion", "Coracoid processus"],
         "Scapula nyak": ["", "Stabil", "Instabil"],
+        "Cavitas glenoidalis": ["", "Bankart", "Fordított Bankart"],
         "Humerus nyak": ["", "Collum anatomicum", "Collum chirurgicum"], 
         "Humerus condylus": ["", "Medialis", "Lateralis"],
         "Epicondylus": ["", "Medialis", "Lateralis"],
         "Supracondylaris": ["", "Extensio", "Flexio"],
-        "Distalis phalanx": ["", "Basis", "Corpus", "Caput"],
-        "Középső phalanx": ["", "Basis", "Corpus", "Caput"],
+        "Distalis phalanx": ["", "Basis", "Corpus", "Caput", "Jersey Finger", "Mallet Finger", "Seymour",],
+        "Középső phalanx": ["", "Basis", "Corpus", "Caput", "Volar Plate avulsio", "Pilon",],
         "Proximális phalanx": ["", "Basis", "Corpus", "Caput"],
-        "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"]
+        "Calcaneus": ["", "Lover's", "Calcaneus tuberositas avulsio"],
+        "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"],
+        "Cuboideum": ["","Nutcracker"],
     }
     return st.selectbox("Legrészletesebb régió keresése", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
 
