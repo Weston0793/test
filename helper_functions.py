@@ -105,3 +105,4 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"]
     }
     return st.selectbox("Legrészletes régió keresése", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
+
