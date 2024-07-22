@@ -97,7 +97,7 @@ def select_sub_sub_subregion(sub_sub_reg):
 def select_sub_sub_sub_subregion(sub_sub_sub_reg):
     sub_sub_sub_regions = {
        "Nyúlványtörések": ["", "Acromion", "Coracoid processus"],
-        "Scapula nyak"": ["", "Stabil", "Instabil"],
+        "Scapula nyak": ["", "Stabil", "Instabil"],
         "Humerus nyak": ["", "Collum anatomicum", "Collum chirurgicum"], 
         "Humerus condylus": ["", "Medialis", "Lateralis"],
         "Epicondylus": ["", "Medialis", "Lateralis"],
