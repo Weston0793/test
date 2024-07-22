@@ -47,7 +47,7 @@ def select_associated_conditions():
 def select_subregion(main_reg):
     regions = {
         "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
-        "Alsó végtag": ["", "Medence", "Pelvis", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
+        "Alsó végtag": ["", "Medence", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
         "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbaris", "Sacralis", "Coccygealis"],
         "Koponya": ["", "Arckoponya", "Agykoponya", "Mandibula"],
         "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív"],
