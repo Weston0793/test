@@ -17,19 +17,10 @@ def initialize_home_session_state():
         st.session_state.patient_id = str(uuid.uuid4())
     if 'multi_region' not in st.session_state:
         st.session_state.multi_region = False
-    if 'uploaded_file' not in st.session_state:
-        st.session_state.uploaded_file = None
 
 def main():
     initialize_home_session_state()
     upload_markdown()
-    
-    # Reset button
-    if st.button("Reset"):
-        st.session_state.clear()
-        initialize_home_session_state()
-        st.rerun()
-    
     st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
     st.text_input("Beteg azonosító", st.session_state.patient_id, disabled=True)
@@ -37,14 +28,15 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None:
-        if st.session_state.uploaded_file is None:
-            st.session_state.uploaded_file = handle_file_upload(uploaded_file)
-            st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
-            st.session_state.confirm_data = None
-            st.rerun()
+    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
+        uploaded_file = handle_file_upload(uploaded_file)
+        st.session_state.uploaded_file = uploaded_file
+        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
+        st.session_state.patient_id = str(uuid.uuid4())
+        st.session_state.confirm_data = None
+        st.experimental_rerun()
 
-    if st.session_state.uploaded_file:
+    if 'uploaded_file' in st.session_state:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
         
         col1, col2 = st.columns(2)
@@ -62,7 +54,7 @@ def main():
             col3, col4, col5 = st.columns([1, 1, 1])
             with col3:
                 if region['editable']:
-                    region['main_region'] = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"], key=f"main_region_{idx}")
+                    region['main_region'] = select_main_region(key=f"main_region_{idx}")
                 else:
                     st.write(f"Fő régió: {region['main_region']}")
             if region['main_region']:
@@ -74,26 +66,26 @@ def main():
                             st.write(f"Oldal: {region['side']}")
                 if region['editable']:
                     with col5:
-                        region['sub_region'] = st.selectbox("Alrégió", select_subregion(region['main_region']), key=f"sub_region_{idx}")
+                        region['sub_region'] = select_subregion(region['main_region'], key=f"sub_region_{idx}")
                 else:
                     st.write(f"Alrégió: {region['sub_region']}")
             if region['sub_region']:
                 col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
                 with col6:
                     if region['editable']:
-                        region['sub_sub_region'] = st.selectbox("Részletes régió", select_sub_subregion(region['sub_region']), key=f"sub_sub_region_{idx}")
+                        region['sub_sub_region'] = select_sub_subregion(region['sub_region'], key=f"sub_sub_region_{idx}")
                     else:
                         st.write(f"Részletes régió: {region['sub_sub_region']}")
                 if region['sub_sub_region']:
                     with col7:
                         if region['editable']:
-                            region['sub_sub_sub_region'] = st.selectbox("Legpontosabb régió", select_sub_sub_subregion(region['sub_sub_region']), key=f"sub_sub_sub_region_{idx}")
+                            region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'], key=f"sub_sub_sub_region_{idx}")
                         else:
                             st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
                 if region['sub_sub_sub_region']:
                     with col8:
                         if region['editable']:
-                            region['sub_sub_sub_sub_region'] = st.selectbox("Legrészletesebb régió", select_sub_sub_sub_subregion(region['sub_sub_sub_region']), key=f"sub_sub_sub_sub_region_{idx}")
+                            region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'], key=f"sub_sub_sub_sub_region_{idx}")
                         else:
                             st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
                     with col9:
@@ -109,14 +101,14 @@ def main():
                 if region['editable']:
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
-                        st.rerun()
+                        st.experimental_rerun()
                 else:
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
-                        st.rerun()
+                        st.experimental_rerun()
                     if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                         st.session_state.regions.pop(idx)
-                        st.rerun()
+                        st.experimental_rerun()
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -137,7 +129,7 @@ def main():
                 }
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
-                st.rerun()
+                st.experimental_rerun()
             except Exception as e:
                 st.error(f"Hiba történt új régió hozzáadásakor: {e}")
 
@@ -176,14 +168,14 @@ def main():
                 }
                 st.session_state.confirm_data = upload_data
                 st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
-                st.rerun()
+                st.experimental_rerun()
             except Exception as e:
                 st.error(f"Hiba történt a mentés során: {e}")
 
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
 
-    if st.query_params.get("scroll_to") == ["confirmation"]:
+    if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
