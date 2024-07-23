@@ -13,7 +13,7 @@ def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
     if 'regions' not in st.session_state:
-        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True, 'key': uuid.uuid4().hex}]
+        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
     if 'patient_id' not in st.session_state:
         st.session_state.patient_id = str(uuid.uuid4())
     if 'multi_region' not in st.session_state:
@@ -32,7 +32,7 @@ def main():
     if uploaded_file is not None and 'uploaded_file' not in st.session_state:
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.uploaded_file = uploaded_file
-        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True, 'key': uuid.uuid4().hex}]
+        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
         st.session_state.patient_id = str(uuid.uuid4())
         st.session_state.confirm_data = None
         st.experimental_rerun()
@@ -64,8 +64,7 @@ def main():
                         'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
                         'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
                         'finger': previous_region['finger'] if previous_region else None,
-                        'editable': True,
-                        'key': uuid.uuid4().hex
+                        'editable': True
                     }
                     st.session_state.regions.append(new_region)
                     st.success("Új régió hozzáadva")
@@ -122,14 +121,14 @@ def main():
 
             if st.session_state.multi_region:
                 if region['editable']:
-                    if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{region['key']}"):
+                    if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
                         st.experimental_rerun()
                 else:
-                    if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{region['key']}"):
+                    if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
                         st.experimental_rerun()
-                    if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{region['key']}"):
+                    if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                         st.session_state.regions.pop(idx)
                         st.experimental_rerun()
 
