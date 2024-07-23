@@ -64,7 +64,7 @@ def select_sub_subregion(sub_reg):
         "Csukló": ["", "Distalis radius", "Distalis ulna", "Carpus"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
         "Pelvis": ["", "Ramus Pubicus ",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis (ASIS) avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
-        "Csípő": ["", "Acetabulum", "Proximalis femur" "Femur fej", "Femur nyak", "Trochanterikus"],
+        "Csípő": ["", "Acetabulum", "Proximalis femur", "Femur fej", "Femur nyak", "Trochanterikus"],
         "Femur": ["", "Femur diaphysis", "Distalis femur", "Bisphosphonáthoz kapcsolódó"],
         "Térd": ["", "Avulsio", "Patella",  "Proximalis tibia", "Proximalis fibula"],
         "Lábszár": ["", "Tibia diaphysis", "Fibula diaphysis", "Tuberositas tibiae avulsio", "Maisonneuve"],
@@ -85,8 +85,8 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Distalis ulna": ["", "Processus styloideus ulnae"], 
         "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
         "Metacarpus": ["",  "Boxer", "Fordított Bennett"],
-        "Pollex": ["", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
-        "Phalanx": ["", "Distalis phalanx", "Középső phalanx", "Proximális phalanx"],
+        "Pollex": ["", "Distalis phalanx", "Proximalis phalanx", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
+        "Phalanx": ["", "Distalis phalanx", "Középső phalanx", "Proximalis phalanx"],
         "Avulsio": ["", "Lig. cruciatum anterior avulsio", " Lig. cruciatum posterior avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Lig. iliotibiale avulsio", "Semimembranosus tendon avulsio","Segond", "Fordított Segond", "Stieda (MCL avulsion fracture)"],
         "Proximalis tibia": ["", "Tibia plateau"],
         "Proximalis fibula": ["", "Fibula fej", "Fibula nyak"],
@@ -105,9 +105,10 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Epicondylus": ["", "Medialis", "Lateralis"],
         "Supracondylaris": ["", "Extensio", "Flexio"],
         "Scaphoideum": ["", "De Quervain", ],
-        "Distalis phalanx": ["", "Basis", "Corpus", "Caput", "Jersey Finger", "Mallet Finger", "Seymour",],
-        "Középső phalanx": ["", "Basis", "Corpus", "Caput", "Volar Plate avulsio", "Pilon",],
-        "Proximális phalanx": ["", "Basis", "Corpus", "Caput"],
+        "Hamatum": ["", "Hamulus",]
+        "Distalis phalanx": ["", "Basis", "Corpus", "Caput", "Jersey Finger", "Mallet Finger", "Seymour"],
+        "Középső phalanx": ["", "Basis", "Corpus", "Caput", "Volar Plate avulsio", "Pilon"],
+        "Proximalis phalanx": ["", "Basis", "Corpus", "Caput"],
         "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
         "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
         "Calcaneus": ["", "Lover's", "Calcaneus tuberositas avulsio"],
@@ -117,8 +118,16 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
     return st.selectbox("Részletes régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
     
 def select_finger(sub_sub_regions):
+    side = st.selectbox("Oldal", ["Left", "Right"])
+    
     finger = None
-    if sub_sub_regions in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak"]:
-        finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
-    return finger
+    if sub_sub_regions in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
+        if sub_sub_regions in ["Pollex", "Hallux"]:
+            finger = "I"
+        elif
+            sub_sub_regions in ["Phalanx", "Lábujjak"]:
+             finger = st.selectbox("Ujj", ["II", "III", "IV", "V"])   
+        else:
+            finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
+    return finger, side
 
