@@ -1,9 +1,6 @@
 import streamlit as st
 from firebase_helpers import save_image
 
-import streamlit as st
-from firebase_helpers import save_image
-
 def handle_file_upload(uploaded_file):
     if uploaded_file.size > 15 * 1024 * 1024:
         st.error("A kép mérete nem lehet nagyobb, mint 15 MB.")
