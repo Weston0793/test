@@ -13,7 +13,7 @@ def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
     if 'regions' not in st.session_state:
-        st.session_state.regions = []
+        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None}]
     if 'adding_multiple' not in st.session_state:
         st.session_state.adding_multiple = False
 
@@ -116,7 +116,11 @@ def main():
 
             st.session_state.regions.append(new_region)
 
-        if st.button("Több régió hozzáadása"):
+        # Ensure there is always at least one region to select
+        if not st.session_state.regions or st.session_state.regions[0]['main_region'] is None:
+            add_region()
+
+        if st.button("Mentés s új régió hozzáadása"):
             st.session_state.adding_multiple = True
             add_region()
 
