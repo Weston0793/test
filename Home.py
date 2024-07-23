@@ -8,7 +8,6 @@ from helper_functions import (
     select_sub_sub_sub_subregion, select_finger, select_complications, 
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
-
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -184,7 +183,7 @@ def main():
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
 
-    if st.query_params().get("scroll_to") == ["confirmation"]:
+    if st.query_params.get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
