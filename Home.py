@@ -28,7 +28,7 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None:
+    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.uploaded_file = uploaded_file
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
@@ -66,32 +66,32 @@ def main():
                             st.write(f"Oldal: {region['side']}")
                 if region['editable']:
                     with col5:
-                        region['sub_region'] = select_subregion(region['main_region'], key=f"sub_region_{idx}")
+                        region['sub_region'] = st.selectbox("Alrégió", select_subregion(region['main_region']), key=f"sub_region_{idx}")
                 else:
                     st.write(f"Alrégió: {region['sub_region']}")
             if region['sub_region']:
                 col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
                 with col6:
                     if region['editable']:
-                        region['sub_sub_region'] = select_sub_subregion(region['sub_region'], key=f"sub_sub_region_{idx}")
+                        region['sub_sub_region'] = st.selectbox("Részletes régió", select_sub_subregion(region['sub_region']), key=f"sub_sub_region_{idx}")
                     else:
                         st.write(f"Részletes régió: {region['sub_sub_region']}")
                 if region['sub_sub_region']:
                     with col7:
                         if region['editable']:
-                            region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'], key=f"sub_sub_sub_region_{idx}")
+                            region['sub_sub_sub_region'] = st.selectbox("Legpontosabb régió", select_sub_sub_subregion(region['sub_sub_region']), key=f"sub_sub_sub_region_{idx}")
                         else:
                             st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
                 if region['sub_sub_sub_region']:
                     with col8:
                         if region['editable']:
-                            region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'], key=f"sub_sub_sub_sub_region_{idx}")
+                            region['sub_sub_sub_sub_region'] = st.selectbox("Legrészletesebb régió", select_sub_sub_sub_subregion(region['sub_sub_sub_region']), key=f"sub_sub_sub_sub_region_{idx}")
                         else:
                             st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
                     with col9:
                         if region['editable']:
                             if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                                region['finger'], _ = select_finger(region['sub_sub_sub_region'], key=f"finger_{idx}")
+                                region['finger'] = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"], key=f"finger_{idx}")
                             else:
                                 region['finger'] = None
                         else:
