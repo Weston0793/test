@@ -12,7 +12,11 @@ from helper_functions import (
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
-        
+    if 'regions' not in st.session_state:
+        st.session_state.regions = []
+    if 'adding_multiple' not in st.session_state:
+        st.session_state.adding_multiple = False
+
 def main():
     initialize_home_session_state()
     upload_markdown()
@@ -35,39 +39,6 @@ def main():
         with col2:
             view, sub_view, sub_sub_view = select_view()
 
-        # Main region, side, and sub-region on one row
-        with st.container():
-            col3, col4, col5 = st.columns([1, 1, 1])
-            with col3:
-                main_region = select_main_region()
-            if main_region:
-                if main_region in ["Felső végtag", "Alsó végtag"]:
-                    with col4:
-                        side = st.selectbox("Oldal", ["Bal", "Jobb"])
-                else:
-                    side = None
-                with col5:
-                    sub_region = select_subregion(main_region)
-
-        # Sub-sub-region, sub-sub-sub-region, and finger (if applicable) on one row
-        sub_sub_region = None
-        sub_sub_sub_region = None
-        sub_sub_sub_sub_region = None
-        finger = None
-        if sub_region:
-            with st.container():
-                col6, col7, col8 = st.columns([1, 1, 1])
-                with col6:
-                    sub_sub_region = select_sub_subregion(sub_region)
-                if sub_sub_region:
-                    with col7:
-                        sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
-                if sub_sub_sub_region:
-                    with col8:
-                        sub_sub_sub_sub_region = select_sub_sub_sub_subregion(sub_sub_sub_region)
-                        if sub_sub_sub_region in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                            finger, _ = select_finger(sub_sub_sub_region)
-
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
         if age != "NA":
@@ -80,20 +51,78 @@ def main():
 
         classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
 
-        classifications = {}
-        if "AO" in classification_types:
-            ao_name, ao_severity, ao_subseverity = ao_classification(sub_sub_region)
-            classifications["AO"] = {"name": ao_name, "severity": ao_severity, "subseverity": ao_subseverity}
-        
-        if "Gartland" in classification_types:
-            gartland_name, gartland_severity, gartland_description = gartland_classification()
-            classifications["Gartland"] = {"name": gartland_name, "severity": gartland_severity, "description": gartland_description}
-        
-        if "Neer" in classification_types:
-            neer_name, neer_severity, neer_description = neer_classification(sub_sub_region)
-            classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
-
         comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
+
+        st.markdown("### Sérült Régiók Kiválasztása")
+
+        def add_region():
+            new_region = {}
+            with st.container():
+                col3, col4, col5 = st.columns([1, 1, 1])
+                with col3:
+                    main_region = select_main_region()
+                    new_region['main_region'] = main_region
+                if main_region:
+                    if main_region in ["Felső végtag", "Alsó végtag"]:
+                        with col4:
+                            side = st.selectbox("Oldal", ["Bal", "Jobb"])
+                            new_region['side'] = side
+                    else:
+                        new_region['side'] = None
+                    with col5:
+                        sub_region = select_subregion(main_region)
+                        new_region['sub_region'] = sub_region
+
+                sub_sub_region = None
+                sub_sub_sub_region = None
+                sub_sub_sub_sub_region = None
+                finger = None
+                if sub_region:
+                    with st.container():
+                        col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
+                        with col6:
+                            sub_sub_region = select_sub_subregion(sub_region)
+                            new_region['sub_sub_region'] = sub_sub_region
+                        if sub_sub_region:
+                            with col7:
+                                sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
+                                new_region['sub_sub_sub_region'] = sub_sub_sub_region
+                        if sub_sub_sub_region:
+                            with col9:
+                                if sub_sub_sub_region in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
+                                    finger, _ = select_finger(sub_sub_sub_region)
+                                    new_region['finger'] = finger
+                                else:
+                                    new_region['finger'] = None
+                            with col8:
+                                sub_sub_sub_sub_region = select_sub_sub_sub_subregion(sub_sub_sub_region)
+                                new_region['sub_sub_sub_sub_region'] = sub_sub_sub_sub_region
+                        else:
+                            new_region['sub_sub_sub_sub_region'] = None
+
+            st.session_state.regions.append(new_region)
+
+        if st.button("Több régió hozzáadása"):
+            st.session_state.adding_multiple = True
+
+        if st.session_state.adding_multiple:
+            add_region()
+
+        st.markdown("### Kiválasztott régiók")
+        for idx, region in enumerate(st.session_state.regions):
+            st.markdown(f"**Régió {idx + 1}:**")
+            st.markdown(f"**Fő régió:** {region['main_region']}")
+            if region['side']:
+                st.markdown(f"**Oldal:** {region['side']}")
+            st.markdown(f"**Alrégió:** {region['sub_region']}")
+            if region['sub_sub_region']:
+                st.markdown(f"**Részletes régió:** {region['sub_sub_region']}")
+            if region['sub_sub_sub_region']:
+                st.markdown(f"**Legpontosabb régió:** {region['sub_sub_sub_region']}")
+            if region['finger']:
+                st.markdown(f"**Ujj:** {region['finger']}")
+            if region['sub_sub_sub_sub_region']:
+                st.markdown(f"**Legrészletesebb régió:** {region['sub_sub_sub_sub_region']}")
 
         if st.button("Feltöltés"):
             upload_data = {
@@ -104,20 +133,14 @@ def main():
                 "view": view,
                 "sub_view": sub_view,
                 "sub_sub_view": sub_sub_view,
-                "main_region": main_region,
-                "sub_region": sub_region if main_type != "Normál" else "",
-                "sub_sub_region": sub_sub_region if sub_sub_region != "NA" else "",
-                "sub_sub_sub_region": sub_sub_sub_region if sub_sub_sub_region != "NA" else "",
-                "sub_sub_sub_sub_region": sub_sub_sub_sub_region if sub_sub_sub_sub_region != "NA" else "",
-                "finger": finger if sub_sub_sub_region in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"] else "",
-                "side": side,
                 "age": age,
                 "age_group": age_group,
                 "comment": comment,
                 "file": uploaded_file,
                 "complications": complications if main_type != "Normál" else [],
                 "associated_conditions": associated_conditions if main_type != "Normál" else [],
-                "classifications": classifications
+                "classifications": classifications,
+                "regions": st.session_state.regions
             }
             st.session_state.confirm_data = upload_data
             st.experimental_rerun()
