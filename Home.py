@@ -68,7 +68,6 @@ def main():
                 'finger': None
             }
             st.session_state.regions.append(new_region)
-            st.experimental_rerun()
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -108,6 +107,7 @@ def main():
 
         if st.button("Mentés s új régió hozzáadása"):
             add_region()
+            st.experimental_rerun()
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
