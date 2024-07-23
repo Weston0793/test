@@ -56,7 +56,21 @@ def main():
         st.markdown("### Sérült Régiók Kiválasztása")
 
         def add_region():
-            new_region = {}
+            if st.session_state.regions:
+                previous_region = st.session_state.regions[-1]
+            else:
+                previous_region = {}
+
+            new_region = {
+                'main_region': previous_region.get('main_region', None),
+                'side': previous_region.get('side', None),
+                'sub_region': previous_region.get('sub_region', None),
+                'sub_sub_region': previous_region.get('sub_sub_region', None),
+                'sub_sub_sub_region': previous_region.get('sub_sub_sub_region', None),
+                'sub_sub_sub_sub_region': previous_region.get('sub_sub_sub_sub_region', None),
+                'finger': previous_region.get('finger', None)
+            }
+
             with st.container():
                 col3, col4, col5 = st.columns([1, 1, 1])
                 with col3:
@@ -104,8 +118,6 @@ def main():
 
         if st.button("Több régió hozzáadása"):
             st.session_state.adding_multiple = True
-
-        if st.session_state.adding_multiple:
             add_region()
 
         st.markdown("### Kiválasztott régiók")
