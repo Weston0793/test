@@ -130,7 +130,7 @@ def select_finger(sub_sub_regions):
             finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
     return finger, side
 
-def ao_classification(region):
+def ao_classification(sub_reg):
     ao_classes = {
         "Proximalis humerus": {
             "11A": "Extraarticularis, egyrészű",
@@ -209,8 +209,8 @@ def ao_classification(region):
         }
     }
 
-    ao_type = st.selectbox("AO klasszifikáció típusa", ao_classes.get(sub_region, {}).keys())
-    ao_subtype_description = ao_classes.get(sub_region, {}).get(ao_type, "")
+    ao_type = st.selectbox("AO klasszifikáció típusa", ao_classes.get(sub_reg, {}).keys())
+    ao_subtype_description = ao_classes.get(sub_reg, {}).get(ao_type, "")
     ao_subtype = st.selectbox("AO altípus részletezése", get_ao_subtype_details(ao_type, ao_subtype_description))
     
     classification_name = "AO klasszifikáció"
