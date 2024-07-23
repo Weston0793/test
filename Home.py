@@ -9,7 +9,6 @@ from helper_functions import (
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
 
-
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -32,6 +31,8 @@ def main():
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
         st.session_state.patient_id = str(uuid.uuid4())
+        st.session_state.confirm_data = None
+        st.experimental_rerun()
 
     if uploaded_file:
         col1, col2 = st.columns(2)
@@ -54,7 +55,7 @@ def main():
                 if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
                     with col4:
                         if region['editable']:
-                            region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region['side'] else 0)
+                            region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0)
                         else:
                             st.write(f"Oldal: {region['side']}")
                 if region['editable']:
@@ -92,17 +93,21 @@ def main():
             display_region(region, idx)
 
         if st.button("Mentés s új régió hozzáadása"):
-            st.session_state.regions.append({
-                'main_region': None,
-                'side': None,
-                'sub_region': None,
-                'sub_sub_region': None,
-                'sub_sub_sub_region': None,
-                'sub_sub_sub_sub_region': None,
-                'finger': None,
-                'editable': True
-            })
-            st.experimental_rerun()
+            try:
+                st.session_state.regions.append({
+                    'main_region': None,
+                    'side': None,
+                    'sub_region': None,
+                    'sub_sub_region': None,
+                    'sub_sub_sub_region': None,
+                    'sub_sub_sub_sub_region': None,
+                    'finger': None,
+                    'editable': True
+                })
+                st.success("Új régió hozzáadva")
+                st.experimental_rerun()
+            except Exception as e:
+                st.error(f"Hiba történt új régió hozzáadásakor: {e}")
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
