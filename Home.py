@@ -29,12 +29,13 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None:
+    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.uploaded_file = uploaded_file
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
         st.session_state.patient_id = str(uuid.uuid4())
         st.session_state.confirm_data = None
+        st.experimental_rerun()
 
     if 'uploaded_file' in st.session_state:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
@@ -47,31 +48,29 @@ def main():
             view, sub_view, sub_sub_view = select_view()
 
         st.markdown("### Sérült Régiók Kiválasztása")
-        
-        col_checkbox, col_button = st.columns([1, 1])
-        with col_checkbox:
-            st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
 
-        if st.session_state.multi_region:
-            with col_button:
-                if st.button("Új régió hozzáadása"):
-                    try:
-                        previous_region = st.session_state.regions[-1] if st.session_state.regions else None
-                        new_region = {
-                            'main_region': previous_region['main_region'] if previous_region else None,
-                            'side': previous_region['side'] if previous_region else None,
-                            'sub_region': previous_region['sub_region'] if previous_region else None,
-                            'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
-                            'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
-                            'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
-                            'finger': previous_region['finger'] if previous_region else None,
-                            'editable': True
-                        }
-                        st.session_state.regions.append(new_region)
-                        st.success("Új régió hozzáadva")
-                        st.experimental_rerun()
-                    except Exception as e:
-                        st.error(f"Hiba történt új régió hozzáadásakor: {e}")
+        col3, col4 = st.columns([3, 1])
+        with col3:
+            st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
+        with col4:
+            if st.session_state.multi_region and st.button("Új régió hozzáadása"):
+                try:
+                    previous_region = st.session_state.regions[-1] if st.session_state.regions else None
+                    new_region = {
+                        'main_region': previous_region['main_region'] if previous_region else None,
+                        'side': previous_region['side'] if previous_region else None,
+                        'sub_region': previous_region['sub_region'] if previous_region else None,
+                        'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
+                        'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
+                        'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
+                        'finger': previous_region['finger'] if previous_region else None,
+                        'editable': True
+                    }
+                    st.session_state.regions.append(new_region)
+                    st.success("Új régió hozzáadva")
+                    st.experimental_rerun()
+                except Exception as e:
+                    st.error(f"Hiba történt új régió hozzáadásakor: {e}")
 
         def display_region(region, idx):
             col3, col4, col5 = st.columns([1, 1, 1])
