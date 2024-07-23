@@ -54,44 +54,44 @@ def main():
             col3, col4, col5 = st.columns([1, 1, 1])
             with col3:
                 if region['editable']:
-                    region['main_region'] = select_main_region()
+                    region['main_region'] = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"], key=f"main_region_{idx}")
                 else:
                     st.write(f"Fő régió: {region['main_region']}")
             if region['main_region']:
                 if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
                     with col4:
                         if region['editable']:
-                            region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0)
+                            region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0, key=f"side_{idx}")
                         else:
                             st.write(f"Oldal: {region['side']}")
                 if region['editable']:
                     with col5:
-                        region['sub_region'] = select_subregion(region['main_region'])
+                        region['sub_region'] = st.selectbox("Alrégió", ["Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz", "Csípő", "Combcsont", "Térd", "Lábszár", "Boka", "Láb"], key=f"sub_region_{idx}")
                 else:
                     st.write(f"Alrégió: {region['sub_region']}")
             if region['sub_region']:
                 col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
                 with col6:
                     if region['editable']:
-                        region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
+                        region['sub_sub_region'] = st.selectbox("Részletes régió", ["None"] + ["Proximális", "Középső", "Distális"], key=f"sub_sub_region_{idx}")
                     else:
                         st.write(f"Részletes régió: {region['sub_sub_region']}")
                 if region['sub_sub_region']:
                     with col7:
                         if region['editable']:
-                            region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
+                            region['sub_sub_sub_region'] = st.selectbox("Legpontosabb régió", ["None"] + ["Fej", "Nyak", "Test"], key=f"sub_sub_sub_region_{idx}")
                         else:
                             st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
                 if region['sub_sub_sub_region']:
                     with col8:
                         if region['editable']:
-                            region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
+                            region['sub_sub_sub_sub_region'] = st.selectbox("Legrészletesebb régió", ["None"] + ["Elülső", "Hátsó", "Oldalsó"], key=f"sub_sub_sub_sub_region_{idx}")
                         else:
                             st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
                     with col9:
                         if region['editable']:
                             if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                                region['finger'], _ = select_finger(region['sub_sub_sub_region'])
+                                region['finger'], _ = st.selectbox("Ujj", ["None"] + ["I", "II", "III", "IV", "V"], key=f"finger_{idx}")
                             else:
                                 region['finger'] = None
                         else:
@@ -114,7 +114,7 @@ def main():
             st.markdown(f"**Régió {idx + 1}:**")
             display_region(region, idx)
 
-        if st.session_state.multi_region and st.button("Mentés s új régió hozzáadása"):
+        if st.session_state.multi_region and st.button("Mentés s új régió hozzáadása", key="add_new_region"):
             try:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
                 new_region = {
