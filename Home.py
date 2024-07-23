@@ -15,6 +15,8 @@ def initialize_home_session_state():
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
     if 'patient_id' not in st.session_state:
         st.session_state.patient_id = str(uuid.uuid4())
+    if 'multi_region' not in st.session_state:
+        st.session_state.multi_region = False
 
 def main():
     initialize_home_session_state()
@@ -45,6 +47,8 @@ def main():
             view, sub_view, sub_sub_view = select_view()
 
         st.markdown("### Sérült Régiók Kiválasztása")
+        
+        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
 
         def display_region(region, idx):
             col3, col4, col5 = st.columns([1, 1, 1])
@@ -81,20 +85,24 @@ def main():
                         else:
                             region['finger'] = None
 
-            if region['editable']:
-                if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
-                    region['editable'] = False
-                    st.experimental_rerun()
-            else:
-                if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
-                    region['editable'] = True
-                    st.experimental_rerun()
+            if st.session_state.multi_region:
+                if region['editable']:
+                    if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
+                        region['editable'] = False
+                        st.experimental_rerun()
+                else:
+                    if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
+                        region['editable'] = True
+                        st.experimental_rerun()
+                    if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
+                        st.session_state.regions.pop(idx)
+                        st.experimental_rerun()
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
             display_region(region, idx)
 
-        if st.button("Mentés s új régió hozzáadása"):
+        if st.session_state.multi_region and st.button("Mentés s új régió hozzáadása"):
             try:
                 st.session_state.regions.append({
                     'main_region': None,
