@@ -48,12 +48,12 @@ def main():
             view, sub_view, sub_sub_view = select_view()
 
         st.markdown("### Sérült Régiók Kiválasztása")
-
-        col3, col4 = st.columns([3, 1])
-        with col3:
+        
+        col_multi, col_add = st.columns([2, 1])
+        with col_multi:
             st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
-        with col4:
-            if st.session_state.multi_region and st.button("Új régió hozzáadása"):
+        with col_add:
+            if st.session_state.multi_region and st.button("Új régió hozzáadása", key="add_new_region"):
                 try:
                     previous_region = st.session_state.regions[-1] if st.session_state.regions else None
                     new_region = {
