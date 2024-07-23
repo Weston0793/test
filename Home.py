@@ -120,11 +120,11 @@ def main():
                 new_region = {
                     'main_region': previous_region['main_region'] if previous_region else None,
                     'side': previous_region['side'] if previous_region else None,
-                    'sub_region': None,
-                    'sub_sub_region': None,
-                    'sub_sub_sub_region': None,
-                    'sub_sub_sub_sub_region': None,
-                    'finger': None,
+                    'sub_region': previous_region['sub_region'] if previous_region else None,
+                    'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
+                    'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
+                    'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
+                    'finger': previous_region['finger'] if previous_region else None,
                     'editable': True
                 }
                 st.session_state.regions.append(new_region)
