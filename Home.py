@@ -60,10 +60,9 @@ def main():
             return region
 
         def add_region():
-            previous_region = st.session_state.regions[-1]
             new_region = {
-                'main_region': previous_region['main_region'],
-                'side': previous_region['side'],
+                'main_region': None,
+                'side': None,
                 'sub_region': None,
                 'sub_sub_region': None,
                 'sub_sub_sub_region': None,
@@ -71,11 +70,12 @@ def main():
                 'finger': None
             }
             st.session_state.regions.append(new_region)
-
+            st.experimental_rerun()
+        
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
             region = select_region(region)
-            
+        
             sub_sub_region = None
             sub_sub_sub_region = None
             sub_sub_sub_sub_region = None
@@ -98,7 +98,7 @@ def main():
                             region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
                     else:
                         region['sub_sub_sub_sub_region'] = None
-
+        
             col10, col11 = st.columns([1, 1])
             with col10:
                 if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
@@ -107,25 +107,11 @@ def main():
             with col11:
                 if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                     st.experimental_rerun()
-
+        
         if st.button("Mentés s új régió hozzáadása"):
             add_region()
             st.experimental_rerun()
-
-        age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
-        age_group = ""
-        if age != "NA":
-            age = int(age)
-            age_group = "Gyermek" if age <= 18 else "Felnőtt"
-
-        if main_type != "Normál":
-            complications = select_complications()
-            associated_conditions = select_associated_conditions()
-
-        classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
-
-        comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
-
+        
         if st.button("Feltöltés"):
             try:
                 upload_data = {
