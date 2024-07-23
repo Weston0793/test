@@ -91,7 +91,7 @@ def main():
                     with col9:
                         if region['editable']:
                             if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                                region['finger'] = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"], key=f"finger_{idx}")
+                                region['finger'], _ = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"], index=["I", "II", "III", "IV", "V"].index(region.get('finger', 'I')), key=f"finger_{idx}")
                             else:
                                 region['finger'] = None
                         else:
@@ -114,7 +114,7 @@ def main():
             st.markdown(f"**Régió {idx + 1}:**")
             display_region(region, idx)
 
-        if st.session_state.multi_region and st.button("Mentés s új régió hozzáadása", key="add_new_region"):
+        if st.session_state.multi_region and st.button("Mentés s új régió hozzáadása"):
             try:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
                 new_region = {
