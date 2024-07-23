@@ -105,7 +105,7 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Epicondylus": ["", "Medialis", "Lateralis"],
         "Supracondylaris": ["", "Extensio", "Flexio"],
         "Scaphoideum": ["", "De Quervain", ],
-        "Hamatum": ["", "Hamulus",]
+        "Hamatum": ["", "Hamulus"],
         "Distalis phalanx": ["", "Basis", "Corpus", "Caput", "Jersey Finger", "Mallet Finger", "Seymour"],
         "Középső phalanx": ["", "Basis", "Corpus", "Caput", "Volar Plate avulsio", "Pilon"],
         "Proximalis phalanx": ["", "Basis", "Corpus", "Caput"],
