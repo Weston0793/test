@@ -124,9 +124,8 @@ def select_finger(sub_sub_regions):
     if sub_sub_regions in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
         if sub_sub_regions in ["Pollex", "Hallux"]:
             finger = "I"
-        elif
-            sub_sub_regions in ["Phalanx", "Lábujjak"]:
-             finger = st.selectbox("Ujj", ["II", "III", "IV", "V"])   
+        elif sub_sub_regions in ["Phalanx", "Lábujjak"]:
+            finger = st.selectbox("Ujj", ["II", "III", "IV", "V"])   
         else:
             finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
     return finger, side
