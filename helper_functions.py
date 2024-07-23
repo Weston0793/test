@@ -118,7 +118,7 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
     return st.selectbox("Részletes régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
     
 def select_finger(sub_sub_regions):
-    side = st.selectbox("Oldal", ["Left", "Right"])
+    side = st.selectbox("Oldal", ["Bal", "Jobb"])
     
     finger = None
     if sub_sub_regions in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
@@ -131,3 +131,358 @@ def select_finger(sub_sub_regions):
             finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
     return finger, side
 
+def ao_classification(region):
+    ao_classes = {
+        "Proximalis humerus": {
+            "11A": "Extraarticularis, egyrészű",
+            "11B": "Extraarticularis, két rész",
+            "11C": "Ízületi vagy négy rész",
+        },
+         "Humerus diaphysis": {
+            "12A": "Egyszerű",
+            "12B": "Ék",
+            "12C": "Többrészű"
+        },
+        "Distalis humerus": {
+            "13A": "Extraarticularis",
+            "13B": "Részleges ízületi",
+            "13C": "Teljes ízületi"
+        },
+        "Proximalis femur": {
+            "31A": "Trochantericus régió",
+            "31B": "Femur nyak",
+            "31C": "Femur fej"
+        },
+        "Femur diaphysis": {
+            "32A": "Egyszerű",
+            "32B": "Ék",
+            "32C": "Többrészű"
+        },
+        "Distalis femur": {
+            "33A": "Extraarticularis",
+            "33B": "Részleges ízületi",
+            "33C": "Teljes ízületi"
+        },
+        "Proximalis tibia": {
+            "41A": "Extraarticularis",
+            "41B": "Részleges ízületi",
+            "41C": "Teljes ízületi"
+        },
+        "Tibia diaphysis": {
+            "42A": "Egyszerű",
+            "42B": "Ék",
+            "42C": "Többrészű"
+        },
+        "Distalis tibia": {
+            "43A": "Extraarticularis",
+            "43B": "Részleges ízületi",
+            "43C": "Teljes ízületi"
+        },
+        "Proximalis radius": {
+            "2R1A": "Extraarticularis",
+            "2R1B": "Részleges ízületi",
+            "2R1C": "Teljes ízületi"
+        },
+        "Radius diaphysis": {
+            "2R2A": "Egyszerű",
+            "2R2B": "Ék",
+            "2R2C": "Többrészű"
+        },
+        "Distalis radius": {
+            "2R3A": "Extraarticularis",
+            "2R3B": "Részleges ízületi",
+            "2R3C": "Teljes ízületi"
+        },
+        "Proximalis ulna": {
+            "2U1A": "Extraarticularis",
+            "2U1B": "Részleges ízületi",
+            "2U1C": "Teljes ízületi"
+        },
+        "Ulna diaphysis": {
+            "2U2A": "Egyszerű",
+            "2U2B": "Ék",
+            "2U2C": "Többrészű"
+        },
+        "Distalis ulna": {
+            "2U3A": "Extraarticularis",
+            "2U3B": "Részleges ízületi",
+            "2U3C": "Teljes ízületi"
+        }
+    }
+
+    ao_type = st.selectbox("AO klasszifikáció típusa", ao_classes.get(sub_region, {}).keys())
+    ao_subtype_description = ao_classes.get(sub_region, {}).get(ao_type, "")
+    ao_subtype = st.selectbox("AO altípus részletezése", get_ao_subtype_details(ao_type, ao_subtype_description))
+    
+    classification_name = "AO klasszifikáció"
+    ao_severity = ao_type
+    ao_subseverity = ao_subtype
+    
+    return classification_name, ao_severity, ao_subseverity
+
+def get_ao_subtype_details(ao_type, ao_subtype_description):
+    details = {
+        "11A": {
+            "1": "Tuberosity",
+            "2": "Sebészeti nyak",
+            "3": "Vertikális"
+        },
+        "11B": {
+            "1": "Sebészeti nyak"
+        },
+        "11C": {
+            "1": "Anatómiai nyak",
+            "3": "Anatómiai nyak metafízis töréssel"
+        },
+        "12A": {
+            "1": "Spirális",
+            "2": "Ferde (≥ 30°)",
+            "3": "Keresztirányú (< 30°)"
+        },
+        "12B": {
+            "2": "Ép ék",
+            "3": "Töredezett ék"
+        },
+        "12C": {
+            "2": "Ép szegmentális",
+            "3": "Töredezett szegmentális"
+        },
+        "13A": {
+            "1": "Avulsio",
+            "2": "Egyszerű",
+            "3": "Ék vagy többrészű"
+        },
+        "13B": {
+            "1": "Laterális sagittális",
+            "2": "Mediális sagittális",
+            "3": "Frontal/coronal plane"
+        },
+        "13C": {
+            "1": "Egyszerű ízületi, egyszerű metafízis",
+            "2": "Egyszerű ízületi, ék vagy többrészű metafízis",
+            "3": "Többrészű ízületi, ék vagy többrészű metafízis"
+        },
+        "31A": {
+            "1": "Egyszerű pertrochantericus",
+            "2": "Többrészű pertrochantericus",
+            "3": "Intertrochantericus (fordított dőlésszög)"
+        },
+        "31B": {
+            "1": "Subcapitalis",
+            "2": "Transcervicalis",
+            "3": "Basicervicalis"
+        },
+        "31C": {
+            "1": "Hasadék",
+            "2": "Benyomódás"
+        },
+        "32A": {
+            "1": "Spirális",
+            "2": "Ferde (≥ 30°)",
+            "3": "Keresztirányú (< 30°)"
+        },
+        "32B": {
+            "2": "Ép ék",
+            "3": "Töredezett ék"
+        },
+        "32C": {
+            "2": "Ép szegmentális",
+            "3": "Töredezett szegmentális"
+        },
+        "33A": {
+            "1": "Avulsio",
+            "2": "Egyszerű",
+            "3": "Ék vagy többrészű"
+        },
+        "33B": {
+            "1": "Lateral condyle, sagittal",
+            "2": "Medial condyle, sagittal",
+            "3": "Frontal/coronal"
+        },
+        "33C": {
+            "1": "Egyszerű ízületi, egyszerű metafízis",
+            "2": "Egyszerű ízületi, ék vagy többrészű metafízis",
+            "3": "Többrészű ízületi, egyszerű, ék vagy többrészű metafízis"
+        },
+        "41A": {
+            "1": "Avulsio",
+            "2": "Egyszerű",
+            "3": "Ék vagy többrészű"
+        },
+        "41B": {
+            "1": "Hasadék",
+            "2": "Benyomódás",
+            "3": "Hasadék benyomódással"
+        },
+        "41C": {
+            "1": "Egyszerű ízületi, egyszerű metafízis",
+            "2": "Egyszerű ízületi, ék vagy többrészű metafízis",
+            "3": "Többrészű ízületi, többrészű metafízis"
+        },
+        "42A": {
+            "1": "Spirális",
+            "2": "Ferde (≥ 30°)",
+            "3": "Keresztirányú (< 30°)"
+        },
+        "42B": {
+            "2": "Ép ék",
+            "3": "Töredezett ék"
+        },
+        "42C": {
+            "2": "Ép szegmentális",
+            "3": "Töredezett szegmentális"
+        },
+        "43A": {
+            "1": "Egyszerű",
+            "2": "Ék",
+            "3": "Többrészű"
+        },
+        "43B": {
+            "1": "Hasadék",
+            "2": "Hasadék benyomódással",
+            "3": "Benyomódás"
+        },
+        "43C": {
+            "1": "Egyszerű ízületi, egyszerű metafízis",
+            "2": "Egyszerű ízületi, többrészű metafízis",
+            "3": "Többrészű ízületi és többrészű metafízis"
+        },
+        "2R1A": {
+            "1": "Bicipital tuberosity avulsio",
+            "2": "Nyak, egyszerű",
+            "3": "Nyak, többrészű"
+        },
+        "2R1B": {
+            "1": "Egyszerű",
+            "3": "Töredezett"
+        },
+        "2R1C": {
+            "1": "Egyszerű",
+            "3": "Többrészű"
+        },
+        "2R2A": {
+            "1": "Spirális",
+            "2": "Ferde (≥ 30°)",
+            "3": "Keresztirányú (< 30°)"
+        },
+        "2R2B": {
+            "2": "Ép ék",
+            "3": "Töredezett ék"
+        },
+        "2R2C": {
+            "2": "Ép szegmentális",
+            "3": "Töredezett szegmentális"
+        },
+        "2R3A": {
+            "1": "Radialis styloid avulsio",
+            "2": "Egyszerű",
+            "3": "Ék vagy többrészű"
+        },
+        "2R3B": {
+            "1": "Sagittalis",
+            "2": "Dorsalis perem (Barton's)",
+            "3": "Volar perem (reverse Barton's, Goyrand-Smith's II)"
+        },
+        "2R3C": {
+            "1": "Egyszerű ízületi és metafízis",
+            "2": "Többrészű metafízis",
+            "3": "Többrészű ízületi, egyszerű vagy többrészű metafízis"
+        },
+        "2U1A": {
+            "1": "Triceps insertion avulsio",
+            "2": "Egyszerű metafízis",
+            "3": "Többrészű metafízis"
+        },
+        "2U1B": {
+            "1": "Olecranon",
+            "2": "Coronoid"
+        },
+        "2U1C": {
+            "3": "Olecranon és coronoid"
+        },
+        "2U2A": {
+            "1": "Spirális",
+            "2": "Ferde (≥ 30°)",
+            "3": "Keresztirányú (< 30°)"
+        },
+        "2U2B": {
+            "2": "Ép ék",
+            "3": "Töredezett ék"
+        },
+        "2U2C": {
+            "2": "Ép szegmentális",
+            "3": "Töredezett szegmentális"
+        },
+        "2U3A": {
+            "1": "Styloid process",
+            "2": "Egyszerű",
+            "3": "Többrészű"
+        },
+        "2U3B": {
+            "1": "Részleges ízületi"
+        },
+        "2U3C": {
+            "1": "Teljes ízületi"
+        }
+    }
+    return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
+
+def neer_classification(region):
+    neer_classes = {
+        "Proximalis humerus": {
+            "I": "Egy része érintett (<1 cm elmozdulás, <45° szög)",
+            "II": "Két része érintett (tuberositas majus/minor törés, nyak törés)",
+            "III": "Három része érintett (fej, nyak, tuberositas)",
+            "IV": "Négy része érintett (fej, nyak, tuberositas majus és minor)"
+        },
+        "Distalis humerus": {
+            "I": "Medial Epicondyle",
+            "II": "Lateral Epicondyle",
+            "III": "Capitellum",
+            "IV": "Trochlea"
+        },
+        "Diaphysis humerus": {
+            "I": "Spirális törés",
+            "II": "Ferde törés",
+            "III": "Keresztirányú törés",
+            "IV": "Komplex törés"
+        },
+        "Proximalis femur": {
+            "I": "Subcapitalis törés",
+            "II": "Transcervicalis törés",
+            "III": "Basicervicalis törés",
+            "IV": "Intertrochanterikus törés"
+        },
+        "Distalis femur": {
+            "I": "Condylar törés",
+            "II": "Intercondylar törés",
+            "III": "Supracondylar törés",
+            "IV": "Complex törés"
+        }
+    }
+
+    neer_type = st.selectbox("Neer osztályozás típusa", neer_classes.get(region, {}).keys())
+    neer_description = neer_classes.get(region, {}).get(neer_type, "")
+    
+    classification_name = "Neer osztályozás"
+    severity = neer_type
+    description = neer_description
+    
+    return classification_name, severity, description
+
+def gartland_classification():
+    gartland_types = {
+        "I": "Nem elmozdult törés",
+        "II": "Elmozdult törés, intakt hátsó cortex",
+        "III": "Teljes elmozdult törés, nincs érintkezés a cortikálisok között",
+        "IV": "Elmozdult törés instabil minden síkban"
+    }
+    
+    gartland_type = st.selectbox("Gartland osztályozás", gartland_types.keys())
+    gartland_description = gartland_types.get(gartland_type, "")
+    
+    classification_name = "Gartland osztályozás"
+    severity = gartland_type
+    description = gartland_description
+    
+    return classification_name, severity, description
