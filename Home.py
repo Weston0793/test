@@ -18,6 +18,16 @@ def initialize_home_session_state():
         st.session_state.patient_id = str(uuid.uuid4())
     if 'multi_region' not in st.session_state:
         st.session_state.multi_region = False
+    if 'uploaded_file' not in st.session_state:
+        st.session_state.uploaded_file = None
+
+def reset_all():
+    st.session_state.confirm_data = None
+    st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
+    st.session_state.patient_id = str(uuid.uuid4())
+    st.session_state.multi_region = False
+    st.session_state.uploaded_file = None
+    st.experimental_rerun()
 
 def main():
     initialize_home_session_state()
@@ -29,15 +39,12 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
+    if uploaded_file is not None:
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.uploaded_file = uploaded_file
-        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
-        st.session_state.patient_id = str(uuid.uuid4())
-        st.session_state.confirm_data = None
         st.experimental_rerun()
 
-    if 'uploaded_file' in st.session_state:
+    if st.session_state.uploaded_file:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
         
         col1, col2 = st.columns(2)
@@ -175,6 +182,10 @@ def main():
 
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    if st.button("Reset"):
+        reset_all()
 
     if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
