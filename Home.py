@@ -92,7 +92,7 @@ def main():
                     with col9:
                         if region['editable']:
                             if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                                region['finger'], _ = st.selectbox("Ujj", select_finger(region['sub_sub_sub_region']), key=f"finger_{idx}")
+                                region['finger'], _ = select_finger(region['sub_sub_sub_region'])
                             else:
                                 region['finger'] = None
                         else:
