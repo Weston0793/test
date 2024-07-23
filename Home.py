@@ -8,7 +8,6 @@ from helper_functions import (
     select_sub_sub_sub_subregion, select_finger, select_complications, 
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
-
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -27,14 +26,17 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None:
+    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
         uploaded_file = handle_file_upload(uploaded_file)
+        st.session_state.uploaded_file = uploaded_file
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
         st.session_state.patient_id = str(uuid.uuid4())
         st.session_state.confirm_data = None
         st.experimental_rerun()
 
-    if uploaded_file:
+    if 'uploaded_file' in st.session_state:
+        st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
+        
         col1, col2 = st.columns(2)
         with col1:
             main_type, sub_type, sub_sub_type = select_main_type()
@@ -136,7 +138,7 @@ def main():
                     "age": age,
                     "age_group": age_group,
                     "comment": comment,
-                    "file": uploaded_file,
+                    "file": st.session_state.uploaded_file,
                     "complications": complications if main_type != "Normál" else [],
                     "associated_conditions": associated_conditions if main_type != "Normál" else [],
                     "classifications": {},
