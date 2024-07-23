@@ -9,6 +9,7 @@ from helper_functions import (
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
 
+
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -59,21 +60,17 @@ def main():
             return region
 
         def add_region():
-            try:
-                previous_region = st.session_state.regions[-1]
-                new_region = {
-                    'main_region': previous_region['main_region'],
-                    'side': previous_region['side'],
-                    'sub_region': None,
-                    'sub_sub_region': None,
-                    'sub_sub_sub_region': None,
-                    'sub_sub_sub_sub_region': None,
-                    'finger': None
-                }
-                st.session_state.regions.append(new_region)
-                st.success("Új régió hozzáadva")
-            except Exception as e:
-                st.error(f"Hiba történt új régió hozzáadásakor: {e}")
+            previous_region = st.session_state.regions[-1]
+            new_region = {
+                'main_region': previous_region['main_region'],
+                'side': previous_region['side'],
+                'sub_region': None,
+                'sub_sub_region': None,
+                'sub_sub_sub_region': None,
+                'sub_sub_sub_sub_region': None,
+                'finger': None
+            }
+            st.session_state.regions.append(new_region)
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -145,7 +142,7 @@ def main():
                     "file": uploaded_file,
                     "complications": complications if main_type != "Normál" else [],
                     "associated_conditions": associated_conditions if main_type != "Normál" else [],
-                    "classifications": classifications,
+                    "classifications": {},
                     "regions": st.session_state.regions
                 }
                 st.session_state.confirm_data = upload_data
