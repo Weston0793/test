@@ -69,21 +69,33 @@ def main():
                         region['sub_region'] = select_subregion(region['main_region'])
                 else:
                     st.write(f"Alrégió: {region['sub_region']}")
-            if region['sub_region'] and region['editable']:
+            if region['sub_region']:
                 col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
                 with col6:
-                    region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
+                    if region['editable']:
+                        region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
+                    else:
+                        st.write(f"Részletes régió: {region['sub_sub_region']}")
                 if region['sub_sub_region']:
                     with col7:
-                        region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
+                        if region['editable']:
+                            region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
+                        else:
+                            st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
                 if region['sub_sub_sub_region']:
                     with col8:
-                        region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
-                    with col9:
-                        if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                            region['finger'], _ = select_finger(region['sub_sub_sub_region'])
+                        if region['editable']:
+                            region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
                         else:
-                            region['finger'] = None
+                            st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
+                    with col9:
+                        if region['editable']:
+                            if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
+                                region['finger'], _ = select_finger(region['sub_sub_sub_region'])
+                            else:
+                                region['finger'] = None
+                        else:
+                            st.write(f"Ujj: {region['finger']}")
 
             if st.session_state.multi_region:
                 if region['editable']:
@@ -104,16 +116,18 @@ def main():
 
         if st.session_state.multi_region and st.button("Mentés s új régió hozzáadása"):
             try:
-                st.session_state.regions.append({
-                    'main_region': None,
-                    'side': None,
+                previous_region = st.session_state.regions[-1] if st.session_state.regions else None
+                new_region = {
+                    'main_region': previous_region['main_region'] if previous_region else None,
+                    'side': previous_region['side'] if previous_region else None,
                     'sub_region': None,
                     'sub_sub_region': None,
                     'sub_sub_sub_region': None,
                     'sub_sub_sub_sub_region': None,
                     'finger': None,
                     'editable': True
-                })
+                }
+                st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
                 st.experimental_rerun()
             except Exception as e:
