@@ -34,6 +34,10 @@ def confirm_and_upload_data(upload_data):
         st.markdown(f'**Részletes régió:** {upload_data["sub_sub_region"]}')
     if upload_data["sub_sub_sub_region"]:
         st.markdown(f'**Legpontosabb régió:** {upload_data["sub_sub_sub_region"]}')
+    if upload_data.get("finger"):
+        st.markdown(f'**Ujj:** {upload_data["finger"]}')
+    if upload_data.get("side"):
+        st.markdown(f'**Oldal:** {upload_data["side"]}')
     st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}')
     st.markdown(f'**Életkori Csoport:** {upload_data["age_group"]}')
     st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}')
@@ -41,6 +45,15 @@ def confirm_and_upload_data(upload_data):
         st.markdown(f'**Komplikációk: (többet is választhat)** {", ".join(upload_data["complications"])}')
     if upload_data["associated_conditions"]:
         st.markdown(f'**Társuló Kórállapotok: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}')
+    if upload_data.get("classifications"):
+        for classification, details in upload_data["classifications"].items():
+            st.markdown(f'**{classification} osztályozás:**')
+            st.markdown(f'**Név:** {details["name"]}')
+            st.markdown(f'**Súlyosság:** {details["severity"]}')
+            if "subseverity" in details:
+                st.markdown(f'**Alsúlyosság:** {details["subseverity"]}')
+            if "description" in details:
+                st.markdown(f'**Leírás:** {details["description"]}')
 
     st.markdown('<div class="center-button">', unsafe_allow_html=True)
     if st.button("Megerősít és Feltölt", key="confirm_upload"):
