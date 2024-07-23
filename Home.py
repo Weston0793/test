@@ -8,17 +8,6 @@ from helper_functions import (
     select_sub_sub_sub_subregion, select_finger, select_complications, 
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
-import streamlit as st
-from home_backend import handle_file_upload, confirm_and_upload_data
-import uuid
-from helper_functions import (
-    select_main_type, select_view, select_main_region, 
-    select_subregion, select_sub_subregion, select_sub_sub_subregion, 
-    select_sub_sub_sub_subregion, select_finger, select_complications, 
-    select_associated_conditions, ao_classification, neer_classification, gartland_classification
-)
-from Styles import upload_markdown
-
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -66,6 +55,20 @@ def main():
                     region['sub_region'] = select_subregion(region['main_region'])
             return region
 
+        def add_region():
+            previous_region = st.session_state.regions[-1]
+            new_region = {
+                'main_region': previous_region['main_region'],
+                'side': previous_region['side'],
+                'sub_region': None,
+                'sub_sub_region': None,
+                'sub_sub_sub_region': None,
+                'sub_sub_sub_sub_region': None,
+                'finger': None
+            }
+            st.session_state.regions.append(new_region)
+            st.experimental_rerun()
+
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
             region = select_region(region)
@@ -103,17 +106,7 @@ def main():
                     st.experimental_rerun()
 
         if st.button("Mentés s új régió hozzáadása"):
-            new_region = {
-                'main_region': st.session_state.regions[-1]['main_region'],
-                'side': st.session_state.regions[-1]['side'],
-                'sub_region': None,
-                'sub_sub_region': None,
-                'sub_sub_sub_region': None,
-                'sub_sub_sub_sub_region': None,
-                'finger': None
-            }
-            st.session_state.regions.append(new_region)
-            st.experimental_rerun()
+            add_region()
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
