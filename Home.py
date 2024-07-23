@@ -1,12 +1,13 @@
 import streamlit as st
 from home_backend import handle_file_upload, confirm_and_upload_data
 import uuid
+from Styles import upload_markdown
 from helper_functions import (
     select_main_type, select_view, select_main_region, 
     select_subregion, select_sub_subregion, select_sub_sub_subregion, 
-    select_complications, select_associated_conditions
+    select_sub_sub_sub_subregion, select_finger, select_complications, 
+    select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
-from Styles import upload_markdown
 
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
@@ -46,6 +47,9 @@ def main():
         with col6:
             sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
 
+        if sub_sub_sub_region:
+            finger, side = select_finger(sub_sub_sub_region)
+
         if main_type != "Normál":
             complications = select_complications()
             associated_conditions = select_associated_conditions()
@@ -57,6 +61,21 @@ def main():
             age_group = "Gyermek" if age <= 18 else "Felnőtt"
 
         comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
+
+        classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
+
+        classifications = {}
+        if "AO" in classification_types:
+            ao_name, ao_severity, ao_subseverity = ao_classification(sub_sub_region)
+            classifications["AO"] = {"name": ao_name, "severity": ao_severity, "subseverity": ao_subseverity}
+        
+        if "Gartland" in classification_types:
+            gartland_name, gartland_severity, gartland_description = gartland_classification()
+            classifications["Gartland"] = {"name": gartland_name, "severity": gartland_severity, "description": gartland_description}
+        
+        if "Neer" in classification_types:
+            neer_name, neer_severity, neer_description = neer_classification(sub_sub_region)
+            classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
 
         if st.button("Feltöltés"):
             upload_data = {
@@ -71,12 +90,15 @@ def main():
                 "sub_region": sub_region if main_type != "Normál" else "",
                 "sub_sub_region": sub_sub_region if sub_sub_region != "NA" else "",
                 "sub_sub_sub_region": sub_sub_sub_region if sub_sub_sub_region != "NA" else "",
+                "finger": finger if sub_sub_sub_region in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"] else "",
+                "side": side,
                 "age": age,
                 "age_group": age_group,
                 "comment": comment,
                 "file": uploaded_file,
                 "complications": complications if main_type != "Normál" else [],
-                "associated_conditions": associated_conditions if main_type != "Normál" else []
+                "associated_conditions": associated_conditions if main_type != "Normál" else [],
+                "classifications": classifications
             }
             st.session_state.confirm_data = upload_data
             st.experimental_rerun()
