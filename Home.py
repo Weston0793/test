@@ -29,7 +29,7 @@ def main():
     if st.button("Reset"):
         st.session_state.clear()
         initialize_home_session_state()
-        st.experimental_rerun()
+        st.rerun()
     
     st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
@@ -42,9 +42,8 @@ def main():
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.uploaded_file = uploaded_file
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
-        st.session_state.patient_id = str(uuid.uuid4())
         st.session_state.confirm_data = None
-        st.experimental_rerun()
+        st.rerun()
 
     if 'uploaded_file' in st.session_state:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
@@ -101,7 +100,7 @@ def main():
                     with col9:
                         if region['editable']:
                             if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                                region['finger'], _ = select_finger(region['sub_sub_sub_region'])
+                                region['finger'], _ = select_finger(region['sub_sub_sub_region'], key=f"finger_{idx}")
                             else:
                                 region['finger'] = None
                         else:
@@ -111,14 +110,14 @@ def main():
                 if region['editable']:
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
-                        st.experimental_rerun()
+                        st.rerun()
                 else:
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
-                        st.experimental_rerun()
+                        st.rerun()
                     if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                         st.session_state.regions.pop(idx)
-                        st.experimental_rerun()
+                        st.rerun()
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -139,7 +138,7 @@ def main():
                 }
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
-                st.experimental_rerun()
+                st.rerun()
             except Exception as e:
                 st.error(f"Hiba történt új régió hozzáadásakor: {e}")
 
@@ -178,14 +177,14 @@ def main():
                 }
                 st.session_state.confirm_data = upload_data
                 st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
-                st.experimental_rerun()
+                st.rerun()
             except Exception as e:
                 st.error(f"Hiba történt a mentés során: {e}")
 
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
 
-    if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
+    if st.query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
