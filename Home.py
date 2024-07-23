@@ -16,14 +16,15 @@ def initialize_home_session_state():
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None}]
     if 'adding_multiple' not in st.session_state:
         st.session_state.adding_multiple = False
+    if 'patient_id' not in st.session_state:
+        st.session_state.patient_id = str(uuid.uuid4())
 
 def main():
     initialize_home_session_state()
     upload_markdown()
     st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
-    patient_id = str(uuid.uuid4())
-    st.text_input("Beteg azonosító", patient_id, disabled=True)
+    st.text_input("Beteg azonosító", st.session_state.patient_id, disabled=True)
 
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
@@ -31,6 +32,7 @@ def main():
     if uploaded_file is not None:
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None}]
+        st.session_state.patient_id = str(uuid.uuid4())
 
     if uploaded_file:
         col1, col2 = st.columns(2)
@@ -57,17 +59,21 @@ def main():
             return region
 
         def add_region():
-            previous_region = st.session_state.regions[-1]
-            new_region = {
-                'main_region': previous_region['main_region'],
-                'side': previous_region['side'],
-                'sub_region': None,
-                'sub_sub_region': None,
-                'sub_sub_sub_region': None,
-                'sub_sub_sub_sub_region': None,
-                'finger': None
-            }
-            st.session_state.regions.append(new_region)
+            try:
+                previous_region = st.session_state.regions[-1]
+                new_region = {
+                    'main_region': previous_region['main_region'],
+                    'side': previous_region['side'],
+                    'sub_region': None,
+                    'sub_sub_region': None,
+                    'sub_sub_sub_region': None,
+                    'sub_sub_sub_sub_region': None,
+                    'finger': None
+                }
+                st.session_state.regions.append(new_region)
+                st.success("Új régió hozzáadva")
+            except Exception as e:
+                st.error(f"Hiba történt új régió hozzáadásakor: {e}")
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -124,25 +130,29 @@ def main():
         comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
 
         if st.button("Feltöltés"):
-            upload_data = {
-                "patient_id": patient_id,
-                "main_type": main_type,
-                "sub_type": sub_type,
-                "sub_sub_type": sub_sub_type,
-                "view": view,
-                "sub_view": sub_view,
-                "sub_sub_view": sub_sub_view,
-                "age": age,
-                "age_group": age_group,
-                "comment": comment,
-                "file": uploaded_file,
-                "complications": complications if main_type != "Normál" else [],
-                "associated_conditions": associated_conditions if main_type != "Normál" else [],
-                "classifications": classifications,
-                "regions": st.session_state.regions
-            }
-            st.session_state.confirm_data = upload_data
-            st.experimental_rerun()
+            try:
+                upload_data = {
+                    "patient_id": st.session_state.patient_id,
+                    "main_type": main_type,
+                    "sub_type": sub_type,
+                    "sub_sub_type": sub_sub_type,
+                    "view": view,
+                    "sub_view": sub_view,
+                    "sub_sub_view": sub_sub_view,
+                    "age": age,
+                    "age_group": age_group,
+                    "comment": comment,
+                    "file": uploaded_file,
+                    "complications": complications if main_type != "Normál" else [],
+                    "associated_conditions": associated_conditions if main_type != "Normál" else [],
+                    "classifications": classifications,
+                    "regions": st.session_state.regions
+                }
+                st.session_state.confirm_data = upload_data
+                st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
+                st.experimental_rerun()
+            except Exception as e:
+                st.error(f"Hiba történt a mentés során: {e}")
 
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
