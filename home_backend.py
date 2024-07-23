@@ -27,17 +27,6 @@ def confirm_and_upload_data(upload_data):
         st.markdown(f'**Specifikus nézet:** {upload_data["sub_view"]}')
     if upload_data["sub_sub_view"]:
         st.markdown(f'**Legspecifikusabb nézet:** {upload_data["sub_sub_view"]}')
-    st.markdown(f'**Fő régió:** {upload_data["main_region"]}')
-    if upload_data["sub_region"]:
-        st.markdown(f'**Alrégió:** {upload_data["sub_region"]}')
-    if upload_data["sub_sub_region"]:
-        st.markdown(f'**Részletes régió:** {upload_data["sub_sub_region"]}')
-    if upload_data["sub_sub_sub_region"]:
-        st.markdown(f'**Legpontosabb régió:** {upload_data["sub_sub_sub_region"]}')
-    if upload_data.get("finger"):
-        st.markdown(f'**Ujj:** {upload_data["finger"]}')
-    if upload_data.get("side"):
-        st.markdown(f'**Oldal:** {upload_data["side"]}')
     st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}')
     st.markdown(f'**Életkori Csoport:** {upload_data["age_group"]}')
     st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}')
@@ -54,6 +43,22 @@ def confirm_and_upload_data(upload_data):
                 st.markdown(f'**Alsúlyosság:** {details["subseverity"]}')
             if "description" in details:
                 st.markdown(f'**Leírás:** {details["description"]}')
+
+    st.markdown("### Kiválasztott régiók")
+    for idx, region in enumerate(upload_data["regions"]):
+        st.markdown(f"**Régió {idx + 1}:**")
+        st.markdown(f"**Fő régió:** {region['main_region']}")
+        if region['side']:
+            st.markdown(f"**Oldal:** {region['side']}")
+        st.markdown(f"**Alrégió:** {region['sub_region']}")
+        if region['sub_sub_region']:
+            st.markdown(f"**Részletes régió:** {region['sub_sub_region']}")
+        if region['sub_sub_sub_region']:
+            st.markdown(f"**Legpontosabb régió:** {region['sub_sub_sub_region']}")
+        if region['finger']:
+            st.markdown(f"**Ujj:** {region['finger']}")
+        if region['sub_sub_sub_sub_region']:
+            st.markdown(f"**Legrészletesebb régió:** {region['sub_sub_sub_sub_region']}")
 
     st.markdown('<div class="center-button">', unsafe_allow_html=True)
     if st.button("Megerősít és Feltölt", key="confirm_upload"):
