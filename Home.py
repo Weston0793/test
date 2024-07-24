@@ -190,7 +190,7 @@ def main():
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
 
-    if st.query_params().get("scroll_to") == ["confirmation"]:
+    if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
     st.button("Reset", on_click=reset_session_state)
