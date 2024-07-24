@@ -102,20 +102,20 @@ def main():
                     st.session_state.regions.pop(idx)
                     st.experimental_rerun()
 
-        st.markdown("### Osztályozás kiválasztása")
-        classification_options = {
-            "AO": ao_classification,
-            "Neer": neer_classification,
-            "Gartland": gartland_classification
-        }
-        classification_option = st.selectbox("Válassza ki az osztályozási rendszert", list(classification_options.keys()), key=f"classification_option_{idx}")
+        classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
+
+        classifications = {}
+        if "AO" in classification_types:
+            ao_name, ao_severity, ao_subseverity = ao_classification(sub_sub_region)
+            classifications["AO"] = {"name": ao_name, "severity": ao_severity, "subseverity": ao_subseverity}
         
-        if classification_option:
-            classification_func = classification_options[classification_option]
-            if classification_option == "AO":
-                region['classification'], region['severity'], region['subseverity'] = classification_func(region['sub_sub_region'])
-            else:
-                region['classification'], region['severity'], region['subseverity'] = classification_func(region['main_region'])
+        if "Gartland" in classification_types:
+            gartland_name, gartland_severity, gartland_description = gartland_classification()
+            classifications["Gartland"] = {"name": gartland_name, "severity": gartland_severity, "description": gartland_description}
+        
+        if "Neer" in classification_types:
+            neer_name, neer_severity, neer_description = neer_classification(sub_sub_region)
+            classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
@@ -126,8 +126,6 @@ def main():
     if main_type != "Normál":
         complications = select_complications()
         associated_conditions = select_associated_conditions()
-
-    classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
 
     comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
 
