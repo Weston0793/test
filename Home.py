@@ -102,20 +102,25 @@ def main():
                     st.session_state.regions.pop(idx)
                     st.experimental_rerun()
 
+        sub_sub_region = region.get('sub_sub_region', None)
+
+        st.markdown("### Osztályozás kiválasztása")
         classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
 
         classifications = {}
         if "AO" in classification_types:
             ao_name, ao_severity, ao_subseverity = ao_classification(sub_sub_region)
             classifications["AO"] = {"name": ao_name, "severity": ao_severity, "subseverity": ao_subseverity}
-        
+
         if "Gartland" in classification_types:
             gartland_name, gartland_severity, gartland_description = gartland_classification()
             classifications["Gartland"] = {"name": gartland_name, "severity": gartland_severity, "description": gartland_description}
-        
+
         if "Neer" in classification_types:
             neer_name, neer_severity, neer_description = neer_classification(sub_sub_region)
             classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
+
+        region['classifications'] = classifications
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
@@ -145,7 +150,6 @@ def main():
                 "files": st.session_state.uploaded_files,
                 "complications": complications if main_type != "Normál" else [],
                 "associated_conditions": associated_conditions if main_type != "Normál" else [],
-                "classifications": {},
                 "regions": st.session_state.regions
             }
             st.session_state.confirm_data = upload_data
