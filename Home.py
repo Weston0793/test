@@ -81,6 +81,19 @@ def main():
     for idx, region in enumerate(st.session_state.regions):
         st.markdown(f"**Régió {idx + 1}:**")
         st.session_state.regions[idx] = display_region(region, idx)
+        if st.session_state.multi_region:
+            if region['editable']:
+                if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
+                    region['editable'] = False
+                    st.session_state.new_region_blocked = False
+                    st.experimental_rerun()
+            else:
+                if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
+                    region['editable'] = True
+                    st.experimental_rerun()
+                if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
+                    st.session_state.regions.pop(idx)
+                    st.experimental_rerun()
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
