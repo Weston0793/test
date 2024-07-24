@@ -26,7 +26,7 @@ def main():
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
 
-    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=st.session_state.allow_multiple_uploads, key=st.session_state.file_uploader_key)
+    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False, key=st.session_state.file_uploader_key)
 
     if uploaded_file is not None:
         if st.session_state.allow_multiple_uploads:
@@ -35,7 +35,7 @@ def main():
         else:
             st.session_state.uploaded_file = handle_file_upload(uploaded_file)
             st.session_state.uploaded_files = [st.session_state.uploaded_file]
-
+    
     if not st.session_state.allow_multiple_uploads and st.session_state.uploaded_file is not None:
         st.image(st.session_state.uploaded_file, caption=f"Feltöltött kép: {st.session_state.uploaded_file.name}", use_column_width=True)
     elif st.session_state.allow_multiple_uploads:
