@@ -24,8 +24,6 @@ def initialize_home_session_state():
         st.session_state.multi_region = False
     if 'new_region_blocked' not in st.session_state:
         st.session_state.new_region_blocked = False
-    if 'uploaded_file' not in st.session_state:
-        st.session_state.uploaded_file = None
     if 'uploaded_files' not in st.session_state:
         st.session_state.uploaded_files = []
     if 'allow_multiple_uploads' not in st.session_state:
@@ -46,28 +44,24 @@ def main():
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
 
-    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=st.session_state.allow_multiple_uploads, key=st.session_state.file_uploader_key)
+    uploaded_files = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=st.session_state.allow_multiple_uploads, key=st.session_state.file_uploader_key)
 
-    if uploaded_file is not None:
-        if st.session_state.allow_multiple_uploads:
-            # Handle multiple files upload
-            new_files = uploaded_file if isinstance(uploaded_file, list) else [uploaded_file]
-            for file in new_files:
-                if file.name not in [f.name for f in st.session_state.uploaded_files]:
-                    st.session_state.uploaded_files.append(handle_file_upload(file))
+    if uploaded_files:
+        if not isinstance(uploaded_files, list):
+            uploaded_files = [uploaded_files]
+
+        if not st.session_state.allow_multiple_uploads:
+            st.session_state.uploaded_files = [handle_file_upload(uploaded_files[0])]
         else:
-            # Handle single file upload
-            st.session_state.uploaded_file = handle_file_upload(uploaded_file)
-            st.session_state.uploaded_files = [st.session_state.uploaded_file]
+            for uploaded_file in uploaded_files:
+                if uploaded_file.name not in [f.name for f in st.session_state.uploaded_files]:
+                    st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
 
     if st.session_state.uploaded_files:
-        if not st.session_state.allow_multiple_uploads:
-            st.image(st.session_state.uploaded_files[0], caption=f"Feltöltött kép: {st.session_state.uploaded_files[0].name}", use_column_width=True)
-        else:
-            cols = st.columns(2)
-            for idx, file in enumerate(st.session_state.uploaded_files):
-                with cols[idx % 2]:
-                    st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
+        cols = st.columns(2)
+        for idx, file in enumerate(st.session_state.uploaded_files):
+            with cols[idx % 2]:
+                st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
