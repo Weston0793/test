@@ -6,7 +6,8 @@ from google.api_core.exceptions import GoogleAPICallError
 from search_backend import perform_search
 from helper_functions import (
     select_main_type, select_view, select_main_region, select_subregion, 
-    select_sub_subregion, select_sub_sub_subregion, select_complications, select_associated_conditions
+    select_sub_subregion, select_sub_sub_subregion, select_complications, select_associated_conditions,
+    ao_classification, neer_classification, gartland_classification
 )
 from Styles import search_markdown
 
@@ -32,7 +33,8 @@ def initialize_session_state():
             "age": "",
             "age_group": "",
             "page": 1,
-            "items_per_page": 10
+            "items_per_page": 10,
+            "classifications": {}
         }
 
 def search_section():
@@ -58,8 +60,26 @@ def search_section():
     with col6:
         sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
 
-    complications = select_complications()
+    st.markdown("### Osztályozás kiválasztása")
+    classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
     
+    classifications = {}
+    if "AO" in classification_types:
+        ao_name, ao_severity, ao_subseverity = ao_classification(sub_sub_region)
+        if ao_name and ao_severity and ao_subseverity:
+            classifications["AO"] = {"name": ao_name, "severity": ao_severity, "subseverity": ao_subseverity}
+    
+    if "Gartland" in classification_types:
+        gartland_name, gartland_severity, gartland_description = gartland_classification()
+        if gartland_name and gartland_severity:
+            classifications["Gartland"] = {"name": gartland_name, "severity": gartland_severity, "description": gartland_description}
+    
+    if "Neer" in classification_types:
+        neer_name, neer_severity, neer_description = neer_classification(sub_sub_region)
+        if neer_name and neer_severity:
+            classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
+
+    complications = select_complications()
     associated_conditions = select_associated_conditions()
 
     age_filter_active = st.checkbox("Életkor keresése (intervallum)", value=st.session_state.query_params["age_filter_active"])
@@ -108,7 +128,8 @@ def search_section():
             "age": str(age) if age else "",
             "age_group": age_group,
             "page": page,
-            "items_per_page": items_per_page
+            "items_per_page": items_per_page,
+            "classifications": classifications
         }
         st.experimental_rerun()
 
