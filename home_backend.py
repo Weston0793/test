@@ -63,7 +63,23 @@ def confirm_and_upload_data(upload_data):
     st.markdown('<div class="center-button">', unsafe_allow_html=True)
     if st.button("Megerősít és Feltölt", key="confirm_upload"):
         try:
-            save_image(**upload_data)
+            save_image(
+                patient_id=upload_data["patient_id"],
+                files=upload_data["files"],
+                main_type=upload_data["main_type"],
+                sub_type=upload_data["sub_type"],
+                sub_sub_type=upload_data["sub_sub_type"],
+                view=upload_data["view"],
+                sub_view=upload_data["sub_view"],
+                sub_sub_view=upload_data["sub_sub_view"],
+                age=upload_data["age"],
+                age_group=upload_data["age_group"],
+                comment=upload_data["comment"],
+                complications=upload_data["complications"],
+                associated_conditions=upload_data["associated_conditions"],
+                classifications=upload_data["classifications"],
+                regions=upload_data["regions"]
+            )
             st.success("Kép sikeresen feltöltve!")
             st.session_state["confirm_data"] = None
             st.experimental_set_query_params(scroll_to="confirmation")
