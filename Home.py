@@ -27,12 +27,12 @@ def initialize_home_session_state():
         st.session_state.allow_multiple_uploads = False
 
 def reset_session_state():
-    st.session_state.clear()
+    for key in st.session_state.keys():
+        del st.session_state[key]
     initialize_home_session_state()
     st.experimental_rerun()
 
 def handle_image_upload(uploaded_file):
-    # Check if the file already exists in the uploaded files list
     if not any(f.name == uploaded_file.name and f.size == uploaded_file.size for f in st.session_state.uploaded_files):
         if st.session_state.allow_multiple_uploads:
             st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
