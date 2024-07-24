@@ -54,15 +54,12 @@ def main():
     with col_checkbox:
         st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
     
-    if 'region_counter' not in st.session_state:
-        st.session_state.region_counter = 1
-
     with col_button:
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
                 new_region = previous_region.copy() if previous_region else {
-                    'region_id': st.session_state.region_counter,
+                    'id': len(st.session_state.regions) + 1,
                     'main_region': None,
                     'side': None,
                     'sub_region': None,
@@ -72,34 +69,31 @@ def main():
                     'finger': None,
                     'editable': True
                 }
-                new_region['region_id'] = st.session_state.region_counter
                 new_region['editable'] = True  # Ensure the new region starts as editable
                 st.session_state.regions.append(new_region)
-                st.session_state.region_counter += 1
-                st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
                 st.experimental_rerun()
             elif st.session_state.new_region_blocked:
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
     for idx, region in enumerate(st.session_state.regions):
-        st.markdown(f"**Régió {region['region_id']}:**")
+        st.markdown(f"**Régió {region['id']}:**")
         if 'editable' not in region:
             region['editable'] = True
         st.session_state.regions[idx] = display_region(region, idx)
         if st.session_state.multi_region:
             if region['editable']:
-                if st.button(f"Régió {region['region_id']} mentése", key=f"save_region_{region['region_id']}"):
+                if st.button(f"Régió {region['id']} mentése", key=f"save_region_{region['id']}"):
                     region['editable'] = False
                     st.session_state.new_region_blocked = False
                     st.experimental_rerun()
             else:
-                if st.button(f"Régió {region['region_id']} módosítása", key=f"modify_region_{region['region_id']}"):
+                if st.button(f"Régió {region['id']} módosítása", key=f"modify_region_{region['id']}"):
                     region['editable'] = True
                     st.experimental_rerun()
-            if st.button(f"Régió {region['region_id']} törlése", key=f"delete_region_{region['region_id']}"):
-                st.session_state.regions.pop(idx)
-                st.experimental_rerun()
+        if st.button(f"Régió {region['id']} törlése", key=f"delete_region_{region['id']}"):
+            st.session_state.regions.pop(idx)
+            st.experimental_rerun()
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
