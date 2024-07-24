@@ -33,7 +33,7 @@ def confirm_and_upload_data(upload_data):
         st.markdown(f'**Komplikációk: (többet is választhat)** {", ".join(upload_data["complications"])}', unsafe_allow_html=True)
     if upload_data["associated_conditions"]:
         st.markdown(f'**Társuló Kórállapotok: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}', unsafe_allow_html=True)
-    
+
     st.markdown("### Kiválasztott régiók", unsafe_allow_html=True)
     for idx, region in enumerate(upload_data["regions"]):
         st.markdown(f"**Régió {idx + 1}:**", unsafe_allow_html=True)
@@ -49,12 +49,14 @@ def confirm_and_upload_data(upload_data):
             st.markdown(f"**Ujj:** {region['finger']}", unsafe_allow_html=True)
         if region['sub_sub_sub_sub_region']:
             st.markdown(f"**Legrészletesebb régió:** {region['sub_sub_sub_sub_region']}", unsafe_allow_html=True)
-        
+
         if region.get("classification"):
-            st.markdown(f"**Osztályozás:** {region['classification']['name']}", unsafe_allow_html=True)
-            st.markdown(f"**Súlyosság:** {region['classification']['severity']}", unsafe_allow_html=True)
-            if "subseverity" in region['classification']:
-                st.markdown(f"**Alsúlyosság:** {region['classification']['subseverity']}", unsafe_allow_html=True)
+            for classification_name, details in region["classification"].items():
+                if "name" in details and "severity" in details:
+                    st.markdown(f"**Osztályozás:** {details['name']}", unsafe_allow_html=True)
+                    st.markdown(f"**Súlyosság:** {details['severity']}", unsafe_allow_html=True)
+                    if "subseverity" in details:
+                        st.markdown(f"**Alsúlyosság:** {details['subseverity']}", unsafe_allow_html=True)
 
     st.markdown('<div class="center-button">', unsafe_allow_html=True)
     if st.button("Megerősít és Feltölt", key="confirm_upload"):
