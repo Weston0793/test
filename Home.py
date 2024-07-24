@@ -105,7 +105,11 @@ def main():
         sub_sub_region = region.get('sub_sub_region', None)
 
         st.markdown("### Osztályozás kiválasztása")
-        classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
+        classification_types = st.multiselect(
+            f"Válassza ki az osztályozás típusát {idx+1}",
+            ["AO", "Gartland", "Neer"],
+            key=f"classification_types_{idx}"
+        )
 
         classifications = {}
         if "AO" in classification_types:
