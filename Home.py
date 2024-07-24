@@ -13,6 +13,21 @@ from functions import (
     display_region, display_images
 )
 
+import streamlit as st
+from home_backend import handle_file_upload, confirm_and_upload_data
+import uuid
+from helper_functions import (
+    select_main_type, select_view, select_main_region, 
+    select_subregion, select_sub_subregion, select_sub_sub_subregion, 
+    select_sub_sub_sub_subregion, select_finger, select_complications, 
+    select_associated_conditions, ao_classification, neer_classification, gartland_classification
+)
+from Styles import upload_markdown
+from functions import (
+    initialize_home_session_state, reset_session_state,
+    display_region, display_images
+)
+
 def main():
     initialize_home_session_state()
     upload_markdown()
@@ -54,18 +69,11 @@ def main():
     with col_checkbox:
         st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
     
-    if 'region_counter' not in st.session_state:
-        st.session_state.region_counter = 1
-
-    if 'regions' not in st.session_state:
-        st.session_state.regions = []
-
     with col_button:
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
                 new_region = previous_region.copy() if previous_region else {
-                    'region_id': st.session_state.region_counter,
                     'main_region': None,
                     'side': None,
                     'sub_region': None,
@@ -73,12 +81,13 @@ def main():
                     'sub_sub_sub_region': None,
                     'sub_sub_sub_sub_region': None,
                     'finger': None,
-                    'editable': True
+                    'editable': True,
+                    'classification': None,
+                    'severity': None,
+                    'subseverity': None
                 }
-                new_region['region_id'] = st.session_state.region_counter
                 new_region['editable'] = True  # Ensure the new region starts as editable
                 st.session_state.regions.append(new_region)
-                st.session_state.region_counter += 1
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
                 st.experimental_rerun()
@@ -86,23 +95,36 @@ def main():
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
     for idx, region in enumerate(st.session_state.regions):
-        st.markdown(f"**Régió {region['region_id']}**")
+        st.markdown(f"**Régió {idx + 1}:**")
         if 'editable' not in region:
             region['editable'] = True
         st.session_state.regions[idx] = display_region(region, idx)
         if st.session_state.multi_region:
-            if region['editable']:
-                if st.button(f"Régió {region['region_id']} mentése", key=f"save_region_{region['region_id']}"):
-                    region['editable'] = False
-                    st.session_state.new_region_blocked = False
+            col_region_save_modify_delete = st.columns([1, 1, 1])
+            with col_region_save_modify_delete[0]:
+                if region['editable']:
+                    if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
+                        region['editable'] = False
+                        st.session_state.new_region_blocked = False
+                        st.experimental_rerun()
+            with col_region_save_modify_delete[1]:
+                if not region['editable']:
+                    if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
+                        region['editable'] = True
+                        st.experimental_rerun()
+            with col_region_save_modify_delete[2]:
+                if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
+                    st.session_state.regions.pop(idx)
                     st.experimental_rerun()
-            else:
-                if st.button(f"Régió {region['region_id']} módosítása", key=f"modify_region_{region['region_id']}"):
-                    region['editable'] = True
-                    st.experimental_rerun()
-            if st.button(f"Régió {region['region_id']} törlése", key=f"delete_region_{region['region_id']}"):
-                st.session_state.regions.pop(idx)
-                st.experimental_rerun()
+
+        st.markdown("### Osztályozás kiválasztása")
+        classification_option = st.selectbox("Válassza ki az osztályozási rendszert", ["AO", "Neer", "Gartland"], key=f"classification_option_{idx}")
+        if classification_option == "AO":
+            region['classification'], region['severity'], region['subseverity'] = ao_classification(region['sub_region'])
+        elif classification_option == "Neer":
+            region['classification'], region['severity'], region['subseverity'] = neer_classification(region['main_region'])
+        elif classification_option == "Gartland":
+            region['classification'], region['severity'], region['subseverity'] = gartland_classification()
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
@@ -118,7 +140,7 @@ def main():
 
     comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
 
-    if st.button("Feltöltés", disabled=not st.session_state.uploaded_files):
+    if st.button("Feltöltés"):
         try:
             upload_data = {
                 "patient_id": st.session_state.patient_id,
