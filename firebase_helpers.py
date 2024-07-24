@@ -46,7 +46,7 @@ def download_from_storage(source_blob_name, destination_file_name):
     blob.download_to_filename(destination_file_name)
 
 # Save image and metadata to Firestore and Firebase Storage
-def save_image(patient_id, files, main_type, sub_type, sub_sub_type, view, sub_view, sub_sub_view, age, age_group, comment, complications, associated_conditions, classifications, regions):
+def save_image(patient_id, files, main_type, sub_type, sub_sub_type, view, sub_view, sub_sub_view, age, age_group, comment, complications, associated_conditions, regions):
     db = firestore.client()
     for file in files:
         filename = file.name
@@ -76,6 +76,9 @@ def save_image(patient_id, files, main_type, sub_type, sub_sub_type, view, sub_v
             'associated_conditions': associated_conditions,
             'regions': regions
         })
+
+        # Ensure to delete the file after upload to save space
+        os.remove(file_path)
         
 def create_zip(file_paths, metadata_list=None):
     zip_buffer = io.BytesIO()
