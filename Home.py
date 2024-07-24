@@ -9,6 +9,7 @@ from helper_functions import (
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
 
+
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -49,68 +50,72 @@ def main():
 
         st.markdown("### Sérült Régiók Kiválasztása")
         
-        col_multi, col_add = st.columns([2, 1])
-        with col_multi:
+        col3, col4 = st.columns([2, 1])
+        with col3:
             st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
-        with col_add:
-            if st.session_state.multi_region and st.button("Új régió hozzáadása", key="add_new_region"):
-                try:
-                    previous_region = st.session_state.regions[-1] if st.session_state.regions else None
-                    new_region = {
-                        'main_region': previous_region['main_region'] if previous_region else None,
-                        'side': previous_region['side'] if previous_region else None,
-                        'sub_region': previous_region['sub_region'] if previous_region else None,
-                        'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
-                        'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
-                        'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
-                        'finger': previous_region['finger'] if previous_region else None,
-                        'editable': True
-                    }
-                    st.session_state.regions.append(new_region)
-                    st.success("Új régió hozzáadva")
-                    st.experimental_rerun()
-                except Exception as e:
-                    st.error(f"Hiba történt új régió hozzáadásakor: {e}")
+        if st.session_state.multi_region:
+            with col4:
+                if st.button("Új régió hozzáadása"):
+                    if any(region['editable'] for region in st.session_state.regions):
+                        st.error("Mentse az aktuális régiót mielőtt újat hoz létre.")
+                    else:
+                        try:
+                            previous_region = st.session_state.regions[-1] if st.session_state.regions else None
+                            new_region = {
+                                'main_region': previous_region['main_region'] if previous_region else None,
+                                'side': previous_region['side'] if previous_region else None,
+                                'sub_region': previous_region['sub_region'] if previous_region else None,
+                                'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
+                                'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
+                                'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
+                                'finger': previous_region['finger'] if previous_region else None,
+                                'editable': True
+                            }
+                            st.session_state.regions.append(new_region)
+                            st.success("Új régió hozzáadva")
+                            st.experimental_rerun()
+                        except Exception as e:
+                            st.error(f"Hiba történt új régió hozzáadásakor: {e}")
 
         def display_region(region, idx):
-            col3, col4, col5 = st.columns([1, 1, 1])
-            with col3:
+            col5, col6, col7 = st.columns([1, 1, 1])
+            with col5:
                 if region['editable']:
                     region['main_region'] = select_main_region()
                 else:
                     st.write(f"Fő régió: {region['main_region']}")
             if region['main_region']:
                 if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
-                    with col4:
+                    with col6:
                         if region['editable']:
                             region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0)
                         else:
                             st.write(f"Oldal: {region['side']}")
                 if region['editable']:
-                    with col5:
+                    with col7:
                         region['sub_region'] = select_subregion(region['main_region'])
                 else:
                     st.write(f"Alrégió: {region['sub_region']}")
             if region['sub_region']:
-                col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
-                with col6:
+                col8, col9, col10, col11 = st.columns([1, 1, 1, 1])
+                with col8:
                     if region['editable']:
                         region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
                     else:
                         st.write(f"Részletes régió: {region['sub_sub_region']}")
                 if region['sub_sub_region']:
-                    with col7:
+                    with col9:
                         if region['editable']:
                             region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
                         else:
                             st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
                 if region['sub_sub_sub_region']:
-                    with col8:
+                    with col10:
                         if region['editable']:
                             region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
                         else:
                             st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
-                    with col9:
+                    with col11:
                         if region['editable']:
                             if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
                                 region['finger'], _ = select_finger(region['sub_sub_sub_region'])
@@ -177,6 +182,10 @@ def main():
 
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
+
+        if st.button("Reset"):
+            st.session_state.clear()
+            st.experimental_rerun()
 
     if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
