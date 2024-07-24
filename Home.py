@@ -10,36 +10,8 @@ from helper_functions import (
 from Styles import upload_markdown
 from functions import (
     initialize_home_session_state, reset_session_state,
-    display_region
+    display_region, display_images
 )
-
-def initialize_home_session_state():
-    if 'confirm_data' not in st.session_state:
-        st.session_state.confirm_data = None
-    if 'regions' not in st.session_state:
-        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
-    if 'patient_id' not in st.session_state:
-        st.session_state.patient_id = str(uuid.uuid4())
-    if 'multi_region' not in st.session_state:
-        st.session_state.multi_region = False
-    if 'new_region_blocked' not in st.session_state:
-        st.session_state.new_region_blocked = False
-    if 'uploaded_files' not in st.session_state:
-        st.session_state.uploaded_files = []
-    if 'allow_multiple_uploads' not in st.session_state:
-        st.session_state.allow_multiple_uploads = False
-    if 'file_uploader_key' not in st.session_state:
-        st.session_state.file_uploader_key = str(uuid.uuid4())
-        
-def display_images():
-    if not st.session_state.allow_multiple_uploads:
-        if st.session_state.uploaded_files:
-            st.image(st.session_state.uploaded_files[-1], caption=f"Feltöltött kép: {st.session_state.uploaded_files[-1].name}", use_column_width=True)
-    else:
-        cols = st.columns(2)
-        for idx, file in enumerate(st.session_state.uploaded_files):
-            with cols[idx % 2]:
-                st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
 
 def main():
     initialize_home_session_state()
