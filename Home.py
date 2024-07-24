@@ -103,13 +103,19 @@ def main():
                     st.experimental_rerun()
 
         st.markdown("### Osztályozás kiválasztása")
-        classification_option = st.selectbox("Válassza ki az osztályozási rendszert", ["AO", "Neer", "Gartland"], key=f"classification_option_{idx}")
-        if classification_option == "AO":
-            region['classification'], region['severity'], region['subseverity'] = ao_classification(region['sub_sub_region'])
-        elif classification_option == "Neer":
-            region['classification'], region['severity'], region['subseverity'] = neer_classification(region['sub_sub_region'])
-        elif classification_option == "Gartland":
-            region['classification'], region['severity'], region['subseverity'] = gartland_classification()
+        classification_options = {
+            "AO": ao_classification,
+            "Neer": neer_classification,
+            "Gartland": gartland_classification
+        }
+        classification_option = st.selectbox("Válassza ki az osztályozási rendszert", list(classification_options.keys()), key=f"classification_option_{idx}")
+        
+        if classification_option:
+            classification_func = classification_options[classification_option]
+            if classification_option == "AO":
+                region['classification'], region['severity'], region['subseverity'] = classification_func(region['sub_sub_region'])
+            else:
+                region['classification'], region['severity'], region['subseverity'] = classification_func(region['main_region'])
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
