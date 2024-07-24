@@ -209,7 +209,14 @@ def ao_classification(sub_sub_reg):
         }
     }
 
-    ao_type = st.selectbox("AO klasszifikáció típusa", [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()])
+    ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
+    if not ao_type_options:
+        return None, None, None
+
+    ao_type = st.selectbox("AO klasszifikáció típusa", ao_type_options)
+    if not ao_type:
+        return None, None, None
+
     ao_severity = ao_type.split(" - ")[0]
     ao_subtype = st.selectbox("AO altípus részletezése", get_ao_subtype_details(ao_severity))
     
