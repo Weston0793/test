@@ -59,20 +59,20 @@ def display_region(region, idx):
             with col5:
                 region['sub_region'] = select_subregion(region['main_region'])
         else:
-            st.write(f"Alrégió: {region['sub_region']}")
+            st.write(f"Régió: {region['sub_region']}")
     if region['sub_region']:
         col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
         with col6:
             if region['editable']:
                 region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
             else:
-                st.write(f"Részletes régió: {region['sub_sub_region']}")
+                st.write(f"Alrégió: {region['sub_sub_region']}")
         if region['sub_sub_region']:
             with col7:
                 if region['editable']:
                     region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
                 else:
-                    st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
+                    st.write(f"Részletes régió: {region['sub_sub_sub_region']}")
         if region['sub_sub_sub_region']:
             with col8:
                 if region['editable']:
