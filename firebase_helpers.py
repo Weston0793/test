@@ -74,7 +74,6 @@ def save_image(patient_id, files, main_type, sub_type, sub_sub_type, view, sub_v
             'url': public_url,
             'complications': complications,
             'associated_conditions': associated_conditions,
-            'classifications': classifications,
             'regions': regions
         })
         
