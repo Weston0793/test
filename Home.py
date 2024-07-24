@@ -38,7 +38,6 @@ def main():
 
     if not st.session_state.allow_multiple_uploads and st.session_state.uploaded_file is not None:
         st.image(st.session_state.uploaded_file, caption=f"Feltöltött kép: {st.session_state.uploaded_file.name}", use_column_width=True)
-
     elif st.session_state.allow_multiple_uploads:
         cols = st.columns(2)
         for idx, file in enumerate(st.session_state.uploaded_files):
