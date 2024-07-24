@@ -31,6 +31,7 @@ def reset_session_state():
     for key in list(st.session_state.keys()):
         del st.session_state[key]
     initialize_home_session_state()
+    st.experimental_rerun()
 
 def main():
     initialize_home_session_state()
@@ -56,7 +57,8 @@ def main():
 
     if not st.session_state.allow_multiple_uploads and st.session_state.uploaded_file is not None:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
-    elif st.session_state.allow_multiple_uploads:
+
+    if st.session_state.allow_multiple_uploads and st.session_state.uploaded_files:
         for idx, file in enumerate(st.session_state.uploaded_files):
             st.image(file, caption=f"Feltöltött kép {idx+1}", use_column_width=True)
 
@@ -77,19 +79,20 @@ def main():
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
-                new_region = previous_region.copy() if previous_region else {
-                    'main_region': None,
-                    'side': None,
-                    'sub_region': None,
-                    'sub_sub_region': None,
-                    'sub_sub_sub_region': None,
-                    'sub_sub_sub_sub_region': None,
-                    'finger': None,
+                new_region = {
+                    'main_region': previous_region['main_region'] if previous_region else None,
+                    'side': previous_region['side'] if previous_region else None,
+                    'sub_region': previous_region['sub_region'] if previous_region else None,
+                    'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
+                    'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
+                    'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
+                    'finger': previous_region['finger'] if previous_region else None,
                     'editable': True
                 }
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
+                st.experimental_rerun()
             elif st.session_state.new_region_blocked:
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
@@ -207,4 +210,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
