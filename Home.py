@@ -10,7 +10,6 @@ from helper_functions import (
 from Styles import upload_markdown
 import copy
 
-
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -27,12 +26,10 @@ def initialize_home_session_state():
     if 'allow_multiple_uploads' not in st.session_state:
         st.session_state.allow_multiple_uploads = False
 
-
 def reset_session_state():
     st.session_state.clear()
     initialize_home_session_state()
     st.experimental_rerun()
-
 
 def handle_image_upload(uploaded_file):
     # Check if the file already exists in the uploaded files list
@@ -41,7 +38,6 @@ def handle_image_upload(uploaded_file):
             st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
         else:
             st.session_state.uploaded_files = [handle_file_upload(uploaded_file)]
-
 
 def display_uploaded_images():
     images_per_row = 4
@@ -53,7 +49,6 @@ def display_uploaded_images():
                 file = st.session_state.uploaded_files[idx]
                 with col:
                     st.image(file, caption=f"Feltöltött kép {idx + 1} - {file.name}", use_column_width=True)
-
 
 def main():
     initialize_home_session_state()
@@ -228,7 +223,6 @@ def main():
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
     st.button("Reset", on_click=reset_session_state)
-
 
 if __name__ == "__main__":
     main()
