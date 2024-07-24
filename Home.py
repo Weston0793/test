@@ -27,7 +27,7 @@ def reset_session_state():
     for key in list(st.session_state.keys()):
         del st.session_state[key]
     initialize_home_session_state()
-    st.experimental_rerun()
+    st.rerun()
 
 def main():
     initialize_home_session_state()
@@ -45,7 +45,6 @@ def main():
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
         st.session_state.patient_id = str(uuid.uuid4())
         st.session_state.confirm_data = None
-        st.experimental_rerun()
 
     if st.session_state.uploaded_file:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
@@ -80,7 +79,7 @@ def main():
                     st.session_state.regions.append(new_region)
                     st.success("Új régió hozzáadva")
                     st.session_state.new_region_blocked = True
-                    st.experimental_rerun()
+                    st.rerun()
                 elif st.session_state.new_region_blocked:
                     st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
@@ -136,14 +135,14 @@ def main():
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
                         st.session_state.new_region_blocked = False
-                        st.experimental_rerun()
+                        st.rerun()
                 else:
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
-                        st.experimental_rerun()
+                        st.rerun()
                     if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                         st.session_state.regions.pop(idx)
-                        st.experimental_rerun()
+                        st.rerun()
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -184,14 +183,14 @@ def main():
                 }
                 st.session_state.confirm_data = upload_data
                 st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
-                st.experimental_rerun()
+                st.rerun()
             except Exception as e:
                 st.error(f"Hiba történt a mentés során: {e}")
 
         if st.session_state.confirm_data:
             confirm_and_upload_data(st.session_state.confirm_data)
 
-    if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
+    if st.query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
     st.button("Reset", on_click=reset_session_state)
