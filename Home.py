@@ -33,6 +33,32 @@ def reset_session_state():
     initialize_home_session_state()
     st.experimental_rerun()
 
+def check_for_duplicate_images(uploaded_files, new_file):
+    for file in uploaded_files:
+        if file.name == new_file.name:
+            return True
+    return False
+
+def add_region_inheritance():
+    if st.session_state.regions:
+        previous_region = st.session_state.regions[-1]
+        return {
+            'main_region': previous_region['main_region'],
+            'side': previous_region['side'],
+            'sub_region': previous_region['sub_region'],
+            'sub_sub_region': previous_region['sub_sub_region'],
+            'sub_sub_sub_region': previous_region['sub_sub_sub_region'],
+            'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'],
+            'finger': previous_region['finger'],
+            'editable': True
+        }
+    else:
+        return {
+            'main_region': None, 'side': None, 'sub_region': None,
+            'sub_sub_region': None, 'sub_sub_sub_region': None,
+            'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True
+        }
+
 def main():
     initialize_home_session_state()
     upload_markdown()
@@ -50,7 +76,8 @@ def main():
 
     if uploaded_file is not None:
         if st.session_state.allow_multiple_uploads:
-            st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
+            if not check_for_duplicate_images(st.session_state.uploaded_files, uploaded_file):
+                st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
         else:
             st.session_state.uploaded_file = handle_file_upload(uploaded_file)
             st.session_state.uploaded_files = [st.session_state.uploaded_file]
@@ -59,8 +86,11 @@ def main():
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
 
     if st.session_state.allow_multiple_uploads and st.session_state.uploaded_files:
+        displayed_files = []
         for idx, file in enumerate(st.session_state.uploaded_files):
-            st.image(file, caption=f"Feltöltött kép {idx+1}", use_column_width=True)
+            if file.name not in displayed_files:
+                st.image(file, caption=f"Feltöltött kép {idx+1}", use_column_width=True)
+                displayed_files.append(file.name)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -78,18 +108,7 @@ def main():
     with col_button:
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
-                previous_region = st.session_state.regions[-1] if st.session_state.regions else None
-                new_region = {
-                    'main_region': previous_region['main_region'] if previous_region else None,
-                    'side': previous_region['side'] if previous_region else None,
-                    'sub_region': previous_region['sub_region'] if previous_region else None,
-                    'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
-                    'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
-                    'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
-                    'finger': previous_region['finger'] if previous_region else None,
-                    'editable': True
-                }
-                st.session_state.regions.append(new_region)
+                st.session_state.regions.append(add_region_inheritance())
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
                 st.experimental_rerun()
