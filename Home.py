@@ -1,6 +1,7 @@
 import streamlit as st
-from home_backend import handle_file_upload, confirm_and_upload_data
+import copy
 import uuid
+from home_backend import handle_file_upload, confirm_and_upload_data
 from helper_functions import (
     select_main_type, select_view, select_main_region,
     select_subregion, select_sub_subregion, select_sub_sub_subregion,
@@ -8,7 +9,6 @@ from helper_functions import (
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
 from Styles import upload_markdown
-import copy
 
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
@@ -27,8 +27,7 @@ def initialize_home_session_state():
         st.session_state.allow_multiple_uploads = False
 
 def reset_session_state():
-    for key in st.session_state.keys():
-        del st.session_state[key]
+    st.session_state.clear()
     initialize_home_session_state()
     st.experimental_rerun()
 
