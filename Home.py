@@ -1,11 +1,10 @@
 import streamlit as st
-import copy
-import uuid
 from home_backend import handle_file_upload, confirm_and_upload_data
+import uuid
 from helper_functions import (
-    select_main_type, select_view, select_main_region,
-    select_subregion, select_sub_subregion, select_sub_sub_subregion,
-    select_sub_sub_sub_subregion, select_finger, select_complications,
+    select_main_type, select_view, select_main_region, 
+    select_subregion, select_sub_subregion, select_sub_sub_subregion, 
+    select_sub_sub_sub_subregion, select_finger, select_complications, 
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
 from Styles import upload_markdown
@@ -21,33 +20,18 @@ def initialize_home_session_state():
         st.session_state.multi_region = False
     if 'new_region_blocked' not in st.session_state:
         st.session_state.new_region_blocked = False
+    if 'uploaded_file' not in st.session_state:
+        st.session_state.uploaded_file = None
     if 'uploaded_files' not in st.session_state:
         st.session_state.uploaded_files = []
     if 'allow_multiple_uploads' not in st.session_state:
         st.session_state.allow_multiple_uploads = False
 
 def reset_session_state():
-    st.session_state.clear()
+    for key in list(st.session_state.keys()):
+        del st.session_state[key]
     initialize_home_session_state()
     st.experimental_rerun()
-
-def handle_image_upload(uploaded_file):
-    if not any(f.name == uploaded_file.name and f.size == uploaded_file.size for f in st.session_state.uploaded_files):
-        if st.session_state.allow_multiple_uploads:
-            st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
-        else:
-            st.session_state.uploaded_files = [handle_file_upload(uploaded_file)]
-
-def display_uploaded_images():
-    images_per_row = 4
-    rows = (len(st.session_state.uploaded_files) + images_per_row - 1) // images_per_row
-    for row in range(rows):
-        cols = st.columns(images_per_row)
-        for col, idx in zip(cols, range(row * images_per_row, (row + 1) * images_per_row)):
-            if idx < len(st.session_state.uploaded_files):
-                file = st.session_state.uploaded_files[idx]
-                with col:
-                    st.image(file, caption=f"Feltöltött kép {idx + 1} - {file.name}", use_column_width=True)
 
 def main():
     initialize_home_session_state()
@@ -57,13 +41,7 @@ def main():
     st.text_input("Beteg azonosító", st.session_state.patient_id, disabled=True)
 
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
-
-    allow_multiple_uploads = st.checkbox("Több kép feltöltése", value=st.session_state.allow_multiple_uploads)
-
-    if allow_multiple_uploads != st.session_state.allow_multiple_uploads:
-        st.session_state.allow_multiple_uploads = allow_multiple_uploads
-        st.session_state.uploaded_files = []
-        st.experimental_rerun()
+    st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése")
 
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
@@ -71,10 +49,19 @@ def main():
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
     if uploaded_file is not None:
-        handle_image_upload(uploaded_file)
+        if st.session_state.allow_multiple_uploads:
+            st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
+        else:
+            st.session_state.uploaded_file = handle_file_upload(uploaded_file)
+            st.session_state.uploaded_files = [st.session_state.uploaded_file]
 
-    if st.session_state.uploaded_files:
-        display_uploaded_images()
+    if not st.session_state.allow_multiple_uploads and st.session_state.uploaded_file is not None:
+        st.image(st.session_state.uploaded_file, caption=f"Feltöltött kép: {st.session_state.uploaded_file.name}", use_column_width=True)
+    elif st.session_state.allow_multiple_uploads:
+        cols = st.columns(2)
+        for idx, file in enumerate(st.session_state.uploaded_files):
+            with cols[idx % 2]:
+                st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -88,12 +75,12 @@ def main():
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
         st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
-
+    
     with col_button:
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
-                new_region = copy.deepcopy(previous_region) if previous_region else {
+                new_region = previous_region.copy() if previous_region else {
                     'main_region': None,
                     'side': None,
                     'sub_region': None,
@@ -103,7 +90,6 @@ def main():
                     'finger': None,
                     'editable': True
                 }
-                new_region['editable'] = True
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
