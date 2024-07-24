@@ -17,6 +17,7 @@ def perform_search(query_params):
     search_sub_sub_sub_region = query_params.get("sub_sub_sub_region", "")
     search_complications = query_params.get("complications", [])
     search_associated_conditions = query_params.get("associated_conditions", [])
+    search_classifications = query_params.get("classifications", {})
     age_filter_active = query_params.get("age_filter_active", False)
     search_age_str = query_params.get("age", "")
     search_age = eval(search_age_str) if search_age_str else None
@@ -40,13 +41,13 @@ def perform_search(query_params):
     if search_sub_sub_view:
         query_filters.append(('sub_sub_view', '==', search_sub_sub_view))
     if search_main_region:
-        query_filters.append(('main_region', '==', search_main_region))
+        query_filters.append(('regions.main_region', 'array_contains', search_main_region))
     if search_sub_region:
-        query_filters.append(('sub_region', '==', search_sub_region))
+        query_filters.append(('regions.sub_region', 'array_contains', search_sub_region))
     if search_sub_sub_region:
-        query_filters.append(('sub_sub_region', '==', search_sub_sub_region))
+        query_filters.append(('regions.sub_sub_region', 'array_contains', search_sub_sub_region))
     if search_sub_sub_sub_region:
-        query_filters.append(('sub_sub_sub_region', '==', search_sub_sub_sub_region))
+        query_filters.append(('regions.sub_sub_sub_region', 'array_contains', search_sub_sub_sub_region))
     if search_complications:
         for complication in search_complications:
             query_filters.append(('complications', 'array_contains', complication))
@@ -66,6 +67,16 @@ def perform_search(query_params):
             query_filters.append(('age', '<=', search_age[1]))
         else:
             query_filters.append(('age', '==', search_age))
+
+    # Classification filters
+    if search_classifications:
+        for class_type, class_details in search_classifications.items():
+            if "name" in class_details and class_details["name"]:
+                query_filters.append((f"regions.classification.{class_type}.name", '==', class_details["name"]))
+            if "severity" in class_details and class_details["severity"]:
+                query_filters.append((f"regions.classification.{class_type}.severity", '==', class_details["severity"]))
+            if "subseverity" in class_details and class_details["subseverity"]:
+                query_filters.append((f"regions.classification.{class_type}.subseverity", '==', class_details["subseverity"]))
 
     for filter_field, filter_op, filter_value in query_filters:
         results = results.where(filter_field, filter_op, filter_value)
