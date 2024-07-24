@@ -27,18 +27,20 @@ def initialize_home_session_state():
     if 'allow_multiple_uploads' not in st.session_state:
         st.session_state.allow_multiple_uploads = False
 
-def reset_session_state():
-    for key in list(st.session_state.keys()):
-        del st.session_state[key]
-    initialize_home_session_state()
-    st.experimental_rerun()
-
 def create_empty_region():
     return {
         'main_region': None, 'side': None, 'sub_region': None,
         'sub_sub_region': None, 'sub_sub_sub_region': None,
         'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True
     }
+
+initialize_home_session_state()
+
+def reset_session_state():
+    for key in list(st.session_state.keys()):
+        del st.session_state[key]
+    initialize_home_session_state()
+    st.experimental_rerun()
 
 def handle_image_upload(uploaded_file):
     if uploaded_file is not None:
@@ -127,9 +129,7 @@ def display_region(region, idx):
             if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                 st.session_state.regions.pop(idx)
                 st.experimental_rerun()
-
 def main():
-    initialize_home_session_state()
     upload_markdown()
     st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
 
