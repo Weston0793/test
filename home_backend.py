@@ -50,7 +50,7 @@ def confirm_and_upload_data(upload_data):
         if region['sub_sub_sub_sub_region']:
             st.markdown(f"**Legrészletesebb régió:** {region['sub_sub_sub_sub_region']}", unsafe_allow_html=True)
         
-        if region["classification"]:
+        if region["classifications"]:
             st.markdown(f"**Osztályozás:** {region['classification']['name']}", unsafe_allow_html=True)
             st.markdown(f"**Súlyosság:** {region['classification']['severity']}", unsafe_allow_html=True)
             if "subseverity" in region['classification']:
