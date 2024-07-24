@@ -8,6 +8,7 @@ from helper_functions import (
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
 from Styles import upload_markdown
+import copy
 
 
 def initialize_home_session_state():
@@ -98,7 +99,7 @@ def main():
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
-                new_region = previous_region.copy() if previous_region else {
+                new_region = copy.deepcopy(previous_region) if previous_region else {
                     'main_region': None,
                     'side': None,
                     'sub_region': None,
