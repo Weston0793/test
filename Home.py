@@ -13,21 +13,6 @@ from functions import (
     display_region, display_images
 )
 
-import streamlit as st
-from home_backend import handle_file_upload, confirm_and_upload_data
-import uuid
-from helper_functions import (
-    select_main_type, select_view, select_main_region, 
-    select_subregion, select_sub_subregion, select_sub_sub_subregion, 
-    select_sub_sub_sub_subregion, select_finger, select_complications, 
-    select_associated_conditions, ao_classification, neer_classification, gartland_classification
-)
-from Styles import upload_markdown
-from functions import (
-    initialize_home_session_state, reset_session_state,
-    display_region, display_images
-)
-
 def main():
     initialize_home_session_state()
     upload_markdown()
@@ -120,9 +105,9 @@ def main():
         st.markdown("### Osztályozás kiválasztása")
         classification_option = st.selectbox("Válassza ki az osztályozási rendszert", ["AO", "Neer", "Gartland"], key=f"classification_option_{idx}")
         if classification_option == "AO":
-            region['classification'], region['severity'], region['subseverity'] = ao_classification(region['sub_region'])
+            region['classification'], region['severity'], region['subseverity'] = ao_classification(region['sub_sub_region'])
         elif classification_option == "Neer":
-            region['classification'], region['severity'], region['subseverity'] = neer_classification(region['main_region'])
+            region['classification'], region['severity'], region['subseverity'] = neer_classification(region['sub_sub_region'])
         elif classification_option == "Gartland":
             region['classification'], region['severity'], region['subseverity'] = gartland_classification()
 
