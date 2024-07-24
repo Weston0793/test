@@ -25,11 +25,16 @@ def initialize_home_session_state():
         st.session_state.uploaded_files = []
     if 'allow_multiple_uploads' not in st.session_state:
         st.session_state.allow_multiple_uploads = False
+    if 'file_uploader_key' not in st.session_state:
+        st.session_state.file_uploader_key = str(uuid.uuid4())
 
 def reset_session_state():
     for key in list(st.session_state.keys()):
         del st.session_state[key]
     initialize_home_session_state()
+
+def handle_file_upload(file):
+    return file
 
 def display_region(region, idx):
     col3, col4, col5 = st.columns([1, 1, 1])
