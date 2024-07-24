@@ -30,7 +30,7 @@ def initialize_home_session_state():
         st.session_state.allow_multiple_uploads = False
     if 'file_uploader_key' not in st.session_state:
         st.session_state.file_uploader_key = str(uuid.uuid4())
-
+        
 def main():
     initialize_home_session_state()
     upload_markdown()
@@ -58,10 +58,13 @@ def main():
                     st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
 
     if st.session_state.uploaded_files:
-        cols = st.columns(2)
-        for idx, file in enumerate(st.session_state.uploaded_files):
-            with cols[idx % 2]:
-                st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
+        if not st.session_state.allow_multiple_uploads:
+            st.image(st.session_state.uploaded_files[0], caption=f"Feltöltött kép: {st.session_state.uploaded_files[0].name}", use_column_width=True)
+        else:
+            cols = st.columns(2)
+            for idx, file in enumerate(st.session_state.uploaded_files):
+                with cols[idx % 2]:
+                    st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -90,6 +93,7 @@ def main():
                     'finger': None,
                     'editable': True
                 }
+                new_region['editable'] = True  # Ensure the new region starts as editable
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
