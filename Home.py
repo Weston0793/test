@@ -26,11 +26,10 @@ def main():
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
 
-    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
+    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False, key=st.session_state.file_uploader_key)
 
     if uploaded_file is not None:
         if st.session_state.allow_multiple_uploads:
-            # Check if the file is already in the session state to prevent duplicate uploads
             if uploaded_file.name not in [f.name for f in st.session_state.uploaded_files]:
                 st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
         else:
@@ -128,7 +127,10 @@ def main():
     if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
-    st.button("Reset", on_click=reset_session_state)
+    if st.button("Reset"):
+        reset_session_state()
+        st.session_state.file_uploader_key = str(uuid.uuid4())
+        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
