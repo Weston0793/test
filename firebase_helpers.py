@@ -46,37 +46,38 @@ def download_from_storage(source_blob_name, destination_file_name):
     blob.download_to_filename(destination_file_name)
 
 # Save image and metadata to Firestore and Firebase Storage
-def save_image(patient_id, file, main_type, sub_type, sub_sub_type, view, sub_view, sub_sub_view, age, age_group, comment, complications, associated_conditions, classifications, regions):
-    filename = file.name
-    unique_filename = f"{uuid.uuid4()}_{filename}"
-    file_path = os.path.join("/tmp", unique_filename)
-
-    with open(file_path, "wb") as f:
-        f.write(file.getbuffer())
-
-    public_url = upload_to_storage(file_path, unique_filename)
-
+def save_image(patient_id, files, main_type, sub_type, sub_sub_type, view, sub_view, sub_sub_view, age, age_group, comment, complications, associated_conditions, classifications, regions):
     db = firestore.client()
-    doc_ref = db.collection('images').document(unique_filename)
-    doc_ref.set({
-        'patient_id': patient_id,
-        'filename': unique_filename,
-        'main_type': main_type,
-        'sub_type': sub_type,
-        'sub_sub_type': sub_sub_type,
-        'view': view,
-        'sub_view': sub_view,
-        'sub_sub_view': sub_sub_view,
-        'age': age,
-        'age_group': age_group,
-        'comment': comment,
-        'url': public_url,
-        'complications': complications,
-        'associated_conditions': associated_conditions,
-        'classifications': classifications,
-        'regions': regions
-    })
-    
+    for file in files:
+        filename = file.name
+        unique_filename = f"{uuid.uuid4()}_{filename}"
+        file_path = os.path.join("/tmp", unique_filename)
+
+        with open(file_path, "wb") as f:
+            f.write(file.getbuffer())
+
+        public_url = upload_to_storage(file_path, unique_filename)
+
+        doc_ref = db.collection('images').document(unique_filename)
+        doc_ref.set({
+            'patient_id': patient_id,
+            'filename': unique_filename,
+            'main_type': main_type,
+            'sub_type': sub_type,
+            'sub_sub_type': sub_sub_type,
+            'view': view,
+            'sub_view': sub_view,
+            'sub_sub_view': sub_sub_view,
+            'age': age,
+            'age_group': age_group,
+            'comment': comment,
+            'url': public_url,
+            'complications': complications,
+            'associated_conditions': associated_conditions,
+            'classifications': classifications,
+            'regions': regions
+        })
+        
 def create_zip(file_paths, metadata_list=None):
     zip_buffer = io.BytesIO()
     with zipfile.ZipFile(zip_buffer, "w") as zip_file:
