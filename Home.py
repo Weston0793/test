@@ -30,7 +30,9 @@ def main():
 
     if uploaded_file is not None:
         if st.session_state.allow_multiple_uploads:
-            st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
+            # Check if the file is already in the session state to prevent duplicate uploads
+            if uploaded_file.name not in [f.name for f in st.session_state.uploaded_files]:
+                st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
         else:
             st.session_state.uploaded_file = handle_file_upload(uploaded_file)
             st.session_state.uploaded_files = [st.session_state.uploaded_file]
