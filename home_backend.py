@@ -15,49 +15,46 @@ def confirm_and_upload_data(upload_data):
 
     st.markdown('<div class="confirmation-box">', unsafe_allow_html=True)
     st.markdown('<div class="confirmation-title">Kérlek, a feltöltéshez erősítsd meg a következő adatokat:</div>', unsafe_allow_html=True)
-    st.markdown(f'**Beteg azonosító:** {upload_data["patient_id"]}')
-    st.markdown(f'**Típus:** {upload_data["main_type"]}')
+    st.markdown(f'**Beteg azonosító:** {upload_data["patient_id"]}', unsafe_allow_html=True)
+    st.markdown(f'**Típus:** {upload_data["main_type"]}', unsafe_allow_html=True)
     if upload_data["sub_type"]:
-        st.markdown(f'**Specifikus típus:** {upload_data["sub_type"]}')
+        st.markdown(f'**Specifikus típus:** {upload_data["sub_type"]}', unsafe_allow_html=True)
     if upload_data["sub_sub_type"]:
-        st.markdown(f'**Legspecifikusabb típus:** {upload_data["sub_sub_type"]}')
-    st.markdown(f'**Nézet:** {upload_data["view"]}')
+        st.markdown(f'**Legspecifikusabb típus:** {upload_data["sub_sub_type"]}', unsafe_allow_html=True)
+    st.markdown(f'**Nézet:** {upload_data["view"]}', unsafe_allow_html=True)
     if upload_data["sub_view"]:
-        st.markdown(f'**Specifikus nézet:** {upload_data["sub_view"]}')
+        st.markdown(f'**Specifikus nézet:** {upload_data["sub_view"]}', unsafe_allow_html=True)
     if upload_data["sub_sub_view"]:
-        st.markdown(f'**Legspecifikusabb nézet:** {upload_data["sub_sub_view"]}')
-    st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}')
-    st.markdown(f'**Életkori Csoport:** {upload_data["age_group"]}')
-    st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}')
+        st.markdown(f'**Legspecifikusabb nézet:** {upload_data["sub_sub_view"]}', unsafe_allow_html=True)
+    st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}', unsafe_allow_html=True)
+    st.markdown(f'**Életkori Csoport:** {upload_data["age_group"]}', unsafe_allow_html=True)
+    st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}', unsafe_allow_html=True)
     if upload_data["complications"]:
-        st.markdown(f'**Komplikációk: (többet is választhat)** {", ".join(upload_data["complications"])}')
+        st.markdown(f'**Komplikációk: (többet is választhat)** {", ".join(upload_data["complications"])}', unsafe_allow_html=True)
     if upload_data["associated_conditions"]:
-        st.markdown(f'**Társuló Kórállapotok: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}')
-    if upload_data.get("classifications"):
-        for classification, details in upload_data["classifications"].items():
-            st.markdown(f'**{classification} osztályozás:**')
-            st.markdown(f'**Név:** {details["name"]}')
-            st.markdown(f'**Súlyosság:** {details["severity"]}')
-            if "subseverity" in details:
-                st.markdown(f'**Alsúlyosság:** {details["subseverity"]}')
-            if "description" in details:
-                st.markdown(f'**Leírás:** {details["description"]}')
-
-    st.markdown("### Kiválasztott régiók")
+        st.markdown(f'**Társuló Kórállapotok: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}', unsafe_allow_html=True)
+    
+    st.markdown("### Kiválasztott régiók", unsafe_allow_html=True)
     for idx, region in enumerate(upload_data["regions"]):
-        st.markdown(f"**Régió {idx + 1}:**")
-        st.markdown(f"**Fő régió:** {region['main_region']}")
+        st.markdown(f"**Régió {idx + 1}:**", unsafe_allow_html=True)
+        st.markdown(f"**Fő régió:** {region['main_region']}", unsafe_allow_html=True)
         if region['side']:
-            st.markdown(f"**Oldal:** {region['side']}")
-        st.markdown(f"**Alrégió:** {region['sub_region']}")
+            st.markdown(f"**Oldal:** {region['side']}", unsafe_allow_html=True)
+        st.markdown(f"**Alrégió:** {region['sub_region']}", unsafe_allow_html=True)
         if region['sub_sub_region']:
-            st.markdown(f"**Részletes régió:** {region['sub_sub_region']}")
+            st.markdown(f"**Részletes régió:** {region['sub_sub_region']}", unsafe_allow_html=True)
         if region['sub_sub_sub_region']:
-            st.markdown(f"**Legpontosabb régió:** {region['sub_sub_sub_region']}")
+            st.markdown(f"**Legpontosabb régió:** {region['sub_sub_sub_region']}", unsafe_allow_html=True)
         if region['finger']:
-            st.markdown(f"**Ujj:** {region['finger']}")
+            st.markdown(f"**Ujj:** {region['finger']}", unsafe_allow_html=True)
         if region['sub_sub_sub_sub_region']:
-            st.markdown(f"**Legrészletesebb régió:** {region['sub_sub_sub_sub_region']}")
+            st.markdown(f"**Legrészletesebb régió:** {region['sub_sub_sub_sub_region']}", unsafe_allow_html=True)
+        
+        if region.get("classification"):
+            st.markdown(f"**Osztályozás:** {region['classification']['name']}", unsafe_allow_html=True)
+            st.markdown(f"**Súlyosság:** {region['classification']['severity']}", unsafe_allow_html=True)
+            if "subseverity" in region['classification']:
+                st.markdown(f"**Alsúlyosság:** {region['classification']['subseverity']}", unsafe_allow_html=True)
 
     st.markdown('<div class="center-button">', unsafe_allow_html=True)
     if st.button("Megerősít és Feltölt", key="confirm_upload"):
@@ -76,7 +73,6 @@ def confirm_and_upload_data(upload_data):
                 comment=upload_data["comment"],
                 complications=upload_data["complications"],
                 associated_conditions=upload_data["associated_conditions"],
-                classifications=upload_data["classifications"],
                 regions=upload_data["regions"]
             )
             st.success("Kép sikeresen feltöltve!")
