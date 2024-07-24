@@ -31,6 +31,16 @@ def initialize_home_session_state():
     if 'file_uploader_key' not in st.session_state:
         st.session_state.file_uploader_key = str(uuid.uuid4())
         
+def display_images():
+    if not st.session_state.allow_multiple_uploads:
+        if st.session_state.uploaded_files:
+            st.image(st.session_state.uploaded_files[-1], caption=f"Feltöltött kép: {st.session_state.uploaded_files[-1].name}", use_column_width=True)
+    else:
+        cols = st.columns(2)
+        for idx, file in enumerate(st.session_state.uploaded_files):
+            with cols[idx % 2]:
+                st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
+
 def main():
     initialize_home_session_state()
     upload_markdown()
@@ -57,14 +67,7 @@ def main():
                 if uploaded_file.name not in [f.name for f in st.session_state.uploaded_files]:
                     st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
 
-    if st.session_state.uploaded_files:
-        if not st.session_state.allow_multiple_uploads:
-            st.image(st.session_state.uploaded_files[0], caption=f"Feltöltött kép: {st.session_state.uploaded_files[0].name}", use_column_width=True)
-        else:
-            cols = st.columns(2)
-            for idx, file in enumerate(st.session_state.uploaded_files):
-                with cols[idx % 2]:
-                    st.image(file, caption=f"ID: {uuid.uuid4()} - {file.name}", use_column_width=True)
+    display_images()
 
     col1, col2 = st.columns(2)
     with col1:
