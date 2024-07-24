@@ -51,10 +51,10 @@ def confirm_and_upload_data(upload_data):
             st.markdown(f"**Legrészletesebb régió:** {region['sub_sub_sub_sub_region']}", unsafe_allow_html=True)
         
         if region["classifications"]:
-            st.markdown(f"**Osztályozás:** {region['classification']['name']}", unsafe_allow_html=True)
-            st.markdown(f"**Súlyosság:** {region['classification']['severity']}", unsafe_allow_html=True)
-            if "subseverity" in region['classification']:
-                st.markdown(f"**Alsúlyosság:** {region['classification']['subseverity']}", unsafe_allow_html=True)
+            st.markdown(f"**Osztályozás:** {region['classifications']['name']}", unsafe_allow_html=True)
+            st.markdown(f"**Súlyosság:** {region['classifications']['severity']}", unsafe_allow_html=True)
+            if "subseverity" in region['classifications']:
+                st.markdown(f"**Alsúlyosság:** {region['classifications']['subseverity']}", unsafe_allow_html=True)
 
     st.markdown('<div class="center-button">', unsafe_allow_html=True)
     if st.button("Megerősít és Feltölt", key="confirm_upload"):
