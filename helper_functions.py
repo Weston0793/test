@@ -130,7 +130,7 @@ def select_finger(sub_sub_regions):
             finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
     return finger, side
 
-def ao_classification(Sub_sub_reg):
+def ao_classification(sub_sub_reg):
     ao_classes = {
         "Proximalis humerus": {
             "11A": "Extraarticularis, egyrészű",
