@@ -20,16 +20,13 @@ def initialize_home_session_state():
         st.session_state.multi_region = False
     if 'new_region_blocked' not in st.session_state:
         st.session_state.new_region_blocked = False
-    if 'uploaded_file' not in st.session_state:
-        st.session_state.uploaded_file = None
     if 'uploaded_files' not in st.session_state:
         st.session_state.uploaded_files = []
     if 'allow_multiple_uploads' not in st.session_state:
         st.session_state.allow_multiple_uploads = False
 
 def reset_session_state():
-    for key in list(st.session_state.keys()):
-        del st.session_state[key]
+    st.session_state.clear()
     initialize_home_session_state()
     st.experimental_rerun()
 
@@ -37,8 +34,7 @@ def handle_image_upload(uploaded_file):
     if st.session_state.allow_multiple_uploads:
         st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
     else:
-        st.session_state.uploaded_file = handle_file_upload(uploaded_file)
-        st.session_state.uploaded_files = [st.session_state.uploaded_file]
+        st.session_state.uploaded_files = [handle_file_upload(uploaded_file)]
 
 def main():
     initialize_home_session_state()
@@ -54,7 +50,6 @@ def main():
     if allow_multiple_uploads != st.session_state.allow_multiple_uploads:
         st.session_state.allow_multiple_uploads = allow_multiple_uploads
         st.session_state.uploaded_files = []
-        st.session_state.uploaded_file = None
         st.experimental_rerun()
 
     if st.session_state.allow_multiple_uploads:
@@ -65,11 +60,8 @@ def main():
     if uploaded_file is not None:
         handle_image_upload(uploaded_file)
 
-    if st.session_state.allow_multiple_uploads:
-        for idx, file in enumerate(st.session_state.uploaded_files):
-            st.image(file, caption=f"Feltöltött kép {idx+1} - {file.name}", use_column_width=True)
-    elif st.session_state.uploaded_file:
-        st.image(st.session_state.uploaded_file, caption=f"Feltöltött kép - {st.session_state.uploaded_file.name}", use_column_width=True)
+    for idx, file in enumerate(st.session_state.uploaded_files):
+        st.image(file, caption=f"Feltöltött kép {idx+1} - {file.name}", use_column_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
