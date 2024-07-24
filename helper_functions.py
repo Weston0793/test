@@ -209,8 +209,8 @@ def ao_classification(sub_reg):
         }
     }
 
-    ao_type = st.selectbox("AO klasszifikáció típusa", ao_classes.get(sub_reg, {}).keys())
-    ao_subtype_description = ao_classes.get(sub_reg, {}).get(ao_type, "")
+    ao_type = st.selectbox("AO klasszifikáció típusa", ao_classes.get(sub_sub_reg, {}).keys())
+    ao_subtype_description = ao_classes.get(sub_sub_reg, {}).get(ao_type, "")
     ao_subtype = st.selectbox("AO altípus részletezése", get_ao_subtype_details(ao_type, ao_subtype_description))
     
     classification_name = "AO klasszifikáció"
@@ -426,7 +426,7 @@ def get_ao_subtype_details(ao_type, ao_subtype_description):
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
 
-def neer_classification(region):
+def neer_classification(sub_sub_reg):
     neer_classes = {
         "Proximalis humerus": {
             "I": "Egy része érintett (<1 cm elmozdulás, <45° szög)",
@@ -440,7 +440,7 @@ def neer_classification(region):
             "III": "Capitellum",
             "IV": "Trochlea"
         },
-        "Diaphysis humerus": {
+        "Humerus diaphysis": {
             "I": "Spirális törés",
             "II": "Ferde törés",
             "III": "Keresztirányú törés",
@@ -460,8 +460,8 @@ def neer_classification(region):
         }
     }
 
-    neer_type = st.selectbox("Neer osztályozás típusa", neer_classes.get(region, {}).keys())
-    neer_description = neer_classes.get(region, {}).get(neer_type, "")
+    neer_type = st.selectbox("Neer osztályozás típusa", neer_classes.get(sub_sub_reg, {}).keys())
+    neer_description = neer_classes.get(sub_sub_reg, {}).get(neer_type, "")
     
     classification_name = "Neer osztályozás"
     severity = neer_type
