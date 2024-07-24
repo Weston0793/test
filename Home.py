@@ -88,10 +88,11 @@ def main():
                     'finger': None,
                     'editable': True
                 }
+                new_region['editable'] = True
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
-                st.rerun()
+                st.experimental_rerun()
             elif st.session_state.new_region_blocked:
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
@@ -147,14 +148,14 @@ def main():
                 if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                     region['editable'] = False
                     st.session_state.new_region_blocked = False
-                    st.rerun()
+                    st.experimental_rerun()
             else:
                 if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                     region['editable'] = True
-                    st.rerun()
+                    st.experimental_rerun()
                 if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                     st.session_state.regions.pop(idx)
-                    st.rerun()
+                    st.experimental_rerun()
 
     for idx, region in enumerate(st.session_state.regions):
         st.markdown(f"**Régió {idx + 1}:**")
