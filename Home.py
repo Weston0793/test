@@ -25,14 +25,7 @@ def reset_session_state():
     for key in list(st.session_state.keys()):
         del st.session_state[key]
     initialize_home_session_state()
-    st.rerun()
-
-def handle_new_upload(uploaded_file):
-    st.session_state.uploaded_file = handle_file_upload(uploaded_file)
-    st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
-    st.session_state.patient_id = str(uuid.uuid4())
-    st.session_state.confirm_data = None
-    st.rerun()
+    st.experimental_rerun()
 
 def main():
     initialize_home_session_state()
@@ -44,8 +37,13 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None:
-        handle_new_upload(uploaded_file)
+    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
+        uploaded_file = handle_file_upload(uploaded_file)
+        st.session_state.uploaded_file = uploaded_file
+        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
+        st.session_state.patient_id = str(uuid.uuid4())
+        st.session_state.confirm_data = None
+        st.experimental_rerun()
 
     if 'uploaded_file' in st.session_state:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
@@ -80,7 +78,7 @@ def main():
                     st.session_state.regions.append(new_region)
                     st.success("Új régió hozzáadva")
                     st.session_state.new_region_blocked = True
-                    st.rerun()
+                    st.experimental_rerun()
                 elif st.session_state.new_region_blocked:
                     st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
@@ -136,14 +134,14 @@ def main():
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
                         st.session_state.new_region_blocked = False
-                        st.rerun()
+                        st.experimental_rerun()
                 else:
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
-                        st.rerun()
+                        st.experimental_rerun()
                     if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                         st.session_state.regions.pop(idx)
-                        st.rerun()
+                        st.experimental_rerun()
 
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -184,7 +182,7 @@ def main():
                 }
                 st.session_state.confirm_data = upload_data
                 st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
-                st.rerun()
+                st.experimental_rerun()
             except Exception as e:
                 st.error(f"Hiba történt a mentés során: {e}")
 
