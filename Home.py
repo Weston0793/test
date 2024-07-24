@@ -22,6 +22,8 @@ def initialize_home_session_state():
         st.session_state.new_region_blocked = False
     if 'uploaded_file' not in st.session_state:
         st.session_state.uploaded_file = None
+    if 'uploaded_files' not in st.session_state:
+        st.session_state.uploaded_files = []
     if 'allow_multiple_uploads' not in st.session_state:
         st.session_state.allow_multiple_uploads = False
 
@@ -41,20 +43,22 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése")
 
+    if st.session_state.allow_multiple_uploads:
+        st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
+
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
     if uploaded_file is not None:
         if st.session_state.allow_multiple_uploads:
-            if 'uploaded_files' not in st.session_state:
-                st.session_state.uploaded_files = []
             st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
         else:
             st.session_state.uploaded_file = handle_file_upload(uploaded_file)
+            st.session_state.uploaded_files = [st.session_state.uploaded_file]
 
     if st.session_state.uploaded_file is not None:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
 
-    if st.session_state.allow_multiple_uploads and 'uploaded_files' in st.session_state:
+    if st.session_state.allow_multiple_uploads:
         for idx, file in enumerate(st.session_state.uploaded_files):
             st.image(file, caption=f"Feltöltött kép {idx+1}", use_column_width=True)
 
@@ -184,7 +188,7 @@ def main():
                 "age": age,
                 "age_group": age_group,
                 "comment": comment,
-                "file": st.session_state.uploaded_file,
+                "files": st.session_state.uploaded_files,
                 "complications": complications if main_type != "Normál" else [],
                 "associated_conditions": associated_conditions if main_type != "Normál" else [],
                 "classifications": {},
