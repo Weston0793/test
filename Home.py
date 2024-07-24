@@ -13,6 +13,26 @@ from functions import (
     display_region
 )
 
+def initialize_home_session_state():
+    if 'confirm_data' not in st.session_state:
+        st.session_state.confirm_data = None
+    if 'regions' not in st.session_state:
+        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
+    if 'patient_id' not in st.session_state:
+        st.session_state.patient_id = str(uuid.uuid4())
+    if 'multi_region' not in st.session_state:
+        st.session_state.multi_region = False
+    if 'new_region_blocked' not in st.session_state:
+        st.session_state.new_region_blocked = False
+    if 'uploaded_file' not in st.session_state:
+        st.session_state.uploaded_file = None
+    if 'uploaded_files' not in st.session_state:
+        st.session_state.uploaded_files = []
+    if 'allow_multiple_uploads' not in st.session_state:
+        st.session_state.allow_multiple_uploads = False
+    if 'file_uploader_key' not in st.session_state:
+        st.session_state.file_uploader_key = str(uuid.uuid4())
+
 def main():
     initialize_home_session_state()
     upload_markdown()
@@ -26,16 +46,19 @@ def main():
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
 
-    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False, key=st.session_state.file_uploader_key)
+    uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=st.session_state.allow_multiple_uploads, key=st.session_state.file_uploader_key)
 
     if uploaded_file is not None:
-        uploaded_image = handle_file_upload(uploaded_file)
         if st.session_state.allow_multiple_uploads:
-            if uploaded_file.name not in [f.name for f in st.session_state.uploaded_files]:
-                st.session_state.uploaded_files.append(uploaded_image)
+            # Handle multiple files upload
+            new_files = uploaded_file if isinstance(uploaded_file, list) else [uploaded_file]
+            for file in new_files:
+                if file.name not in [f.name for f in st.session_state.uploaded_files]:
+                    st.session_state.uploaded_files.append(handle_file_upload(file))
         else:
-            st.session_state.uploaded_file = uploaded_image
-            st.session_state.uploaded_files = [uploaded_image]
+            # Handle single file upload
+            st.session_state.uploaded_file = handle_file_upload(uploaded_file)
+            st.session_state.uploaded_files = [st.session_state.uploaded_file]
 
     if st.session_state.uploaded_files:
         if not st.session_state.allow_multiple_uploads:
