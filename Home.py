@@ -78,6 +78,8 @@ def main():
 
     for idx, region in enumerate(st.session_state.regions):
         st.markdown(f"**Régió {idx + 1}:**")
+        if 'editable' not in region:
+            region['editable'] = True
         st.session_state.regions[idx] = display_region(region, idx)
         if st.session_state.multi_region:
             if region['editable']:
