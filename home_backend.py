@@ -6,7 +6,6 @@ def handle_file_upload(uploaded_file):
         st.error("A kép mérete nem lehet nagyobb, mint 15 MB.")
         return None
     else:
-        st.image(uploaded_file, caption="Feltöltött kép", use_column_width=True)
         return uploaded_file
 
 def confirm_and_upload_data(upload_data):
