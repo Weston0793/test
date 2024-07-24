@@ -13,7 +13,7 @@ def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
     if 'regions' not in st.session_state:
-        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
+        st.session_state.regions = [create_empty_region()]
     if 'patient_id' not in st.session_state:
         st.session_state.patient_id = str(uuid.uuid4())
     if 'multi_region' not in st.session_state:
@@ -33,31 +33,100 @@ def reset_session_state():
     initialize_home_session_state()
     st.experimental_rerun()
 
-def check_for_duplicate_images(uploaded_files, new_file):
-    for file in uploaded_files:
-        if file.name == new_file.name:
-            return True
-    return False
+def create_empty_region():
+    return {
+        'main_region': None, 'side': None, 'sub_region': None,
+        'sub_sub_region': None, 'sub_sub_sub_region': None,
+        'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True
+    }
 
-def add_region_inheritance():
+def handle_image_upload(uploaded_file):
+    if uploaded_file is not None:
+        if st.session_state.allow_multiple_uploads:
+            if not any(file.name == uploaded_file.name for file in st.session_state.uploaded_files):
+                st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
+        else:
+            st.session_state.uploaded_file = handle_file_upload(uploaded_file)
+            st.session_state.uploaded_files = [st.session_state.uploaded_file]
+        st.experimental_rerun()
+
+def display_uploaded_images():
+    if st.session_state.allow_multiple_uploads:
+        for idx, file in enumerate(st.session_state.uploaded_files):
+            st.image(file, caption=f"Feltöltött kép {idx+1}", use_column_width=True)
+    elif st.session_state.uploaded_file:
+        st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
+
+def add_new_region():
     if st.session_state.regions:
         previous_region = st.session_state.regions[-1]
-        return {
-            'main_region': previous_region['main_region'],
-            'side': previous_region['side'],
-            'sub_region': previous_region['sub_region'],
-            'sub_sub_region': previous_region['sub_sub_region'],
-            'sub_sub_sub_region': previous_region['sub_sub_sub_region'],
-            'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'],
-            'finger': previous_region['finger'],
-            'editable': True
-        }
+        new_region = previous_region.copy()
+        new_region['editable'] = True
+        st.session_state.regions.append(new_region)
     else:
-        return {
-            'main_region': None, 'side': None, 'sub_region': None,
-            'sub_sub_region': None, 'sub_sub_sub_region': None,
-            'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True
-        }
+        st.session_state.regions.append(create_empty_region())
+    st.experimental_rerun()
+
+def display_region(region, idx):
+    col3, col4, col5 = st.columns([1, 1, 1])
+    with col3:
+        if region['editable']:
+            region['main_region'] = select_main_region()
+        else:
+            st.write(f"Fő régió: {region['main_region']}")
+    if region['main_region']:
+        if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
+            with col4:
+                if region['editable']:
+                    region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0)
+                else:
+                    st.write(f"Oldal: {region['side']}")
+        if region['editable']:
+            with col5:
+                region['sub_region'] = select_subregion(region['main_region'])
+        else:
+            st.write(f"Alrégió: {region['sub_region']}")
+    if region['sub_region']:
+        col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
+        with col6:
+            if region['editable']:
+                region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
+            else:
+                st.write(f"Részletes régió: {region['sub_sub_region']}")
+        if region['sub_sub_region']:
+            with col7:
+                if region['editable']:
+                    region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
+                else:
+                    st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
+        if region['sub_sub_sub_region']:
+            with col8:
+                if region['editable']:
+                    region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
+                else:
+                    st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
+            with col9:
+                if region['editable']:
+                    if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
+                        region['finger'], _ = select_finger(region['sub_sub_sub_region'])
+                    else:
+                        region['finger'] = None
+                else:
+                    st.write(f"Ujj: {region['finger']}")
+
+    if st.session_state.multi_region:
+        if region['editable']:
+            if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
+                region['editable'] = False
+                st.session_state.new_region_blocked = False
+                st.experimental_rerun()
+        else:
+            if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
+                region['editable'] = True
+                st.experimental_rerun()
+            if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
+                st.session_state.regions.pop(idx)
+                st.experimental_rerun()
 
 def main():
     initialize_home_session_state()
@@ -73,24 +142,9 @@ def main():
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
 
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
+    handle_image_upload(uploaded_file)
 
-    if uploaded_file is not None:
-        if st.session_state.allow_multiple_uploads:
-            if not check_for_duplicate_images(st.session_state.uploaded_files, uploaded_file):
-                st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
-        else:
-            st.session_state.uploaded_file = handle_file_upload(uploaded_file)
-            st.session_state.uploaded_files = [st.session_state.uploaded_file]
-
-    if not st.session_state.allow_multiple_uploads and st.session_state.uploaded_file is not None:
-        st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
-
-    if st.session_state.allow_multiple_uploads and st.session_state.uploaded_files:
-        displayed_files = []
-        for idx, file in enumerate(st.session_state.uploaded_files):
-            if file.name not in displayed_files:
-                st.image(file, caption=f"Feltöltött kép {idx+1}", use_column_width=True)
-                displayed_files.append(file.name)
+    display_uploaded_images()
 
     col1, col2 = st.columns(2)
     with col1:
@@ -108,73 +162,12 @@ def main():
     with col_button:
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
-                st.session_state.regions.append(add_region_inheritance())
+                add_new_region()
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
                 st.experimental_rerun()
             elif st.session_state.new_region_blocked:
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
-
-    def display_region(region, idx):
-        col3, col4, col5 = st.columns([1, 1, 1])
-        with col3:
-            if region['editable']:
-                region['main_region'] = select_main_region()
-            else:
-                st.write(f"Fő régió: {region['main_region']}")
-        if region['main_region']:
-            if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
-                with col4:
-                    if region['editable']:
-                        region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0)
-                    else:
-                        st.write(f"Oldal: {region['side']}")
-            if region['editable']:
-                with col5:
-                    region['sub_region'] = select_subregion(region['main_region'])
-            else:
-                st.write(f"Alrégió: {region['sub_region']}")
-        if region['sub_region']:
-            col6, col7, col8, col9 = st.columns([1, 1, 1, 1])
-            with col6:
-                if region['editable']:
-                    region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
-                else:
-                    st.write(f"Részletes régió: {region['sub_sub_region']}")
-            if region['sub_sub_region']:
-                with col7:
-                    if region['editable']:
-                        region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
-                    else:
-                        st.write(f"Legpontosabb régió: {region['sub_sub_sub_region']}")
-            if region['sub_sub_sub_region']:
-                with col8:
-                    if region['editable']:
-                        region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
-                    else:
-                        st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
-                with col9:
-                    if region['editable']:
-                        if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                            region['finger'], _ = select_finger(region['sub_sub_sub_region'])
-                        else:
-                            region['finger'] = None
-                    else:
-                        st.write(f"Ujj: {region['finger']}")
-
-        if st.session_state.multi_region:
-            if region['editable']:
-                if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
-                    region['editable'] = False
-                    st.session_state.new_region_blocked = False
-                    st.experimental_rerun()
-            else:
-                if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
-                    region['editable'] = True
-                    st.experimental_rerun()
-                if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
-                    st.session_state.regions.pop(idx)
-                    st.experimental_rerun()
 
     for idx, region in enumerate(st.session_state.regions):
         st.markdown(f"**Régió {idx + 1}:**")
