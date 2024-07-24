@@ -9,7 +9,6 @@ from helper_functions import (
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
 
-
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
         st.session_state.confirm_data = None
@@ -19,6 +18,13 @@ def initialize_home_session_state():
         st.session_state.patient_id = str(uuid.uuid4())
     if 'multi_region' not in st.session_state:
         st.session_state.multi_region = False
+    if 'uploaded_file' not in st.session_state:
+        st.session_state.uploaded_file = None
+
+def reset_all():
+    for key in st.session_state.keys():
+        del st.session_state[key]
+    initialize_home_session_state()
 
 def main():
     initialize_home_session_state()
@@ -30,15 +36,20 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
+    if uploaded_file is not None:
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.uploaded_file = uploaded_file
-        st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
+        if 'last_regions' in st.session_state:
+            st.session_state.regions = st.session_state.last_regions.copy()
+            for region in st.session_state.regions:
+                region['editable'] = True
+        else:
+            st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
         st.session_state.patient_id = str(uuid.uuid4())
         st.session_state.confirm_data = None
         st.experimental_rerun()
 
-    if 'uploaded_file' in st.session_state:
+    if st.session_state.uploaded_file:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
         
         col1, col2 = st.columns(2)
@@ -55,7 +66,7 @@ def main():
             st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
         if st.session_state.multi_region:
             with col4:
-                if st.button("Új régió hozzáadása"):
+                if st.button("Új régió hozzáadása", key="add_new_region"):
                     if any(region['editable'] for region in st.session_state.regions):
                         st.error("Mentse az aktuális régiót mielőtt újat hoz létre.")
                     else:
@@ -175,6 +186,7 @@ def main():
                     "regions": st.session_state.regions
                 }
                 st.session_state.confirm_data = upload_data
+                st.session_state.last_regions = st.session_state.regions.copy()
                 st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
                 st.experimental_rerun()
             except Exception as e:
@@ -184,7 +196,7 @@ def main():
             confirm_and_upload_data(st.session_state.confirm_data)
 
         if st.button("Reset"):
-            st.session_state.clear()
+            reset_all()
             st.experimental_rerun()
 
     if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
