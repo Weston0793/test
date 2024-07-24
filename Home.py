@@ -34,10 +34,12 @@ def reset_session_state():
 
 
 def handle_image_upload(uploaded_file):
-    if st.session_state.allow_multiple_uploads:
-        st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
-    else:
-        st.session_state.uploaded_files = [handle_file_upload(uploaded_file)]
+    # Check if the file already exists in the uploaded files list
+    if not any(f.name == uploaded_file.name and f.size == uploaded_file.size for f in st.session_state.uploaded_files):
+        if st.session_state.allow_multiple_uploads:
+            st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
+        else:
+            st.session_state.uploaded_files = [handle_file_upload(uploaded_file)]
 
 
 def display_uploaded_images():
