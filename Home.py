@@ -213,5 +213,5 @@ def main():
 
     st.button("Reset", on_click=reset_session_state)
 
-if __name__ "__main__":
+if __name__ == "__main__":
     main()
