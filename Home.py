@@ -20,6 +20,8 @@ def initialize_home_session_state():
         st.session_state.multi_region = False
     if 'new_region_blocked' not in st.session_state:
         st.session_state.new_region_blocked = False
+    if 'uploaded_file' not in st.session_state:
+        st.session_state.uploaded_file = None
 
 def reset_session_state():
     for key in list(st.session_state.keys()):
@@ -37,7 +39,7 @@ def main():
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False)
 
-    if uploaded_file is not None and 'uploaded_file' not in st.session_state:
+    if uploaded_file is not None:
         uploaded_file = handle_file_upload(uploaded_file)
         st.session_state.uploaded_file = uploaded_file
         st.session_state.regions = [{'main_region': None, 'side': None, 'sub_region': None, 'sub_sub_region': None, 'sub_sub_sub_region': None, 'sub_sub_sub_sub_region': None, 'finger': None, 'editable': True}]
@@ -45,7 +47,7 @@ def main():
         st.session_state.confirm_data = None
         st.experimental_rerun()
 
-    if 'uploaded_file' in st.session_state:
+    if st.session_state.uploaded_file:
         st.image(st.session_state.uploaded_file, caption="Feltöltött kép", use_column_width=True)
         
         col1, col2 = st.columns(2)
