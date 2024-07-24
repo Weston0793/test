@@ -18,10 +18,14 @@ def initialize_home_session_state():
         st.session_state.patient_id = str(uuid.uuid4())
     if 'multi_region' not in st.session_state:
         st.session_state.multi_region = False
+    if 'new_region_blocked' not in st.session_state:
+        st.session_state.new_region_blocked = False
 
 def reset_session_state():
-    st.session_state.clear()
+    for key in list(st.session_state.keys()):
+        del st.session_state[key]
     initialize_home_session_state()
+    st.experimental_rerun()
 
 def main():
     initialize_home_session_state()
@@ -52,8 +56,31 @@ def main():
             view, sub_view, sub_sub_view = select_view()
 
         st.markdown("### Sérült Régiók Kiválasztása")
+
+        col_checkbox, col_button = st.columns([1, 1])
+        with col_checkbox:
+            st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
         
-        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
+        with col_button:
+            if st.session_state.multi_region:
+                if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
+                    previous_region = st.session_state.regions[-1] if st.session_state.regions else None
+                    new_region = {
+                        'main_region': previous_region['main_region'] if previous_region else None,
+                        'side': previous_region['side'] if previous_region else None,
+                        'sub_region': previous_region['sub_region'] if previous_region else None,
+                        'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
+                        'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
+                        'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
+                        'finger': previous_region['finger'] if previous_region else None,
+                        'editable': True
+                    }
+                    st.session_state.regions.append(new_region)
+                    st.success("Új régió hozzáadva")
+                    st.session_state.new_region_blocked = True
+                    st.experimental_rerun()
+                elif st.session_state.new_region_blocked:
+                    st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
         def display_region(region, idx):
             col3, col4, col5 = st.columns([1, 1, 1])
@@ -106,6 +133,7 @@ def main():
                 if region['editable']:
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
+                        st.session_state.new_region_blocked = False
                         st.experimental_rerun()
                 else:
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
@@ -118,28 +146,6 @@ def main():
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
             display_region(region, idx)
-
-        if st.session_state.multi_region:
-            col10, col11 = st.columns([1, 1])
-            with col10:
-                if st.button("Új régió hozzáadása"):
-                    unsaved_region = next((r for r in st.session_state.regions if r['editable']), None)
-                    if unsaved_region:
-                        st.error("Először mentse a jelenlegi régiót, mielőtt újat adna hozzá.")
-                    else:
-                        previous_region = st.session_state.regions[-1] if st.session_state.regions else None
-                        new_region = {
-                            'main_region': previous_region['main_region'] if previous_region else None,
-                            'side': previous_region['side'] if previous_region else None,
-                            'sub_region': previous_region['sub_region'] if previous_region else None,
-                            'sub_sub_region': previous_region['sub_sub_region'] if previous_region else None,
-                            'sub_sub_sub_region': previous_region['sub_sub_sub_region'] if previous_region else None,
-                            'sub_sub_sub_sub_region': previous_region['sub_sub_sub_sub_region'] if previous_region else None,
-                            'finger': previous_region['finger'] if previous_region else None,
-                            'editable': True
-                        }
-                        st.session_state.regions.append(new_region)
-                        st.experimental_rerun()
 
         age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
         age_group = ""
@@ -186,9 +192,7 @@ def main():
     if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
         st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
 
-    if st.button("Reset"):
-        reset_session_state()
-        st.experimental_rerun()
+    st.button("Reset", on_click=reset_session_state)
 
 if __name__ == "__main__":
     main()
