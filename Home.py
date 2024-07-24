@@ -29,12 +29,13 @@ def main():
     uploaded_file = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=False, key=st.session_state.file_uploader_key)
 
     if uploaded_file is not None:
+        uploaded_image = handle_file_upload(uploaded_file)
         if st.session_state.allow_multiple_uploads:
             if uploaded_file.name not in [f.name for f in st.session_state.uploaded_files]:
-                st.session_state.uploaded_files.append(handle_file_upload(uploaded_file))
+                st.session_state.uploaded_files.append(uploaded_image)
         else:
-            st.session_state.uploaded_file = handle_file_upload(uploaded_file)
-            st.session_state.uploaded_files = [st.session_state.uploaded_file]
+            st.session_state.uploaded_file = uploaded_image
+            st.session_state.uploaded_files = [uploaded_image]
 
     if st.session_state.uploaded_files:
         if not st.session_state.allow_multiple_uploads:
