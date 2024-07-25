@@ -44,19 +44,19 @@ def perform_search(query_params):
     if search_sub_sub_view:
         query_filters.append(('sub_sub_view', '==', search_sub_sub_view))
     if search_main_region:
-        query_filters.append(('regions.main_region', 'array_contains', search_main_region))
+        query_filters.append(('regions.main_region', '==', search_main_region))
     if search_sub_region:
-        query_filters.append(('regions.sub_region', 'array_contains', search_sub_region))
+        query_filters.append(('regions.sub_region', '==', search_sub_region))
     if search_sub_sub_region:
-        query_filters.append(('regions.sub_sub_region', 'array_contains', search_sub_sub_region))
+        query_filters.append(('regions.sub_sub_region', '==', search_sub_sub_region))
     if search_sub_sub_sub_region:
-        query_filters.append(('regions.sub_sub_sub_region', 'array_contains', search_sub_sub_sub_region))
+        query_filters.append(('regions.sub_sub_sub_region', '==', search_sub_sub_sub_region))
     if search_sub_sub_sub_sub_region:
-        query_filters.append(('regions.sub_sub_sub_sub_region', 'array_contains', search_sub_sub_sub_sub_region))
+        query_filters.append(('regions.sub_sub_sub_sub_region', '==', search_sub_sub_sub_sub_region))
     if search_finger:
-        query_filters.append(('regions.finger', 'array_contains', search_finger))
+        query_filters.append(('regions.finger', '==', search_finger))
     if search_side:
-        query_filters.append(('regions.side', 'array_contains', search_side))
+        query_filters.append(('regions.side', '==', search_side))
     if search_complications:
         for complication in search_complications:
             query_filters.append(('complications', 'array_contains', complication))
