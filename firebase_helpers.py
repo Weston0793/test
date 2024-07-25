@@ -127,24 +127,34 @@ def get_counts():
 
     data = []
 
-    for main_region in counts:
-        for sub_region in counts[main_region]:
-            for view in views:
-                for main_type in main_types:
-                    docs = db.collection('images').stream()
-                    count = 0
-                    for doc in docs:
-                        regions = doc.to_dict().get('regions', [])
-                        for region in regions:
-                            if (
-                                region.get('main_region') == main_region and
-                                region.get('sub_region') == sub_region and
-                                region.get('view') == view and
-                                region.get('main_type') == main_type
-                            ):
-                                count += 1
-                    counts[main_region][sub_region][f"{main_type}_{view}"] = count
-                    data.append([main_region, sub_region, view, main_type, count])
+    # Collect counts by patient ID to ensure each patient is only counted once
+    patient_counts = {}
+
+    docs = db.collection('images').stream()
+    for doc in docs:
+        doc_data = doc.to_dict()
+        patient_id = doc_data.get('patient_id')
+        regions = doc_data.get('regions', [])
+        view = doc_data.get('view')
+        main_type = doc_data.get('main_type')
+
+        if patient_id not in patient_counts:
+            patient_counts[patient_id] = []
+
+        for region in regions:
+            main_region = region.get('main_region')
+            sub_region = region.get('sub_region')
+            if main_region in counts and sub_region in counts[main_region]:
+                patient_counts[patient_id].append((main_region, sub_region, view, main_type))
+
+    for patient_id, regions in patient_counts.items():
+        for main_region, sub_region, view, main_type in regions:
+            key = f"{main_type}_{view}"
+            if key not in counts[main_region][sub_region]:
+                counts[main_region][sub_region][key] = 0
+            counts[main_region][sub_region][key] += 1
+            data.append([main_region, sub_region, view, main_type, counts[main_region][sub_region][key]])
+
     return counts, data
 
 def get_progress_summary(counts):
