@@ -118,7 +118,7 @@ def get_counts():
     counts = {
         "Felső végtag": {"Váll": {}, "Humerus": {}, "Könyök": {}, "Alkar": {}, "Csukló": {}, "Kéz": {}},
         "Alsó végtag": {"Medence": {}, "Pelvis": {}, "Femur": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
-        "Gerinc": {"Cervicalis": {}, "Thoracalis": {}, "Lumbaris": {}, "Sacralis": {}, "Coccygealis": {}},
+        "Gerinc": {"Cervicalis": {}, "Thoracalis": {}, "Lumbalis": {}, "Sacrum": {}, "Coccyx": {}},
         "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Mandibula": {}},
         "Mellkas": {"Borda": {}, "Sternum": {}},
     }
