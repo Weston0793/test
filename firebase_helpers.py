@@ -131,13 +131,18 @@ def get_counts():
         for sub_region in counts[main_region]:
             for view in views:
                 for main_type in main_types:
-                    docs = db.collection('images').where('regions', 'array_contains', {
-                        'main_region': main_region,
-                        'sub_region': sub_region,
-                        'view': view,
-                        'main_type': main_type
-                    }).stream()
-                    count = len(list(docs))
+                    docs = db.collection('images').stream()
+                    count = 0
+                    for doc in docs:
+                        regions = doc.to_dict().get('regions', [])
+                        for region in regions:
+                            if (
+                                region.get('main_region') == main_region and
+                                region.get('sub_region') == sub_region and
+                                region.get('view') == view and
+                                region.get('main_type') == main_type
+                            ):
+                                count += 1
                     counts[main_region][sub_region][f"{main_type}_{view}"] = count
                     data.append([main_region, sub_region, view, main_type, count])
     return counts, data
