@@ -1,4 +1,3 @@
-# functions.py
 import uuid
 import streamlit as st
 from helper_functions import (
