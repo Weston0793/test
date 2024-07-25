@@ -7,7 +7,7 @@ def select_main_type():
     if main_type == "Egyéb":
         sub_type = st.selectbox("Specifikálás (Egyéb)", [
             "Luxatio", "Subluxatio", "Szalagszakadás", "Osteoarthritis", "Osteoporosis", 
-            "Osteomyelitis", "Cysta", "Álízűlet", "Malignus Tumor", "Benignus Tumor", 
+            "Osteomyelitis", "Cysta", "Álízület", "Vérzés", "Malignus Tumor", "Benignus Tumor", 
             "Metastasis", "Rheumatoid Arthritis", "Genetikai/Veleszületett", "Implant", "Egyéb"
         ])
         if sub_type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
@@ -32,7 +32,7 @@ def select_complications():
     complications = st.multiselect("Komplikációk (többet is választhat)", [
         "Elmozdulás", "Intraarticularis", "Nyílt", "Fragmentált", "Avulsio", "Luxatio", "Subluxatio", 
         "Idegsérülés", "Nagyobb Érsérülés", "Szalagszakadás", 
-        "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés"
+        "Meniscus Sérülés", "Epiphysis Sérülés", "Fertőzés",
     ])
     return complications
 
@@ -48,10 +48,10 @@ def select_subregion(main_reg):
     regions = {
         "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
         "Alsó végtag": ["", "Medence", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
-        "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbaris", "Sacralis", "Coccygealis"],
-        "Koponya": ["", "Arckoponya", "Agykoponya", "Mandibula"],
-        "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív"],
-        "Has": ["", "Máj", "Lép", "Vese", "Bél", "Hólyag"]
+        "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbalis", "Sacrum", "Coccyx"],
+        "Koponya": ["", "Arckoponya", "Mandibula", "Calvaria", "Koponyaalap", "Fog"],
+        "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív", "Mell"],
+        "Has": ["", "Máj", "Epehólyag", "Pancreas", "Lép", "Vese", "Húgyhólyag", "Gyomor", "Vékonybél", "Vastagbél" ]
     }
     return st.selectbox("Régió", regions.get(main_reg, [""]))
 
@@ -63,13 +63,21 @@ def select_sub_subregion(sub_reg):
         "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
         "Csukló": ["", "Distalis radius", "Distalis ulna", "Carpus"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
-        "Pelvis": ["", "Ramus Pubicus ",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis (ASIS) avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
+        "Pelvis": ["", "Ramus pubicus",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
         "Csípő": ["", "Acetabulum", "Proximalis femur", "Femur fej", "Femur nyak", "Trochanterikus"],
         "Femur": ["", "Femur diaphysis", "Distalis femur", "Bisphosphonáthoz kapcsolódó"],
         "Térd": ["", "Avulsio", "Patella",  "Proximalis tibia", "Proximalis fibula"],
         "Lábszár": ["", "Tibia diaphysis", "Fibula diaphysis", "Tuberositas tibiae avulsio", "Maisonneuve"],
         "Boka": ["", "Distalis tibia", "Distalis fibula", "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
-        "Láb": ["", "Tarsus", "Metatarsus", "Hallux", "Lábujjak"]
+        "Láb": ["", "Tarsus", "Metatarsus", "Hallux", "Lábujjak"],
+        "Cervicalis": ["", "C1-Atlas", "C2-Axis", "C3", "C4", "C5", "C6", "C7"],
+        "Thoracalis": ["", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"],
+        "Lumbalis": ["", "L1", "L2", "L3", "L4", "L5"],   
+        "Arckoponya": ["", " Orrcsont", "Orbita", "Zygomaticum", "Arcus zygomaticus", "Processus alveolaris", "Panfacialis"], 
+        "Mandibula": ["", "Corpus mandibulae", "Symphysis", "Szemfogtájék", "Szemfog és angulus között", "Angulus mandibulae", "Ramus mandibulae", "Processus articularis", "Processus muscularis"],  
+        "Calvaria": ["", "Frontale", "Parietale", "Temporale", "Occipitale"], 
+        "Koponyaalap": ["","Condylus occipitalis", "Fossa anterior", "Fossa mediale", "Fossa posterior"],
+        "Fog": ["","Szemfog", "Metszőfog", "Kisörlő", "Nagyörlő"]
     }
     return st.selectbox("Alrégió", sub_regions.get(sub_reg, [""]))
     
@@ -91,7 +99,15 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Proximalis tibia": ["", "Tibia plateau"],
         "Proximalis fibula": ["", "Fibula fej", "Fibula nyak"],
         "Tarsus": ["", "Chopart", "Calcaneus", "Talus", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboideum"],
-        "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "V. metatarsus stressz törés", "Jones", "Pseudo-Jones", "V. metatarsus proximalis avulsio"]
+        "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "V. metatarsus stressz törés", "Jones", "Pseudo-Jones", "V. metatarsus proximalis avulsio"],
+        "C1-Atlas": ["","Jefferson"],
+        "C2-Axis": ["", "Dens axis", "Csigolyatest", "Hangman"],
+        "Panfacialis": ["", "Le Fort I", "Le Fort II", "Le Fort III", "Naso-orbito-ethmoidalis"],
+        "Processus articularis": ["", "Extracapsularis", "Intracapsularis"],
+        "Szemfog": ["", "Korona", "Gyökér"], 
+        "Metszőfog": ["", "Korona", "Gyökér"], 
+        "Kisörlő": ["", "Korona", "Gyökér"], 
+        "Nagyörlő": ["", "Korona", "Gyökér"] 
     }
     return st.selectbox("Részletes régió", sub_sub_regions.get(sub_sub_reg, [""]))
 
@@ -113,7 +129,8 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
         "Calcaneus": ["", "Lover's", "Calcaneus tuberositas avulsio"],
         "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"],
-        "Cuboideum": ["","Nutcracker"],
+        "Cuboideum": ["", "Nutcracker"],
+        "Dens axis": ["", "Dens csúcs", "Dens basis", "Csigolyatestre terjedő"]
     }
     return st.selectbox("Legrészletes régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
     
