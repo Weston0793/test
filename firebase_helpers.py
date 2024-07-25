@@ -139,17 +139,16 @@ def get_counts():
         main_type = doc_data.get('main_type')
 
         if patient_id not in patient_counts:
-            patient_counts[patient_id] = None
-            for region in regions:
-                main_region = region.get('main_region')
-                sub_region = region.get('sub_region')
-                if main_region in counts and sub_region in counts[main_region]:
-                    patient_counts[patient_id] = (main_region, sub_region, view, main_type)
-                    break  # Only count the first valid region
+            patient_counts[patient_id] = []
 
-    for patient_id, region_info in patient_counts.items():
-        if region_info:
-            main_region, sub_region, view, main_type = region_info
+        for region in regions:
+            main_region = region.get('main_region')
+            sub_region = region.get('sub_region')
+            if main_region in counts and sub_region in counts[main_region]:
+                patient_counts[patient_id].append((main_region, sub_region, view, main_type))
+
+    for patient_id, regions in patient_counts.items():
+        for main_region, sub_region, view, main_type in regions:
             key = f"{main_type}_{view}"
             if key not in counts[main_region][sub_region]:
                 counts[main_region][sub_region][key] = 0
