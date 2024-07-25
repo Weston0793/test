@@ -68,8 +68,7 @@ def search_section():
     with col7:
         sub_sub_sub_sub_region = select_sub_sub_sub_subregion(sub_sub_sub_region)
     with col8:
-        finger = select_finger()
-
+        finger, side = select_finger(sub_sub_region)
 
     st.markdown("### Osztályozás kiválasztása")
     classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
@@ -110,10 +109,10 @@ def search_section():
     else:
         age = None
 
-    col11, col12 = st.columns(2)
-    with col11:
+    col9, col10 = st.columns(2)
+    with col9:
         page = st.number_input("Oldal", min_value=1, step=1, value=st.session_state.query_params["page"])
-    with col12:
+    with col10:
         items_per_page = st.selectbox("Találatok száma oldalanként", options=[10, 25, 50, 100], index=[10, 25, 50, 100].index(st.session_state.query_params["items_per_page"]))
 
     search_button_clicked = st.button("Keresés", key="search_button")
