@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 class MultiPage:
     def __init__(self):
         self.pages = []
@@ -67,18 +68,21 @@ class MultiPage:
         )
 
         # Render the selected page
+        if 'active_page' not in st.session_state:
+            st.session_state['active_page'] = 'page-0'
+        
         for i, page in enumerate(self.pages):
-            if st.session_state.get('active_page') == f'page-{i}' or (i == 0 and 'active_page' not in st.session_state):
-                st.session_state['active_page'] = f'page-{i}'
+            if st.session_state['active_page'] == f'page-{i}':
                 page['function']()
 
-        # Add JavaScript to handle button active state
+        # Add JavaScript to handle button active state and communicate with Streamlit backend
         st.markdown(
             """
             <script>
             const links = document.querySelectorAll('.topnav a:not(#nav-title)');
             links.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
                     links.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                     const pageId = this.id;
@@ -87,8 +91,10 @@ class MultiPage:
             });
             window.addEventListener("message", (event) => {
                 if (event.data.isStreamlitNavigation) {
-                    document.querySelectorAll('.topnav a').forEach(l => l.classList.remove('active'));
-                    document.getElementById(event.data.pageId).classList.add('active');
+                    const pageId = event.data.pageId;
+                    links.forEach(l => l.classList.remove('active'));
+                    document.getElementById(pageId).classList.add('active');
+                    Streamlit.setComponentValue(pageId);
                 }
             });
             </script>
