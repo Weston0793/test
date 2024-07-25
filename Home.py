@@ -20,9 +20,10 @@ def main():
     - Válassza a bal oldalsáv "Navigáció" menüjéből a "Kép feltöltése" menüpontot .
     - Adja meg a beteg azonosítóját és töltse fel a röntgenkép(ek)et (Max 15 MB).
     - **Több kép feltöltése**: Ha egyszerre több képet szeretne feltölteni, pipálja ki a "Több kép feltöltése" lehetőséget. Figyelem: az összes kép ugyanazokat a címkéket kapja! (kivéve a betegazonosítót)
-    - Kérem, adja meg a kötelező adatokat: korcsoport, röntgen nézet, normál vagy elváltozás típusa, melyik oldal (ha végtagról van szó), és a sérült régiók (fő régió, alrégió).
+    - Kérem, adja meg a kötelező adatokat: korcsoport, röntgen nézet, normál vagy elváltozás típusa, melyik oldal (ha végtagról van szó), és a sérült régiók (fő régió, régió).
     - A részletesebb adatmegadás (alrégiók, komplikációk, társuló állapotok, osztályozások) nagyban segíti a kutatást és diagnosztikát.
     - **Több régió jelölése**: Ha több sérült régiót szeretne megadni, pipálja ki a "Több régió jelölése" opciót. Fontos: új régió hozzáadására csak mentés után van lehetőség, jelenlegi technikai korlátok miatt. Ha mentés nélkül több új régiót hozzáad, hibaüzenet fog keletkezni!
+    - A választható súlyossági kategóriák folyamatosan bővülnek. A hosszú csöves csontoknál már elérhető a teljes AO klasszifikáció (a boka kívételével).
     - Kattintson a "Feltöltés" gombra a kíválasztott adatok újra összegzéséhez, majd a "Megerősítés és Feltöltés" gombbal véglegesítheti a feltöltést.
 
     #### 2. Képek keresése
@@ -35,8 +36,9 @@ def main():
     - Válassza a "Státusz" menüpontot.
     - Tekintse meg a feltöltött röntgenképek statisztikáit és a projekt aktuális fázisának állapotát.
     - Az adatok alapján nyomon követheti a projekt előrehaladását és a hiányzó elemeket.
-    - Az első fázis lezárási kirétirumai: az összes különböző csontot tartalmazó régióból, legalább két nézetből, normál és törött röntgenképeket gyüjtsön felnőttektől, kombinációnként legalább 50 darabot.
-    - Figyelem, egyelőre a státusz a gyermekkori röntgeneket is számba veszi!
+    - Az első fázis lezárási kirétirumai: az összes különböző csontot tartalmazó régióból, legalább két nézetből, normál és törött röntgenképeket gyüjts felnőttektől, kombinációnként legalább 50 darabot.
+    - A második fázis a különböző alrégiók feltöltése lesz előreláhatólag.
+    - Fontos: egyelőre a státusz a gyermekkori röntgeneket is számba veszi!
 
     #### 4. Elérhetőség
     - Válassza az "Elérhetőség" menüpontot.
@@ -44,7 +46,7 @@ def main():
 
     ### Fontos Információk
     - **Adatbiztonság**: Az összes feltöltött adat biztonságos és titkosított környezetben kerül tárolásra.
-    - **Frissítések és Karbantartás**: Az alkalmazás rendszeresen frissül, hogy biztosítsa a legújabb és kényelmesebb funkciók és biztonsági intézkedéseket.
+    - **Frissítések és Karbantartás**: Az alkalmazás rendszeresen frissül, hogy biztosítsa a legújabb és egyre kényelmesebb funkciók és várják az ide látogatókat.
 
     Köszönjük, hogy használja az alkalmazásunkat!
     """)
