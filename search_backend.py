@@ -16,7 +16,6 @@ def perform_search(query_params):
     search_sub_sub_region = query_params.get("sub_sub_region", "")
     search_sub_sub_sub_region = query_params.get("sub_sub_sub_region", "")
     search_sub_sub_sub_sub_region = query_params.get("sub_sub_sub_sub_region", "")
-    search_finger = query_params.get("finger", "")
     search_side = query_params.get("side", "")
     search_complications = query_params.get("complications", [])
     search_associated_conditions = query_params.get("associated_conditions", [])
@@ -43,20 +42,6 @@ def perform_search(query_params):
         query_filters.append(('sub_view', '==', search_sub_view))
     if search_sub_sub_view:
         query_filters.append(('sub_sub_view', '==', search_sub_sub_view))
-    if search_main_region:
-        query_filters.append(('regions.main_region', 'array_contains', search_main_region))
-    if search_sub_region:
-        query_filters.append(('regions.sub_region', 'array_contains', search_sub_region))
-    if search_sub_sub_region:
-        query_filters.append(('regions.sub_sub_region', 'array_contains', search_sub_sub_region))
-    if search_sub_sub_sub_region:
-        query_filters.append(('regions.sub_sub_sub_region', 'array_contains', search_sub_sub_sub_region))
-    if search_sub_sub_sub_sub_region:
-        query_filters.append(('regions.sub_sub_sub_sub_region', 'array_contains', search_sub_sub_sub_sub_region))
-    if search_finger:
-        query_filters.append(('regions.finger', 'array_contains', search_finger))
-    if search_side:
-        query_filters.append(('regions.side', 'array_contains', search_side))
     if search_complications:
         for complication in search_complications:
             query_filters.append(('complications', 'array_contains', complication))
@@ -77,16 +62,7 @@ def perform_search(query_params):
         else:
             query_filters.append(('age', '==', search_age))
 
-    # Classification filters
-    if search_classifications:
-        for class_type, class_details in search_classifications.items():
-            if "name" in class_details and class_details["name"]:
-                query_filters.append((f"regions.classification.{class_type}.name", '==', class_details["name"]))
-            if "severity" in class_details and class_details["severity"]:
-                query_filters.append((f"regions.classification.{class_type}.severity", '==', class_details["severity"]))
-            if "subseverity" in class_details and class_details["subseverity"]:
-                query_filters.append((f"regions.classification.{class_type}.subseverity", '==', class_details["subseverity"]))
-
+    # Apply general filters
     for filter_field, filter_op, filter_value in query_filters:
         results = results.where(filter_field, filter_op, filter_value)
 
@@ -108,9 +84,10 @@ def perform_search(query_params):
 
             for doc in page_docs:
                 data = doc.to_dict()
-                display_data(data)
-                file_paths.append(data['url'])
-                metadata_list.append(data)
+                if any(region_matches(region, search_main_region, search_sub_region, search_sub_sub_region, search_sub_sub_sub_region, search_sub_sub_sub_sub_region, search_side, search_classifications) for region in data.get('regions', [])):
+                    display_data(data)
+                    file_paths.append(data['url'])
+                    metadata_list.append(data)
 
             st.write(f"Összesen {total_docs} találat. Oldal: {page} / {total_pages}")
 
@@ -118,16 +95,12 @@ def perform_search(query_params):
             with col7:
                 if page > 1:
                     if st.button("Előző oldal", key="prev_page"):
-                        st.session_state.query_params.update(
-                            page=page-1
-                        )
+                        st.session_state.query_params.update(page=page-1)
                         st.experimental_rerun()
             with col8:
                 if page < total_pages:
                     if st.button("Következő oldal", key="next_page"):
-                        st.session_state.query_params.update(
-                            page=page+1
-                        )
+                        st.session_state.query_params.update(page=page+1)
                         st.experimental_rerun()
 
             st.markdown('<div class="button-container">', unsafe_allow_html=True)
@@ -136,7 +109,7 @@ def perform_search(query_params):
                 st.write(f"Fájlok száma: {num_files}")
                 total_size_mb = num_files * 0.1
                 st.write(f"Becsült teljes méret: {total_size_mb:.2f} MB")
-                
+
                 st.write("A ZIP fájl készítése folyamatban...")
 
                 zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])
@@ -149,6 +122,30 @@ def perform_search(query_params):
             st.markdown('</div>', unsafe_allow_html=True)
     except GoogleAPICallError as e:
         st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
+
+def region_matches(region, main_region, sub_region, sub_sub_region, sub_sub_sub_region, sub_sub_sub_sub_region, side, classifications):
+    if main_region and region.get('main_region') != main_region:
+        return False
+    if sub_region and region.get('sub_region') != sub_region:
+        return False
+    if sub_sub_region and region.get('sub_sub_region') != sub_sub_region:
+        return False
+    if sub_sub_sub_region and region.get('sub_sub_sub_region') != sub_sub_sub_region:
+        return False
+    if sub_sub_sub_sub_region and region.get('sub_sub_sub_sub_region') != sub_sub_sub_sub_region:
+        return False
+    if side and region.get('side') != side:
+        return False
+    if classifications:
+        for class_type, class_details in classifications.items():
+            classification = region.get('classification', {}).get(class_type, {})
+            if "name" in class_details and class_details["name"] and classification.get('name') != class_details["name"]:
+                return False
+            if "severity" in class_details and class_details["severity"] and classification.get('severity') != class_details["severity"]:
+                return False
+            if "subseverity" in class_details and class_details["subseverity"] and classification.get('subseverity') != class_details["subseverity"]:
+                return False
+    return True
 
 def display_data(data):
     col1, col2 = st.columns(2)
@@ -168,17 +165,13 @@ def format_data(data):
     {format_field('Nézet', data.get('view'))}
     {format_field('Specifikus nézet', data.get('sub_view'))}
     {format_field('Legspecifikusabb nézet', data.get('sub_sub_view'))}
-    {format_field('Fő régió', data.get('main_region'))}
-    {format_field('Régió', data.get('sub_region'))}
-    {format_field('Alrégió', data.get('sub_sub_region'))}
-    {format_field('Részletes régió', data.get('sub_sub_sub_region'))}
-    {format_field('Legrészletesebb régió', data.get('sub_sub_sub_sub_region'))}
-    {format_field('Ujj', data.get('finger'))}
-    {format_field('Oldal', data.get('side'))}
     {format_field('Életkor', data.get('age'))}
     {format_field('Életkori csoport', data.get('age_group'))}
     {format_field('Megjegyzés', data.get('comment'))}
     {format_field('Komplikációk', ", ".join(data.get('complications', [])))}
     {format_field('Társuló Kórállapotok', ", ".join(data.get('associated_conditions', [])))}
     """
-    return display_data.replace("<br>", "\n")
+    for idx, region in enumerate(data.get('regions', [])):
+        display_data += f"\n**Régió {idx + 1}:**\n"
+        display_data += f"{format_field('Fő régió', region.get('main_region'))}"
+        display_data
