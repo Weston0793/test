@@ -24,17 +24,41 @@ def update_db(data):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('DELETE FROM status')  # Clear the table before inserting new data
+
+    all_combinations = []
+    main_regions = {
+        "Felső végtag": ["Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
+        "Alsó végtag": ["Medence", "Pelvis", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
+        "Gerinc": ["Cervicalis", "Thoracalis", "Lumbaris", "Sacralis", "Coccygealis"],
+        "Koponya": ["Arckoponya", "Agykoponya", "Mandibula"],
+        "Mellkas": ["Borda", "Sternum"]
+    }
+    views = ["AP", "Lateral"]
+    main_types = ["Normál", "Törött"]
+
+    for main_region, sub_regions in main_regions.items():
+        for sub_region in sub_regions:
+            for view in views:
+                for main_type in main_types:
+                    all_combinations.append((main_region, sub_region, view, main_type, 0))
+
     for row in data:
         if len(row) >= 5:
-            main_region, sub_region, view, type_, count = row[:5]
-            try:
-                count = int(count)  # Ensure count is an integer
-                c.execute('INSERT INTO status (main_region, sub_region, view_type, count, percentage) VALUES (?, ?, ?, ?, ?)', 
-                          (main_region, sub_region, f"{type_}_{view}", count, row[5] if len(row) > 5 else 0))
-            except ValueError:
-                st.error(f"Invalid count value for {main_region}-{sub_region}-{type_}-{view}: {count}")
-        else:
-            st.error(f"Invalid row data: {row}")
+            main_region, sub_region, view, main_type, count = row[:5]
+            for i, combo in enumerate(all_combinations):
+                if combo[:4] == (main_region, sub_region, view, main_type):
+                    all_combinations[i] = (main_region, sub_region, view, main_type, count)
+                    break
+
+    for combo in all_combinations:
+        main_region, sub_region, view, main_type, count = combo
+        try:
+            count = int(count)  # Ensure count is an integer
+            c.execute('INSERT INTO status (main_region, sub_region, view_type, count, percentage) VALUES (?, ?, ?, ?, ?)', 
+                      (main_region, sub_region, f"{main_type}_{view}", count, 0))
+        except ValueError:
+            st.error(f"Invalid count value for {main_region}-{sub_region}-{main_type}-{view}: {count}")
+
     conn.commit()
     conn.close()
 
