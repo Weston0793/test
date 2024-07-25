@@ -132,7 +132,7 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Cuboideum": ["", "Nutcracker"],
         "Dens axis": ["", "Dens csúcs", "Dens basis", "Csigolyatestre terjedő"]
     }
-    return st.selectbox("Legrészletes régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
+    return st.selectbox("Legpontosabb régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
     
 def select_finger(sub_sub_regions):
     side = st.selectbox("Oldal", ["Bal", "Jobb"])
