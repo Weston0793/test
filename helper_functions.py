@@ -38,7 +38,7 @@ def select_complications():
 
 def select_associated_conditions():
     associated_conditions = st.multiselect("Társuló Kórállapotok (többet is választhat)", [
-        "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", "Álízűlet", "Implant"
+        "Osteoarthritis", "Osteoporosis", "Osteomyelitis", "Cysta", "Álízűlet", "Implant",
         "Rheumatoid Arthritis", "Metastasis", "Malignus Tumor", 
         "Benignus Tumor", "Genetikai"
     ])
