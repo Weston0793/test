@@ -64,8 +64,7 @@ def search_section():
     with col7:
         sub_sub_sub_sub_region = select_sub_sub_sub_subregion(sub_sub_sub_region)
 
-    st.markdown("### Osztályozás kiválasztása")
-    classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
+    classification_types = st.multiselect("Válassza ki az osztályozás típusát (Többet is lehet)", ["AO", "Gartland", "Neer"])
     
     classifications = {}
     if "AO" in classification_types:
