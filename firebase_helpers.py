@@ -116,7 +116,7 @@ def get_comments(start, limit):
 
 def get_counts():
     counts = {
-        "Felső végtag": {"Váll": {},  "Humerus": {}, "Könyök": {},"Alkar": {}, "Csukló": {}, "Kéz": {}},
+        "Felső végtag": {"Váll": {}, "Humerus": {}, "Könyök": {}, "Alkar": {}, "Csukló": {}, "Kéz": {}},
         "Alsó végtag": {"Medence": {}, "Pelvis": {}, "Femur": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
         "Gerinc": {"Cervicalis": {}, "Thoracalis": {}, "Lumbaris": {}, "Sacralis": {}, "Coccygealis": {}},
         "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Mandibula": {}},
@@ -131,12 +131,17 @@ def get_counts():
         for sub_region in counts[main_region]:
             for view in views:
                 for main_type in main_types:
-                    docs = db.collection('images').where('main_region', '==', main_region).where('sub_region', '==', sub_region).where('view', '==', view).where('main_type', '==', main_type).stream()
+                    docs = db.collection('images').where('regions', 'array_contains', {
+                        'main_region': main_region,
+                        'sub_region': sub_region,
+                        'view': view,
+                        'main_type': main_type
+                    }).stream()
                     count = len(list(docs))
                     counts[main_region][sub_region][f"{main_type}_{view}"] = count
                     data.append([main_region, sub_region, view, main_type, count])
     return counts, data
-    
+
 def get_progress_summary(counts):
     summary = {}
     for main_region, sub_regions in counts.items():
