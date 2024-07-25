@@ -6,7 +6,8 @@ from google.api_core.exceptions import GoogleAPICallError
 from search_backend import perform_search
 from helper_functions import (
     select_main_type, select_view, select_main_region, select_subregion, 
-    select_sub_subregion, select_sub_sub_subregion, select_complications, select_associated_conditions,
+    select_sub_subregion, select_sub_sub_subregion, select_sub_sub_sub_subregion, select_finger, select_side, 
+    select_complications, select_associated_conditions,
     ao_classification, neer_classification, gartland_classification
 )
 from Styles import search_markdown
@@ -27,6 +28,9 @@ def initialize_session_state():
             "sub_region": "",
             "sub_sub_region": "",
             "sub_sub_sub_region": "",
+            "sub_sub_sub_sub_region": "",
+            "finger": "",
+            "side": "",
             "complications": [],
             "associated_conditions": [],
             "age_filter_active": False,
@@ -59,6 +63,16 @@ def search_section():
         sub_sub_region = select_sub_subregion(sub_region)
     with col6:
         sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
+    
+    col7, col8 = st.columns(2)
+    with col7:
+        sub_sub_sub_sub_region = select_sub_sub_sub_subregion(sub_sub_sub_region)
+    with col8:
+        finger = select_finger()
+
+    col9, col10 = st.columns(2)
+    with col9:
+        side = select_side()
 
     st.markdown("### Osztályozás kiválasztása")
     classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
@@ -99,10 +113,10 @@ def search_section():
     else:
         age = None
 
-    col7, col8 = st.columns(2)
-    with col7:
+    col11, col12 = st.columns(2)
+    with col11:
         page = st.number_input("Oldal", min_value=1, step=1, value=st.session_state.query_params["page"])
-    with col8:
+    with col12:
         items_per_page = st.selectbox("Találatok száma oldalanként", options=[10, 25, 50, 100], index=[10, 25, 50, 100].index(st.session_state.query_params["items_per_page"]))
 
     search_button_clicked = st.button("Keresés", key="search_button")
@@ -122,6 +136,9 @@ def search_section():
             "sub_region": sub_region,
             "sub_sub_region": sub_sub_region,
             "sub_sub_sub_region": sub_sub_sub_region,
+            "sub_sub_sub_sub_region": sub_sub_sub_sub_region,
+            "finger": finger,
+            "side": side,
             "complications": complications,
             "associated_conditions": associated_conditions,
             "age_filter_active": age_filter_active,
