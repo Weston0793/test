@@ -70,8 +70,13 @@ def perform_search(query_params):
         file_paths = []
         metadata_list = []
 
-        all_docs = list(docs)
-        total_docs = len(all_docs)
+        filtered_docs = []
+        for doc in docs:
+            data = doc.to_dict()
+            if any(region_matches(region, search_main_region, search_sub_region, search_sub_sub_region, search_sub_sub_sub_region, search_sub_sub_sub_sub_region, search_classifications) for region in data.get('regions', [])):
+                filtered_docs.append(doc)
+
+        total_docs = len(filtered_docs)
         total_pages = (total_docs + items_per_page - 1) // items_per_page
 
         if total_docs == 0:
@@ -79,14 +84,13 @@ def perform_search(query_params):
         else:
             start_idx = (page - 1) * items_per_page
             end_idx = start_idx + items_per_page
-            page_docs = all_docs[start_idx:end_idx]
+            page_docs = filtered_docs[start_idx:end_idx]
 
             for doc in page_docs:
                 data = doc.to_dict()
-                if any(region_matches(region, search_main_region, search_sub_region, search_sub_sub_region, search_sub_sub_sub_region, search_sub_sub_sub_sub_region, search_classifications) for region in data.get('regions', [])):
-                    display_data(data)
-                    file_paths.append(data['url'])
-                    metadata_list.append(data)
+                display_data(data)
+                file_paths.append(data['url'])
+                metadata_list.append(data)
 
             st.write(f"Összesen {total_docs} találat. Oldal: {page} / {total_pages}")
 
@@ -104,14 +108,14 @@ def perform_search(query_params):
 
             st.markdown('<div class="button-container">', unsafe_allow_html=True)
             if st.button("Összes találat letöltése ZIP-ben"):
-                num_files = len(all_docs)
+                num_files = len(filtered_docs)
                 st.write(f"Fájlok száma: {num_files}")
                 total_size_mb = num_files * 0.1
                 st.write(f"Becsült teljes méret: {total_size_mb:.2f} MB")
 
                 st.write("A ZIP fájl készítése folyamatban...")
 
-                zip_buffer = create_zip([doc.to_dict()['url'] for doc in all_docs], [doc.to_dict() for doc in all_docs])
+                zip_buffer = create_zip([doc.to_dict()['url'] for doc in filtered_docs], [doc.to_dict() for doc in filtered_docs])
                 st.download_button(
                     label="Letöltés",
                     data=zip_buffer,
