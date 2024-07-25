@@ -15,6 +15,9 @@ def perform_search(query_params):
     search_sub_region = query_params.get("sub_region", "")
     search_sub_sub_region = query_params.get("sub_sub_region", "")
     search_sub_sub_sub_region = query_params.get("sub_sub_sub_region", "")
+    search_sub_sub_sub_sub_region = query_params.get("sub_sub_sub_sub_region", "")
+    search_finger = query_params.get("finger", "")
+    search_side = query_params.get("side", "")
     search_complications = query_params.get("complications", [])
     search_associated_conditions = query_params.get("associated_conditions", [])
     search_classifications = query_params.get("classifications", {})
@@ -48,6 +51,12 @@ def perform_search(query_params):
         query_filters.append(('regions.sub_sub_region', 'array_contains', search_sub_sub_region))
     if search_sub_sub_sub_region:
         query_filters.append(('regions.sub_sub_sub_region', 'array_contains', search_sub_sub_sub_region))
+    if search_sub_sub_sub_sub_region:
+        query_filters.append(('regions.sub_sub_sub_sub_region', 'array_contains', search_sub_sub_sub_sub_region))
+    if search_finger:
+        query_filters.append(('regions.finger', 'array_contains', search_finger))
+    if search_side:
+        query_filters.append(('regions.side', 'array_contains', search_side))
     if search_complications:
         for complication in search_complications:
             query_filters.append(('complications', 'array_contains', complication))
@@ -163,6 +172,9 @@ def format_data(data):
     {format_field('Régió', data.get('sub_region'))}
     {format_field('Alrégió', data.get('sub_sub_region'))}
     {format_field('Részletes régió', data.get('sub_sub_sub_region'))}
+    {format_field('Legrészletesebb régió', data.get('sub_sub_sub_sub_region'))}
+    {format_field('Ujj', data.get('finger'))}
+    {format_field('Oldal', data.get('side'))}
     {format_field('Életkor', data.get('age'))}
     {format_field('Életkori csoport', data.get('age_group'))}
     {format_field('Megjegyzés', data.get('comment'))}
