@@ -16,11 +16,11 @@ from functions import (
 def main():
     initialize_home_session_state()
     upload_markdown()
-    st.markdown('<div class="upload-title">Orvosi Röntgenkép Adatbázis</div>', unsafe_allow_html=True)
+    st.markdown('<div class="upload-title">Röntgenkép feltöltése</div>', unsafe_allow_html=True)
 
     st.text_input("Beteg azonosító", st.session_state.patient_id, disabled=True)
 
-    st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra vagy válasszon ki a fájlkezelőn keresztül egy röntgenképet (Max 15 MB)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra egy anonimizált röntgenképet vagy válassza ki a fájlkezelőn keresztül!  (Max. méret/file: 15 MB)</div>', unsafe_allow_html=True)
     st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése")
 
     if st.session_state.allow_multiple_uploads:
