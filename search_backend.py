@@ -16,7 +16,6 @@ def perform_search(query_params):
     search_sub_sub_region = query_params.get("sub_sub_region", "")
     search_sub_sub_sub_region = query_params.get("sub_sub_sub_region", "")
     search_sub_sub_sub_sub_region = query_params.get("sub_sub_sub_sub_region", "")
-    search_side = query_params.get("side", "")
     search_complications = query_params.get("complications", [])
     search_associated_conditions = query_params.get("associated_conditions", [])
     search_classifications = query_params.get("classifications", {})
@@ -84,7 +83,7 @@ def perform_search(query_params):
 
             for doc in page_docs:
                 data = doc.to_dict()
-                if any(region_matches(region, search_main_region, search_sub_region, search_sub_sub_region, search_sub_sub_sub_region, search_sub_sub_sub_sub_region, search_side, search_classifications) for region in data.get('regions', [])):
+                if any(region_matches(region, search_main_region, search_sub_region, search_sub_sub_region, search_sub_sub_sub_region, search_sub_sub_sub_sub_region, search_classifications) for region in data.get('regions', [])):
                     display_data(data)
                     file_paths.append(data['url'])
                     metadata_list.append(data)
@@ -123,7 +122,7 @@ def perform_search(query_params):
     except GoogleAPICallError as e:
         st.error("Hiba történt a keresés végrehajtása közben. Kérjük, próbálja meg újra később.")
 
-def region_matches(region, main_region, sub_region, sub_sub_region, sub_sub_sub_region, sub_sub_sub_sub_region, side, classifications):
+def region_matches(region, main_region, sub_region, sub_sub_region, sub_sub_sub_region, sub_sub_sub_sub_region, classifications):
     if main_region and region.get('main_region') != main_region:
         return False
     if sub_region and region.get('sub_region') != sub_region:
@@ -133,8 +132,6 @@ def region_matches(region, main_region, sub_region, sub_sub_region, sub_sub_sub_
     if sub_sub_sub_region and region.get('sub_sub_sub_region') != sub_sub_sub_region:
         return False
     if sub_sub_sub_sub_region and region.get('sub_sub_sub_sub_region') != sub_sub_sub_sub_region:
-        return False
-    if side and region.get('side') != side:
         return False
     if classifications:
         for class_type, class_details in classifications.items():
@@ -174,12 +171,10 @@ def format_data(data):
     for idx, region in enumerate(data.get('regions', [])):
         display_data += f"\n**Régió {idx + 1}:**\n"
         display_data += f"{format_field('Fő régió', region.get('main_region'))}"
-        display_data += f"{format_field('Oldal', region.get('side'))}"
         display_data += f"{format_field('Régió', region.get('sub_region'))}"
         display_data += f"{format_field('Alrégió', region.get('sub_sub_region'))}"
         display_data += f"{format_field('Részletes régió', region.get('sub_sub_sub_region'))}"
         display_data += f"{format_field('Legrészletesebb régió', region.get('sub_sub_sub_sub_region'))}"
-        display_data += f"{format_field('Ujj', region.get('finger'))}"
         if 'classification' in region:
             for class_type, class_details in region['classification'].items():
                 display_data += f"**{class_type} osztályozás:**\n"
