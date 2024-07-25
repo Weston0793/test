@@ -6,7 +6,7 @@ from google.api_core.exceptions import GoogleAPICallError
 from search_backend import perform_search
 from helper_functions import (
     select_main_type, select_view, select_main_region, select_subregion, 
-    select_sub_subregion, select_sub_sub_subregion, select_sub_sub_sub_subregion, select_finger,
+    select_sub_subregion, select_sub_sub_subregion, select_sub_sub_sub_subregion, 
     select_complications, select_associated_conditions,
     ao_classification, neer_classification, gartland_classification
 )
@@ -29,8 +29,6 @@ def initialize_session_state():
             "sub_sub_region": "",
             "sub_sub_sub_region": "",
             "sub_sub_sub_sub_region": "",
-            "finger": "",
-            "side": "",
             "complications": [],
             "associated_conditions": [],
             "age_filter_active": False,
@@ -58,17 +56,13 @@ def search_section():
     with col4:
         sub_region = select_subregion(main_region)
 
-    col5, col6 = st.columns(2)
+    col5, col6, col7 = st.columns(3)
     with col5:
         sub_sub_region = select_sub_subregion(sub_region)
     with col6:
         sub_sub_sub_region = select_sub_sub_subregion(sub_sub_region)
-    
-    col7, col8 = st.columns(2)
     with col7:
         sub_sub_sub_sub_region = select_sub_sub_sub_subregion(sub_sub_sub_region)
-    with col8:
-        finger, side = select_finger(sub_sub_region)
 
     st.markdown("### Osztályozás kiválasztása")
     classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
@@ -133,8 +127,6 @@ def search_section():
             "sub_sub_region": sub_sub_region,
             "sub_sub_sub_region": sub_sub_sub_region,
             "sub_sub_sub_sub_region": sub_sub_sub_sub_region,
-            "finger": finger,
-            "side": side,
             "complications": complications,
             "associated_conditions": associated_conditions,
             "age_filter_active": age_filter_active,
