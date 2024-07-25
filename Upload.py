@@ -48,8 +48,6 @@ def main():
     with col2:
         view, sub_view, sub_sub_view = select_view()
 
-    st.markdown("### Sérült Régiók Kiválasztása")
-
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
         st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
