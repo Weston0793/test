@@ -5,7 +5,7 @@ def main():
 
     st.markdown("""
     ### Az alkalmazás célja
-    Az alkalmazás célja, hogy segítse az orvosi röntgenképek kezelését, feltöltését, keresését és állapotuk nyomon követését. A rendszer pontos és részletes adatokat gyűjt a röntgenképekről, hogy elősegítse az orvosi kutatást, oktatást valamint a traumatologiai diagnosztikai munkát, ezáltal javítva a betegek ellátását
+    Az alkalmazás célja, hogy segítse az orvosi röntgenképek kezelését, feltöltését, keresését és állapotuk nyomon követését. A rendszer pontos és részletes adatokat gyűjt a röntgenképekről, hogy elősegítse az orvosi kutatást, oktatást valamint legfőképpen a traumatológiai diagnosztikai munkát, ezáltal javítva a betegek ellátását
 
     ### Funkciók
     - **Kép feltöltése**: Új röntgenkép(ek)et tölthet fel az adatbázisba.
