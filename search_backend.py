@@ -174,4 +174,17 @@ def format_data(data):
     for idx, region in enumerate(data.get('regions', [])):
         display_data += f"\n**Régió {idx + 1}:**\n"
         display_data += f"{format_field('Fő régió', region.get('main_region'))}"
-        display_data
+        display_data += f"{format_field('Oldal', region.get('side'))}"
+        display_data += f"{format_field('Régió', region.get('sub_region'))}"
+        display_data += f"{format_field('Alrégió', region.get('sub_sub_region'))}"
+        display_data += f"{format_field('Részletes régió', region.get('sub_sub_sub_region'))}"
+        display_data += f"{format_field('Legrészletesebb régió', region.get('sub_sub_sub_sub_region'))}"
+        display_data += f"{format_field('Ujj', region.get('finger'))}"
+        if 'classification' in region:
+            for class_type, class_details in region['classification'].items():
+                display_data += f"**{class_type} osztályozás:**\n"
+                display_data += f"{format_field('Név', class_details.get('name'))}"
+                display_data += f"{format_field('Súlyosság', class_details.get('severity'))}"
+                display_data += f"{format_field('Alsúlyosság', class_details.get('subseverity'))}"
+
+    return display_data.replace("<br>", "\n")
