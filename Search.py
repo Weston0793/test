@@ -6,7 +6,7 @@ from google.api_core.exceptions import GoogleAPICallError
 from search_backend import perform_search
 from helper_functions import (
     select_main_type, select_view, select_main_region, select_subregion, 
-    select_sub_subregion, select_sub_sub_subregion, select_sub_sub_sub_subregion, select_finger, select_side, 
+    select_sub_subregion, select_sub_sub_subregion, select_sub_sub_sub_subregion, select_finger,
     select_complications, select_associated_conditions,
     ao_classification, neer_classification, gartland_classification
 )
@@ -70,9 +70,6 @@ def search_section():
     with col8:
         finger = select_finger()
 
-    col9, col10 = st.columns(2)
-    with col9:
-        side = select_side()
 
     st.markdown("### Osztályozás kiválasztása")
     classification_types = st.multiselect("Válassza ki az osztályozás típusát", ["AO", "Gartland", "Neer"])
