@@ -43,7 +43,7 @@ def perform_search(query_params):
     if search_sub_sub_view:
         query_filters.append(('sub_sub_view', '==', search_sub_sub_view))
     if search_gender:
-        query_filters.append(('gender', '==', search_gender)
+        query_filters.append(('gender', '==', search_gender))
     if search_complications:
         for complication in search_complications:
             query_filters.append(('complications', 'array_contains', complication))
