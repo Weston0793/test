@@ -81,6 +81,10 @@ def select_view():
             sub_sub_view = st.text_input("Adja meg a specifikus nézetet (Speciális)")
     return view, sub_view, sub_sub_view
 
+def select_gender():
+    gender = st.radio("Nem", ["NA", "férfi", "nő"], key="gender")
+    return gender
+    
 def select_main_region():
     main_region = st.selectbox("Fő régió", ["Felső végtag", "Alsó végtag", "Gerinc", "Koponya", "Mellkas", "Has"])
     return main_region
