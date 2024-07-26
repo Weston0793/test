@@ -1,4 +1,5 @@
 import streamlit as st
+
 def search_markdown():
     st.markdown(
         """
@@ -36,10 +37,25 @@ def search_markdown():
         .button-container button:hover {
             background-color: #45a049;
         }
+        .formatted-data {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+        }
+        .formatted-data h4 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #444;
+        }
+        .formatted-data p {
+            margin: 0;
+            padding: 0;
+        }
         </style>
         """,
         unsafe_allow_html=True,
     )
+    
 def upload_markdown():
     st.markdown(
         """
