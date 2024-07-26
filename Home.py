@@ -33,19 +33,6 @@ def set_background():
              margin-top: 30px;
              margin-bottom: 10px;
          }
-         .expander-header {
-             font-size: 20px;
-             color: #ffffff;
-             background: #004D40;
-             padding: 10px;
-             border-radius: 8px;
-             margin-bottom: 10px;
-             display: block;
-             text-decoration: none;
-         }
-         .expander-header:hover {
-             background: #00332e;
-         }
          .content {
              font-size: 16px;
              line-height: 1.2;
@@ -103,6 +90,23 @@ def set_background():
          unsafe_allow_html=True
      )
 
+def change_label_style(label, font_size='20px', font_color='white', font_family='Roboto', background_color='#004D40'):
+    html = f"""
+    <script>
+        var labels = window.parent.document.querySelectorAll('details > summary');
+        var label = Array.from(labels).find(x => x.innerText.includes('{label}'));
+        if (label) {{
+            label.style.fontSize = '{font_size}';
+            label.style.color = '{font_color}';
+            label.style.fontFamily = '{font_family}';
+            label.style.backgroundColor = '{background_color}';
+            label.style.padding = '10px';
+            label.style.borderRadius = '8px';
+        }}
+    </script>
+    """
+    st.components.v1.html(html, height=0)
+
 def main():
     set_background()
 
@@ -122,7 +126,7 @@ def main():
     </ul>
 
     <div class="subheader">Használati útmutató</div>
-    """, unsafe_allow_html=True)
+    """ , unsafe_allow_html=True)
 
     with st.expander("1. Kép feltöltése"):
         st.markdown("""
@@ -141,6 +145,7 @@ def main():
         </ul>
         </div>
         """, unsafe_allow_html=True)
+        change_label_style("1. Kép feltöltése")
 
     with st.expander("2. Képek keresése"):
         st.markdown("""
@@ -153,6 +158,7 @@ def main():
         </ul>
         </div>
         """, unsafe_allow_html=True)
+        change_label_style("2. Képek keresése")
 
     with st.expander("3. Státusz"):
         st.markdown("""
@@ -167,6 +173,7 @@ def main():
         </ul>
         </div>
         """, unsafe_allow_html=True)
+        change_label_style("3. Státusz")
 
     with st.expander("4. Elérhetőség"):
         st.markdown("""
@@ -177,6 +184,7 @@ def main():
         </ul>
         </div>
         """, unsafe_allow_html=True)
+        change_label_style("4. Elérhetőség")
 
     st.markdown("""
     <div class="content">
