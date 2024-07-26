@@ -37,9 +37,11 @@ class MultiPage:
                 pointer-events: none;
             }
 
-            .topnav a {
+            .topnav button {
                 display: block;
                 color: #f2f2f2;
+                background-color: transparent;
+                border: none;
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
@@ -48,12 +50,12 @@ class MultiPage:
                 cursor: pointer;
             }
 
-            .topnav a:hover {
+            .topnav button:hover {
                 background-color: #ddd;
                 color: black;
             }
 
-            .topnav a.active {
+            .topnav button.active {
                 background-color: #04AA6D;
                 color: white;
             }
@@ -62,7 +64,7 @@ class MultiPage:
         )
 
         # Create the navigation bar
-        nav_links = ''.join([f'<a id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</a>' for i, page in enumerate(self.pages)])
+        nav_links = ''.join([f'<button id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</button>' for i, page in enumerate(self.pages)])
         st.markdown(
             f"""
             <div class="topnav">
@@ -81,12 +83,12 @@ class MultiPage:
             if st.session_state['active_page'] == f'page-{i}':
                 page['function']()
 
-        # Add JavaScript to handle button active state and communicate with Streamlit backend
+        # Add JavaScript to handle button active state
         st.markdown(
             """
             <script>
             function setPage(pageId) {
-                const links = document.querySelectorAll('.topnav a');
+                const links = document.querySelectorAll('.topnav button');
                 links.forEach(link => {
                     link.classList.remove('active');
                     if (link.id === pageId) {
@@ -97,20 +99,6 @@ class MultiPage:
                 url.searchParams.set('page', pageId);
                 window.location.href = url.href;
             }
-
-            window.addEventListener("message", (event) => {
-                if (event.data.isStreamlitNavigation) {
-                    const pageId = event.data.pageId;
-                    const links = document.querySelectorAll('.topnav a');
-                    links.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.id === pageId) {
-                            link.classList.add('active');
-                        }
-                    });
-                    Streamlit.setComponentValue(pageId);
-                }
-            });
             </script>
             """, unsafe_allow_html=True
         )
