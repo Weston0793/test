@@ -26,13 +26,14 @@ def confirm_and_upload_data(upload_data):
         st.markdown(f'**Specifikus nézet:** {upload_data["sub_view"]}', unsafe_allow_html=True)
     if upload_data["sub_sub_view"]:
         st.markdown(f'**Legspecifikusabb nézet:** {upload_data["sub_sub_view"]}', unsafe_allow_html=True)
+    st.markdown(f'**Nem: (opcionális)** {upload_data["gender"]}', unsafe_allow_html=True)
     st.markdown(f'**Életkor: (opcionális)** {upload_data["age"]}', unsafe_allow_html=True)
     st.markdown(f'**Életkori Csoport:** {upload_data["age_group"]}', unsafe_allow_html=True)
     st.markdown(f'**Megjegyzés: (opcionális)** {upload_data["comment"]}', unsafe_allow_html=True)
     if upload_data["complications"]:
-        st.markdown(f'**Komplikációk: (többet is választhat)** {", ".join(upload_data["complications"])}', unsafe_allow_html=True)
+        st.markdown(f'**Komplikációk: (többet is választhat, opcionális)** {", ".join(upload_data["complications"])}', unsafe_allow_html=True)
     if upload_data["associated_conditions"]:
-        st.markdown(f'**Társuló Kórállapotok: (többet is választhat)** {", ".join(upload_data["associated_conditions"])}', unsafe_allow_html=True)
+        st.markdown(f'**Társuló Kórállapotok: (többet is választhat, opcionális)** {", ".join(upload_data["associated_conditions"])}', unsafe_allow_html=True)
 
     st.markdown("### Kiválasztott régiók", unsafe_allow_html=True)
     for idx, region in enumerate(upload_data["regions"]):
@@ -70,6 +71,7 @@ def confirm_and_upload_data(upload_data):
                 view=upload_data["view"],
                 sub_view=upload_data["sub_view"],
                 sub_sub_view=upload_data["sub_sub_view"],
+                gender=upload_data["gender"],
                 age=upload_data["age"],
                 age_group=upload_data["age_group"],
                 comment=upload_data["comment"],
