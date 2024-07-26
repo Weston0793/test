@@ -25,14 +25,18 @@ def set_background():
              animation: fadeInDown 1.5s;
          }
          .subheader {
-             font-size: 24px;
-             color: #00796B;
+             font-size: 28px;
+             color: #ffffff;
+             background: #00796B;
+             padding: 10px;
+             border-radius: 10px;
              margin-top: 30px;
              margin-bottom: 10px;
          }
          .content {
              font-size: 16px;
-             line-height: 1.6;
+             line-height: 1.4;
+             text-align: justify;
              margin: 20px;
              padding: 20px;
              background: #ffffff;
@@ -44,6 +48,7 @@ def set_background():
          }
          .content li {
              margin-bottom: 10px;
+             animation: fadeIn 1.5s;
          }
          .content a {
              color: #00796B;
@@ -60,6 +65,14 @@ def set_background():
              100% {
                  opacity: 1;
                  transform: translateY(0);
+             }
+         }
+         @keyframes fadeIn {
+             0% {
+                 opacity: 0;
+             }
+             100% {
+                 opacity: 1;
              }
          }
          </style>
@@ -114,7 +127,7 @@ def main():
         <li>Válassza a "Státusz" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
         <li>Tekintse meg a feltöltött röntgenképek statisztikáit és a projekt aktuális fázisának állapotát.</li>
         <li>Az adatok alapján nyomon követheti a projekt előrehaladását és a hiányzó elemeket.</li>
-        <li>Az első fázis lezárási kritériumai: az összes különböző csontot tartalmazó régióból, legalább két nézetből, normál és törött röntgenképeket gyüjts felnőttektől, kombinációnként legalább 50 darabot.</li>
+        <li>Az első fázis lezárási kirétirumai: az összes különböző csontot tartalmazó régióból, legalább két nézetből, normál és törött röntgenképeket gyüjts felnőttektől, kombinációnként legalább 50 darabot.</li>
         <li>A második fázis a különböző alrégiók feltöltése lesz előreláthatólag.</li>
         <li>Fontos: egyelőre a státusz a gyermekkori röntgeneket is számba veszi!</li>
     </ul>
