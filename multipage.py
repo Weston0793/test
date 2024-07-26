@@ -60,11 +60,12 @@ class MultiPage:
         )
 
         # Create the navigation bar
+        nav_links = ''.join([f'<a href="#" id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</a>' for i, page in enumerate(self.pages)])
         st.markdown(
             f"""
             <div class="topnav">
               <div class="nav-title">Navigáció</div>
-              {"".join([f'<a href="#" id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</a>' for i, page in enumerate(self.pages)])}
+              {nav_links}
             </div>
             """, unsafe_allow_html=True
         )
