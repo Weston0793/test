@@ -68,6 +68,7 @@ def save_image(patient_id, files, main_type, sub_type, sub_sub_type, view, sub_v
             'view': view,
             'sub_view': sub_view,
             'sub_sub_view': sub_sub_view,
+            'gender': gender,
             'age': age,
             'age_group': age_group,
             'comment': comment,
