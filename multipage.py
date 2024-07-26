@@ -34,6 +34,7 @@ class MultiPage:
                 font-weight: bold;
                 padding: 14px 16px;
                 margin-right: 20px;
+                pointer-events: none;
             }
 
             .topnav a {
@@ -44,6 +45,7 @@ class MultiPage:
                 text-decoration: none;
                 font-size: 17px;
                 margin-right: 10px;
+                cursor: pointer;
             }
 
             .topnav a:hover {
@@ -60,7 +62,7 @@ class MultiPage:
         )
 
         # Create the navigation bar
-        nav_links = ''.join([f'<a href="#" id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</a>' for i, page in enumerate(self.pages)])
+        nav_links = ''.join([f'<a id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</a>' for i, page in enumerate(self.pages)])
         st.markdown(
             f"""
             <div class="topnav">
@@ -97,18 +99,17 @@ class MultiPage:
             window.addEventListener("message", (event) => {
                 if (event.data.isStreamlitNavigation) {
                     const pageId = event.data.pageId;
-                    const links = document.querySelectorAll('.topnav a');
-                    links.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.id === pageId) {
-                            link.classList.add('active');
-                        }
-                    });
                     Streamlit.setComponentValue(pageId);
                 }
             });
             </script>
             """, unsafe_allow_html=True
         )
+
+        # Handle the page change event from JavaScript
+        if st._rerun:
+            page_id = st._rerun.widget_state['value']
+            st.session_state['active_page'] = page_id
+            st.experimental_rerun()
 
 # Save this as multipage.py
