@@ -33,9 +33,18 @@ def set_background():
              margin-top: 30px;
              margin-bottom: 10px;
          }
+         .subsubheader {
+             font-size: 20px;
+             color: #ffffff;
+             background: #004D40;
+             padding: 8px;
+             border-radius: 8px;
+             margin-top: 20px;
+             margin-bottom: 10px;
+         }
          .content {
              font-size: 16px;
-             line-height: 1.4;
+             line-height: 1.2;
              text-align: justify;
              margin: 20px;
              padding: 20px;
@@ -49,6 +58,9 @@ def set_background():
          .content li {
              margin-bottom: 10px;
              animation: fadeIn 1.5s;
+         }
+         .content p {
+             margin-bottom: 10px;
          }
          .content a {
              color: #00796B;
@@ -100,7 +112,7 @@ def main():
 
     <div class="subheader">Használati útmutató</div>
 
-    <div class="subheader">1. Kép feltöltése</div>
+    <div class="subsubheader">1. Kép feltöltése</div>
     <ul>
         <li>Kérjük a feltöltésre szánt képekről bizonyosodjon meg hogy anonimizálva vannak! A képeken nem szerepelhet semmilyen betegazonosító!</li>
         <li>Válassza a bal oldalsáv "Navigáció" menüjéből a "Kép feltöltése" pontot.</li>
@@ -114,7 +126,7 @@ def main():
         <li>Kérjük várja meg a zöld "Sikeres feltöltés" feliratot mielött új képet tölt fel. Több kép feltöltésénél egyszerre, többet kell várni.</li>
     </ul>
 
-    <div class="subheader">2. Képek keresése</div>
+    <div class="subsubheader">2. Képek keresése</div>
     <ul>
         <li>Válassza a "Képek keresése" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
         <li>Adja meg a keresési feltételeket (minimum: típus, nézet, főrégió).</li>
@@ -122,7 +134,7 @@ def main():
         <li>Várjon egy pár másodpercet amíg a szerver összeállítja a "Letöltés" gomb megnyomása után a .zip filet, majd kattintson a "Megerősítés s Letöltés" gombra ha le kívánja tölteni a képeket és a hozzájuk tartozó címkéket.</li>
     </ul>
 
-    <div class="subheader">3. Státusz</div>
+    <div class="subsubheader">3. Státusz</div>
     <ul>
         <li>Válassza a "Státusz" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
         <li>Tekintse meg a feltöltött röntgenképek statisztikáit és a projekt aktuális fázisának állapotát.</li>
@@ -132,7 +144,7 @@ def main():
         <li>Fontos: egyelőre a státusz a gyermekkori röntgeneket is számba veszi!</li>
     </ul>
 
-    <div class="subheader">4. Elérhetőség</div>
+    <div class="subsubheader">4. Elérhetőség</div>
     <ul>
         <li>Válassza az "Elérhetőség" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
         <li>Ha bármilyen észrevétele van a honlappal kapcsolatban, segítségre van szüksége vagy kérdése van, lépjen nyugodtan kapcsolatba a fejlesztőkkel.</li>
