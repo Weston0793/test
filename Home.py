@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_extras.app_logo import add_logo
+#from streamlit_extras.app_logo import add_logo
 
 # Function to animate text
 def animate_text(text):
