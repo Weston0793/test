@@ -160,7 +160,7 @@ def display_data(data):
 
 def format_data(data):
     def format_field(label, value):
-        return f"**{label}:** {value}<br>" if value not in [None, 'N/A', [], ''] else ""
+        return f"<p><strong>{label}:</strong> {value}</p>" if value not in [None, 'N/A', [], ''] else ""
 
     display_data = f"""
     {format_field('Típus', data.get('main_type'))}
@@ -177,7 +177,7 @@ def format_data(data):
     {format_field('Társuló Kórállapotok', ", ".join(data.get('associated_conditions', [])))}
     """
     for idx, region in enumerate(data.get('regions', [])):
-        display_data += f"\n**Régió {idx + 1}:**\n"
+        display_data += f"<h4>Régió {idx + 1}:</h4>"
         display_data += f"{format_field('Fő régió', region.get('main_region'))}"
         display_data += f"{format_field('Régió', region.get('sub_region'))}"
         display_data += f"{format_field('Alrégió', region.get('sub_sub_region'))}"
@@ -185,9 +185,9 @@ def format_data(data):
         display_data += f"{format_field('Legrészletesebb régió', region.get('sub_sub_sub_sub_region'))}"
         if 'classification' in region:
             for class_type, class_details in region['classification'].items():
-                display_data += f"**{class_type} osztályozás:**\n"
+                display_data += f"<h4>{class_type} osztályozás:</h4>"
                 display_data += f"{format_field('Név', class_details.get('name'))}"
                 display_data += f"{format_field('Főkategória', class_details.get('severity'))}"
                 display_data += f"{format_field('Alkategória', class_details.get('subseverity'))}"
 
-    return display_data.replace("<br>", "\n")
+    return f'<div class="formatted-data">{display_data}</div>'
