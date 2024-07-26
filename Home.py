@@ -33,15 +33,18 @@ def set_background():
              margin-top: 30px;
              margin-bottom: 10px;
          }
-         .subsubheader {
+         .expander-header {
              font-size: 20px;
              color: #ffffff;
              background: #004D40;
-             padding: 8px;
+             padding: 10px;
              border-radius: 8px;
-             margin-top: 20px;
              margin-bottom: 10px;
-             animation: fadeInDown 1.5s;
+             display: block;
+             text-decoration: none;
+         }
+         .expander-header:hover {
+             background: #00332e;
          }
          .content {
              font-size: 16px;
@@ -121,7 +124,7 @@ def main():
     <div class="subheader">Használati útmutató</div>
     """ , unsafe_allow_html=True)
 
-    with st.expander("1. Kép feltöltése"):
+    with st.expander('<span class="expander-header">1. Kép feltöltése</span>', expanded=False):
         st.markdown("""
         <div class="expander-content">
         <ul>
@@ -139,7 +142,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander("2. Képek keresése"):
+    with st.expander('<span class="expander-header">2. Képek keresése</span>', expanded=False):
         st.markdown("""
         <div class="expander-content">
         <ul>
@@ -151,7 +154,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander("3. Státusz"):
+    with st.expander('<span class="expander-header">3. Státusz</span>', expanded=False):
         st.markdown("""
         <div class="expander-content">
         <ul>
@@ -165,7 +168,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander("4. Elérhetőség"):
+    with st.expander('<span class="expander-header">4. Elérhetőség</span>', expanded=False):
         st.markdown("""
         <div class="expander-content">
         <ul>
