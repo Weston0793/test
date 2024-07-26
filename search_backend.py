@@ -160,27 +160,33 @@ def display_data(data):
 
 def format_data(data):
     def format_field(label, value):
-        return f"<p><strong>{label}:</strong> {value}</p>" if value not in [None, 'N/A', [], ''] else ""
+        return f"**{label}:** {value}" if value not in [None, 'N/A', [], ''] else ""
 
-    display_data = f"""
-    {format_field('Típus', data.get('main_type'))}
-    {format_field('Nézet', data.get('view'))}
-    {format_field('Életkor', data.get('age'))}
-    {format_field('Életkori csoport', data.get('age_group'))}
-    """
+    display_data = "\n".join([
+        format_field('Típus', data.get('main_type')),
+        format_field('Nézet', data.get('view')),
+        format_field('Életkor', data.get('age')),
+        format_field('Életkori csoport', data.get('age_group')),
+    ])
 
     for idx, region in enumerate(data.get('regions', [])):
-        display_data += f"<h4>Régió {idx + 1}:</h4>"
-        display_data += f"{format_field('Fő régió', region.get('main_region'))}"
-        display_data += f"{format_field('Régió', region.get('sub_region'))}"
-        display_data += f"{format_field('Alrégió', region.get('sub_sub_region'))}"
-        display_data += f"{format_field('Részletes régió', region.get('sub_sub_sub_region'))}"
-        display_data += f"{format_field('Legrészletesebb régió', region.get('sub_sub_sub_sub_region'))}"
+        region_data = "\n".join([
+            f"**Régió {idx + 1}:**",
+            format_field('Fő régió', region.get('main_region')),
+            format_field('Régió', region.get('sub_region')),
+            format_field('Alrégió', region.get('sub_sub_region')),
+            format_field('Részletes régió', region.get('sub_sub_sub_region')),
+            format_field('Legrészletesebb régió', region.get('sub_sub_sub_sub_region')),
+        ])
+        display_data += f"\n\n{region_data}"
         if 'classification' in region:
             for class_type, class_details in region['classification'].items():
-                display_data += f"<h4>{class_type} osztályozás:</h4>"
-                display_data += f"{format_field('Név', class_details.get('name'))}"
-                display_data += f"{format_field('Főkategória', class_details.get('severity'))}"
-                display_data += f"{format_field('Alkategória', class_details.get('subseverity'))}"
+                classification_data = "\n".join([
+                    f"**{class_type} osztályozás:**",
+                    format_field('Név', class_details.get('name')),
+                    format_field('Főkategória', class_details.get('severity')),
+                    format_field('Alkategória', class_details.get('subseverity')),
+                ])
+                display_data += f"\n{classification_data}"
 
-    return f'<div class="formatted-data">{display_data}</div>'
+    return display_data
