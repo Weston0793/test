@@ -15,37 +15,11 @@ app.add_page("Képek keresése", search)
 app.add_page("Státusz", status)
 app.add_page("Elérhetőség", contact)
 
-# Example usage of nav_page in buttons within a page function
-def home():
-    st.title("Főoldal")
-    if st.button("Next >"):
-        nav_page("Kép feltöltése")
-
-def upload():
-    st.title("Kép feltöltése")
-    if st.button("< Prev"):
-        nav_page("Főoldal")
-    if st.button("Next >"):
-        nav_page("Képek keresése")
-
-def search():
-    st.title("Képek keresése")
-    if st.button("< Prev"):
-        nav_page("Kép feltöltése")
-    if st.button("Next >"):
-        nav_page("Státusz")
-
-def status():
-    st.title("Státusz")
-    if st.button("< Prev"):
-        nav_page("Képek keresése")
-    if st.button("Next >"):
-        nav_page("Elérhetőség")
-
-def contact():
-    st.title("Elérhetőség")
-    if st.button("< Prev"):
-        nav_page("Státusz")
+# Example usage of nav_page in buttons
+if st.button("< Prev"):
+    nav_page("Főoldal")
+if st.button("Next >"):
+    nav_page("Kép feltöltése")
 
 # The main app
 if __name__ == '__main__':
