@@ -4,14 +4,71 @@ def select_main_type():
     main_type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="main_type")
     sub_type = ""
     sub_sub_type = ""
+    
     if main_type == "Egyéb":
         sub_type = st.selectbox("Specifikálás (Egyéb)", [
             "Luxatio", "Subluxatio", "Szalagszakadás", "Osteoarthritis", "Osteoporosis", 
-            "Osteomyelitis", "Cysta", "Álízület", "Vérzés", "Malignus Tumor", "Benignus Tumor", 
+            "Osteomyelitis", "Cysta", "Álízület", "Vérzés", "Tumor", 
             "Metastasis", "Rheumatoid Arthritis", "Genetikai/Veleszületett", "Implant", "Egyéb"
         ])
-        if sub_type in ["Malignus Tumor", "Benignus Tumor", "Genetikai/Veleszületett", "Egyéb"]:
+        
+        if sub_type == "Tumor":
+            tumor_type = st.selectbox("Válassza ki a daganat típusát", [
+                "Chondrogen daganatok", "Osteogen daganatok", "Fibrogen daganatok", "Vascularis daganatok",
+                "Osteoclastikus óriássejtdús daganatok", "Notokordiális daganatok", "Egyéb mesenchymalis daganatok",
+                "Haematopoeticus daganatok"
+            ])
+            
+            sub_type = tumor_type  # Update sub_type to be the selected tumor category
+            
+            if tumor_type == "Chondrogen daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Chondrogen daganatok)", [
+                    "Osteochondroma", "Periostealis chondroma", "Enchondroma", "Chondromyxoid fibroma",
+                    "Osteochondromyxoma", "Subungualis exostosis", "Bizarr parostealis osteochondromatos proliferáció",
+                    "Synovialis chondromatosis", "Chondroblastoma", "Centrális atípusos chondrogén tumor / chondrosarcoma (1. fokozat)",
+                    "Szekunder perifériás atípusos chondrogén tumor / chondrosarcoma (1. fokozat)",
+                    "Centrális chondrosarcoma (2-3. fokozat)", "Szekunder chondrosarcoma (2-3. fokozat)",
+                    "Periostealis chondrosarcoma", "Dedifferenciált chondrosarcoma", "Mesenchymalis chondrosarcoma",
+                    "Tiszta sejtes chondrosarcoma"
+                ])
+            elif tumor_type == "Osteogen daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Osteogen daganatok)", [
+                    "Osteoma", "Osteoid osteoma", "Osteoblastoma", "Alacsony fokozatú centrális osteosarcoma",
+                    "Osteosarcoma", "Konvencionális osteosarcoma", "Telangiectaticus osteosarcoma",
+                    "Kis sejtes osteosarcoma", "Parostealis osteosarcoma", "Periostealis osteosarcoma",
+                    "Magas fokozatú felszíni osteosarcoma", "Szekunder osteosarcoma"
+                ])
+            elif tumor_type == "Fibrogen daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Fibrogen daganatok)", [
+                    "Desmoplasticus fibroma csontban", "Fibrosarcoma csontban"
+                ])
+            elif tumor_type == "Vascularis daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Vascularis daganatok)", [
+                    "Haemangioma", "Epithelioid haemangioma", "Epithelioid haemangioendothelioma", "Angiosarcoma"
+                ])
+            elif tumor_type == "Osteoclastikus óriássejtdús daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Osteoclastikus óriássejtdús daganatok)", [
+                    "Aneurizmás csont ciszta", "Óriássejtes daganat csontban", "Nem csontosodó fibroma"
+                ])
+            elif tumor_type == "Notokordiális daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Notokordiális daganatok)", [
+                    "Jóindulatú notokordiális sejt tumor", "Chordoma", "Dedifferenciált chordoma", "Gyengén differenciált chordoma"
+                ])
+            elif tumor_type == "Egyéb mesenchymalis daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Egyéb mesenchymalis daganatok)", [
+                    "Chondromesenchymalis hamartoma", "Osteofibrosus dysplasia", "Adamantinoma",
+                    "Egyszerű csont ciszta", "Fibrocartilaginous mesenchymoma", "Fibrosus dysplasia",
+                    "Lipoma csontban", "Liposarcoma", "Leiomyosarcoma", "Nem differenciált pleomorf sarcoma",
+                    "Csont metastasis"
+                ])
+            elif tumor_type == "Haematopoeticus daganatok":
+                sub_sub_type = st.selectbox("Válassza ki a specifikus típust (Haematopoeticus daganatok)", [
+                    "Solitaris plasmacytoma csontban", "Primer non-Hodgkin lymphoma csontban", "Langerhans sejt histiocytosis",
+                    "Erdheim-Chester betegség", "Rosai-Dorfman betegség"
+                ])
+        elif sub_type == "Genetikai/Veleszületett" or sub_type == "Egyéb":
             sub_sub_type = st.text_input("Adja meg a specifikus típust (Egyéb)")
+
     return main_type, sub_type, sub_sub_type
 
 def select_view():
