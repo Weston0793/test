@@ -94,4 +94,11 @@
 
 div[data-testid="stExpander"] details summary p{
     font-size: 1.5rem;
+    color: #ffffff;
+    background: #004D40;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
+
