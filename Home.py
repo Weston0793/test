@@ -122,9 +122,9 @@ def main():
     </ul>
 
     <div class="subheader">Használati útmutató</div>
-    """ , unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-    with st.expander('<span class="expander-header">1. Kép feltöltése</span>', expanded=False):
+    with st.expander("1. Kép feltöltése"):
         st.markdown("""
         <div class="expander-content">
         <ul>
@@ -142,7 +142,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander('<span class="expander-header">2. Képek keresése</span>', expanded=False):
+    with st.expander("2. Képek keresése"):
         st.markdown("""
         <div class="expander-content">
         <ul>
@@ -154,7 +154,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander('<span class="expander-header">3. Státusz</span>', expanded=False):
+    with st.expander("3. Státusz"):
         st.markdown("""
         <div class="expander-content">
         <ul>
@@ -168,7 +168,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander('<span class="expander-header">4. Elérhetőség</span>', expanded=False):
+    with st.expander("4. Elérhetőség"):
         st.markdown("""
         <div class="expander-content">
         <ul>
