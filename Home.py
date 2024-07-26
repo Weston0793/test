@@ -33,6 +33,16 @@ def set_background():
              margin-top: 30px;
              margin-bottom: 10px;
          }
+         .subsubheader {
+             font-size: 20px;
+             color: #ffffff;
+             background: #004D40;
+             padding: 8px;
+             border-radius: 8px;
+             margin-top: 20px;
+             margin-bottom: 10px;
+             animation: fadeInDown 1.5s;
+         }
          .content {
              font-size: 16px;
              line-height: 1.2;
@@ -78,6 +88,13 @@ def set_background():
                  opacity: 1;
              }
          }
+         .expander-content {
+             background: #e0f2f1;
+             border-radius: 10px;
+             padding: 20px;
+             margin-top: 10px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         }
          </style>
          """,
          unsafe_allow_html=True
@@ -106,7 +123,7 @@ def main():
 
     with st.expander("1. Kép feltöltése"):
         st.markdown("""
-        <div class="content">
+        <div class="expander-content">
         <ul>
             <li>Kérjük a feltöltésre szánt képekről bizonyosodjon meg hogy anonimizálva vannak! A képeken nem szerepelhet semmilyen betegazonosító!</li>
             <li>Válassza a bal oldalsáv "Navigáció" menüjéből a "Kép feltöltése" pontot.</li>
@@ -124,7 +141,7 @@ def main():
 
     with st.expander("2. Képek keresése"):
         st.markdown("""
-        <div class="content">
+        <div class="expander-content">
         <ul>
             <li>Válassza a "Képek keresése" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
             <li>Adja meg a keresési feltételeket (minimum: típus, nézet, főrégió).</li>
@@ -136,7 +153,7 @@ def main():
 
     with st.expander("3. Státusz"):
         st.markdown("""
-        <div class="content">
+        <div class="expander-content">
         <ul>
             <li>Válassza a "Státusz" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
             <li>Tekintse meg a feltöltött röntgenképek statisztikáit és a projekt aktuális fázisának állapotát.</li>
@@ -150,7 +167,7 @@ def main():
 
     with st.expander("4. Elérhetőség"):
         st.markdown("""
-        <div class="content">
+        <div class="expander-content">
         <ul>
             <li>Válassza az "Elérhetőség" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
             <li>Ha bármilyen észrevétele van a honlappal kapcsolatban, segítségre van szüksége vagy kérdése van, lépjen nyugodtan kapcsolatba a fejlesztőkkel.</li>
