@@ -99,6 +99,13 @@ class MultiPage:
             window.addEventListener("message", (event) => {
                 if (event.data.isStreamlitNavigation) {
                     const pageId = event.data.pageId;
+                    const links = document.querySelectorAll('.topnav a');
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.id === pageId) {
+                            link.classList.add('active');
+                        }
+                    });
                     Streamlit.setComponentValue(pageId);
                 }
             });
@@ -106,10 +113,11 @@ class MultiPage:
             """, unsafe_allow_html=True
         )
 
-        # Handle the page change event from JavaScript
-        if st._rerun:
-            page_id = st._rerun.widget_state['value']
-            st.session_state['active_page'] = page_id
-            st.experimental_rerun()
+        # Check if a new page ID is sent from JavaScript and update session state
+        if 'js_page_id' in st.experimental_get_query_params():
+            js_page_id = st.experimental_get_query_params()['js_page_id'][0]
+            if st.session_state['active_page'] != js_page_id:
+                st.session_state['active_page'] = js_page_id
+                st.experimental_rerun()
 
 # Save this as multipage.py
