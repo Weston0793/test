@@ -1,5 +1,6 @@
 import streamlit as st
 
+# CSS stílus a navigációs sávhoz
 st.markdown("""
     <style>
         .sidebar .sidebar-content {
@@ -41,4 +42,5 @@ class MultiPage:
             self.pages,
             format_func=lambda page: f"{page['icon']} {page['title']}" if page['icon'] else page['title']
         )
+        st.sidebar.markdown(f"## {selected_page['icon']} {selected_page['title']}")
         selected_page['function']()
