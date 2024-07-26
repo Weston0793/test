@@ -4,30 +4,63 @@ def set_background():
     st.markdown(
          """
          <style>
+         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+         
          .stApp {
-             background: linear-gradient(to bottom right, #E0F7FA, #FFFFFF);
+             background: linear-gradient(to bottom right, #f0f4f7, #d9e2ec);
              background-attachment: fixed;
              color: #212121;
-             font-family: 'Arial', sans-serif;
+             font-family: 'Roboto', sans-serif;
          }
-         .header {
-             font-size: 36px;
-             font-weight: bold;
-             color: #00796B;
-             margin-bottom: 20px;
+         .title {
+             font-size: 48px;
+             font-weight: 700;
+             color: #ffffff;
+             text-align: center;
+             padding: 20px;
+             background: rgba(0, 150, 136, 0.8);
+             border-radius: 10px;
+             margin-top: 20px;
+             text-shadow: 2px 2px 4px #000000;
+             animation: fadeInDown 1.5s;
          }
          .subheader {
              font-size: 24px;
-             color: #004D40;
-             margin-top: 20px;
+             color: #00796B;
+             margin-top: 30px;
              margin-bottom: 10px;
          }
          .content {
              font-size: 16px;
              line-height: 1.6;
+             margin: 20px;
+             padding: 20px;
+             background: #ffffff;
+             border-radius: 10px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
          }
          .content ul {
              margin-left: 20px;
+         }
+         .content li {
+             margin-bottom: 10px;
+         }
+         .content a {
+             color: #00796B;
+             text-decoration: none;
+         }
+         .content a:hover {
+             text-decoration: underline;
+         }
+         @keyframes fadeInDown {
+             0% {
+                 opacity: 0;
+                 transform: translateY(-20px);
+             }
+             100% {
+                 opacity: 1;
+                 transform: translateY(0);
+             }
          }
          </style>
          """,
@@ -37,7 +70,7 @@ def set_background():
 def main():
     set_background()
 
-    st.markdown('<div class="header">Üdvözöljük az Orvosi Röntgenkép Adatbázisban!</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title">Üdvözöljük az Orvosi Röntgenkép Adatbázisban!</div>', unsafe_allow_html=True)
 
     st.markdown("""
     <div class="content">
@@ -81,7 +114,7 @@ def main():
         <li>Válassza a "Státusz" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
         <li>Tekintse meg a feltöltött röntgenképek statisztikáit és a projekt aktuális fázisának állapotát.</li>
         <li>Az adatok alapján nyomon követheti a projekt előrehaladását és a hiányzó elemeket.</li>
-        <li>Az első fázis lezárási kirétirumai: az összes különböző csontot tartalmazó régióból, legalább két nézetből, normál és törött röntgenképeket gyüjts felnőttektől, kombinációnként legalább 50 darabot.</li>
+        <li>Az első fázis lezárási kritériumai: az összes különböző csontot tartalmazó régióból, legalább két nézetből, normál és törött röntgenképeket gyüjts felnőttektől, kombinációnként legalább 50 darabot.</li>
         <li>A második fázis a különböző alrégiók feltöltése lesz előreláthatólag.</li>
         <li>Fontos: egyelőre a státusz a gyermekkori röntgeneket is számba veszi!</li>
     </ul>
