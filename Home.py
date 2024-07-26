@@ -160,7 +160,7 @@ def main():
     <div class="subheader">Fontos Információk</div>
     <ul>
         <li><strong>Adatbiztonság</strong>: Az összes feltöltött adat biztonságos és titkosított környezetben kerül tárolásra.</li>
-        <li><strong>Frissítések és Karbantartás</strong>: Az alkalmazás rendszeresen frissül, hogy biztosítsa a legújabb és egyre kényelmesebb funkciók és várják az ide látogatókat.</li>
+        <li><strong>Frissítések és Karbantartás</strong>: Az alkalmazás rendszeresen frissül, hogy biztosítsa, hogy egyre több s kényelmesebb funkció várja az ide látogatókat.</li>
     </ul>
 
     Köszönjük, hogy használja az alkalmazásunkat!
