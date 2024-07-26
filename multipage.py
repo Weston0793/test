@@ -93,7 +93,9 @@ class MultiPage:
                         link.classList.add('active');
                     }
                 });
-                window.parent.postMessage({isStreamlitNavigation: true, pageId: pageId}, "*");
+                const url = new URL(window.location);
+                url.searchParams.set('page', pageId);
+                window.location.href = url.href;
             }
 
             window.addEventListener("message", (event) => {
@@ -113,9 +115,10 @@ class MultiPage:
             """, unsafe_allow_html=True
         )
 
-        # Check if a new page ID is sent from JavaScript and update session state
-        if 'js_page_id' in st.experimental_get_query_params():
-            js_page_id = st.experimental_get_query_params()['js_page_id'][0]
+        # Handle the page change event from JavaScript
+        query_params = st.experimental_get_query_params()
+        if 'page' in query_params:
+            js_page_id = query_params['page'][0]
             if st.session_state['active_page'] != js_page_id:
                 st.session_state['active_page'] = js_page_id
                 st.experimental_rerun()
