@@ -32,6 +32,7 @@ def set_background():
              border-radius: 10px;
              margin-top: 30px;
              margin-bottom: 10px;
+             animation: fadeInDown 1.5s;
          }
          .subsubheader {
              font-size: 22px;
