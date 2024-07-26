@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit.components.v1 import html
 
 class MultiPage:
     def __init__(self):
@@ -7,7 +8,8 @@ class MultiPage:
     def add_page(self, title, func):
         self.pages.append({
             "title": title,
-            "function": func
+            "function": func,
+            "slug": title.lower().replace(" ", "_")
         })
 
     def run(self):
@@ -64,7 +66,7 @@ class MultiPage:
         )
 
         # Create the navigation bar
-        nav_links = ''.join([f'<button id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</button>' for i, page in enumerate(self.pages)])
+        nav_links = ''.join([f'<button onclick="setPage(\'{page["slug"]}\')">{page["title"]}</button>' for page in self.pages])
         st.markdown(
             f"""
             <div class="topnav">
@@ -74,41 +76,49 @@ class MultiPage:
             """, unsafe_allow_html=True
         )
 
-        # Set the active page
-        if 'active_page' not in st.session_state:
-            st.session_state['active_page'] = 'page-0'
-
         # Render the selected page
-        for i, page in enumerate(self.pages):
-            if st.session_state['active_page'] == f'page-{i}':
-                page['function']()
+        query_params = st.experimental_get_query_params()
+        if 'page' in query_params:
+            selected_page = query_params['page'][0]
+            for page in self.pages:
+                if page["slug"] == selected_page:
+                    page["function"]()
 
-        # Add JavaScript to handle button active state
+        # Add JavaScript to handle button clicks and navigate to the correct page
         st.markdown(
             """
             <script>
-            function setPage(pageId) {
-                const links = document.querySelectorAll('.topnav button');
-                links.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.id === pageId) {
-                        link.classList.add('active');
-                    }
-                });
+            function setPage(page) {
                 const url = new URL(window.location);
-                url.searchParams.set('page', pageId);
+                url.searchParams.set('page', page);
                 window.location.href = url.href;
             }
             </script>
             """, unsafe_allow_html=True
         )
 
-        # Handle the page change event from JavaScript
-        query_params = st.experimental_get_query_params()
-        if 'page' in query_params:
-            js_page_id = query_params['page'][0]
-            if st.session_state['active_page'] != js_page_id:
-                st.session_state['active_page'] = js_page_id
-                st.experimental_rerun()
-
-# Save this as multipage.py
+# Function to navigate to a different page
+def nav_page(page_name, timeout_secs=3):
+    nav_script = """
+        <script type="text/javascript">
+            function attempt_nav_page(page_name, start_time, timeout_secs) {
+                var links = window.parent.document.getElementsByTagName("button");
+                for (var i = 0; i < links.length; i++) {
+                    if (links[i].textContent === page_name) {
+                        links[i].click();
+                        return;
+                    }
+                }
+                var elapsed = new Date() - start_time;
+                if (elapsed < timeout_secs * 1000) {
+                    setTimeout(attempt_nav_page, 100, page_name, start_time, timeout_secs);
+                } else {
+                    alert("Unable to navigate to page '" + page_name + "' after " + timeout_secs + " second(s).");
+                }
+            }
+            window.addEventListener("load", function() {
+                attempt_nav_page("%s", new Date(), %d);
+            });
+        </script>
+    """ % (page_name, timeout_secs)
+    html(nav_script)
