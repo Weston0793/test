@@ -5,7 +5,35 @@ import datetime
 
 # Ensure Firebase is initialized
 initialize_firebase()
-
+def add_custom_css():
+    st.markdown("""
+    <style>
+    @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    .fade-in {
+        animation: fadeIn 2s;
+    }
+    .hover-effect:hover {
+        color: #007BFF;
+        transform: scale(1.05);
+    }
+    .loading-spinner {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #007BFF;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
 def generate_funny_name():
     first_parts = ["Fluffy", "Sparkly", "Wiggly", "Silly", "Funky", "Giggles", "Cheery", "Dizzy", "Bouncy", "Jumpy",
                    "Zippy", "Snazzy", "Bubbly", "Quirky", "Jolly", "Peppy", "Giddy", "Chirpy", "Frisky", "Perky",
@@ -16,14 +44,16 @@ def generate_funny_name():
     return f"{random.choice(first_parts)} {random.choice(second_parts)}"
 
 def main():
-    st.title("Elérhetőség")
+    add_custom_css()
+    
+    st.markdown('<h1 class="fade-in">Elérhetőség</h1>', unsafe_allow_html=True)
 
-    st.write("""
+    st.markdown("""
     ### Kapcsolat
-    - **Email:** aba.lorincz@gmail.com
-    - **Telefon:** +36 30 954 2176
-    - **Cím:** Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary
-    """)
+    - **<span class="hover-effect">Email:</span>** aba.lorincz@gmail.com
+    - **<span class="hover-effect">Telefon:</span>** +36 30 954 2176
+    - **<span class="hover-effect">Cím:</span>** Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary
+    """, unsafe_allow_html=True)
 
     st.write("### Kommentszekció")
     
@@ -35,17 +65,19 @@ def main():
         name = st.text_input("Név", value=st.session_state.name)
     with col2:
         if st.button("Új nevet kérek!"):
-            st.session_state.name = generate_funny_name()
-            name = st.session_state.name
+            with st.spinner('Generating a new name...'):
+                st.session_state.name = generate_funny_name()
+                name = st.session_state.name
 
     comment = st.text_area("Komment")
 
     if st.button("Küldés"):
         if comment:
-            save_comment(name, comment)
-            st.success("Köszönjük a hozzászólást!")
+            with st.spinner('Saving your comment...'):
+                save_comment(name, comment)
+            st.success("Köszönjük a hozzászólást!", icon="✅")
         else:
-            st.error("A komment mező nem lehet üres!")
+            st.error("A komment mező nem lehet üres!", icon="❌")
 
     # Display last comments with navigation
     st.write("### Legutóbbi Kommentek")
