@@ -17,4 +17,5 @@ app.add_page("Contact", contact, icon="✉️")
 
 # The main app
 if __name__ == '__main__':
-  
+      app.run()
+
