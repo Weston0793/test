@@ -12,8 +12,9 @@ class MultiPage:
         })
 
     def run(self):
+        st.sidebar.markdown("<h2 style='text-align: center;'>Navigáció</h2>", unsafe_allow_html=True)
         selected_page = st.sidebar.selectbox(
-            'Navigáció',
+            '',
             self.pages,
             format_func=lambda page: f"{page['icon']} {page['title']}" if page['icon'] else page['title']
         )
