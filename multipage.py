@@ -38,9 +38,9 @@ class MultiPage:
 
     def run(self):
         selected_page = st.sidebar.selectbox(
-            'Navigáció',
+            st.sidebar.markdown('Navigáció'),
             self.pages,
             format_func=lambda page: f"{page['icon']} {page['title']}" if page['icon'] else page['title']
         )
-        st.sidebar.markdown(f"## {selected_page['icon']} {selected_page['title']}")
+
         selected_page['function']()
