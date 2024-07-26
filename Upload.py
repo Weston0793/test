@@ -41,12 +41,20 @@ def main():
 
     display_images()
 
-    col1, col2 = st.columns(2)
+    def select_gender():
+        gender = st.radio("Nem", ["NA", "férfi", "nő"], key="gender")
+        return gender
+    
+    col1, col2, col3 = st.columns(3)
+
     with col1:
         main_type, sub_type, sub_sub_type = select_main_type()
 
     with col2:
         view, sub_view, sub_sub_view = select_view()
+
+    with col3:
+        gender = select_gender()
 
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
