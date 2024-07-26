@@ -2,7 +2,7 @@ import streamlit as st
 from upload_backend import handle_file_upload, confirm_and_upload_data
 import uuid
 from helper_functions import (
-    select_main_type, select_view, select_main_region, 
+    select_main_type, select_view, select_gender, select_main_region, 
     select_subregion, select_sub_subregion, select_sub_sub_subregion, 
     select_sub_sub_sub_subregion, select_finger, select_complications, 
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
@@ -41,10 +41,6 @@ def main():
 
     display_images()
 
-    def select_gender():
-        gender = st.radio("Nem", ["NA", "férfi", "nő"], key="gender")
-        return gender
-    
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -157,6 +153,7 @@ def main():
                 "view": view,
                 "sub_view": sub_view,
                 "sub_sub_view": sub_sub_view,
+                "gender": gender,
                 "age": age,
                 "age_group": age_group,
                 "comment": comment,
