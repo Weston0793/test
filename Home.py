@@ -57,7 +57,6 @@ def set_background():
          }
          .content li {
              margin-bottom: 10px;
-             animation: fadeIn 1.5s;
          }
          .content p {
              margin-bottom: 10px;
