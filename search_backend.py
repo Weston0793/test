@@ -164,18 +164,11 @@ def format_data(data):
 
     display_data = f"""
     {format_field('Típus', data.get('main_type'))}
-    {format_field('Specifikus típus', data.get('sub_type'))}
-    {format_field('Legspecifikusabb típus', data.get('sub_sub_type'))}
     {format_field('Nézet', data.get('view'))}
-    {format_field('Specifikus nézet', data.get('sub_view'))}
-    {format_field('Legspecifikusabb nézet', data.get('sub_sub_view'))}
-    {format_field('Nem', data.get('gender'))}
     {format_field('Életkor', data.get('age'))}
     {format_field('Életkori csoport', data.get('age_group'))}
-    {format_field('Megjegyzés', data.get('comment'))}
-    {format_field('Komplikációk', ", ".join(data.get('complications', [])))}
-    {format_field('Társuló Kórállapotok', ", ".join(data.get('associated_conditions', [])))}
     """
+
     for idx, region in enumerate(data.get('regions', [])):
         display_data += f"<h4>Régió {idx + 1}:</h4>"
         display_data += f"{format_field('Fő régió', region.get('main_region'))}"
