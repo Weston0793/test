@@ -8,12 +8,12 @@ from Home import main as home
 
 app = MultiPage()
 
-# Add all your applications (pages) here with icons
-app.add_page("Home", home, icon="🏠")
-app.add_page("Upload Image", upload, icon="📤")
-app.add_page("Search Images", search, icon="🔍")
-app.add_page("Status", status, icon="📊")
-app.add_page("Contact", contact, icon="✉️")
+# Add all your applications (pages) here with Material Symbols icons
+app.add_page("Home", home, icon=":material/home:")
+app.add_page("Upload Image", upload, icon=":material/cloud_upload:")
+app.add_page("Search Images", search, icon=":material/search:")
+app.add_page("Status", status, icon=":material/insights:")
+app.add_page("Contact", contact, icon=":material/contact_mail:")
 
 # The main app
 if __name__ == '__main__':
