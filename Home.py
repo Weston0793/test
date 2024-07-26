@@ -33,6 +33,16 @@ def set_background():
              margin-top: 30px;
              margin-bottom: 10px;
          }
+         .subsubheader {
+             font-size: 22px;
+             color: #ffffff;
+             background: #004D40;
+             padding: 8px;
+             border-radius: 8px;
+             margin-top: 20px;
+             margin-bottom: 10px;
+             animation: fadeIn 1.5s;
+         }
          .content {
              font-size: 16px;
              line-height: 1.2;
@@ -42,6 +52,7 @@ def set_background():
              background: #ffffff;
              border-radius: 10px;
              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+             animation: fadeIn 1.5s;
          }
          .content ul {
              margin-left: 20px;
@@ -78,34 +89,10 @@ def set_background():
                  opacity: 1;
              }
          }
-         .expander-content {
-             background: #e0f2f1;
-             border-radius: 10px;
-             padding: 20px;
-             margin-top: 10px;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-         }
          </style>
          """,
          unsafe_allow_html=True
      )
-
-def change_label_style(label, font_size='20px', font_color='white', font_family='Roboto', background_color='#004D40'):
-    html = f"""
-    <script>
-        var labels = window.parent.document.querySelectorAll('details > summary');
-        var label = Array.from(labels).find(x => x.innerText.includes('{label}'));
-        if (label) {{
-            label.style.fontSize = '{font_size}';
-            label.style.color = '{font_color}';
-            label.style.fontFamily = '{font_family}';
-            label.style.backgroundColor = '{background_color}';
-            label.style.padding = '10px';
-            label.style.borderRadius = '8px';
-        }}
-    </script>
-    """
-    st.components.v1.html(html, height=0)
 
 def main():
     set_background()
@@ -126,11 +113,9 @@ def main():
     </ul>
 
     <div class="subheader">Használati útmutató</div>
-    """ , unsafe_allow_html=True)
 
-    with st.expander("1. Kép feltöltése"):
-        st.markdown("""
-        <div class="expander-content">
+    <div class="subsubheader">1. Kép feltöltése</div>
+    <div class="content">
         <ul>
             <li>Kérjük a feltöltésre szánt képekről bizonyosodjon meg hogy anonimizálva vannak! A képeken nem szerepelhet semmilyen betegazonosító!</li>
             <li>Válassza a bal oldalsáv "Navigáció" menüjéből a "Kép feltöltése" pontot.</li>
@@ -143,26 +128,20 @@ def main():
             <li>Kattintson a "Feltöltés" gombra a kíválasztott adatok újra összegzéséhez, majd a "Megerősítés és Feltöltés" gombbal véglegesítheti a feltöltést.</li>
             <li>Kérjük várja meg a zöld "Sikeres feltöltés" feliratot mielött új képet tölt fel. Több kép feltöltésénél egyszerre, többet kell várni.</li>
         </ul>
-        </div>
-        """, unsafe_allow_html=True)
-        change_label_style("1. Kép feltöltése")
+    </div>
 
-    with st.expander("2. Képek keresése"):
-        st.markdown("""
-        <div class="expander-content">
+    <div class="subsubheader">2. Képek keresése</div>
+    <div class="content">
         <ul>
             <li>Válassza a "Képek keresése" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
             <li>Adja meg a keresési feltételeket (minimum: típus, nézet, főrégió).</li>
             <li>Kattintson a "Keresés" gombra. A találatok listája megtekinthető és letölthető.</li>
             <li>Várjon egy pár másodpercet amíg a szerver összeállítja a "Letöltés" gomb megnyomása után a .zip filet, majd kattintson a "Megerősítés s Letöltés" gombra ha le kívánja tölteni a képeket és a hozzájuk tartozó címkéket.</li>
         </ul>
-        </div>
-        """, unsafe_allow_html=True)
-        change_label_style("2. Képek keresése")
+    </div>
 
-    with st.expander("3. Státusz"):
-        st.markdown("""
-        <div class="expander-content">
+    <div class="subsubheader">3. Státusz</div>
+    <div class="content">
         <ul>
             <li>Válassza a "Státusz" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
             <li>Tekintse meg a feltöltött röntgenképek statisztikáit és a projekt aktuális fázisának állapotát.</li>
@@ -171,23 +150,16 @@ def main():
             <li>A második fázis a különböző alrégiók feltöltése lesz előreláthatólag.</li>
             <li>Fontos: egyelőre a státusz a gyermekkori röntgeneket is számba veszi!</li>
         </ul>
-        </div>
-        """, unsafe_allow_html=True)
-        change_label_style("3. Státusz")
+    </div>
 
-    with st.expander("4. Elérhetőség"):
-        st.markdown("""
-        <div class="expander-content">
+    <div class="subsubheader">4. Elérhetőség</div>
+    <div class="content">
         <ul>
             <li>Válassza az "Elérhetőség" menüpontot a bal oldalsáv "Navigáció" menüjéből.</li>
             <li>Ha bármilyen észrevétele van a honlappal kapcsolatban, segítségre van szüksége vagy kérdése van, lépjen nyugodtan kapcsolatba a fejlesztőkkel.</li>
         </ul>
-        </div>
-        """, unsafe_allow_html=True)
-        change_label_style("4. Elérhetőség")
+    </div>
 
-    st.markdown("""
-    <div class="content">
     <div class="subheader">Fontos Információk</div>
     <ul>
         <li><strong>Adatbiztonság</strong>: Az összes feltöltött adat biztonságos és titkosított környezetben kerül tárolásra.</li>
