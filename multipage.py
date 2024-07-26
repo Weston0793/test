@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 class MultiPage:
     def __init__(self):
         self.pages = []
@@ -24,16 +23,27 @@ class MultiPage:
                 top: 0;
                 width: 100%;
                 z-index: 1000;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+            }
+
+            .topnav .nav-title {
+                background-color: #04AA6D;
+                color: white;
+                font-weight: bold;
+                padding: 14px 16px;
+                margin-right: 20px;
             }
 
             .topnav a {
-                float: left;
                 display: block;
                 color: #f2f2f2;
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
                 font-size: 17px;
+                margin-right: 10px;
             }
 
             .topnav a:hover {
@@ -45,32 +55,25 @@ class MultiPage:
                 background-color: #04AA6D;
                 color: white;
             }
-
-            .topnav #nav-title {
-                background-color: #04AA6D;
-                color: white;
-                font-weight: bold;
-            }
             </style>
             """, unsafe_allow_html=True
         )
 
         # Create the navigation bar
         st.markdown(
-            """
+            f"""
             <div class="topnav">
-              <a id="nav-title">Navigáció</a>
-              <div id="nav-links">
-                {}
-              </div>
+              <div class="nav-title">Navigáció</div>
+              {"".join([f'<a href="#" id="page-{i}" onclick="setPage(\'page-{i}\')">{page["title"]}</a>' for i, page in enumerate(self.pages)])}
             </div>
-            """.format(''.join([f'<a href="#" id="page-{i}">{page["title"]}</a>' for i, page in enumerate(self.pages)])), unsafe_allow_html=True
+            """, unsafe_allow_html=True
         )
 
-        # Render the selected page
+        # Set the active page
         if 'active_page' not in st.session_state:
             st.session_state['active_page'] = 'page-0'
-        
+
+        # Render the selected page
         for i, page in enumerate(self.pages):
             if st.session_state['active_page'] == f'page-{i}':
                 page['function']()
@@ -79,24 +82,32 @@ class MultiPage:
         st.markdown(
             """
             <script>
-            const links = document.querySelectorAll('.topnav a:not(#nav-title)');
-            links.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    links.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    const pageId = this.id;
-                    window.parent.postMessage({isStreamlitNavigation: true, pageId: pageId}, "*");
+            function setPage(pageId) {
+                const links = document.querySelectorAll('.topnav a');
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.id === pageId) {
+                        link.classList.add('active');
+                    }
                 });
-            });
+                window.parent.postMessage({isStreamlitNavigation: true, pageId: pageId}, "*");
+            }
+
             window.addEventListener("message", (event) => {
                 if (event.data.isStreamlitNavigation) {
                     const pageId = event.data.pageId;
-                    links.forEach(l => l.classList.remove('active'));
-                    document.getElementById(pageId).classList.add('active');
+                    const links = document.querySelectorAll('.topnav a');
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.id === pageId) {
+                            link.classList.add('active');
+                        }
+                    });
                     Streamlit.setComponentValue(pageId);
                 }
             });
             </script>
             """, unsafe_allow_html=True
         )
+
+# Save this as multipage.py
