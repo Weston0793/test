@@ -346,7 +346,7 @@ def status_markdown():
         .update-note {
             font-size: 18px;
             color: #ffffff;
-            background: #212121; /* Darker navy */
+            background: #800040; /* Darker navy */
             padding: 5px;
             border-radius: 5px;
             margin-top: 5px;
@@ -414,7 +414,7 @@ def status_markdown():
             transform: scale(1.05);
         }
         .stButton button {
-            background-color: #212121; /* Gold */
+            background-color: #800040; /* Gold */
             color: white;
             font-size: 16px;
             font-weight: bold;
