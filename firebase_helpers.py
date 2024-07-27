@@ -120,7 +120,7 @@ def get_counts():
         "Felső végtag": {"Váll": {}, "Humerus": {}, "Könyök": {}, "Alkar": {}, "Csukló": {}, "Kéz": {}},
         "Alsó végtag": {"Medence": {}, "Pelvis": {}, "Femur": {}, "Térd": {}, "Lábszár": {}, "Boka": {}, "Láb": {}},
         "Gerinc": {"Cervicalis": {}, "Thoracalis": {}, "Lumbalis": {}, "Sacrum": {}, "Coccyx": {}},
-        "Koponya": {"Arckoponya": {}, "Agykoponya": {}, "Mandibula": {}},
+        "Koponya": {"Arckoponya": {}, "Koponyaalap": {}, "Mandibula": {}, "Calvaria":{}},
         "Mellkas": {"Borda": {}, "Sternum": {}},
     }
     views = ["AP", "Lateral"]
