@@ -346,6 +346,7 @@ def status_markdown():
         .update-note {
             font-size: 18px;
             color: #ffffff;
+            text-align: center;
             background: #593b4a ; /* Burgundy */
             padding: 5px;
             border-radius: 5px;
