@@ -326,100 +326,100 @@ def status_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #e0f7fa, #ffecb3);
+            background: linear-gradient(to bottom right, #e0e0e0, #f5f5f5);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
         }
         .tracker-title {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: 700;
             color: #ffffff;
             text-align: center;
-            padding: 20px;
-            background: rgba(0, 123, 167, 0.8); /* Teal */
-            border-radius: 10px;
+            padding: 15px;
+            background: rgba(35, 47, 62, 0.9); /* Navy */
+            border-radius: 5px;
             margin-top: 20px;
-            text-shadow: 2px 2px 4px #000000;
+            text-shadow: 1px 1px 3px #000000;
             animation: fadeInDown 1.5s, pulse 2s infinite;
         }
         .update-note {
-            font-size: 20px;
+            font-size: 18px;
             color: #ffffff;
-            background: #d84315; /* Burnt orange */
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            background: #2e3b4e; /* Darker navy */
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 15px;
+            margin-bottom: 8px;
         }
         .grand-total {
-            font-size: 26px;
+            font-size: 24px;
             color: #ffffff;
-            background: #004d40; /* Dark teal */
-            padding: 10px;
-            border-radius: 10px;
+            background: #8b572a; /* Gold */
+            padding: 8px;
+            border-radius: 5px;
             margin-top: 10px;
             margin-bottom: 10px;
             text-align: center;
             font-weight: bold;
         }
         .subheader {
-            font-size: 24px;
+            font-size: 20px;
             color: #ffffff;
-            background: #00796b; /* Medium teal */
-            padding: 10px;
-            border-radius: 10px;
+            background: #5e6b7c; /* Medium navy */
+            padding: 8px;
+            border-radius: 5px;
             margin-top: 10px;
             margin-bottom: 5px;
             text-align: center;
         }
         .subsubheader {
-            font-size: 20px;
+            font-size: 18px;
             color: #ffffff;
-            background: #004d40; /* Dark teal */
-            padding: 8px;
-            border-radius: 8px;
+            background: #3b4a59; /* Dark navy */
+            padding: 6px;
+            border-radius: 5px;
             margin-top: 5px;
             margin-bottom: 5px;
             text-align: center;
         }
         .content {
             font-size: 14px;
-            line-height: 1.2;
+            line-height: 1.4;
             text-align: justify;
             margin: 10px;
             padding: 10px;
             background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .content ul {
-            margin-left: 20px;
+            margin-left: 15px;
         }
         .content li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .content p {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .content a {
-            color: #00796b; /* Medium teal */
+            color: #8b572a; /* Gold */
             text-decoration: none;
         }
         .content a:hover {
             text-decoration: underline;
         }
         .hover-effect:hover {
-            color: #d84315; /* Burnt orange */
+            color: #5e6b7c; /* Medium navy */
             transform: scale(1.05);
         }
         .stButton button {
-            background-color: #d84315; /* Burnt orange */
+            background-color: #8b572a; /* Gold */
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 5px;
             text-align: center;
             display: block;
             margin: 10px auto;
@@ -428,13 +428,13 @@ def status_markdown():
             transition: background-color 0.3s ease;
         }
         .stButton button:hover {
-            background-color: #bf360c; /* Darker burnt orange */
+            background-color: #6a451f; /* Darker gold */
         }
         .stTextInput input, .stFileUploader div, .stTextArea textarea {
-            font-size: 16px;
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid #d84315; /* Burnt orange */
+            font-size: 14px;
+            padding: 6px;
+            border-radius: 5px;
+            border: 1px solid #8b572a; /* Gold */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         @keyframes fadeInDown {
