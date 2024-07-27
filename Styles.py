@@ -30,8 +30,8 @@ def home_background():
             background: #00796B;
             padding: 10px;
             border-radius: 10px;
-            margin-top: 30px;
-            margin-bottom: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .subsubheader {
             font-size: 22px;
@@ -39,15 +39,15 @@ def home_background():
             background: #004D40;
             padding: 8px;
             border-radius: 8px;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .content {
             font-size: 16px;
             line-height: 1.2;
             text-align: justify;
-            margin: 20px;
-            padding: 20px;
+            margin: 5px;
+            padding: 5px;
             background: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -128,8 +128,8 @@ def upload_markdown():
         .confirmation-box {
             background: #f5f5f5;
             border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
+            padding: 5px;
+            margin-top: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .confirmation-title {
