@@ -54,10 +54,12 @@ def main():
 
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
+        st.markdown('<div class="prominent-button">Több régió jelölése</div>', unsafe_allow_html=True)
         st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
     
     with col_button:
         if st.session_state.multi_region:
+            st.markdown('<div class="prominent-button">Új régió hozzáadása</div>', unsafe_allow_html=True)
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
                 new_region = previous_region.copy() if previous_region else {
@@ -90,16 +92,19 @@ def main():
             col_region_save_modify_delete = st.columns([1, 1, 1])
             with col_region_save_modify_delete[0]:
                 if region['editable']:
+                    st.markdown('<div class="prominent-button">Régió mentése</div>', unsafe_allow_html=True)
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
                         st.session_state.new_region_blocked = False
                         st.experimental_rerun()
             with col_region_save_modify_delete[1]:
                 if not region['editable']:
+                    st.markdown('<div class="prominent-button">Régió módosítása</div>', unsafe_allow_html=True)
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
                         st.experimental_rerun()
             with col_region_save_modify_delete[2]:
+                st.markdown('<div class="prominent-button">Régió törlése</div>', unsafe_allow_html=True)
                 if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                     st.session_state.regions.pop(idx)
                     st.experimental_rerun()
@@ -143,7 +148,8 @@ def main():
 
     comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
 
-    if st.button("Feltöltés"):
+    st.markdown('<div class="prominent-button">Feltöltés</div>', unsafe_allow_html=True)
+    if st.button("Feltöltés", key="upload_button"):
         try:
             upload_data = {
                 "patient_id": st.session_state.patient_id,
