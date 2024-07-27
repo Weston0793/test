@@ -1,5 +1,8 @@
 import streamlit as st
 from firebase_helpers import save_image
+from Styles import upload_markdown
+
+upload_markdown()
 
 def handle_file_upload(uploaded_file):
     if uploaded_file.size > 15 * 1024 * 1024:
