@@ -326,7 +326,7 @@ def status_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #e0f2f1, #ffeb3b);
+            background: linear-gradient(to bottom right, #f3e5f5, #ffecb3);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
@@ -337,7 +337,7 @@ def status_markdown():
             color: #ffffff;
             text-align: center;
             padding: 20px;
-            background: rgba(0, 128, 128, 0.8);
+            background: rgba(93, 64, 55, 0.8);
             border-radius: 10px;
             margin-top: 20px;
             text-shadow: 2px 2px 4px #000000;
@@ -346,7 +346,7 @@ def status_markdown():
         .update-note {
             font-size: 20px;
             color: #ffffff;
-            background: #f57f17;
+            background: #8d6e63;
             padding: 10px;
             border-radius: 10px;
             margin-top: 30px;
@@ -355,7 +355,7 @@ def status_markdown():
         .grand-total {
             font-size: 26px;
             color: #ffffff;
-            background: #00695c;
+            background: #795548;
             padding: 10px;
             border-radius: 10px;
             margin-top: 20px;
@@ -365,7 +365,7 @@ def status_markdown():
         .subheader {
             font-size: 24px;
             color: #ffffff;
-            background: #004d40;
+            background: #6d4c41;
             padding: 10px;
             border-radius: 10px;
             margin-top: 20px;
@@ -374,7 +374,7 @@ def status_markdown():
         .subsubheader {
             font-size: 20px;
             color: #ffffff;
-            background: #00332c;
+            background: #5d4037;
             padding: 8px;
             border-radius: 8px;
             margin-top: 10px;
@@ -400,15 +400,39 @@ def status_markdown():
             margin-bottom: 10px;
         }
         .content a {
-            color: #004d40;
+            color: #795548;
             text-decoration: none;
         }
         .content a:hover {
             text-decoration: underline;
         }
         .hover-effect:hover {
-            color: #ffeb3b;
+            color: #8d6e63;
             transform: scale(1.05);
+        }
+        .stButton button {
+            background-color: #8d6e63;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+            display: block;
+            margin: 10px auto;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .stButton button:hover {
+            background-color: #4e342e;
+        }
+        .stTextInput input, .stFileUploader div, .stTextArea textarea {
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #8d6e63;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         @keyframes fadeInDown {
             0% {
@@ -443,7 +467,6 @@ def status_markdown():
         """,
         unsafe_allow_html=True
     )
-
 
 def contact_background():
     st.markdown(
