@@ -230,17 +230,25 @@ def search_markdown():
     st.markdown(
         """
         <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        .stApp {
+            background: linear-gradient(to bottom right, #f0f4f7, #d9e2ec);
+            background-attachment: fixed;
+            color: #333333;
+            font-family: 'Roboto', sans-serif;
+        }
         .search-title {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 36px;
+            font-weight: 700;
             text-align: center;
-            border: 2px solid #007BFF;
-            padding: 10px;
-            margin-bottom: 20px;
             color: #ffffff;
             background-color: #007BFF;
+            padding: 15px;
+            margin-bottom: 20px;
             border-radius: 8px;
             text-shadow: 1px 1px 2px #000000;
+            animation: fadeInDown 1.5s;
         }
         .result-image {
             border: 1px solid #007BFF;
@@ -256,16 +264,18 @@ def search_markdown():
         }
         .button-container button {
             font-size: 18px;
+            font-weight: bold;
             padding: 10px 20px;
             margin: 0 5px;
-            border-radius: 5px;
-            background-color: #007BFF; /* Bluish */
+            border-radius: 8px;
+            background-color: #66B2FF; /* Lighter Blue */
             color: white;
             border: none;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .button-container button:hover {
-            background-color: #0056b3;
+            background-color: #3399FF;
         }
         .formatted-data {
             font-family: 'Roboto', sans-serif;
@@ -275,6 +285,7 @@ def search_markdown():
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s;
         }
         .formatted-data h4 {
             margin-top: 10px;
@@ -285,11 +296,28 @@ def search_markdown():
             margin: 0;
             padding: 0;
         }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
     )
-
     
 def status_markdown():
     st.markdown(
