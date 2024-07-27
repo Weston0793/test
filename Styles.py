@@ -189,7 +189,7 @@ def upload_markdown():
             text-align: center;
             display: block;
             margin: 5px auto;
-            width: 100%;
+            width: 70%;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
