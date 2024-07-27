@@ -501,7 +501,7 @@ def contact_background():
             background: #673AB7;
             padding: 10px;
             border-radius: 10px;
-            margin-top: 30px;
+            margin-top: 10px;
             margin-bottom: 10px;
         }
         .subsubheader {
@@ -510,21 +510,21 @@ def contact_background():
             background: #4527A0;
             padding: 8px;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 10px;
             margin-bottom: 10px;
         }
         .content {
             font-size: 16px;
             line-height: 1.2;
             text-align: justify;
-            margin: 20px;
-            padding: 20px;
+            margin: 10px;
+            padding: 10px;
             background: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .content ul {
-            margin-left: 20px;
+            margin-left: 10px;
         }
         .content li {
             margin-bottom: 10px;
