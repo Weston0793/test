@@ -154,7 +154,7 @@ def upload_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #e0f7fa, #c8e6c9);
+            background: linear-gradient(to bottom right, #f0f4f7, #d9e2ec);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
@@ -245,12 +245,19 @@ def upload_markdown():
             text-align: center;
             display: block;
             margin: 10px auto;
-            width: 90%;
+            width: 100%;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
         .stButton button:hover {
             background-color: #004d40;
+        }
+        .stTextInput input, .stFileUploader div, .stTextArea textarea {
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #00796B;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         @keyframes fadeInDown {
             0% {
