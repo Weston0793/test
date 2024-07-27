@@ -387,10 +387,10 @@ def status_markdown():
             font-size: 14px;
             line-height: 1.4;
             text-align: justify;
-            margin: 10px;
-            padding: 10px;
+            margin: 1px;
+            padding: 1px;
             background: #ffffff;
-            border-radius: 5px;
+            border-radius: 2px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .content ul {
