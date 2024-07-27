@@ -151,60 +151,6 @@ def upload_markdown():
     st.markdown(
         """
         <style>
-        .upload-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 2px solid black;
-            padding: 10px;
-        }
-        .center-button {
-            display: flex;
-            justify-content: center;
-        }
-        .upload-button, .confirm-button {
-            font-size: 24px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
-            border: 2px solid black;
-            margin: 10px;
-        }
-        .upload-button:hover, .confirm-button:hover {
-            background-color: #45a049;
-        }
-        .confirmation-box {
-            padding: 20px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .confirmation-title, .confirmation-text {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .file-upload-instruction {
-            font-size: 18px;
-            font-weight: bold;
-            color: black;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 2px solid black;
-            padding: 10px;
-            background-color: #f9f9f9;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-def upload_markdown():
-    st.markdown(
-        """
-        <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
@@ -235,6 +181,23 @@ def upload_markdown():
             margin-bottom: 10px;
             text-align: center;
         }
+        .confirmation-box {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .confirmation-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+        .center-button {
+            text-align: center;
+            margin-top: 20px;
+        }
         .content {
             font-size: 14px;
             line-height: 1.2;
@@ -260,6 +223,29 @@ def upload_markdown():
         }
         .content a:hover {
             text-decoration: underline;
+        }
+        .highlight {
+            background: #4caf50;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .prominent-button {
+            background-color: #00796b;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+            display: block;
+            margin: 10px auto;
+            width: 90%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .prominent-button:hover {
+            background-color: #004d40;
         }
         @keyframes fadeInDown {
             0% {
