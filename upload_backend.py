@@ -80,8 +80,8 @@ def confirm_and_upload_data(upload_data):
 
     st.markdown('---')
 
-    col = st.columns(1)
-    with col:
+    col1 = st.columns(1)
+    with col1:
         st.write("")
         if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
             try:
