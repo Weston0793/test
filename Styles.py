@@ -115,36 +115,99 @@ def status_markdown():
     st.markdown(
         """
         <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        .stApp {
+            background: linear-gradient(to bottom right, #e0f7fa, #ffccbc);
+            background-attachment: fixed;
+            color: #333333;
+            font-family: 'Roboto', sans-serif;
+        }
         .tracker-title {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
             text-align: center;
-            border: 2px solid black;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .sub-region-title {
-            margin-left: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .view-type {
-            margin-left: 40px;
-            font-style: italic;
+            padding: 20px;
+            background: rgba(0, 150, 136, 0.8);
+            border-radius: 10px;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px #000000;
+            animation: fadeInDown 1.5s;
         }
         .update-note {
-            font-size: 16px;
-            text-align: center;
-            color: red;
-            margin-bottom: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            background: #ff7043;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 30px;
+            margin-bottom: 10px;
         }
         .grand-total {
-            font-size: 26px;
-            font-weight: bold;
-            text-align: center;
+            font-size: 22px;
+            color: #ffffff;
+            background: #00897b;
+            padding: 8px;
+            border-radius: 8px;
             margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .subheader {
+            font-size: 28px;
+            color: #ffffff;
+            background: #00796B;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .content {
+            font-size: 16px;
+            line-height: 1.2;
+            text-align: justify;
+            margin: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content ul {
+            margin-left: 20px;
+        }
+        .content li {
+            margin-bottom: 10px;
+        }
+        .content p {
+            margin-bottom: 10px;
+        }
+        .content a {
+            color: #00796B;
+            text-decoration: none;
+        }
+        .content a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
         </style>
         """,
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
