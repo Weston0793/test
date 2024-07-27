@@ -1,5 +1,96 @@
 import streamlit as st
 
+def home_background():
+    st.markdown(
+        """
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        
+        .stApp {
+            background: linear-gradient(to bottom right, #f0f4f7, #d9e2ec);
+            background-attachment: fixed;
+            color: #212121;
+            font-family: 'Roboto', sans-serif;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 150, 136, 0.8);
+            border-radius: 10px;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px #000000;
+            animation: fadeInDown 1.5s;
+        }
+        .subheader {
+            font-size: 28px;
+            color: #ffffff;
+            background: #00796B;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .subsubheader {
+            font-size: 22px;
+            color: #ffffff;
+            background: #004D40;
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .content {
+            font-size: 16px;
+            line-height: 1.2;
+            text-align: justify;
+            margin: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content ul {
+            margin-left: 20px;
+        }
+        .content li {
+            margin-bottom: 10px;
+        }
+        .content p {
+            margin-bottom: 10px;
+        }
+        .content a {
+            color: #00796B;
+            text-decoration: none;
+        }
+        .content a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
 def search_markdown():
     st.markdown(
         """
@@ -224,3 +315,4 @@ def status_markdown():
         """,
         unsafe_allow_html=True
     )
+    
