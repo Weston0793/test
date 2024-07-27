@@ -23,7 +23,6 @@ def main():
 
     st.markdown("""
     <div class="content">
-        <h2 class="subheader">Kapcsolat</h2>
         <p><strong>Email:</strong> aba.lorincz@gmail.com</p>
         <p><strong>Telefon:</strong> +36 30 954 2176</p>
         <p><strong>Cím:</strong> Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary</p>
