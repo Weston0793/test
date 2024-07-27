@@ -145,30 +145,39 @@ def status_markdown():
             margin-bottom: 10px;
         }
         .grand-total {
-            font-size: 22px;
+            font-size: 26px;
             color: #ffffff;
             background: #00897b;
-            padding: 8px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 10px;
             margin-top: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             text-align: center;
         }
         .subheader {
-            font-size: 28px;
+            font-size: 24px;
             color: #ffffff;
             background: #00796B;
             padding: 10px;
             border-radius: 10px;
-            margin-top: 30px;
+            margin-top: 20px;
             margin-bottom: 10px;
         }
+        .subsubheader {
+            font-size: 20px;
+            color: #ffffff;
+            background: #004D40;
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
         .content {
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.2;
             text-align: justify;
-            margin: 20px;
-            padding: 20px;
+            margin: 10px;
+            padding: 10px;
             background: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -188,6 +197,10 @@ def status_markdown():
         }
         .content a:hover {
             text-decoration: underline;
+        }
+        .hover-effect:hover {
+            color: #007BFF;
+            transform: scale(1.05);
         }
         @keyframes fadeInDown {
             0% {
