@@ -230,7 +230,12 @@ def upload_markdown():
             padding: 5px;
             border-radius: 5px;
         }
-        .prominent-button {
+        .checkbox-container label {
+            font-weight: bold;
+            font-size: 16px;
+            color: #00796B;
+        }
+        .stButton button {
             background-color: #00796b;
             color: white;
             font-size: 18px;
@@ -244,7 +249,7 @@ def upload_markdown():
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .prominent-button:hover {
+        .stButton button:hover {
             background-color: #004d40;
         }
         @keyframes fadeInDown {
@@ -269,7 +274,7 @@ def upload_markdown():
         """,
         unsafe_allow_html=True
     )
-
+    
 def status_markdown():
     st.markdown(
         """
