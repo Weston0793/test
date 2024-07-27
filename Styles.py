@@ -326,7 +326,7 @@ def status_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #e8f5e9, #eceff1);
+            background: linear-gradient(to bottom right, #e0f7fa, #ffecb3);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
@@ -337,7 +337,7 @@ def status_markdown():
             color: #ffffff;
             text-align: center;
             padding: 20px;
-            background: rgba(0, 128, 0, 0.8); /* Emerald green */
+            background: rgba(0, 123, 167, 0.8); /* Teal */
             border-radius: 10px;
             margin-top: 20px;
             text-shadow: 2px 2px 4px #000000;
@@ -346,40 +346,40 @@ def status_markdown():
         .update-note {
             font-size: 20px;
             color: #ffffff;
-            background: #388e3c; /* Darker emerald */
+            background: #d84315; /* Burnt orange */
             padding: 10px;
             border-radius: 10px;
-            margin-top: 30px;
+            margin-top: 20px;
             margin-bottom: 10px;
         }
         .grand-total {
             font-size: 26px;
             color: #ffffff;
-            background: #00695c; /* Deep teal */
+            background: #004d40; /* Dark teal */
             padding: 10px;
             border-radius: 10px;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             text-align: center;
             font-weight: bold;
         }
         .subheader {
             font-size: 24px;
             color: #ffffff;
-            background: #004d40; /* Dark teal */
+            background: #00796b; /* Medium teal */
             padding: 10px;
             border-radius: 10px;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-bottom: 5px;
             text-align: center;
         }
         .subsubheader {
             font-size: 20px;
             color: #ffffff;
-            background: #00796b; /* Medium teal */
+            background: #004d40; /* Dark teal */
             padding: 8px;
             border-radius: 8px;
-            margin-top: 10px;
+            margin-top: 5px;
             margin-bottom: 5px;
             text-align: center;
         }
@@ -403,18 +403,18 @@ def status_markdown():
             margin-bottom: 10px;
         }
         .content a {
-            color: #00695c; /* Deep teal */
+            color: #00796b; /* Medium teal */
             text-decoration: none;
         }
         .content a:hover {
             text-decoration: underline;
         }
         .hover-effect:hover {
-            color: #388e3c; /* Darker emerald */
+            color: #d84315; /* Burnt orange */
             transform: scale(1.05);
         }
         .stButton button {
-            background-color: #388e3c; /* Darker emerald */
+            background-color: #d84315; /* Burnt orange */
             color: white;
             font-size: 18px;
             font-weight: bold;
@@ -428,13 +428,13 @@ def status_markdown():
             transition: background-color 0.3s ease;
         }
         .stButton button:hover {
-            background-color: #2e7d32; /* Even darker emerald */
+            background-color: #bf360c; /* Darker burnt orange */
         }
         .stTextInput input, .stFileUploader div, .stTextArea textarea {
             font-size: 16px;
             padding: 8px;
             border-radius: 8px;
-            border: 1px solid #388e3c; /* Darker emerald */
+            border: 1px solid #d84315; /* Burnt orange */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         @keyframes fadeInDown {
