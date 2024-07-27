@@ -98,7 +98,7 @@ def upload_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #f0f4f7, #d9e2ec);
+            background: linear-gradient(to bottom right, #f0e6eb, #d9c2cc);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
@@ -109,7 +109,7 @@ def upload_markdown():
             color: #ffffff;
             text-align: center;
             padding: 15px;
-            background: rgba(0, 150, 136, 0.8);
+            background: rgba(128, 0, 64, 0.8);
             border-radius: 8px;
             margin-top: 20px;
             text-shadow: 1px 1px 3px #000000;
@@ -118,7 +118,7 @@ def upload_markdown():
         .file-upload-instruction {
             font-size: 16px;
             color: #ffffff;
-            background: #4caf50;
+            background: #800040;
             padding: 10px;
             border-radius: 8px;
             margin-top: 20px;
@@ -162,14 +162,14 @@ def upload_markdown():
             margin-bottom: 10px;
         }
         .content a {
-            color: #00796B;
+            color: #800040;
             text-decoration: none;
         }
         .content a:hover {
             text-decoration: underline;
         }
         .highlight {
-            background: #4caf50;
+            background: #800040;
             color: white;
             padding: 5px;
             border-radius: 5px;
@@ -177,10 +177,10 @@ def upload_markdown():
         .checkbox-container label {
             font-weight: bold;
             font-size: 16px;
-            color: #00796B;
+            color: #800040;
         }
         .stButton button {
-            background-color: #00796b;
+            background-color: #800040;
             color: white;
             font-size: 18px;
             font-weight: bold;
@@ -194,13 +194,13 @@ def upload_markdown():
             transition: background-color 0.3s ease;
         }
         .stButton button:hover {
-            background-color: #004d40;
+            background-color: #4b0029;
         }
         .stTextInput input, .stFileUploader div, .stTextArea textarea {
             font-size: 16px;
             padding: 8px;
             border-radius: 8px;
-            border: 1px solid #00796B;
+            border: 1px solid #800040;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         @keyframes fadeInDown {
