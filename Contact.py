@@ -5,35 +5,97 @@ import datetime
 
 # Ensure Firebase is initialized
 initialize_firebase()
-def add_custom_css():
-    st.markdown("""
-    <style>
-    @keyframes fadeIn {
-        0% {opacity: 0;}
-        100% {opacity: 1;}
-    }
-    .fade-in {
-        animation: fadeIn 2s;
-    }
-    .hover-effect:hover {
-        color: #007BFF;
-        transform: scale(1.05);
-    }
-    .loading-spinner {
-        border: 8px solid #f3f3f3;
-        border-top: 8px solid #007BFF;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
+def set_background():
+    st.markdown(
+        """
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        
+        .stApp {
+            background: linear-gradient(to bottom right, #e0eafc, #cfdef3);
+            background-attachment: fixed;
+            color: #333333;
+            font-family: 'Roboto', sans-serif;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            background: rgba(103, 58, 183, 0.8);
+            border-radius: 10px;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px #000000;
+            animation: fadeInDown 1.5s;
+        }
+        .subheader {
+            font-size: 28px;
+            color: #ffffff;
+            background: #673AB7;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .subsubheader {
+            font-size: 22px;
+            color: #ffffff;
+            background: #4527A0;
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .content {
+            font-size: 16px;
+            line-height: 1.2;
+            text-align: justify;
+            margin: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content ul {
+            margin-left: 20px;
+        }
+        .content li {
+            margin-bottom: 10px;
+        }
+        .content p {
+            margin-bottom: 10px;
+        }
+        .content a {
+            color: #673AB7;
+            text-decoration: none;
+        }
+        .content a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
 def generate_funny_name():
     first_parts = ["Fluffy", "Sparkly", "Wiggly", "Silly", "Funky", "Giggles", "Cheery", "Dizzy", "Bouncy", "Jumpy",
                    "Zippy", "Snazzy", "Bubbly", "Quirky", "Jolly", "Peppy", "Giddy", "Chirpy", "Frisky", "Perky",
@@ -44,7 +106,7 @@ def generate_funny_name():
     return f"{random.choice(first_parts)} {random.choice(second_parts)}"
 
 def main():
-    add_custom_css()
+    set_background()
     
     st.markdown('<h1 class="fade-in">Elérhetőség</h1>', unsafe_allow_html=True)
 
