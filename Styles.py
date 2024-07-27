@@ -201,6 +201,88 @@ def upload_markdown():
         """,
         unsafe_allow_html=True,
     )
+def upload_markdown():
+    st.markdown(
+        """
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        .stApp {
+            background: linear-gradient(to bottom right, #e0f7fa, #c8e6c9);
+            background-attachment: fixed;
+            color: #333333;
+            font-family: 'Roboto', sans-serif;
+        }
+        .upload-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 150, 136, 0.8);
+            border-radius: 8px;
+            margin-top: 20px;
+            text-shadow: 1px 1px 3px #000000;
+            animation: fadeInDown 1.5s;
+        }
+        .file-upload-instruction {
+            font-size: 16px;
+            color: #ffffff;
+            background: #4caf50;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .content {
+            font-size: 14px;
+            line-height: 1.2;
+            text-align: justify;
+            margin: 10px;
+            padding: 10px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .content ul {
+            margin-left: 20px;
+        }
+        .content li {
+            margin-bottom: 10px;
+        }
+        .content p {
+            margin-bottom: 10px;
+        }
+        .content a {
+            color: #00796B;
+            text-decoration: none;
+        }
+        .content a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 def status_markdown():
     st.markdown(
