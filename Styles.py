@@ -90,62 +90,6 @@ def home_background():
         """,
         unsafe_allow_html=True
     )
-
-def search_markdown():
-    st.markdown(
-        """
-        <style>
-        .search-title {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            border: 2px solid black;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .result-image {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px 0;
-        }
-        .button-container button {
-            font-size: 18px;
-            padding: 10px 20px;
-            margin: 0 5px;
-            border-radius: 5px;
-            background-color: #4CAF50; /* Green */
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .button-container button:hover {
-            background-color: #45a049;
-        }
-        .formatted-data {
-            font-family: Arial, sans-serif;
-            line-height: 1.5;
-            color: #333;
-        }
-        .formatted-data h4 {
-            margin-top: 10px;
-            margin-bottom: 5px;
-            color: #444;
-        }
-        .formatted-data p {
-            margin: 0;
-            padding: 0;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
     
 def upload_markdown():
     st.markdown(
@@ -281,6 +225,71 @@ def upload_markdown():
         """,
         unsafe_allow_html=True
     )
+
+def search_markdown():
+    st.markdown(
+        """
+        <style>
+        .search-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #007BFF;
+            padding: 10px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            background-color: #007BFF;
+            border-radius: 8px;
+            text-shadow: 1px 1px 2px #000000;
+        }
+        .result-image {
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .button-container button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            background-color: #007BFF; /* Bluish */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        .formatted-data {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #f0f4f7;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .formatted-data h4 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #007BFF;
+        }
+        .formatted-data p {
+            margin: 0;
+            padding: 0;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     
 def status_markdown():
     st.markdown(
