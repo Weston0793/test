@@ -79,12 +79,7 @@ def confirm_and_upload_data(upload_data):
                             st.markdown(f"**<span class='highlight'>Alsúlyosság:</span>** {details['subseverity']}", unsafe_allow_html=True)
 
     st.markdown('---')
-
-    col1 = st.columns(1)[0]
     
-    with col1:
-        st.write("")
-        
         # Add a button for confirming and uploading
         if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
             if 'upload_data' in globals() and upload_data:  # Check if upload_data exists and is not empty
@@ -114,4 +109,4 @@ def confirm_and_upload_data(upload_data):
                     st.session_state["confirm_data"] = None
             else:
                 st.error("Nincs feltöltendő adat!")
-        st.write("")
+
