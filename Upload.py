@@ -54,9 +54,7 @@ def main():
 
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
-        st.markdown('<div class="checkbox-container">', unsafe_allow_html=True)
         st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with col_button:
         if st.session_state.multi_region:
