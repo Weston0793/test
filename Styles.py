@@ -349,17 +349,17 @@ def status_markdown():
             background: #2e3b4e; /* Darker navy */
             padding: 8px;
             border-radius: 5px;
-            margin-top: 15px;
-            margin-bottom: 8px;
+            margin-top: 8px;
+            margin-bottom: 5px;
         }
         .grand-total {
             font-size: 28px;
             color: #ffffff;
-            background: #8b572a; /* Gold */
+            background: #ffd700; /* Gold */
             padding: 15px;
             border-radius: 5px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 7px;
+            margin-bottom: 7px;
             text-align: center;
             font-weight: bold;
         }
@@ -414,16 +414,16 @@ def status_markdown():
             transform: scale(1.05);
         }
         .stButton button {
-            background-color: #8b572a; /* Gold */
+            background-color: #ffd700; /* Gold */
             color: white;
             font-size: 16px;
             font-weight: bold;
-            padding: 8px 16px;
+            padding: 8px 8px;
             border-radius: 5px;
             text-align: center;
             display: block;
             margin: 10px auto;
-            width: 100%;
+            width: 50%;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
