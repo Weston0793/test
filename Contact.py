@@ -112,10 +112,10 @@ def main():
 
     st.markdown("""
     <div class="content">
-    ### Kapcsolat
-    - **<span class="hover-effect">Email:</span>** aba.lorincz@gmail.com
-    - **<span class="hover-effect">Telefon:</span>** +36 30 954 2176
-    - **<span class="hover-effect">Cím:</span>** Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary
+        <h2 class="subheader">Kapcsolat</h2>
+        <p><strong>Email:</strong> aba.lorincz@gmail.com</p>
+        <p><strong>Telefon:</strong> +36 30 954 2176</p>
+        <p><strong>Cím:</strong> Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary</p>
     </div>
     """, unsafe_allow_html=True)
 
