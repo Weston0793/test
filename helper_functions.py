@@ -82,7 +82,7 @@ def select_view():
     return view, sub_view, sub_sub_view
 
 def select_gender():
-    gender = st.radio("Nem", ["", "férfi", "nő"], key="gender")
+    gender = st.radio("Nem", ["", "Férfi", "Nő"], key="gender")
     return gender
     
 def select_main_region():
