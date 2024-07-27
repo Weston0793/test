@@ -28,7 +28,7 @@ def home_background():
             font-size: 28px;
             color: #ffffff;
             background: #00796B;
-            padding: 10px;
+            padding: 5px;
             border-radius: 10px;
             margin-top: 5px;
             margin-bottom: 5px;
@@ -423,7 +423,7 @@ def status_markdown():
             text-align: center;
             display: block;
             margin: 10px auto;
-            width: 50%;
+            width: 30%;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
