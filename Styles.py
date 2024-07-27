@@ -353,10 +353,10 @@ def status_markdown():
             margin-bottom: 8px;
         }
         .grand-total {
-            font-size: 24px;
+            font-size: 28px;
             color: #ffffff;
             background: #8b572a; /* Gold */
-            padding: 8px;
+            padding: 15px;
             border-radius: 5px;
             margin-top: 10px;
             margin-bottom: 10px;
