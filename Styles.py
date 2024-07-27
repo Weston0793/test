@@ -119,15 +119,15 @@ def upload_markdown():
             font-size: 16px;
             color: #ffffff;
             background: #800040;
-            padding: 10px;
+            padding: 5px;
             border-radius: 8px;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             text-align: center;
         }
         .confirmation-box {
             background: #f5f5f5;
-            border-radius: 10px;
+            border-radius: 5px;
             padding: 5px;
             margin-top: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -140,26 +140,26 @@ def upload_markdown():
         }
         .center-button {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 5px;
         }
         .content {
             font-size: 14px;
             line-height: 1.2;
             text-align: justify;
-            margin: 10px;
-            padding: 10px;
+            margin: 5px;
+            padding: 5px;
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .content ul {
-            margin-left: 20px;
+            margin-left: 5px;
         }
         .content li {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .content p {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .content a {
             color: #800040;
@@ -184,11 +184,11 @@ def upload_markdown():
             color: white;
             font-size: 18px;
             font-weight: bold;
-            padding: 10px 20px;
+            padding: 5px 5px;
             border-radius: 8px;
             text-align: center;
             display: block;
-            margin: 10px auto;
+            margin: 5px auto;
             width: 100%;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -198,7 +198,7 @@ def upload_markdown():
         }
         .stTextInput input, .stFileUploader div, .stTextArea textarea {
             font-size: 16px;
-            padding: 8px;
+            padding: 5px;
             border-radius: 8px;
             border: 1px solid #800040;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
