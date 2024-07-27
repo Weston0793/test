@@ -326,7 +326,7 @@ def status_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #e0f7fa, #ffccbc);
+            background: linear-gradient(to bottom right, #e0f2f1, #ffeb3b);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
@@ -337,16 +337,16 @@ def status_markdown():
             color: #ffffff;
             text-align: center;
             padding: 20px;
-            background: rgba(0, 150, 136, 0.8);
+            background: rgba(0, 128, 128, 0.8);
             border-radius: 10px;
             margin-top: 20px;
             text-shadow: 2px 2px 4px #000000;
-            animation: fadeInDown 1.5s;
+            animation: fadeInDown 1.5s, pulse 2s infinite;
         }
         .update-note {
             font-size: 20px;
             color: #ffffff;
-            background: #ff7043;
+            background: #f57f17;
             padding: 10px;
             border-radius: 10px;
             margin-top: 30px;
@@ -355,7 +355,7 @@ def status_markdown():
         .grand-total {
             font-size: 26px;
             color: #ffffff;
-            background: #00897b;
+            background: #00695c;
             padding: 10px;
             border-radius: 10px;
             margin-top: 20px;
@@ -365,7 +365,7 @@ def status_markdown():
         .subheader {
             font-size: 24px;
             color: #ffffff;
-            background: #00796B;
+            background: #004d40;
             padding: 10px;
             border-radius: 10px;
             margin-top: 20px;
@@ -374,7 +374,7 @@ def status_markdown():
         .subsubheader {
             font-size: 20px;
             color: #ffffff;
-            background: #004D40;
+            background: #00332c;
             padding: 8px;
             border-radius: 8px;
             margin-top: 10px;
@@ -400,14 +400,14 @@ def status_markdown():
             margin-bottom: 10px;
         }
         .content a {
-            color: #00796B;
+            color: #004d40;
             text-decoration: none;
         }
         .content a:hover {
             text-decoration: underline;
         }
         .hover-effect:hover {
-            color: #007BFF;
+            color: #ffeb3b;
             transform: scale(1.05);
         }
         @keyframes fadeInDown {
@@ -418,6 +418,17 @@ def status_markdown():
             100% {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
             }
         }
         @keyframes fadeIn {
@@ -432,6 +443,7 @@ def status_markdown():
         """,
         unsafe_allow_html=True
     )
+
 
 def contact_background():
     st.markdown(
