@@ -108,16 +108,18 @@ def generate_funny_name():
 def main():
     set_background()
     
-    st.markdown('<h1 class="fade-in">Elérhetőség</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="title">Elérhetőség</h1>', unsafe_allow_html=True)
 
     st.markdown("""
+    <div class="content">
     ### Kapcsolat
     - **<span class="hover-effect">Email:</span>** aba.lorincz@gmail.com
     - **<span class="hover-effect">Telefon:</span>** +36 30 954 2176
     - **<span class="hover-effect">Cím:</span>** Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary
+    </div>
     """, unsafe_allow_html=True)
 
-    st.write("### Kommentszekció")
+    st.markdown('<h2 class="subheader">Kommentszekció</h2>', unsafe_allow_html=True)
     
     if 'name' not in st.session_state:
         st.session_state.name = generate_funny_name()
@@ -141,8 +143,7 @@ def main():
         else:
             st.error("A komment mező nem lehet üres!", icon="❌")
 
-    # Display last comments with navigation
-    st.write("### Legutóbbi Kommentek")
+    st.markdown('<h3 class="subsubheader">Legutóbbi Kommentek</h3>', unsafe_allow_html=True)
     
     if 'page' not in st.session_state:
         st.session_state.page = 0
@@ -153,7 +154,7 @@ def main():
     if comments:
         for c in comments:
             timestamp = c['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
-            st.write(f"**{c['name']}**: {c['comment']} *(Posted on: {timestamp})*")
+            st.markdown(f"<div class='content'><strong>{c['name']}</strong>: {c['comment']} <em>(Posted on: {timestamp})</em></div>", unsafe_allow_html=True)
     else:
         st.write("Nincsenek kommentek.")
 
