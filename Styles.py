@@ -20,7 +20,7 @@ def home_background():
             padding: 20px;
             background: rgba(0, 150, 136, 0.8);
             border-radius: 10px;
-            margin-top: 20px;
+            margin-top: 5px;
             text-shadow: 2px 2px 4px #000000;
             animation: fadeInDown 1.5s;
         }
@@ -111,7 +111,7 @@ def upload_markdown():
             padding: 15px;
             background: rgba(128, 0, 64, 0.8);
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 5px;
             text-shadow: 1px 1px 3px #000000;
             animation: fadeInDown 1.5s;
         }
@@ -245,7 +245,7 @@ def search_markdown():
             color: #ffffff;
             background-color: #007BFF;
             padding: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             border-radius: 8px;
             text-shadow: 1px 1px 2px #000000;
             animation: fadeInDown 1.5s;
@@ -339,27 +339,27 @@ def status_markdown():
             padding: 15px;
             background: rgba(35, 47, 62, 0.9); /* Navy */
             border-radius: 5px;
-            margin-top: 20px;
+            margin-top: 5px;
             text-shadow: 1px 1px 3px #000000;
             animation: fadeInDown 1.5s, pulse 2s infinite;
         }
         .update-note {
             font-size: 18px;
             color: #ffffff;
-            background: #2e3b4e; /* Darker navy */
-            padding: 8px;
+            background: #212121; /* Darker navy */
+            padding: 5px;
             border-radius: 5px;
-            margin-top: 8px;
+            margin-top: 5px;
             margin-bottom: 5px;
         }
         .grand-total {
             font-size: 28px;
             color: #ffffff;
-            background: #ffd700; /* Gold */
+            background: #ccac00; /* Gold */
             padding: 15px;
             border-radius: 5px;
-            margin-top: 7px;
-            margin-bottom: 7px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             text-align: center;
             font-weight: bold;
         }
@@ -414,7 +414,7 @@ def status_markdown():
             transform: scale(1.05);
         }
         .stButton button {
-            background-color: #ffd700; /* Gold */
+            background-color: #212121; /* Gold */
             color: white;
             font-size: 16px;
             font-weight: bold;
@@ -491,7 +491,7 @@ def contact_background():
             padding: 20px;
             background: rgba(103, 58, 183, 0.8);
             border-radius: 10px;
-            margin-top: 20px;
+            margin-top: 5px;
             text-shadow: 2px 2px 4px #000000;
             animation: fadeInDown 1.5s;
         }
