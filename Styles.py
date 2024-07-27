@@ -233,7 +233,7 @@ def search_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #d6f5de, #d6f5d6);
+            background: linear-gradient(to bottom right, #cdebad, #cdebad);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
