@@ -25,7 +25,7 @@ def main():
     <div class="content">
         <p><strong>Email:</strong> aba.lorincz@gmail.com</p>
         <p><strong>Telefon:</strong> +36 30 954 2176</p>
-        <p><strong>Cím:</strong> Department of Thermophysiology, Institute for Translational Medicine, Medical School, University of Pécs, 12 Szigeti Street, 7624 Pécs, Hungary</p>
+        <p><strong>Cím:</strong> Thermophysiologia Tanszék, Transzlációs Medicina Intézet, Általános Orvostudományi Kar, Pécsi Tudományegyetem, Szigeti utca 12, 7624 Pécs, Hungary</p>
     </div>
     """, unsafe_allow_html=True)
 
