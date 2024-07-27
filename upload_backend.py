@@ -81,7 +81,7 @@ def confirm_and_upload_data(upload_data):
     st.markdown('---')
     
         # Add a button for confirming and uploading
-    if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
+    if st.button("Megerősít és Feltölt", key="upload_button", help="Kattintson a feltöltés megerősítéséhez"):
         if 'upload_data' in globals() and upload_data:  # Check if upload_data exists and is not empty
             try:
                 save_image(
