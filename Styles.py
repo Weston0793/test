@@ -326,7 +326,7 @@ def status_markdown():
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         .stApp {
-            background: linear-gradient(to bottom right, #f3e5f5, #ffecb3);
+            background: linear-gradient(to bottom right, #e8f5e9, #eceff1);
             background-attachment: fixed;
             color: #333333;
             font-family: 'Roboto', sans-serif;
@@ -337,7 +337,7 @@ def status_markdown():
             color: #ffffff;
             text-align: center;
             padding: 20px;
-            background: rgba(93, 64, 55, 0.8);
+            background: rgba(0, 128, 0, 0.8); /* Emerald green */
             border-radius: 10px;
             margin-top: 20px;
             text-shadow: 2px 2px 4px #000000;
@@ -346,7 +346,7 @@ def status_markdown():
         .update-note {
             font-size: 20px;
             color: #ffffff;
-            background: #8d6e63;
+            background: #388e3c; /* Darker emerald */
             padding: 10px;
             border-radius: 10px;
             margin-top: 30px;
@@ -355,30 +355,33 @@ def status_markdown():
         .grand-total {
             font-size: 26px;
             color: #ffffff;
-            background: #795548;
+            background: #00695c; /* Deep teal */
             padding: 10px;
             border-radius: 10px;
             margin-top: 20px;
             margin-bottom: 20px;
             text-align: center;
+            font-weight: bold;
         }
         .subheader {
             font-size: 24px;
             color: #ffffff;
-            background: #6d4c41;
+            background: #004d40; /* Dark teal */
             padding: 10px;
             border-radius: 10px;
             margin-top: 20px;
             margin-bottom: 10px;
+            text-align: center;
         }
         .subsubheader {
             font-size: 20px;
             color: #ffffff;
-            background: #5d4037;
+            background: #00796b; /* Medium teal */
             padding: 8px;
             border-radius: 8px;
             margin-top: 10px;
             margin-bottom: 5px;
+            text-align: center;
         }
         .content {
             font-size: 14px;
@@ -400,18 +403,18 @@ def status_markdown():
             margin-bottom: 10px;
         }
         .content a {
-            color: #795548;
+            color: #00695c; /* Deep teal */
             text-decoration: none;
         }
         .content a:hover {
             text-decoration: underline;
         }
         .hover-effect:hover {
-            color: #8d6e63;
+            color: #388e3c; /* Darker emerald */
             transform: scale(1.05);
         }
         .stButton button {
-            background-color: #8d6e63;
+            background-color: #388e3c; /* Darker emerald */
             color: white;
             font-size: 18px;
             font-weight: bold;
@@ -425,13 +428,13 @@ def status_markdown():
             transition: background-color 0.3s ease;
         }
         .stButton button:hover {
-            background-color: #4e342e;
+            background-color: #2e7d32; /* Even darker emerald */
         }
         .stTextInput input, .stFileUploader div, .stTextArea textarea {
             font-size: 16px;
             padding: 8px;
             border-radius: 8px;
-            border: 1px solid #8d6e63;
+            border: 1px solid #388e3c; /* Darker emerald */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         @keyframes fadeInDown {
