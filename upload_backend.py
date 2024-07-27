@@ -80,10 +80,9 @@ def confirm_and_upload_data(upload_data):
 
     st.markdown('---')
 
-    col1, col2, col3 = st.columns([1, 1, 1])
+    col = st.columns(1)
     with col1:
         st.write("")
-    with col2:
         if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
             try:
                 save_image(
@@ -109,5 +108,4 @@ def confirm_and_upload_data(upload_data):
             except Exception as e:
                 st.error(f"Hiba a kép mentésekor: {e}")
                 st.session_state["confirm_data"] = None
-    with col3:
         st.write("")
