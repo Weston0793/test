@@ -67,8 +67,7 @@ def main():
                     else:
                         sub_progress = 0
 
-                    st.markdown(f"<div class='subsubheader'>{sub_region} Státusz:</div>", unsafe_allow_html=True)
-                    st.markdown(f"<div class='content'><strong>{sub_done}/{sub_total_tasks} ({sub_progress:.1f}%)</strong></div>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='subsubheader'>{sub_region} Státusz:{sub_done}/{sub_total_tasks} ({sub_progress:.1f}%)</div>", unsafe_allow_html=True)
                     st.progress(sub_progress / 100)  # st.progress expects a value between 0 and 1
 
                     view_types_sorted = sorted(view_types.items(), key=lambda x: x[0])
