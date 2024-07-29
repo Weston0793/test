@@ -51,7 +51,14 @@ def display_region(region, idx):
         if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
             with col5:
                 if region['editable']:
-                    region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region.get('side', 'Bal'))) or 'NA'
+                    # Ensure side is always valid
+                    region['side'] = region.get('side', 'Bal')
+                    region['side'] = st.selectbox(
+                        "Oldal", 
+                        ["Bal", "Jobb"], 
+                        index=["Bal", "Jobb"].index(region['side']) if region['side'] in ["Bal", "Jobb"] else 0,
+                        label_visibility="collapsed"
+                    )
                 else:
                     st.write(f"Oldal: {region['side']}")
         if region['editable']:
@@ -87,4 +94,5 @@ def display_region(region, idx):
                 else:
                     st.write(f"Ujj: {region['finger']}")
     return region
+
 
