@@ -21,12 +21,12 @@ def main():
     st.text_input("Beteg azonosító", st.session_state.patient_id, disabled=True)
 
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra egy anonimizált röntgenképet vagy válassza ki a fájlkezelőn keresztül!  (Max. méret/file: 15 MB)</div>', unsafe_allow_html=True)
-    st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése", value=st.session_state.allow_multiple_uploads, on_change=st.rerun)
+    st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése")
 
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
 
-    uploaded_files = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=st.session_state.allow_multiple_uploads, key=st.session_state.file_uploader_key)
+    uploaded_files = st.file_uploader("Fájl kiválasztása", type=["jpg", "jpeg", "png"], accept_multiple_files=st.session_state.allow_multiple_uploads, key=st.session_state.file_uploader_key, label_visibility="collapsed")
 
     if uploaded_files:
         if not isinstance(uploaded_files, list):
@@ -42,7 +42,6 @@ def main():
     display_images()
 
     col1, col2, col3 = st.columns(3)
-
     with col1:
         main_type, sub_type, sub_sub_type = select_main_type()
 
@@ -54,20 +53,20 @@ def main():
 
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
-        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region, on_change=st.rerun)
+        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
     
     with col_button:
         if st.session_state.multi_region:
             if st.button("Új régió hozzáadása") and not st.session_state.new_region_blocked:
                 previous_region = st.session_state.regions[-1] if st.session_state.regions else None
                 new_region = previous_region.copy() if previous_region else {
-                    'main_region': None,
-                    'side': None,
-                    'sub_region': None,
-                    'sub_sub_region': None,
-                    'sub_sub_sub_region': None,
-                    'sub_sub_sub_sub_region': None,
-                    'finger': None,
+                    'main_region': 'NA',
+                    'side': 'NA',
+                    'sub_region': 'NA',
+                    'sub_sub_region': 'NA',
+                    'sub_sub_sub_region': 'NA',
+                    'sub_sub_sub_sub_region': 'NA',
+                    'finger': 'NA',
                     'editable': True,
                     'classification': None,
                     'severity': None,
@@ -77,7 +76,7 @@ def main():
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
-                st.rerun()
+                st.experimental_rerun()
             elif st.session_state.new_region_blocked:
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
@@ -93,22 +92,22 @@ def main():
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
                         st.session_state.new_region_blocked = False
-                        st.rerun()
+                        st.experimental_rerun()
             with col_region_save_modify_delete[1]:
                 if not region['editable']:
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
-                        st.rerun()
+                        st.experimental_rerun()
             with col_region_save_modify_delete[2]:
                 if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                     st.session_state.regions.pop(idx)
-                    st.rerun()
+                    st.experimental_rerun()
 
         sub_sub_region = region.get('sub_sub_region', None)
         
         if sub_sub_region:
             classification_types = st.multiselect(
-                f"Válassza ki az osztályozás típusát (többet is választhat/régió) {idx+1}",
+                f"Válassza ki az osztályozás típusát {idx+1}",
                 ["AO", "Gartland", "Neer"],
                 key=f"classification_types_{idx}"
             )
@@ -131,7 +130,7 @@ def main():
 
             region['classification'] = classifications
 
-    age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA", on_change=st.rerun)
+    age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA", label_visibility="collapsed")
     age_group = ""
     if age != "NA":
         age = int(age)
@@ -141,9 +140,9 @@ def main():
         complications = select_complications()
         associated_conditions = select_associated_conditions()
 
-    comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="", on_change=st.rerun)
+    comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="", label_visibility="collapsed")
 
-    if st.button("Feltöltés", key="upload_button"):
+    if st.button("Feltöltés"):
         try:
             upload_data = {
                 "patient_id": st.session_state.patient_id,
@@ -164,20 +163,17 @@ def main():
             }
             st.session_state.confirm_data = upload_data
             st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
-            st.rerun()
+            st.experimental_rerun()
         except Exception as e:
             st.error(f"Hiba történt a mentés során: {e}")
 
     if st.session_state.confirm_data:
         confirm_and_upload_data(st.session_state.confirm_data)
 
-    if st.experimental_get_query_params().get("scroll_to") == ["confirmation"]:
-        st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
-
     if st.button("Reset"):
         reset_session_state()
         st.session_state.file_uploader_key = str(uuid.uuid4())
-        st.rerun()
+        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
