@@ -102,12 +102,12 @@ def perform_search(query_params):
                 if page > 1:
                     if st.button("Előző oldal", key="prev_page"):
                         st.session_state.query_params.update(page=page-1)
-                        st.experimental_rerun()
+                        st.rerun()
             with col11:
                 if page < total_pages:
                     if st.button("Következő oldal", key="next_page"):
                         st.session_state.query_params.update(page=page+1)
-                        st.experimental_rerun()
+                        st.rerun()
 
             st.markdown('<div class="button-container">', unsafe_allow_html=True)
             if st.button("Összes találat letöltése ZIP-ben"):
