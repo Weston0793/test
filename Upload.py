@@ -21,7 +21,7 @@ def main():
     st.text_input("Beteg azonosító", st.session_state.patient_id, disabled=True)
 
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra egy anonimizált röntgenképet vagy válassza ki a fájlkezelőn keresztül!  (Max. méret/file: 15 MB)</div>', unsafe_allow_html=True)
-    st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése", value=st.session_state.allow_multiple_uploads, on_change=st.experimental_rerun)
+    st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése", value=st.session_state.allow_multiple_uploads, on_change=st.rerun)
 
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
@@ -54,7 +54,7 @@ def main():
 
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
-        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region, on_change=st.experimental_rerun)
+        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region, on_change=st.rerun)
     
     with col_button:
         if st.session_state.multi_region:
@@ -77,7 +77,7 @@ def main():
                 st.session_state.regions.append(new_region)
                 st.success("Új régió hozzáadva")
                 st.session_state.new_region_blocked = True
-                st.experimental_rerun()
+                st.rerun()
             elif st.session_state.new_region_blocked:
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
 
@@ -93,16 +93,16 @@ def main():
                     if st.button(f"Régió {idx + 1} mentése", key=f"save_region_{idx}"):
                         region['editable'] = False
                         st.session_state.new_region_blocked = False
-                        st.experimental_rerun()
+                        st.rerun()
             with col_region_save_modify_delete[1]:
                 if not region['editable']:
                     if st.button(f"Régió {idx + 1} módosítása", key=f"modify_region_{idx}"):
                         region['editable'] = True
-                        st.experimental_rerun()
+                        st.rerun()
             with col_region_save_modify_delete[2]:
                 if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                     st.session_state.regions.pop(idx)
-                    st.experimental_rerun()
+                    st.rerun()
 
         sub_sub_region = region.get('sub_sub_region', None)
         
@@ -131,7 +131,7 @@ def main():
 
             region['classification'] = classifications
 
-    age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA", on_change=st.experimental_rerun)
+    age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA", on_change=st.rerun)
     age_group = ""
     if age != "NA":
         age = int(age)
@@ -141,30 +141,30 @@ def main():
         complications = select_complications()
         associated_conditions = select_associated_conditions()
 
-    comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="", on_change=st.experimental_rerun)
+    comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="", on_change=st.rerun)
 
     if st.button("Feltöltés", key="upload_button"):
         try:
             upload_data = {
                 "patient_id": st.session_state.patient_id,
-                "main_type": main_type,
-                "sub_type": sub_type,
-                "sub_sub_type": sub_sub_type,
-                "view": view,
-                "sub_view": sub_view,
-                "sub_sub_view": sub_sub_view,
-                "gender": gender,
+                "main_type": main_type if main_type else 'NA',
+                "sub_type": sub_type if sub_type else 'NA',
+                "sub_sub_type": sub_sub_type if sub_sub_type else 'NA',
+                "view": view if view else 'NA',
+                "sub_view": sub_view if sub_view else 'NA',
+                "sub_sub_view": sub_sub_view if sub_sub_view else 'NA',
+                "gender": gender if gender else 'NA',
                 "age": age,
-                "age_group": age_group,
-                "comment": comment,
-                "files": st.session_state.uploaded_files,
+                "age_group": age_group if age_group else 'NA',
+                "comment": comment if comment else 'NA',
+                "files": st.session_state.uploaded_files if st.session_state.uploaded_files else [],
                 "complications": complications if main_type != "Normál" else [],
                 "associated_conditions": associated_conditions if main_type != "Normál" else [],
-                "regions": st.session_state.regions
+                "regions": st.session_state.regions if st.session_state.regions else []
             }
             st.session_state.confirm_data = upload_data
             st.success("Adatok sikeresen mentve. Kérem erősítse meg a feltöltést.")
-            st.experimental_rerun()
+            st.rerun()
         except Exception as e:
             st.error(f"Hiba történt a mentés során: {e}")
 
@@ -177,7 +177,7 @@ def main():
     if st.button("Reset"):
         reset_session_state()
         st.session_state.file_uploader_key = str(uuid.uuid4())
-        st.experimental_rerun()
+        st.rerun()
 
 if __name__ == "__main__":
     main()
