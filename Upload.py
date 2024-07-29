@@ -21,7 +21,7 @@ def main():
     st.text_input("Beteg azonosító", st.session_state.patient_id, disabled=True)
 
     st.markdown('<div class="file-upload-instruction">Kérem húzzon az alábbi ablakra egy anonimizált röntgenképet vagy válassza ki a fájlkezelőn keresztül!  (Max. méret/file: 15 MB)</div>', unsafe_allow_html=True)
-    st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése", value=st.session_state.allow_multiple_uploads)
+    st.session_state.allow_multiple_uploads = st.checkbox("Több kép feltöltése", value=st.session_state.allow_multiple_uploads, on_change=st.experimental_rerun)
 
     if st.session_state.allow_multiple_uploads:
         st.warning("Ugyanazokkal a címkékkel lesz jelölve az összes kép!")
@@ -54,7 +54,7 @@ def main():
 
     col_checkbox, col_button = st.columns([1, 1])
     with col_checkbox:
-        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region)
+        st.session_state.multi_region = st.checkbox("Több régió jelölése", value=st.session_state.multi_region, on_change=st.experimental_rerun)
     
     with col_button:
         if st.session_state.multi_region:
@@ -131,7 +131,7 @@ def main():
 
             region['classification'] = classifications
 
-    age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
+    age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA", on_change=st.experimental_rerun)
     age_group = ""
     if age != "NA":
         age = int(age)
@@ -141,7 +141,7 @@ def main():
         complications = select_complications()
         associated_conditions = select_associated_conditions()
 
-    comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="")
+    comment = st.text_area("Megjegyzés (opcionális)", key="comment", value="", on_change=st.experimental_rerun)
 
     if st.button("Feltöltés", key="upload_button"):
         try:
