@@ -24,27 +24,27 @@ def confirm_and_upload_data(upload_data):
     with cols[0]:
         if upload_data["patient_id"]:
             st.markdown(f'**<span class="highlight">Beteg azonosító:</span>** {upload_data["patient_id"]}', unsafe_allow_html=True)
-        if upload_data["main_type"]:
+        if upload_data["main_type"] != 'NA':
             st.markdown(f'**<span class="highlight">Típus:</span>** {upload_data["main_type"]}', unsafe_allow_html=True)
-        if upload_data["sub_type"]:
+        if upload_data["sub_type"] != 'NA':
             st.markdown(f'**<span class="highlight">Specifikus típus:</span>** {upload_data["sub_type"]}', unsafe_allow_html=True)
-        if upload_data["sub_sub_type"]:
+        if upload_data["sub_sub_type"] != 'NA':
             st.markdown(f'**<span class="highlight">Legspecifikusabb típus:</span>** {upload_data["sub_sub_type"]}', unsafe_allow_html=True)
-        if upload_data["gender"]:
+        if upload_data["gender"] != 'NA':
             st.markdown(f'**<span class="highlight">Nem:</span>** {upload_data["gender"]}', unsafe_allow_html=True)
         if upload_data["age"] != "NA":
             st.markdown(f'**<span class="highlight">Életkor:</span>** {upload_data["age"]}', unsafe_allow_html=True)
 
     with cols[1]:
-        if upload_data["view"]:
+        if upload_data["view"] != 'NA':
             st.markdown(f'**<span class="highlight">Nézet:</span>** {upload_data["view"]}', unsafe_allow_html=True)
-        if upload_data["sub_view"]:
+        if upload_data["sub_view"] != 'NA':
             st.markdown(f'**<span class="highlight">Specifikus nézet:</span>** {upload_data["sub_view"]}', unsafe_allow_html=True)
-        if upload_data["sub_sub_view"]:
+        if upload_data["sub_sub_view"] != 'NA':
             st.markdown(f'**<span class="highlight">Legspecifikusabb nézet:</span>** {upload_data["sub_sub_view"]}', unsafe_allow_html=True)
-        if upload_data["age_group"]:
+        if upload_data["age_group"] != 'NA':
             st.markdown(f'**<span class="highlight">Életkori Csoport:</span>** {upload_data["age_group"]}', unsafe_allow_html=True)
-        if upload_data["comment"]:
+        if upload_data["comment"] != 'NA':
             st.markdown(f'**<span class="highlight">Megjegyzés:</span>** {upload_data["comment"]}', unsafe_allow_html=True)
         if upload_data["complications"]:
             st.markdown(f'**<span class="highlight">Komplikációk:</span>** {", ".join(upload_data["complications"])}', unsafe_allow_html=True)
@@ -58,19 +58,19 @@ def confirm_and_upload_data(upload_data):
         col = cols[idx % 2]
         with col:
             st.markdown(f"**<span class='highlight'>Régió {idx + 1}:</span>**", unsafe_allow_html=True)
-            if region['main_region']:
+            if region['main_region'] != 'NA':
                 st.markdown(f"**<span class='highlight'>Fő régió:</span>** {region['main_region']}", unsafe_allow_html=True)
-            if region['side']:
+            if region['side'] != 'NA':
                 st.markdown(f"**<span class='highlight'>Oldal:</span>** {region['side']}", unsafe_allow_html=True)
-            if region['sub_region']:
+            if region['sub_region'] != 'NA':
                 st.markdown(f"**<span class='highlight'>Alrégió:</span>** {region['sub_region']}", unsafe_allow_html=True)
-            if region['sub_sub_region']:
+            if region['sub_sub_region'] and region['sub_sub_region'] != 'NA':
                 st.markdown(f"**<span class='highlight'>Részletes régió:</span>** {region['sub_sub_region']}", unsafe_allow_html=True)
-            if region['sub_sub_sub_region']:
+            if region['sub_sub_sub_region'] and region['sub_sub_sub_region'] != 'NA':
                 st.markdown(f"**<span class='highlight'>Legpontosabb régió:</span>** {region['sub_sub_sub_region']}", unsafe_allow_html=True)
-            if region['finger']:
+            if region['finger'] and region['finger'] != 'NA':
                 st.markdown(f"**<span class='highlight'>Ujj:</span>** {region['finger']}", unsafe_allow_html=True)
-            if region['sub_sub_sub_sub_region']:
+            if region['sub_sub_sub_sub_region'] and region['sub_sub_sub_sub_region'] != 'NA':
                 st.markdown(f"**<span class='highlight'>Legrészletesebb régió:</span>** {region['sub_sub_sub_sub_region']}", unsafe_allow_html=True)
 
             if region.get("classification"):
