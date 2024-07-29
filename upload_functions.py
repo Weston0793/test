@@ -51,7 +51,7 @@ def display_region(region, idx):
         if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
             with col5:
                 if region['editable']:
-                    region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0, label_visibility="collapsed")
+                    region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0)
                 else:
                     st.write(f"Oldal: {region['side']}")
         if region['editable']:
