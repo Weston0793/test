@@ -13,7 +13,7 @@ def handle_file_upload(uploaded_file):
 
 def confirm_and_upload_data(upload_data):
     if upload_data['age'] == "NA":
-        age_group = st.radio("Kérem válassza ki az életkori csoportot", ["Gyermek", "Felnőtt"])
+        age_group = st.radio("Kérem válassza ki az életkori csoportot", ["Gyermek", "Felnőtt"], label_visibility="collapsed")
         upload_data['age_group'] = age_group
 
     st.markdown('---')
@@ -118,4 +118,3 @@ def confirm_and_upload_data(upload_data):
             else:
                 st.error("Nincs feltöltendő adat!")
         st.write("")
-
