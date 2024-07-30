@@ -1,6 +1,7 @@
 import streamlit as st
 from firebase_helpers import save_image
 from Styles import upload_markdown
+import uuid
 
 upload_markdown()
 
