@@ -3,6 +3,7 @@ from firebase_helpers import save_image
 from Styles import upload_markdown
 import uuid
 
+# Function to handle file uploads
 def handle_file_upload(uploaded_file):
     if uploaded_file.size > 15 * 1024 * 1024:
         st.error("A kép mérete nem lehet nagyobb, mint 15 MB.")
@@ -10,6 +11,7 @@ def handle_file_upload(uploaded_file):
     else:
         return uploaded_file
 
+# Function to confirm and upload data
 def confirm_and_upload_data(upload_data):
     if upload_data['age'] == "NA":
         age_group = st.radio("Kérem válassza ki az életkori csoportot", ["Gyermek", "Felnőtt"])
@@ -100,9 +102,9 @@ def confirm_and_upload_data(upload_data):
                         view=upload_data["view"],
                         sub_view=upload_data["sub_view"],
                         sub_sub_view=upload_data["sub_sub_view"],
+                        gender=upload_data["gender"],  # Gender added here
                         age=upload_data["age"],
                         age_group=upload_data["age_group"],
-                        gender=upload_data["gender"],
                         comment=upload_data["comment"],
                         complications=upload_data["complications"],
                         associated_conditions=upload_data["associated_conditions"],
@@ -117,6 +119,3 @@ def confirm_and_upload_data(upload_data):
             else:
                 st.error("Nincs feltöltendő adat!")
         st.write("")
-
-# Ensure upload_markdown is called at the beginning of the script
-upload_markdown()
