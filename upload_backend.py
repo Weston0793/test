@@ -102,6 +102,7 @@ def confirm_and_upload_data(upload_data):
                         sub_sub_view=upload_data["sub_sub_view"],
                         age=upload_data["age"],
                         age_group=upload_data["age_group"],
+                        gender=upload_data["gender"],
                         comment=upload_data["comment"],
                         complications=upload_data["complications"],
                         associated_conditions=upload_data["associated_conditions"],
