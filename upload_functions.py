@@ -1,6 +1,6 @@
 import streamlit as st
 from helper_functions import (
-    select_main_type, select_view, select_main_region, select_gender
+    select_main_type, select_view, select_main_region, select_gender,
     select_subregion, select_sub_subregion, select_sub_sub_subregion,
     select_sub_sub_sub_subregion, select_finger, select_complications,
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
