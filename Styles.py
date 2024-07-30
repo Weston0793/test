@@ -450,22 +450,13 @@ def status_markdown():
         }
         @keyframes pulse {
             0%, 100% {
-                transform: scale(1);
+                transform: scale(1); /* Baseline */
             }
-            15% {
-                transform: scale(1.05); /* Peak of diastole */
-            }
-            25% {
-                transform: scale(0.95); /* Atrial systole */
+            20% {
+                transform: scale(0.95); /* Small contraction - atrial systole */
             }
             40% {
-                transform: scale(0.9); /* Peak of ventricular systole */
-            }
-            70% {
-                transform: scale(1); /* Back to normal size */
-            }
-            85% {
-                transform: scale(1.02); /* Smooth filling */
+                transform: scale(0.85); /* Big contraction - ventricular systole */
             }
         }
 
