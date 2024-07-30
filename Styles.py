@@ -462,7 +462,10 @@ def status_markdown():
                 transform: scale(0.9); /* Peak of ventricular systole */
             }
             70% {
-                transform: scale(1); /* Back to normal size at the end of systole */
+                transform: scale(1); /* Back to normal size */
+            }
+            85% {
+                transform: scale(1.02); /* Smooth filling */
             }
         }
 
