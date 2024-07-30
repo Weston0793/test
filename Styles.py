@@ -450,19 +450,19 @@ def status_markdown():
         }
         @keyframes pulse {
             0%, 100% {
-                transform: scale(1);
+                transform: scale(0.8);
             }
             20% {
-                transform: scale(1.2);
+                transform: scale(1);
             }
             40% {
-                transform: scale(1);
+                transform: scale(0.8);
             }
             60% {
-                transform: scale(1.2);
+                transform: scale(1);
             }
             80% {
-                transform: scale(1);
+                transform: scale(0.8);
             }
         }
 
