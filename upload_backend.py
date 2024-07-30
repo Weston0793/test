@@ -2,6 +2,12 @@ import streamlit as st
 from firebase_helpers import save_image
 from Styles import upload_markdown
 import uuid
+from helper_functions import (
+    select_main_type, select_view, select_main_region, select_gender
+    select_subregion, select_sub_subregion, select_sub_sub_subregion,
+    select_sub_sub_sub_subregion, select_finger, select_complications,
+    select_associated_conditions, ao_classification, neer_classification, gartland_classification
+)
 
 # Function to handle file uploads
 def handle_file_upload(uploaded_file):
@@ -11,7 +17,6 @@ def handle_file_upload(uploaded_file):
     else:
         return uploaded_file
 
-# Function to confirm and upload data
 def confirm_and_upload_data(upload_data):
     if upload_data['age'] == "NA":
         age_group = st.radio("Kérem válassza ki az életkori csoportot", ["Gyermek", "Felnőtt"])
