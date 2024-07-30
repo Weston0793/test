@@ -113,7 +113,7 @@ def confirm_and_upload_data(upload_data):
                 st.success("Kép sikeresen feltöltve!")
                 st.session_state["confirm_data"] = None
                 st.experimental_set_query_params(scroll_to="confirmation")
-                except Exception as e:
+            except Exception as e:
                 st.error(f"Hiba a kép mentésekor: {e}")
                 st.session_state["confirm_data"] = None
          else:
