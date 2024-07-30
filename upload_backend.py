@@ -116,5 +116,5 @@ def confirm_and_upload_data(upload_data):
             except Exception as e:
                 st.error(f"Hiba a kép mentésekor: {e}")
                 st.session_state["confirm_data"] = None
-         else:
-             st.error("Nincs feltöltendő adat!")        
+            else:
+                st.error("Nincs feltöltendő adat!")        
