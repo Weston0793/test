@@ -449,16 +449,23 @@ def status_markdown():
             }
         }
         @keyframes pulse {
-            0% {
+            0%, 100% {
                 transform: scale(1);
             }
-            50% {
-                transform: scale(1.05);
+            20% {
+                transform: scale(1.2);
             }
-            100% {
+            40% {
+                transform: scale(1);
+            }
+            60% {
+                transform: scale(1.2);
+            }
+            80% {
                 transform: scale(1);
             }
         }
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
