@@ -1,4 +1,3 @@
-import uuid
 import streamlit as st
 from helper_functions import (
     select_main_type, select_view, select_main_region,
@@ -44,55 +43,46 @@ def display_region(region, idx):
     col4, col5, col6 = st.columns([1, 1, 1])
     with col4:
         if region['editable']:
-            region['main_region'] = select_main_region() or 'NA'
+            region['main_region'] = select_main_region()
         else:
             st.write(f"Fő régió: {region['main_region']}")
-    if region['main_region'] and region['main_region'] != 'NA':
+    if region['main_region']:
         if region['main_region'] in ["Felső végtag", "Alsó végtag"]:
             with col5:
                 if region['editable']:
-                    # Ensure side is always valid
-                    region['side'] = region.get('side', 'Bal')
-                    region['side'] = st.selectbox(
-                        "Oldal", 
-                        ["Bal", "Jobb"], 
-                        index=["Bal", "Jobb"].index(region['side']) if region['side'] in ["Bal", "Jobb"] else 0,
-                        label_visibility="collapsed"
-                    )
+                    region['side'] = st.selectbox("Oldal", ["Bal", "Jobb"], index=["Bal", "Jobb"].index(region['side']) if region.get('side') else 0)
                 else:
                     st.write(f"Oldal: {region['side']}")
         if region['editable']:
             with col6:
-                region['sub_region'] = select_subregion(region['main_region']) or 'NA'
+                region['sub_region'] = select_subregion(region['main_region'])
         else:
             st.write(f"Régió: {region['sub_region']}")
-    if region['sub_region'] and region['sub_region'] != 'NA':
+    if region['sub_region']:
         col7, col8, col9, col10 = st.columns([1, 1, 1, 1])
         with col7:
             if region['editable']:
-                region['sub_sub_region'] = select_sub_subregion(region['sub_region']) or 'NA'
+                region['sub_sub_region'] = select_sub_subregion(region['sub_region'])
             else:
                 st.write(f"Alrégió: {region['sub_sub_region']}")
-        if region['sub_sub_region'] and region['sub_sub_region'] != 'NA':
+        if region['sub_sub_region']:
             with col8:
                 if region['editable']:
-                    region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region']) or 'NA'
+                    region['sub_sub_sub_region'] = select_sub_sub_subregion(region['sub_sub_region'])
                 else:
                     st.write(f"Részletes régió: {region['sub_sub_sub_region']}")
-        if region['sub_sub_sub_region'] and region['sub_sub_sub_region'] != 'NA':
+        if region['sub_sub_sub_region']:
             with col9:
                 if region['editable']:
-                    region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region']) or 'NA'
+                    region['sub_sub_sub_sub_region'] = select_sub_sub_sub_subregion(region['sub_sub_sub_region'])
                 else:
                     st.write(f"Legrészletesebb régió: {region['sub_sub_sub_sub_region']}")
             with col10:
                 if region['editable']:
                     if region['sub_sub_sub_region'] in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
-                        region['finger'], _ = select_finger(region['sub_sub_sub_region']) or ('NA', 'NA')
+                        region['finger'], _ = select_finger(region['sub_sub_sub_region'])
                     else:
-                        region['finger'] = 'NA'
+                        region['finger'] = None
                 else:
                     st.write(f"Ujj: {region['finger']}")
     return region
-
-
