@@ -3,8 +3,6 @@ from firebase_helpers import save_image
 from Styles import upload_markdown
 import uuid
 
-upload_markdown()
-
 def handle_file_upload(uploaded_file):
     if uploaded_file.size > 15 * 1024 * 1024:
         st.error("A kép mérete nem lehet nagyobb, mint 15 MB.")
@@ -91,7 +89,7 @@ def confirm_and_upload_data(upload_data):
         
         # Add a button for confirming and uploading
         if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
-            if 'upload_data' in globals() and upload_data:  # Check if upload_data exists and is not empty
+            if upload_data:  # Check if upload_data exists and is not empty
                 try:
                     save_image(
                         patient_id=upload_data["patient_id"],
@@ -119,3 +117,6 @@ def confirm_and_upload_data(upload_data):
             else:
                 st.error("Nincs feltöltendő adat!")
         st.write("")
+
+# Ensure upload_markdown is called at the beginning of the script
+upload_markdown()
