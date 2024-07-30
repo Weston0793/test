@@ -89,10 +89,7 @@ def confirm_and_upload_data(upload_data):
 
     st.markdown('---')
     
-    col1 = st.columns(1)[0]
-    
-    with col1:
-        st.write("")
+    with st.container():
         
         # Add a button for confirming and uploading
         if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
@@ -123,4 +120,3 @@ def confirm_and_upload_data(upload_data):
                     st.session_state["confirm_data"] = None
             else:
                 st.error("Nincs feltöltendő adat!")
-        st.write("")
