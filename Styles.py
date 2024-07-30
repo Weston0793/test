@@ -449,20 +449,20 @@ def status_markdown():
             }
         }
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(0.8);
-            }
-            20% {
+            0%, 22%, 100% {
                 transform: scale(1);
+            }
+            18% {
+                transform: scale(1.05); /* Peak of diastole */
+            }
+            25% {
+                transform: scale(1.02); /* End of atrial systole */
             }
             40% {
-                transform: scale(0.8);
+                transform: scale(1.05); /* Peak of ventricular systole */
             }
-            60% {
-                transform: scale(1);
-            }
-            80% {
-                transform: scale(0.8);
+            55% {
+                transform: scale(1); /* End of ventricular systole */
             }
         }
 
