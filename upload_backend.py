@@ -100,7 +100,6 @@ def confirm_and_upload_data(upload_data):
                         view=upload_data["view"],
                         sub_view=upload_data["sub_view"],
                         sub_sub_view=upload_data["sub_sub_view"],
-                        gender=upload_data["gender"],
                         age=upload_data["age"],
                         age_group=upload_data["age_group"],
                         comment=upload_data["comment"],
