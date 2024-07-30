@@ -89,32 +89,34 @@ def confirm_and_upload_data(upload_data):
 
     st.markdown('---')
     
-# Add a button for confirming and uploading
-    if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
-        if upload_data:  # Check if upload_data exists and is not empty
-            try:
-                save_image(
-                    patient_id=upload_data["patient_id"],
-                    files=upload_data["files"],
-                    main_type=upload_data["main_type"],
-                    sub_type=upload_data["sub_type"],
-                    sub_sub_type=upload_data["sub_sub_type"],
-                    view=upload_data["view"],
-                    sub_view=upload_data["sub_view"],
-                    sub_sub_view=upload_data["sub_sub_view"],
-                    gender=upload_data["gender"],  # Gender added here
-                    age=upload_data["age"],
-                    age_group=upload_data["age_group"],
-                    comment=upload_data["comment"],
-                    complications=upload_data["complications"],
-                    associated_conditions=upload_data["associated_conditions"],
-                    regions=upload_data["regions"]
-                )
-                st.success("Kép sikeresen feltöltve!")
-                st.session_state["confirm_data"] = None
-                st.experimental_set_query_params(scroll_to="confirmation")
-            except Exception as e:
-                st.error(f"Hiba a kép mentésekor: {e}")
-                st.session_state["confirm_data"] = None
+    with st.container():
+        
+        # Add a button for confirming and uploading
+        if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
+            if upload_data:  # Check if upload_data exists and is not empty
+                try:
+                    save_image(
+                        patient_id=upload_data["patient_id"],
+                        files=upload_data["files"],
+                        main_type=upload_data["main_type"],
+                        sub_type=upload_data["sub_type"],
+                        sub_sub_type=upload_data["sub_sub_type"],
+                        view=upload_data["view"],
+                        sub_view=upload_data["sub_view"],
+                        sub_sub_view=upload_data["sub_sub_view"],
+                        gender=upload_data["gender"],  # Gender added here
+                        age=upload_data["age"],
+                        age_group=upload_data["age_group"],
+                        comment=upload_data["comment"],
+                        complications=upload_data["complications"],
+                        associated_conditions=upload_data["associated_conditions"],
+                        regions=upload_data["regions"]
+                    )
+                    st.success("Kép sikeresen feltöltve!")
+                    st.session_state["confirm_data"] = None
+                    st.experimental_set_query_params(scroll_to="confirmation")
+                except Exception as e:
+                    st.error(f"Hiba a kép mentésekor: {e}")
+                    st.session_state["confirm_data"] = None
             else:
-                st.error("Nincs feltöltendő adat!")        
+                st.error("Nincs feltöltendő adat!")
