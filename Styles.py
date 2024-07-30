@@ -453,13 +453,13 @@ def status_markdown():
                 transform: scale(1);
             }
             18% {
-                transform: scale(1.05); /* Peak of diastole */
+                transform: scale(1); /* Peak of diastole */
             }
             25% {
-                transform: scale(1); /* End of atrial systole */
+                transform: scale(0.9); /* End of atrial systole */
             }
             40% {
-                transform: scale(1); /* Peak of ventricular systole */
+                transform: scale(0.7); /* Peak of ventricular systole */
             }
             55% {
                 transform: scale(0.9); /* End of ventricular systole */
