@@ -5,6 +5,7 @@ from helper_functions import (
     select_sub_sub_sub_subregion, select_finger, select_complications,
     select_associated_conditions, ao_classification, neer_classification, gartland_classification
 )
+import uuid
 
 def initialize_home_session_state():
     if 'confirm_data' not in st.session_state:
