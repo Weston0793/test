@@ -257,7 +257,7 @@ def ao_classification(sub_sub_reg):
             "2U3A": "Extraarticularis",
             "2U3B": "Részleges ízületi",
             "2U3C": "Teljes ízületi"
-        }
+        },
         "Proximalis femur": {
             "31A": "Trochanter régió",
             "31B": "Femur nyak",
