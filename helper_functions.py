@@ -434,7 +434,7 @@ def get_ao_subtype_details(ao_type):
         "32A": {
             "1": "Spirális",
             "2": "Ferde (≥ 30°)",
-            "3": "Keresztirányú (< 30°)"
+            "3": "Haránt (< 30°)"
         },
         "32B": {
             "2": "Ép ék",
@@ -462,7 +462,7 @@ def get_ao_subtype_details(ao_type):
         "41A": {
             "1": "Avulsio",
             "2": "Egyszerű",
-            "3": "Ék vagy többrészű"
+            "3": "Ék vagy többszörös"
         },
         "41B": {
             "1": "Hasadék",
@@ -475,9 +475,9 @@ def get_ao_subtype_details(ao_type):
             "3": "Többrészű ízületi, többrészű metafízis"
         },
         "42A": {
-            "1": "Spirális",
+            "1": "Spirál",
             "2": "Ferde (≥ 30°)",
-            "3": "Keresztirányú (< 30°)"
+            "3": "Haránt (< 30°)"
         },
         "42B": {
             "2": "Ép ék",
@@ -488,9 +488,9 @@ def get_ao_subtype_details(ao_type):
             "3": "Töredezett szegmentális"
         },
         "43A": {
-            "1": "Egyszerű",
+            "1": "Egyszeres",
             "2": "Ék",
-            "3": "Többrészű"
+            "3": "Többszörös"
         },
         "43B": {
             "1": "Hasadék",
@@ -512,9 +512,9 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Tuberculum minus"
         },
         "11A2": {
-            ".1": "Egyszerű törés",
-            ".2": "Ék törés",
-            ".3": "Többszörös törés"
+            ".1": "Egyszeres",
+            ".2": "Ék",
+            ".3": "Többszörös"
         },
         "11B1": {
             ".1": "Tuberculum majus töréssel",
@@ -564,9 +564,9 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Medialis epicondylus"
         },
         "13A2": {
-            ".1": "Spirális törés",
-            ".2": "Ferdevágású törés (≥ 30°)",
-            ".3": "Haránt törés (< 30°)"
+            ".1": "Spirál",
+            ".2": "Ferdev (≥ 30°)",
+            ".3": "Haránt (< 30°)"
         },
         "13A3": {
             "1": "Ép ék",
@@ -682,6 +682,53 @@ def get_ao_subsubseverity_details(ao_type):
             "j": "Tisztán diaphysealis"
             "k": "Distalis diaphysealis-metaphysealis"
         },
+        "2R3A2": {
+            ".1": "Haránt, elmozdulás/dőlés nélkül (esetleg rövidülés)",
+            ".2": "Dorsalis elmozdulás/dőlés (Colles)",
+            ".3": "Volaris elmozdulás/dőlés (Smith's)"
+        },
+        "2R3A3": {
+            ".1": "Ép ék",
+            ".2": "Darabos ék",
+            ".3": "Többszörös"
+        },
+        "2U3A1": {
+            ".1": "Styloideus csúcs",
+            ".2": "Styloideus alap",
+        },
+        "2U3A2": {
+            ".1": "Spirál",
+            ".2": "Ferde (≥ 30°)",
+            ".3": "Haránt (< 30°)"
+        },
+        "2R3B1": {
+            ".1": "Fossa schaphoideumot érintő",
+            ".2": "Fossa lunatumot érintő",
+        },
+        "2R3B2": {
+            ".1": "Egyszeres",
+            ".2": "Darabos",
+            ".3": "Dorsalis dislocatioval"
+        },
+        "2R3B2": {
+            ".1": "Egyszeres",
+            ".3": "Darabos"
+        },
+        "2R3C1": {
+            ".1": "Sagittalis ízületi",
+            ".2": "Frontalis/coronalis"
+            ".3": "Diaphyist érintő"
+        },
+        "2R3C2": {
+            ".1": "Dorsomedialis ízületi",
+            ".2": "Sagittalis ízületi",
+            ".3": "Frontalis/coronalis ízületi"
+        },
+        "2R3C3": {
+            ".1": "Egyszerű metaphysealis",
+            ".2": "Metaphysealis darabos",
+            ".3": "Diaphyist érintő"
+        },
         "31A1": {
             "1": "Egyszerű pertrochantericus törés",
             "2": "Többszörös pertrochantericus törés",
@@ -697,9 +744,9 @@ def get_ao_subsubseverity_details(ao_type):
             "2": "Benyómódás"
         },
         "32A1": {
-            "1": "Spirális törés",
-            "2": "Ferdevágású törés (≥ 30°)",
-            "3": "Haránt törés (< 30°)"
+            "1": "Spirál",
+            "2": "Ferdevágású (≥ 30°)",
+            "3": "Haránt (< 30°)"
         },
         "32B2": {
             "1": "Ép ék",
@@ -825,6 +872,42 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "h": "Medialis",
             "l": "Darabos"
             "u": "Ép ék"
+        },
+        "2R3C1.1": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },
+        "2R3C1.2": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },
+        "2R3C1.3": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },
+        "2R3C2.1": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },
+        "2R3C2.2": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },
+        "2R3C2.3": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },        
+        "2R3C2.1": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },
+        "2R3C3.2": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
+        },
+        "2R3C3.3": {
+            "t": "DRUJ stabil",
+            "u": "DRUJ instabil"
         },
         "31A1.1": {
             "1": "Egyszerű pertrochantericus törés",
