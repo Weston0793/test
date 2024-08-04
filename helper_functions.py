@@ -345,7 +345,7 @@ def ao_classification(sub_sub_reg):
             "75B": "Egyszerű",
             "75C": "Többszörös"
         },
-        "Pisiforme": {, 
+        "Pisiforme": {
             "76.1.A": "Avulsiós",
             "76.1.B": "Egyszerű",
             "76.1.C": "Többszörös"
@@ -355,7 +355,7 @@ def ao_classification(sub_sub_reg):
             "76.2.B": "Egyszerű",
             "76.2.C": "Többszörös"
         },
-        "Trapesoideum": {, 
+        "Trapesoideum": {
             "76.3.A": "Avulsiós",
             "76.3.B": "Egyszerű",
             "76.3.C": "Többszörös"
