@@ -1196,7 +1196,7 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
         "13C3.2": {
             "f": "Lateralis",
             "h": "Medialis",
-            "l": "Darabos"
+            "l": "Darabos",
             "u": "Ép ék"
         },
         "2R3C1.1": {
