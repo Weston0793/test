@@ -129,7 +129,7 @@ def select_sub_subregion(sub_reg):
         "Femur": ["", "Femur diaphysis",  "Bisphosphonáthoz kapcsolódó"],
         "Térd": ["", "Distalis femur", "Avulsio", "Patella",  "Proximalis tibia", "Proximalis fibula"],
         "Lábszár": ["", "Tibia diaphysis", "Fibula diaphysis", "Tuberositas tibiae avulsio", "Maisonneuve"],
-        "Boka": ["", "Distalis tibia", "Distalis fibula", "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Pilon", "Wagstaffe-Le Fort"],
+        "Boka": ["", "Distalis tibia", "Distalis fibula", "Malleolaris", "Pilon"],
         "Láb": ["", "Tarsus", "Metatarsus", "Hallux", "Lábujjak"],
         "Cervicalis": ["", "C1-Atlas", "C2-Axis", "C3", "C4", "C5", "C6", "C7"],
         "Thoracalis": ["", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"],
@@ -160,6 +160,8 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Avulsio": ["", "Lig. cruciatum anterior avulsio", " Lig. cruciatum posterior avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Lig. iliotibiale avulsio", "Semimembranosus tendon avulsio","Segond", "Fordított Segond", "Stieda (MCL avulsion fracture)"],
         "Proximalis tibia": ["", "Tibia plateau"],
         "Proximalis fibula": ["", "Fibula fej", "Fibula nyak"],
+        "Distalis tibia": ["", "Pilon"],
+        "Malleolaris": ["",  "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Wagstaffe-Le Fort"],
         "Tarsus": ["", "Chopart", "Calcaneus", "Talus", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboideum"],
         "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "V. metatarsus stressz törés", "Jones", "Pseudo-Jones", "V. metatarsus proximalis avulsio"],
         "C1-Atlas": ["","Jefferson"],
@@ -302,6 +304,11 @@ def ao_classification(sub_sub_reg):
         "Distalis fibula": {
             "4F3A": "Egyszeres",
             "4F3B": "Ék vagy többszörös",
+        },
+        "Malleolaris": {
+            "44A": "Infrasyndesmoticus fibula",
+            "44B": "Transsyndesmoticus fibula",
+            "44C": "Suprasyndesmoticus fibula"
         },
     }
 
@@ -548,6 +555,21 @@ def get_ao_subtype_details(ao_type):
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
+        },
+        "44A": {
+            "1": "Izolált fibula",
+            "2": "Medialis malleolus",
+            "3": "Posteromedialis"
+        },
+        "43B": {
+            "1": "Izolált fibula",
+            "2": "Medialis sérüléssel",
+            "3": "Medialis sérüléssel és posterolateralis peremtöréssel (Volkmann fragmentum)"
+        },
+        "43C": {
+            "1": "Egyszerű diaphysealis fibula",
+            "2": "Ék vagy többszörös fibula",
+            "3": "Proximalis fibula"
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
@@ -1025,6 +1047,51 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Epiphysealis-metaphysealis",
             ".3": "Epiphysealis-metaphysealis-diaphysisealis"
         },
+        "44A1": {
+            ".1": "Lig. collaterale laterale ruptúra",
+            ".2": "Lateralis malleolus csúcs avulsiós törés",
+            ".3": "Lateralis malleolus haránt törés"
+        },
+        "44A2": {
+            ".1": "Lig. collaterale laterale ruptúra",
+            ".2": "Lateralis malleolus csúcs avulsiós törés",
+            ".3": "Lateralis malleolus haránt törés"
+        },
+        "44A3": {
+            ".1": "Lig. collaterale laterale ruptúra és posteromedialis törés",
+            ".2": "Lateralis malleolus csúcs avulsiós és posteromedialis törés",
+            ".3": "Lateralis malleolus haránt és posteromedialis törés"
+        },
+        "44B1": {
+            ".1": "Egyszeres fibula",
+            ".2": "Anterior syndesmosis ruptúra",
+            ".3": "Ék vagy többszörös fibula"
+        },
+        "44B2": {
+            ".1": "Anterior syndesmosis és lig. deltoideum ruptúra",
+            ".2": "Medialis malleolus törés s anterior syndesmosis ruptúra",
+            ".3": "Ék vagy többszörös fibula törés medialis sérüléssel"
+        },
+        "44B3": {
+            ".1": "Egyszerű, lig. deltoideum ruptúra",
+            ".2": "Medialis malleolus töréssel",
+            ".3": "Ék vagy többszörös fibula törés, medialis malleolus töréssel"
+        },
+        "44C1": {
+            ".1": "Egyszerű, lig. deltoideum ruptúra",
+            ".2": "Medialis malleolus töréssel",
+            ".3": "Medialis s posterior malleolus törésekkel"
+        },
+        "44C2": {
+            ".1": "Egyszerű, lig. deltoideum ruptúra",
+            ".2": "Medialis malleolus töréssel",
+            ".3": "Medialis s posterior malleolus törésekkel"
+        },
+        "44C3": {
+            ".1": "Medialis oldal sérüléssel",
+            ".2": "Rövidülés s medialis oldal sérüléssel",
+            ".3": "Medialis oldal sérüléssel s posterior malleolus törésekkel"
+        },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
 
@@ -1259,6 +1326,81 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
         "43C2.1": {
             "q": "Frontalis/coronalis sík",
             "r": "Sagittalis sík",
+        },
+        "44B1.1": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44B1.2": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44B1.3": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44B2.1": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44B2.2": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44B2.3": {
+            "r": "Lig. deltoideum ruptúra",
+            "s": "Medialis malleolus töréssel",
+            "u": "Instabil syndesmosis",
+        },
+        "44B3.1": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44B3.2": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44B3.3": {
+            "n": "Tillaux-Chaput",
+            "o": "Wagstaffe-Le Fort",
+            "u": "Instabil syndesmosis",
+        },
+        "44C1.1": {
+            "t": "Stabil syndesmosis",
+            "u": "Instabil syndesmosis",
+        },
+        "44C1.2": {
+            "t": "Stabil syndesmosis",
+            "u": "Instabil syndesmosis",
+        },
+        "44C1.3": {
+            "t": "Stabil syndesmosis",
+            "u": "Instabil syndesmosis",
+        },
+        "44C2.1": {
+            "t": "Stabil syndesmosis",
+            "u": "Instabil syndesmosis",
+        },
+        "44C2.2": {
+            "t": "Stabil syndesmosis",
+            "u": "Instabil syndesmosis",
+        },
+        "44C2.3": {
+            "t": "Stabil syndesmosis",
+            "u": "Instabil syndesmosis",
+        },
+        "44C3.1": {
+            "p": "Fibula nyak törés",
+            "q": "Proximalis tibio-fibularis dislocatio",
+            "r": "Lig. deltoideum ruptúra",
+            "s": "Medialis malleolus törés",
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_subsubtype, {}).items()]
