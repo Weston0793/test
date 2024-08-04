@@ -291,6 +291,18 @@ def ao_classification(sub_sub_reg):
             "43B": "Részleges ízületi",
             "43C": "Teljes ízületi"
         },
+        "Proximalis fibula": {
+            "4F1A": "Egyszeres",
+            "4F1B": "Többszörös",
+        },
+        "Fibula diaphysis": {
+            "4F2A": "Egyszeres",
+            "4F2B": "Ék vagy többszörös",
+        },
+        "Distalis fibula": {
+            "4F3A": "Egyszeres",
+            "4F3B": "Ék vagy többszörös",
+        },
     }
 
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
@@ -518,6 +530,24 @@ def get_ao_subtype_details(ao_type):
             "1": "Egyszerű ízületi, egyszerű metaphysealis",
             "2": "Egyszerű ízületi, többszörös metaphysealis",
             "3": "Többszörös ízületi és többszörös metaphysealis"
+        },
+        "4F1A": {
+            "n": "Extraarticularis",
+            "o": "Intraarticularis",
+        },
+        "4F1B": {
+            "n": "Extraarticularis",
+            "o": "Intraarticularis",
+        },
+        "4F2A": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "4F2B": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
