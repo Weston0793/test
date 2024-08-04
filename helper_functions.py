@@ -639,8 +639,8 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Tuberculum minus töréssel"
         },
         "11C1": {
-            ".1": "Valgus impressiós"
-            ".3": "Izolált collum anatomicum",
+            ".1": "Valgus impressiós",
+            ".3": "Izolált collum anatomicum"
         },
         "12A1": {
             "a": "Proximalis 1/3",
@@ -669,12 +669,12 @@ def get_ao_subsubseverity_details(ao_type):
         },        
         "12C2": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "12C3": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "13A1": {
@@ -688,7 +688,7 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "13A3": {
             "1": "Ép ék",
-            "2": "Töredezett ék"
+            "2": "Töredezett ék",
             "3": "Többszörös törés"
         },
         "13B1": {
@@ -712,12 +712,12 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "13C2": {
             "1": "Ép ék",
-            "2": "Darabos ék"
+            "2": "Darabos ék",
             "3": "Többszörös"
         },
         "13C3": {
             "1": "Egyszerű metapysealis",
-            "2": "Ék metapysealis"
+            "2": "Ék metapysealis",
             "3": "Többszörös metapysealis"
         },
         "2U1B1": {
@@ -726,8 +726,8 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "2U1B2": {
             "n": "Involving sublime facet",
-            "o": "Csúcs (avulsio)"
-            "p": "<50%"
+            "o": "Csúcs (avulsio)",
+            "p": "<50%",
             "q": "≥50%"            
         },
         "2R2A1": {
@@ -782,22 +782,22 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "2R2C2": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "2R2C3": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "2U2C2": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "2U2C3": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "2R3A2": {
@@ -834,7 +834,7 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "2R3C1": {
             ".1": "Sagittalis ízületi",
-            ".2": "Frontalis/coronalis"
+            ".2": "Frontalis/coronalis",
             ".3": "Diaphyist érintő"
         },
         "2R3C2": {
@@ -927,7 +927,7 @@ def get_ao_subsubseverity_details(ao_type):
         }, 
         "33A3": {
             ".1": "Ép ék",
-            ".2": "Darabos ék"
+            ".2": "Darabos ék",
             ".3": "Többszörös"
         },
         "33B1": {
@@ -951,12 +951,12 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "33C2": {
             ".1": "Ép ék, metaphysealis",
-            ".2": "Darabos ék, metaphysealis"
+            ".2": "Darabos ék, metaphysealis",
             ".3": "Többszörös, metaphysealis"
         },
         "33C3": {
             ".1": "Egyszerű metaphysealis",
-            ".2": "Ék, metaphysealis"
+            ".2": "Ék, metaphysealis",
             ".3": "Többszörös, metaphysealis"
         },
         "34A1": {
@@ -1000,7 +1000,7 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "41B2": {
             ".1": "Lateralis plateu",
-            ".2": "Medialis plateu",
+            ".2": "Medialis plateu"
         },
         "41B3": {
             ".1": "Lateralis plateu",
@@ -1346,35 +1346,35 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
         },
         "43B1.1": {
             "o": "Anterior",
-            "y": "Posterior Volkmann",
+            "y": "Posterior Volkmann"
         },
         "43B1.2": {
             "f": "Lateralis",
-            "z": "Medialis ízületi felszín, medialis malleolust érintve",
+            "z": "Medialis ízületi felszín, medialis malleolust érintve"
         },
         "43B2.1": {
             "o": "Anterior",
-            "y": "Posterior Volkmann",
+            "y": "Posterior Volkmann"
         },
         "43B2.2": {
             "f": "Lateralis",
-            "h": "Medialis",
+            "h": "Medialis"
         },
         "43B3.1": {
             "o": "Anterior",
-            "y": "Posterior Volkmann",
+            "y": "Posterior Volkmann"
         },
         "43B3.2": {
             "f": "Lateralis",
-            "h": "Medialis",
+            "h": "Medialis"
         },
         "43C1.1": {
             "q": "Frontalis/coronalis sík",
-            "r": "Sagittalis sík",
+            "r": "Sagittalis sík"
         },
         "43C2.1": {
             "q": "Frontalis/coronalis sík",
-            "r": "Sagittalis sík",
+            "r": "Sagittalis sík"
         },
         "44B1.1": {
             "n": "Tillaux-Chaput",
@@ -1404,52 +1404,52 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
         "44B2.3": {
             "r": "Lig. deltoideum ruptúra",
             "s": "Medialis malleolus töréssel",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44B3.1": {
             "n": "Tillaux-Chaput",
             "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44B3.2": {
             "n": "Tillaux-Chaput",
             "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44B3.3": {
             "n": "Tillaux-Chaput",
             "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44C1.1": {
             "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44C1.2": {
             "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44C1.3": {
             "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44C2.1": {
             "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44C2.2": {
             "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44C2.3": {
             "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis",
+            "u": "Instabil syndesmosis"
         },
         "44C3.1": {
             "p": "Fibula nyak törés",
             "q": "Proximalis tibio-fibularis dislocatio",
             "r": "Lig. deltoideum ruptúra",
-            "s": "Medialis malleolus törés",
+            "s": "Medialis malleolus törés"
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_subsubtype, {}).items()]
