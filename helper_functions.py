@@ -360,6 +360,16 @@ def ao_classification(sub_sub_reg):
             "76.3.B": "Egyszerű",
             "76.3.C": "Többszörös"
         }
+        "Metacarpus": {
+            "77.X.1": "Proximális",
+            "77.X.2": "Diaphysealis",
+            "77.X.3": "Distalis"
+        }
+        "Phalanx": {
+            "78.X.X.1": "Proximális",
+            "78.X.X.2": "Diaphysealis",
+            "78.X.X.3": "Distalis"
+        }
     }
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
