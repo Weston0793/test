@@ -878,49 +878,123 @@ def get_ao_subsubseverity_details(ao_type):
             ".3": "Distalis 1/3"
         },
         "41A1": {
-            "1": "Avulsiós törés",
-            "2": "Egyszeres",
-            "3": "Ék vagy többszörös"
+            ".1": "A tok függelékei",
+            ".2": "Tuberculum tibiae",
+            ".3": "Tibia gerinc (spine - lig. cruciatum kapcsolódás)"
         },
-        "41B1": {
-            "1": "Repedés",
-            "2": "Benyómódás",
-            "3": "Repedés benyómódással"
-        },
-        "41C1": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, ék vagy többszörös metaphysealis törés",
-            "3": "Darabos vagy többszörös metaphysealis törés"
-        },
-        "42A1": {
+        "41A2": {
             ".1": "Spirál",
             ".2": "Ferde (≥ 30°)",
             ".3": "Haránt (< 30°)"
         },
-        "42B2": {
-            "2": "Ép ék",
-            "3": "Darabos ék"
+        "41A3": {
+            ".1": "Ép ék",
+            ".2": "Darabos ék",
+            ".3": "Többszörös"
         },
-        "42C2": {
-            "2": "Ép szegmentális",
-            "3": "Darabos szegmentális"
+        "41B1": {
+            ".1": "Lateralis plateu",
+            ".2": "Medialis plateu",
+            ".3": "Ferde, érinti a tibia gerincét (spine) és egy plateut"
+        },
+        "41B2": {
+            ".1": "Lateralis plateu",
+            ".2": "Medialis plateu",
+        },
+        "41B3": {
+            ".1": "Lateralis plateu",
+            ".2": "Medialis plateu",
+            ".3": "Ferde, érinti a tibia gerincét (spine) és egy plateut"
+        },
+        "41C1": {
+            ".1": "Intercondylaris eminentia érintettség nélkül",
+            ".2": "Intercondylaris eminentia érintettséggel",
+        },
+        "41C2": {
+            ".1": "Ép ék",
+            ".2": "Darabos ék",
+            ".3": "Többszörös metaphysealis"
+        },  
+        "41C3": {
+            ".1": "Darabos lateralis plateu",
+            ".2": "Darabos medialis plateu",
+            ".3": "Többszörös lateralis és medialis plateu"
+        }, 
+        "42A1": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "42A2": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "42A3": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "42B2": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "42B3": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "42C3": {
+            "i": "Proximalis diaphysealis-metaphysealis",
+            "j": "Tisztán diaphysealis",
+            "k": "Distalis diaphysealis-metaphysealis"
         },
         "43A1": {
-            "1": "Egyszeres",
-            "2": "Ék",
-            "3": "Többszörös"
+            ".1": "Spirál",
+            ".2": "Ferde (≥ 30°)",
+            ".3": "Haránt (< 30°)"
+        },
+        "43A2": {
+            ".1": "Posterolateralis impaktált",
+            ".2": "Anteromedialis ék",
+            ".3": "Diaphysist is érintő"
+        },
+        "43A2": {
+            ".1": "Három középső darab",
+            ".2": "Több mint három középső darab",
+            ".3": "Diaphysist is érintő"
         },
         "43B1": {
-            "1": "Repedés",
-            "2": "Repedés benyómódással",
-            "3": "Benyómódás"
+            ".1": "Frontalis/coronalis",
+            ".2": "Sagittalis",
+            ".3": "Darabos metaphysealis"
+        },
+        "43B2": {
+            ".1": "Frontalis/coronalis",
+            ".2": "Sagittalis",
+            ".3": "Centrális fragmentum"
+        },
+        "43B3": {
+            ".1": "Frontalis/coronalis",
+            ".2": "Sagittalis",
+            ".3": "Darabos metaphysealis"
         },
         "43C1": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis",
-            "2": "Egyszerű ízületi, többszörös metaphysealis",
-            "3": "Többszörös ízületi és többszörös metaphysealis"
+            ".1": "Impaktációmentes",
+            ".2": "Epiphysealis benyomódás",
+            ".3": "Diaphysist is érintő"
         },
-
+        "43C2": {
+            ".1": "Asszimetrikus impaktáció",
+            ".2": "Asszimetrikus impaktációmentes",
+            ".3": "Diaphysist is érintő"
+        },
+        "43C3": {
+            ".1": "Epiphysealis",
+            ".2": "Epiphysealis-metaphysealis",
+            ".3": "Epiphysealis-metaphysealis-diaphysisealis"
+        },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
 
@@ -1026,15 +1100,15 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
         },
         "33B3.2": {
             "f": "Lateralis condylus",
-            "h": "Medialis condylus",
+            "h": "Medialis condylus"
         },
         "33C2.1": {
             "f": "Lateralis condylus",
-            "h": "Medialis condylus",
+            "h": "Medialis condylus"
         },
         "33C2.2": {
             "f": "Lateralis condylus",
-            "h": "Medialis condylus",
+            "h": "Medialis condylus"
         },
         "33C3.2": {
             "f": "Lateralis condylus",
@@ -1043,90 +1117,118 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "l": "Darabos ék"
         },
         "41A1.1": {
-            "1": "Avulsiós törés",
-            "2": "Egyszerű törés",
-            "3": "Ék vagy többrészű törés"
+            "n": "Lateralis (Segond)",
+            "h": "Medialis"
         },
-        "41A1.2": {
-            "1": "Avulsiós törés",
-            "2": "Egyszerű törés",
-            "3": "Ék vagy többrészű törés"
+        "41A1.3": {
+            "o": "Anterior",
+            "p": "Posterior"
         },
-        "41B1.1": {
-            "1": "Repedés",
-            "2": "Benyomódás",
-            "3": "Repedés benyomódással"
+        "41A3.1": {
+            "f": "Lateralis",
+            "h": "Medialis"
         },
-        "41B1.2": {
-            "1": "Repedés",
-            "2": "Benyomódás",
-            "3": "Repedés benyomódással"
+        "41A3.2": {
+            "f": "Lateralis",
+            "h": "Medialis"
         },
-        "41C1.1": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, ék vagy többrészű metaphysealis törés",
-            "3": "Többszörös ízületi, többrészű metaphysealis törés"
+        "41B1.3": {
+            "f": "Lateralis",
+            "h": "Medialis"
         },
-        "41C1.2": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, ék vagy többrészű metaphysealis törés",
-            "3": "Többszörös ízületi, többrészű metaphysealis törés"
+        "41B2.1": {
+            "t": "Anterolateralis (AL)",
+            "u": "Posterolateralis (PL)",
+            "x": "Centralis"          
         },
-        "42A1.1": {
-            "1": "Spirális törés",
-            "2": "Ferdevágású törés (≥ 30°)",
-            "3": "Haránt törés (< 30°)"
+        "41B2.2": {
+            "v": "Anteromedialis (AM)",
+            "w": "Posteromedialis (PM)",
+            "x": "Centralis"          
         },
-        "42A1.2": {
-            "1": "Spirális törés",
-            "2": "Ferdevágású törés (≥ 30°)",
-            "3": "Haránt törés (< 30°)"
+        "41B3.1": {
+            "t": "Anterolateralis (AL)",
+            "u": "Posterolateralis (PL)",
+            "x": "Centralis"          
         },
-        "42B2.1": {
-            "1": "Ép ék",
-            "2": "Töredezett ék"
+        "41B3.2": {
+            "v": "Anteromedialis (AM)",
+            "w": "Posteromedialis (PM)",
+            "x": "Centralis"          
         },
-        "42B2.2": {
-            "1": "Ép ék",
-            "2": "Töredezett ék"
+        "41B3.3": {
+            "f": "Lateralis",
+            "h": "Medialis"
         },
-        "42C2.1": {
-            "1": "Ép szegmentális",
-            "2": "Töredezett szegmentális"
+        "41C2.1": {
+            "f": "Lateralis",
+            "h": "Medialis"
         },
-        "42C2.2": {
-            "1": "Ép szegmentális",
-            "2": "Töredezett szegmentális"
+        "41C2.2": {
+            "f": "Lateralis",
+            "h": "Medialis"
         },
-        "43A1.1": {
-            "1": "Egyszerű törés",
-            "2": "Ék",
-            "3": "Többszörös törés"
+        "41C3.1": {
+            "d": "Egyszerű metaphysealis",
+            "u": "Többszörös metaphysealis",
+            "v": "Meta-diaphysealis kiterjedés",            
+            "t": "Anterolateralis (AL)",
+            "u": "Posterolateralis (PL)",
+            "v": "Anteromedialis (AM)",
+            "w": "Posteromedialis (PM)",
+            "x": "Centralis"  
         },
-        "43A1.2": {
-            "1": "Egyszerű törés",
-            "2": "Ék",
-            "3": "Többszörös törés"
+        "41C3.2": {
+            "d": "Egyszerű metaphysealis",
+            "u": "Többszörös metaphysealis",
+            "v": "Meta-diaphysealis kiterjedés",            
+            "t": "Anterolateralis (AL)",
+            "u": "Posterolateralis (PL)",
+            "v": "Anteromedialis (AM)",
+            "w": "Posteromedialis (PM)",
+            "x": "Centralis"  
+        },
+        "41C3.3": {
+            "d": "Egyszerű metaphysealis",
+            "u": "Többszörös metaphysealis",
+            "v": "Meta-diaphysealis kiterjedés",            
+            "t": "Anterolateralis (AL)",
+            "u": "Posterolateralis (PL)",
+            "v": "Anteromedialis (AM)",
+            "w": "Posteromedialis (PM)",
+            "x": "Centralis"  
         },
         "43B1.1": {
-            "1": "Repedés",
-            "2": "Repedés benyomódással",
-            "3": "Benyomódás"
+            "o": "Anterior",
+            "y": "Posterior Volkmann",
         },
         "43B1.2": {
-            "1": "Repedés",
-            "2": "Repedés benyomódással",
-            "3": "Benyomódás"
+            "f": "Lateralis",
+            "z": "Medialis ízületi felszín, medialis malleolust érintve",
+        },
+        "43B2.1": {
+            "o": "Anterior",
+            "y": "Posterior Volkmann",
+        },
+        "43B2.2": {
+            "f": "Lateralis",
+            "h": "Medialis",
+        },
+        "43B3.1": {
+            "o": "Anterior",
+            "y": "Posterior Volkmann",
+        },
+        "43B3.2": {
+            "f": "Lateralis",
+            "h": "Medialis",
         },
         "43C1.1": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, többrészű metaphysealis törés",
-            "3": "Többszörös ízületi és többrészű metaphysealis törés"
+            "q": "Frontalis/coronalis sík",
+            "r": "Sagittalis sík",
         },
-        "43C1.2": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, többrészű metaphysealis törés",
-            "3": "Többszörös ízületi és többrészű metaphysealis törés"
+        "43C2.1": {
+            "q": "Frontalis/coronalis sík",
+            "r": "Sagittalis sík",
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_subsubtype, {}).items()]
