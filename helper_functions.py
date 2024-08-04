@@ -121,7 +121,7 @@ def select_sub_subregion(sub_reg):
         "Váll": ["", "Clavicula", "Scapula", "Proximális humerus"],
         "Humerus": ["", "Humerus diaphysis"],
         "Könyök": ["", "Distalis humerus", "Proximalis ulna", "Proximalis radius"],
-        "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Mindkét csont", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
+        "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
         "Csukló": ["", "Distalis radius", "Distalis ulna", "Carpus"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
         "Pelvis": ["", "Ramus pubicus",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
@@ -257,7 +257,7 @@ def ao_classification(sub_sub_reg):
             "2U3C": "Teljes ízületi"
         }
         "Proximalis femur": {
-            "31A": "Trochantericus régió",
+            "31A": "Trochanter régió",
             "31B": "Femur nyak",
             "31C": "Femur fej"
         },
@@ -270,6 +270,11 @@ def ao_classification(sub_sub_reg):
             "33A": "Extraarticularis",
             "33B": "Részleges ízületi",
             "33C": "Teljes ízületi"
+        },
+        "Patella": {
+            "34A": "Extraarticularis",
+            "34B": "Részleges ízületi, sagittalis",
+            "34C": "Teljes ízületi, frontalis/coronalis"
         },
         "Proximalis tibia": {
             "41A": "Extraarticularis",
@@ -319,17 +324,17 @@ def get_ao_subtype_details(ao_type):
             "3": "Collum anatomicum metafízis töréssel"
         },
         "12A": {
-            "1": "Spirális",
+            "1": "Spirál",
             "2": "Ferde (≥ 30°)",
             "3": "Keresztirányú (< 30°)"
         },
         "12B": {
             "2": "Ép ék",
-            "3": "Töredezett ék"
+            "3": "Darabos ék"
         },
         "12C": {
             "2": "Ép szegmentális",
-            "3": "Töredezett szegmentális"
+            "3": "Darabos szegmentális"
         },
         "13A": {
             "1": "Avulsio",
@@ -366,11 +371,11 @@ def get_ao_subtype_details(ao_type):
         },
         "2R2B": {
             "2": "Ép ék",
-            "3": "Töredezett ék"
+            "3": "Darabos ék"
         },
         "2R2C": {
             "1": "Ép szegmentális",
-            "2": "Töredezett szegmentális"
+            "2": "Darabos szegmentális"
         },
         "2R3A": {
             "1": "Processus styloideus radii avulsiós törés",
@@ -400,27 +405,27 @@ def get_ao_subtype_details(ao_type):
             "3": "Olecranon és processus coronoideus"
         },
         "2U2A": {
-            "1": "Spirális törés",
-            "2": "Ferdevágású törés (≥ 30°)",
-            "3": "Haránt törés (< 30°)"
+            "1": "Spirál",
+            "2": "Ferde(≥ 30°)",
+            "3": "Haránt (< 30°)"
         },
         "2U2B": {
             "2": "Ép ék",
-            "3": "Töredezett ék"
+            "3": "Darabos ék"
         },
         "2U2C": {
             "2": "Ép szegmentális",
-            "3": "Töredezett szegmentális"
+            "3": "Darabos szegmentális"
         },
         "2U3A": {
             "1": "Processus styloideus avulsiós törés",
-            "2": "Egyszeres törés",
-            "3": "Többszörös törés"
+            "2": "Egyszeres",
+            "3": "Többszörös"
         },
         "31A": {
-            "1": "Egyszerű pertrochantericus",
-            "2": "Többrészű pertrochantericus",
-            "3": "Intertrochantericus (fordított dőlésszög)"
+            "1": "Egyszerű pertrochanter",
+            "2": "Többszörös pertrochanter (lateralis fal elégtelen)",
+            "3": "Intertrochanter (fordított dőlésszög)"
         },
         "31B": {
             "1": "Subcapitalis",
@@ -432,32 +437,44 @@ def get_ao_subtype_details(ao_type):
             "2": "Benyomódás"
         },
         "32A": {
-            "1": "Spirális",
+            "1": "Spirál",
             "2": "Ferde (≥ 30°)",
             "3": "Haránt (< 30°)"
         },
         "32B": {
             "2": "Ép ék",
-            "3": "Töredezett ék"
+            "3": "Darabos ék"
         },
         "32C": {
             "2": "Ép szegmentális",
-            "3": "Töredezett szegmentális"
+            "3": "Darabos szegmentális"
         },
         "33A": {
             "1": "Avulsio",
-            "2": "Egyszerű",
-            "3": "Ék vagy többrészű"
+            "2": "Egyszeres",
+            "3": "Ék vagy többszörös"
         },
         "33B": {
-            "1": "Lateral condyle, sagittal",
-            "2": "Medial condyle, sagittal",
-            "3": "Frontal/coronal"
+            "1": "Lateralis condylus, sagittalis",
+            "2": "Medialis condylus, sagittal",
+            "3": "Frontalis/coronalis"
         },
         "33C": {
-            "1": "Egyszerű ízületi, egyszerű metafízis",
-            "2": "Egyszerű ízületi, ék vagy többrészű metafízis",
-            "3": "Többrészű ízületi, egyszerű, ék vagy többrészű metafízis"
+            "1": "Egyszerű ízületi, egyszerű metaphysealis",
+            "2": "Egyszerű ízületi, ék vagy többszörös metaphysealis",
+            "3": "Többszörös ízületi, egyszerű, ék vagy többszörös metafízis"
+        },
+        "34A": {
+            "1": "Avulsio",
+        },
+        "34B": {
+            "2": "Lateralis",
+            "3": "Medialis"
+        },
+        "34C": {
+            "1": "Frontalis/coronalis, egyszeres",
+            "2": "Ék"
+            "3": "Többszörös"
         },
         "41A": {
             "1": "Avulsio",
@@ -470,9 +487,9 @@ def get_ao_subtype_details(ao_type):
             "3": "Hasadék benyomódással"
         },
         "41C": {
-            "1": "Egyszerű ízületi, egyszerű metafízis",
-            "2": "Egyszerű ízületi, ék vagy többrészű metafízis",
-            "3": "Többrészű ízületi, többrészű metafízis"
+            "1": "Egyszerű ízületi, egyszerű metaphysealis",
+            "2": "Egyszerű ízületi, többszörös metaphysealis",
+            "3": "Többszörös ízületi és többszörös metaphysealis"
         },
         "42A": {
             "1": "Spirál",
@@ -481,11 +498,11 @@ def get_ao_subtype_details(ao_type):
         },
         "42B": {
             "2": "Ép ék",
-            "3": "Töredezett ék"
+            "3": "Darabos ék"
         },
         "42C": {
             "2": "Ép szegmentális",
-            "3": "Töredezett szegmentális"
+            "3": "Darabos szegmentális"
         },
         "43A": {
             "1": "Egyszeres",
@@ -498,9 +515,9 @@ def get_ao_subtype_details(ao_type):
             "3": "Benyomódás"
         },
         "43C": {
-            "1": "Egyszerű ízületi, egyszerű metafízis",
-            "2": "Egyszerű ízületi, többrészű metafízis",
-            "3": "Többrészű ízületi és többrészű metafízis"
+            "1": "Egyszerű ízületi, egyszerű metaphysealis",
+            "2": "Egyszerű ízületi, többszörös metaphysealis",
+            "3": "Többszörös ízületi és többszörös metaphysealis"
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
@@ -594,8 +611,8 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "13C2": {
             "1": "Ép ék",
-            "2": "Töredezett ék"
-            "3": "Többszörös törés"
+            "2": "Darabos ék"
+            "3": "Többszörös"
         },
         "13C3": {
             "1": "Egyszerű metapysealis",
@@ -730,51 +747,140 @@ def get_ao_subsubseverity_details(ao_type):
             ".3": "Diaphyist érintő"
         },
         "31A1": {
-            "1": "Egyszerű pertrochantericus törés",
-            "2": "Többszörös pertrochantericus törés",
-            "3": "Intertrochantericus (fordított dőlésszög)"
+            ".1": "Izolált egyszerű trochanter",
+            ".2": "Két-darab",
+            ".3": "Lateralis fal ép (>20.5 mm)"
+        },
+        "31A2": {
+            ".2": "Egy középső fragmentum",
+            ".3": "Kettő vagy több középső fragmentum"
+        },
+        "31A3": {
+            ".1": "Egyszerű ferde",
+            ".2": "Egyszerű haránt",
+            ".3": "Ék vagy darabos"
         },
         "31B1": {
-            "1": "Subcapitalis törés",
-            "2": "Transcervicalis törés",
-            "3": "Basicervicalis törés"
+            ".1": "Valgus impaktált",
+            ".2": "Elmozdulás nélküli",
+            ".3": "Elmozdult"
+        },
+        "31B2": {
+            ".1": "Egyszeres",
+            ".2": "Többszörös",
+            ".3": "Nyíró (shear)"
         },
         "31C1": {
-            "1": "Repedés",
-            "2": "Benyómódás"
+            ".1": "Lig. teres avulsio",
+            ".2": "Repedt, infrafovealis",
+            ".3": "Repedt, suprafovealis"
+        },
+        "31C2": {
+            ".1": "Chondralis laesio",
+            ".2": "Benyomódott, impaktált",
+            ".3": "Repedt, benyomódott"
         },
         "32A1": {
-            "1": "Spirál",
-            "2": "Ferdevágású (≥ 30°)",
-            "3": "Haránt (< 30°)"
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "32A2": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "32A3": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
         },
         "32B2": {
-            "1": "Ép ék",
-            "2": "Töredezett ék"
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
+        },
+        "32B3": {
+            "a": "Proximalis 1/3",
+            "b": "Középső 1/3",
+            "c": "Distalis 1/3"
         },
         "32C2": {
-            "1": "Ép szegmentális",
-            "2": "Töredezett szegmentális"
+            "i": "Proximalis diaphysealis-metaphysealis",
+            "j": "Tisztán diaphysealis"
+            "k": "Distalis diaphysealis-metaphysealis"
+        },
+        "32C3": {
+            "i": "Proximalis diaphysealis-metaphysealis",
+            "j": "Tisztán diaphysealis"
+            "k": "Distalis diaphysealis-metaphysealis"
         },
         "33A1": {
-            "1": "Avulsiós törés",
-            "2": "Egyszerű törés",
-            "3": "Ék vagy többrészű törés"
+            ".1": "Lateralis epicondylus",
+            ".2": "Medialis epicondylus"
+        },
+        "33A2": {
+            ".1": "Spirál",
+            ".2": "Ferde (≥ 30°)",
+            ".3": "Haránt (< 30°)"
+        }, 
+        "33A3": {
+            ".1": "Ép ék",
+            ".2": "Darabos ék"
+            ".3": "Többszörös"
         },
         "33B1": {
-            "1": "Lateralis condylus, sagittalis törés",
-            "2": "Medialis condylus, sagittalis törés",
-            "3": "Frontalis/coronalis törés"
+            ".1": "Egyszeres, a bevágáson (notch) keresztül",
+            ".2": "Egyszeres, teherviselő felszín",
+            ".3": "Darabos"
+        },
+        "33B2": {
+            ".1": "Egyszeres, a bevágáson (notch) keresztül",
+            ".2": "Egyszeres, teherviselő felszín",
+            ".3": "Darabos"
+        },
+        "33B3": {
+            ".1": "Anterior és lateralis darabka (flake)",
+            ".2": "Posterior, unicondylaris (Hoffa)",
+            ".3": "Posterior, bicondylaris (bilateralis Hoffa)"
         },
         "33C1": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, ék vagy többrészű metaphysealis törés",
-            "3": "Többszörös ízületi, ék vagy többrészű metaphysealis törés"
+            ".1": "A transcondylaris tengely felett",
+            ".3": "A transcondylaris tengelyen át vagy alatt"
+        },
+        "33C2": {
+            ".1": "Ép ék, metaphysealis",
+            ".2": "Darabos ék, metaphysealis"
+            ".3": "Többszörös, metaphysealis"
+        },
+        "33C3": {
+            ".1": "Egyszerű metaphysealis",
+            ".2": "Ék, metaphysealis"
+            ".3": "Többszörös, metaphysealis"
+        },
+        "34A1": {
+            "a": "Proximalis pólus",
+            "b": "Distalis pólus",
+            "c": "Lateralis oldal",
+            "d": "Medialis oldal"
+        },
+        "34B1": {
+            ".1": "Egyszeres",
+            ".2": "Darabos"
+        },
+        "34B2": {
+            ".1": "Egyszeres",
+            ".2": "Darabos"
+        },
+        "34C1": {
+            ".1": "Középső 1/3",
+            ".2": "Proximalis 1/3",
+            ".3": "Distalis 1/3"
         },
         "41A1": {
             "1": "Avulsiós törés",
-            "2": "Egyszerű törés",
-            "3": "Ék vagy többrészű törés"
+            "2": "Egyszeres",
+            "3": "Ék vagy többszörös"
         },
         "41B1": {
             "1": "Repedés",
@@ -783,26 +889,26 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "41C1": {
             "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, ék vagy többrészű metaphysealis törés",
-            "3": "Többszörös ízületi, többrészű metaphysealis törés"
+            "2": "Egyszerű ízületi, ék vagy többszörös metaphysealis törés",
+            "3": "Darabos vagy többszörös metaphysealis törés"
         },
         "42A1": {
-            "1": "Spirális törés",
-            "2": "Ferdevágású törés (≥ 30°)",
-            "3": "Haránt törés (< 30°)"
+            ".1": "Spirál",
+            ".2": "Ferde (≥ 30°)",
+            ".3": "Haránt (< 30°)"
         },
         "42B2": {
-            "1": "Ép ék",
-            "2": "Töredezett ék"
+            "2": "Ép ék",
+            "3": "Darabos ék"
         },
         "42C2": {
-            "1": "Ép szegmentális",
-            "2": "Töredezett szegmentális"
+            "2": "Ép szegmentális",
+            "3": "Darabos szegmentális"
         },
         "43A1": {
-            "1": "Egyszerű törés",
+            "1": "Egyszeres",
             "2": "Ék",
-            "3": "Többszörös törés"
+            "3": "Többszörös"
         },
         "43B1": {
             "1": "Repedés",
@@ -810,9 +916,9 @@ def get_ao_subsubseverity_details(ao_type):
             "3": "Benyómódás"
         },
         "43C1": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, többrészű metaphysealis törés",
-            "3": "Többszörös ízületi és többrészű metaphysealis törés"
+            "1": "Egyszerű ízületi, egyszerű metaphysealis",
+            "2": "Egyszerű ízületi, többszörös metaphysealis",
+            "3": "Többszörös ízületi és többszörös metaphysealis"
         },
 
     }
@@ -910,88 +1016,31 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "u": "DRUJ instabil"
         },
         "31A1.1": {
-            "1": "Egyszerű pertrochantericus törés",
-            "2": "Többszörös pertrochantericus törés",
-            "3": "Intertrochantericus (fordított dőlésszög)"
+            "n": "Trochanter major",
+            "o": "Trochanter minor",
         },
-        "31A1.2": {
-            "1": "Egyszerű pertrochantericus törés",
-            "2": "Többszörös pertrochantericus törés",
-            "3": "Intertrochantericus (fordított dőlésszög)"
+        "31B2.1": {
+            "p": "Pauwels 1 (<30°)",
+            "q": "Pauwels 2 (30–70°)",
+            "r": "Pauwels 3 (>70°)"
         },
-        "31B1.1": {
-            "1": "Subcapitalis törés",
-            "2": "Transcervicalis törés",
-            "3": "Basicervicalis törés"
+        "33B3.2": {
+            "f": "Lateralis condylus",
+            "h": "Medialis condylus",
         },
-        "31B1.2": {
-            "1": "Subcapitalis törés",
-            "2": "Transcervicalis törés",
-            "3": "Basicervicalis törés"
+        "33C2.1": {
+            "f": "Lateralis condylus",
+            "h": "Medialis condylus",
         },
-        "31C1.1": {
-            "1": "Repedés",
-            "2": "Benyomódás"
+        "33C2.2": {
+            "f": "Lateralis condylus",
+            "h": "Medialis condylus",
         },
-        "31C1.2": {
-            "1": "Repedés",
-            "2": "Benyomódás"
-        },
-        "32A1.1": {
-            "1": "Spirális törés",
-            "2": "Ferdevágású törés (≥ 30°)",
-            "3": "Haránt törés (< 30°)"
-        },
-        "32A1.2": {
-            "1": "Spirális törés",
-            "2": "Ferdevágású törés (≥ 30°)",
-            "3": "Haránt törés (< 30°)"
-        },
-        "32B2.1": {
-            "1": "Ép ék",
-            "2": "Töredezett ék"
-        },
-        "32B2.2": {
-            "1": "Ép ék",
-            "2": "Töredezett ék"
-        },
-        "32C2.1": {
-            "1": "Ép szegmentális",
-            "2": "Töredezett szegmentális"
-        },
-        "32C2.2": {
-            "1": "Ép szegmentális",
-            "2": "Töredezett szegmentális"
-        },
-        "33A1.1": {
-            "1": "Avulsiós törés",
-            "2": "Egyszerű törés",
-            "3": "Ék vagy többrészű törés"
-        },
-        "33A1.2": {
-            "1": "Avulsiós törés",
-            "2": "Egyszerű törés",
-            "3": "Ék vagy többrészű törés"
-        },
-        "33B1.1": {
-            "1": "Lateralis condylus, sagittalis törés",
-            "2": "Medialis condylus, sagittalis törés",
-            "3": "Frontalis/coronalis törés"
-        },
-        "33B1.2": {
-            "1": "Lateralis condylus, sagittalis törés",
-            "2": "Medialis condylus, sagittalis törés",
-            "3": "Frontalis/coronalis törés"
-        },
-        "33C1.1": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, ék vagy többrészű metaphysealis törés",
-            "3": "Többszörös ízületi, ék vagy többrészű metaphysealis törés"
-        },
-        "33C1.2": {
-            "1": "Egyszerű ízületi, egyszerű metaphysealis törés",
-            "2": "Egyszerű ízületi, ék vagy többrészű metaphysealis törés",
-            "3": "Többszörös ízületi, ék vagy többrészű metaphysealis törés"
+        "33C3.2": {
+            "f": "Lateralis condylus",
+            "h": "Medialis condylus",
+            "s": "Ép ék",
+            "l": "Darabos ék"
         },
         "41A1.1": {
             "1": "Avulsiós törés",
@@ -1097,22 +1146,22 @@ def neer_classification(sub_sub_reg):
             "IV": "Trochlea"
         },
         "Humerus diaphysis": {
-            "I": "Spirális törés",
-            "II": "Ferde törés",
-            "III": "Keresztirányú törés",
-            "IV": "Komplex törés"
+            "I": "Spirál",
+            "II": "Ferde",
+            "III": "Haránt",
+            "IV": "Komplex"
         },
         "Proximalis femur": {
-            "I": "Subcapitalis törés",
-            "II": "Transcervicalis törés",
-            "III": "Basicervicalis törés",
-            "IV": "Intertrochanterikus törés"
+            "I": "Subcapitalis",
+            "II": "Transcervicalis",
+            "III": "Basicervicalis",
+            "IV": "Intertrochanterikus"
         },
         "Distalis femur": {
-            "I": "Condylar törés",
-            "II": "Intercondylar törés",
-            "III": "Supracondylar törés",
-            "IV": "Complex törés"
+            "I": "Condylaris",
+            "II": "Intercondylaris",
+            "III": "Supracondylaris",
+            "IV": "Komplex"
         }
     }
 
