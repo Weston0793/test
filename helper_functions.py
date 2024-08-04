@@ -541,7 +541,7 @@ def get_ao_subtype_details(ao_type):
         },
         "34C": {
             "1": "Frontalis/coronalis, egyszeres",
-            "2": "Ék"
+            "2": "Ék",
             "3": "Többszörös"
         },
         "41A": {
