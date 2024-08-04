@@ -108,7 +108,7 @@ def select_associated_conditions():
 def select_subregion(main_reg):
     regions = {
         "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
-        "Alsó végtag": ["", "Medence", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
+        "Alsó végtag": ["", "Pelvis", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
         "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbalis", "Sacrum", "Coccyx"],
         "Koponya": ["", "Arckoponya", "Mandibula", "Calvaria", "Koponyaalap", "Fog"],
         "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív", "Mell"],
@@ -122,9 +122,9 @@ def select_sub_subregion(sub_reg):
         "Humerus": ["", "Humerus diaphysis"],
         "Könyök": ["", "Distalis humerus", "Proximalis ulna", "Proximalis radius"],
         "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
-        "Csukló": ["", "Distalis radius", "Distalis ulna", "Carpus"],
+        "Csukló": ["", "Distalis radius", "Distalis ulna", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
-        "Pelvis": ["", "Ramus pubicus",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
+        "Pelvis": ["", "Medencegyűrű", "Ramus pubicus",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
         "Csípő": ["", "Acetabulum", "Proximalis femur"],
         "Femur": ["", "Femur diaphysis",  "Bisphosphonáthoz kapcsolódó"],
         "Térd": ["", "Distalis femur", "Avulsio", "Patella",  "Proximalis tibia", "Proximalis fibula"],
@@ -152,10 +152,12 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Proximalis radius": ["", "Radius fej", "Radius nyak"],
         "Distalis radius": ["", "Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"],
         "Distalis ulna": ["", "Processus styloideus ulnae"], 
-        "Carpus": ["", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
+        "Scaphoideum": ["", "De Quervain", ],
+        "Hamatum": ["", "Hamulus"],
         "Metacarpus": ["",  "Boxer", "Fordított Bennett"],
         "Pollex": ["", "Distalis phalanx", "Proximalis phalanx", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
         "Phalanx": ["", "Distalis phalanx", "Középső phalanx", "Proximalis phalanx"],
+        "Medencegyűrű": ["",""],
         "Proximalis femur": ["", "Femur fej", "Femur nyak", "Trochanterikus"],
         "Avulsio": ["", "Lig. cruciatum anterior avulsio", " Lig. cruciatum posterior avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Lig. iliotibiale avulsio", "Semimembranosus tendon avulsio","Segond", "Fordított Segond", "Stieda (MCL avulsion fracture)"],
         "Proximalis tibia": ["", "Tibia plateau"],
@@ -184,8 +186,6 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Humerus condylus": ["", "Medialis", "Lateralis"],
         "Epicondylus": ["", "Medialis", "Lateralis"],
         "Supracondylaris": ["", "Extensio", "Flexio"],
-        "Scaphoideum": ["", "De Quervain", ],
-        "Hamatum": ["", "Hamulus"],
         "Distalis phalanx": ["", "Basis", "Corpus", "Caput", "Jersey Finger", "Mallet Finger", "Seymour"],
         "Középső phalanx": ["", "Basis", "Corpus", "Caput", "Volar Plate avulsio", "Pilon"],
         "Proximalis phalanx": ["", "Basis", "Corpus", "Caput"],
@@ -310,8 +310,57 @@ def ao_classification(sub_sub_reg):
             "44B": "Transsyndesmoticus fibula",
             "44C": "Suprasyndesmoticus fibula"
         },
+        "Medencegyűrű": {
+            "61A": "Ép posterior ív",
+            "61B": "Inkomplett posterior ív disruptio",
+            "61C": "Komplett posterior ív disruptio"
+        },
+        "Acetabulum": {
+            "62A": "Részleges ízületi, izolált oszlop és/vagy fal",
+            "62B": "Részleges ízületi, haránt",
+            "62C": "Teljes ízületi, mindkét oszlop"
+        },
+        "Lunatum": {
+            "71A": "Avulsiós",
+            "71B": "Egyszerű",
+            "71C": "Többszörös"
+        }, 
+        "Scaphoideum": {
+            "72A": "Avulsiós",
+            "72B": "Egyszerű",
+            "72C": "Többszörös"
+        },
+        "Capitatum": { 
+            "73A": "Avulsiós",
+            "73B": "Egyszerű",
+            "73C": "Többszörös"
+        }, 
+        "Hamatum": {
+            "74A": "Avulsiós",
+            "74B": "Egyszerű",
+            "74C": "Többszörös"
+        },
+        "Trapesium": {
+            "75A": "Avulsiós",
+            "75B": "Egyszerű",
+            "75C": "Többszörös"
+        },
+        "Pisiforme": {, 
+            "76.1.A": "Avulsiós",
+            "76.1.B": "Egyszerű",
+            "76.1.C": "Többszörös"
+        },
+        "Triquetrum": {
+            "76.2.A": "Avulsiós",
+            "76.2.B": "Egyszerű",
+            "76.2.C": "Többszörös"
+        },
+        "Trapesoideum": {, 
+            "76.3.A": "Avulsiós",
+            "76.3.B": "Egyszerű",
+            "76.3.C": "Többszörös"
+        }
     }
-
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
         return None, None, None
