@@ -908,12 +908,12 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "32C2": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "32C3": {
             "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis"
+            "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
         },
         "33A1": {
