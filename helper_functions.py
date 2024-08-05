@@ -423,7 +423,131 @@ def ao_classification(sub_sub_reg):
             "88.X.2": "Diaphysealis",
             "88.X.3": "Distalis"
         },
-        
+        "C1-Atlas": 
+            "51.1.A": "Corpus vertebrae, kompressziós sérülés",
+            "51.1.B": "Tension band injury",
+            "51.1.C": "Elmozdulás/Translational"      
+         },
+        "C2-Axis":
+            "51.2.A": "Corpus vertebrae, kompressziós sérülés",
+            "51.2.B": "Tension band injury",
+            "51.2.C": "Elmozdulás/Translational"      
+         },
+        "C3": 
+            "51.3.A": "Corpus vertebrae, kompressziós sérülés",
+            "51.3.B": "Tension band injury",
+            "51.3.C": "Elmozdulás/Translational"      
+         },
+        "C4":
+            "51.4.A": "Corpus vertebrae, kompressziós sérülés",
+            "51.4.B": "Tension band injury",
+            "51.4.C": "Elmozdulás/Translational"      
+         },
+        "C5": 
+            "51.5.A": "Corpus vertebrae, kompressziós sérülés",
+            "51.5.B": "Tension band injury",
+            "51.5.C": "Elmozdulás/Translational"      
+         },
+        "C6":
+            "51.6.A": "Corpus vertebrae, kompressziós sérülés",
+            "51.6.B": "Tension band injury",
+            "51.6.C": "Elmozdulás/Translational"      
+         },
+        "C7": 
+            "51.7.A": "Corpus vertebrae, kompressziós sérülés",
+            "51.7.B": "Tension band injury",
+            "51.7.C": "Elmozdulás/Translational"      
+         },
+        "T1":
+            "52.1.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.1.B": "Tension band injury",
+            "52.1.C": "Elmozdulás/Translational"      
+         },
+        "T1":
+            "52.1.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.1.B": "Tension band injury",
+            "52.1.C": "Elmozdulás/Translational"      
+         },
+        "T2":
+            "52.2.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.2.B": "Tension band injury",
+            "52.2.C": "Elmozdulás/Translational"      
+         },
+        "T3":
+            "52.3.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.3.B": "Tension band injury",
+            "52.3.C": "Elmozdulás/Translational"      
+         },
+        "T4":
+            "52.4.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.4.B": "Tension band injury",
+            "52.4.C": "Elmozdulás/Translational"      
+         },
+        "T5":
+            "52.5.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.5.B": "Tension band injury",
+            "52.5.C": "Elmozdulás/Translational"      
+         },
+        "T6":
+            "52.6.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.6.B": "Tension band injury",
+            "52.6.C": "Elmozdulás/Translational"      
+         },
+        "T7":
+            "52.7.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.7.B": "Tension band injury",
+            "52.7.C": "Elmozdulás/Translational"      
+         },
+        "T8":
+            "52.8.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.8.B": "Tension band injury",
+            "52.8.C": "Elmozdulás/Translational"      
+         },
+        "T9":
+            "52.9.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.9.B": "Tension band injury",
+            "52.9.C": "Elmozdulás/Translational"      
+         },
+        "T10":
+            "52.10.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.10.B": "Tension band injury",
+            "52.10.C": "Elmozdulás/Translational"      
+         },
+        "T11":
+            "52.11.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.11.B": "Tension band injury",
+            "52.11.C": "Elmozdulás/Translational"      
+         },
+        "T12":
+            "52.12.A": "Corpus vertebrae, kompressziós sérülés",
+            "52.12.B": "Tension band injury",
+            "52.12.C": "Elmozdulás/Translational"      
+         },
+        "L1":
+            "53.1.A": "Corpus vertebrae, kompressziós sérülés",
+            "53.1.B": "Tension band injury",
+            "53.1.C": "Elmozdulás/Translational"      
+         },
+        "L2":
+            "53.2.A": "Corpus vertebrae, kompressziós sérülés",
+            "53.2.B": "Tension band injury",
+            "53.2.C": "Elmozdulás/Translational"      
+         },
+        "L3":
+            "53.3.A": "Corpus vertebrae, kompressziós sérülés",
+            "53.3.B": "Tension band injury",
+            "53.3.C": "Elmozdulás/Translational"      
+         },
+        "L4":
+            "53.4.A": "Corpus vertebrae, kompressziós sérülés",
+            "53.4.B": "Tension band injury",
+            "53.4.C": "Elmozdulás/Translational"      
+         },
+        "L5":
+            "53.5.A": "Corpus vertebrae, kompressziós sérülés",
+            "53.5.B": "Tension band injury",
+            "53.5.C": "Elmozdulás/Translational"      
+         }, 
     }
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
