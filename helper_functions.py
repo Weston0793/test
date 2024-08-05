@@ -1387,7 +1387,7 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "61C1": {
             ".1": "Ilium fracturával",
-            ".2": "Sacroiliacalis ízületen át"
+            ".2": "Sacroiliacalis ízületen át",
             ".3": "Sacrum fracturával"
         },
         "61C2": {
