@@ -108,7 +108,7 @@ def select_associated_conditions():
 def select_subregion(main_reg):
     regions = {
         "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
-        "Alsó végtag": ["", "Pelvis", "Csípő", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
+        "Alsó végtag": ["", "Pelvis", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
         "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbalis", "Sacrum", "Coccyx"],
         "Koponya": ["", "Arckoponya", "Mandibula", "Calvaria", "Koponyaalap", "Fog"],
         "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív", "Mell"],
@@ -124,13 +124,12 @@ def select_sub_subregion(sub_reg):
         "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
         "Csukló": ["", "Distalis radius", "Distalis ulna", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
-        "Pelvis": ["", "Medencegyűrű", "Ramus pubicus",  "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség", "Nyitott könyv"],
-        "Csípő": ["", "Acetabulum", "Proximalis femur"],
-        "Femur": ["", "Femur diaphysis",  "Bisphosphonáthoz kapcsolódó"],
+        "Pelvis": ["", "Medencegyűrű",  "Acetabulum", "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség"],
+        "Femur": ["","Proximalis femur", "Femur diaphysis", "Bisphosphonáthoz kapcsolódó"],
         "Térd": ["", "Distalis femur", "Avulsio", "Patella",  "Proximalis tibia", "Proximalis fibula"],
         "Lábszár": ["", "Tibia diaphysis", "Fibula diaphysis", "Tuberositas tibiae avulsio", "Maisonneuve"],
-        "Boka": ["", "Distalis tibia", "Distalis fibula", "Malleolaris", "Pilon"],
-        "Láb": ["", "Tarsus", "Metatarsus", "Hallux", "Lábujjak"],
+        "Boka": ["", "Distalis tibia", "Distalis fibula", "Malleolaris", "Talus"],
+        "Láb": ["", "Calcaneus", "Naviculare", "Cuneiforme mediale", "Cuneiforme intermedium", "Cuneiforme laterale", "Cuboideum", "Metatarsus", "Hallux", "Lábujj"],
         "Cervicalis": ["", "C1-Atlas", "C2-Axis", "C3", "C4", "C5", "C6", "C7"],
         "Thoracalis": ["", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"],
         "Lumbalis": ["", "L1", "L2", "L3", "L4", "L5"],   
@@ -152,19 +151,21 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Proximalis radius": ["", "Radius fej", "Radius nyak"],
         "Distalis radius": ["", "Chauffeur", "Colles", "Smith", "Barton", "Fordított Barton"],
         "Distalis ulna": ["", "Processus styloideus ulnae"], 
-        "Scaphoideum": ["", "De Quervain", ],
+        "Scaphoideum": ["", "De Quervain"],
         "Hamatum": ["", "Hamulus"],
         "Metacarpus": ["",  "Boxer", "Fordított Bennett"],
-        "Pollex": ["", "Distalis phalanx", "Proximalis phalanx", "Gamekeeper's Thumb", "Epibasal", "Rolando", "Bennett"],
+        "Pollex": ["", "Distalis phalanx", "Proximalis phalanx", "Gamekeeper's Thumb", "Epibasalis", "Rolando", "Bennett"],
         "Phalanx": ["", "Distalis phalanx", "Középső phalanx", "Proximalis phalanx"],
-        "Medencegyűrű": ["",""],
+        "Medencegyűrű": ["", "Nyitott könyv", "Ramus pubicus"],
         "Proximalis femur": ["", "Femur fej", "Femur nyak", "Trochanterikus"],
-        "Avulsio": ["", "Lig. cruciatum anterior avulsio", " Lig. cruciatum posterior avulsio", "Arcuatus komplex avulsio (arcuatus jel)", "Biceps femoris avulsio", "Lig. iliotibiale avulsio", "Semimembranosus tendon avulsio","Segond", "Fordított Segond", "Stieda (MCL avulsion fracture)"],
+        "Avulsio": ["", "Lig. cruciatum anterior", " Lig. cruciatum posterior", "Arcuatus komplex (arcuatus jel)", "Biceps femoris", "Lig. iliotibiale", "Semimembranosus ín", "Segond", "Fordított Segond", "Stieda (MCL avulsiós törés)"],
         "Proximalis tibia": ["", "Tibia plateau"],
         "Proximalis fibula": ["", "Fibula fej", "Fibula nyak"],
         "Distalis tibia": ["", "Pilon"],
         "Malleolaris": ["",  "Bimalleolaris", "Trimalleolaris", "Triplane", "Tillaux", "Bosworth", "Wagstaffe-Le Fort"],
-        "Tarsus": ["", "Chopart", "Calcaneus", "Talus", "Naviculare", "Medialis cuneiformis", "Középső cuneiformis", "Lateral cuneiformis", "Cuboideum"],
+        "Calcaneus": ["", "Lover's", "Calcaneus tuberositas avulsio"],
+        "Talus": ["", "Talus test", "Talus nyak", "Talus fej", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"],
+        "Cuboideum": ["", "Nutcracker"],
         "Metatarsus": ["", "March", "Lisfranc törés-luxatio", "V. metatarsus stressz törés", "Jones", "Pseudo-Jones", "V. metatarsus proximalis avulsio"],
         "C1-Atlas": ["","Jefferson"],
         "C2-Axis": ["", "Dens axis", "Csigolyatest", "Hangman"],
@@ -191,9 +192,6 @@ def select_sub_sub_sub_subregion(sub_sub_sub_reg):
         "Proximalis phalanx": ["", "Basis", "Corpus", "Caput"],
         "Femur nyak": ["", "Subcapitalis", "Transcervicalis", "Basicervicalis"],
         "Trochanterikus": ["", "Pertrochanterikus", "Intertrochanterikus", "Subtrochanterikus"],
-        "Calcaneus": ["", "Lover's", "Calcaneus tuberositas avulsio"],
-        "Talus": ["", "Talus fej", "Talus test", "Talus nyak", "Talus kupola", "Posterior talus processus", "Lateralis talus processus", "Aviator astragalus"],
-        "Cuboideum": ["", "Nutcracker"],
         "Dens axis": ["", "Dens csúcs", "Dens basis", "Csigolyatestre terjedő"]
     }
     return st.selectbox("Legpontosabb régió", sub_sub_sub_regions.get(sub_sub_sub_reg, [""]))  
@@ -202,10 +200,10 @@ def select_finger(sub_sub_regions):
     side = st.selectbox("Oldal", ["Bal", "Jobb"])
     
     finger = None
-    if sub_sub_regions in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujjak", "Pollex", "Hallux"]:
+    if sub_sub_regions in ["Metacarpus", "Phalanx", "Metatarsus", "Lábujj", "Pollex", "Hallux"]:
         if sub_sub_regions in ["Pollex", "Hallux"]:
             finger = "I"
-        elif sub_sub_regions in ["Phalanx", "Lábujjak"]:
+        elif sub_sub_regions in ["Phalanx", "Lábujj"]:
             finger = st.selectbox("Ujj", ["II", "III", "IV", "V"])   
         else:
             finger = st.selectbox("Ujj", ["I", "II", "III", "IV", "V"])
@@ -228,6 +226,16 @@ def ao_classification(sub_sub_reg):
             "13B": "Részleges ízületi",
             "13C": "Teljes ízületi"
         },
+         "Scapula": {
+            "14A": "Processus",
+            "14B": "Corpus",
+            "14C": "Fossa glenoidale"
+        }, 
+         "Clavicula": {
+            "15.1": "Proximalis/medialis",
+            "15.2": "Diaphysealis",
+            "15.3": "Distalis/lateralis"
+        },         
         "Proximalis radius": {
             "2R1A": "Extraarticularis",
             "2R1B": "Részleges ízületi",
@@ -359,17 +367,63 @@ def ao_classification(sub_sub_reg):
             "76.3.A": "Avulsiós",
             "76.3.B": "Egyszerű",
             "76.3.C": "Többszörös"
-        }
+        },
         "Metacarpus": {
-            "77.X.1": "Proximális",
+            "77.X.1": "Proximalis",
             "77.X.2": "Diaphysealis",
             "77.X.3": "Distalis"
-        }
+        },
         "Phalanx": {
-            "78.X.X.1": "Proximális",
+            "78.X.X.1": "Proximalis",
             "78.X.X.2": "Diaphysealis",
             "78.X.X.3": "Distalis"
-        }
+        },
+        "Talus": {
+            "81.1": "Corpus",
+            "81.2": "Collum",
+            "81.3": "Caput"
+        },
+        "Calcaneus": {
+            "82A": "Extraarticularis",
+            "82B": "Nyelv-típusú, facies talaris posteriorig terjedő",
+            "82C": "Teljes ízületi"
+        },
+        "Naviculare": {
+            "83A": "Avulsiós",
+            "83B": "Részleges ízületi",
+            "83C": "Teljes ízületi"
+        },
+        "Cuboideum": {
+            "84A": "Avulsiós",
+            "84B": "Részleges ízületi",
+            "84C": "Teljes ízületi"
+        },
+        "Cuneiforme mediale": {
+            "85.1.A": "Avulsiós",
+            "85.1.B": "Részleges ízületi",
+            "85.1.C": "Teljes ízületi"
+        },
+        "Cuneiforme intermedium": {
+            "85.2.A": "Avulsiós",
+            "85.2.B": "Részleges ízületi",
+            "85.2.C": "Teljes ízületi"
+        },
+        "Cuneiforme laterale": {
+            "85.3.A": "Avulsiós",
+            "85.3.B": "Részleges ízületi",
+            "85.3.C": "Teljes ízületi"
+        },
+        "Metatarsus": {
+            "87.X.1": "Proximalis",
+            "87.X.2": "Diaphysealis",
+            "87.X.3": "Distalis"
+        },
+        "Lábujj": {
+            "88.X.1": "Proximalis",
+            "88.X.2": "Diaphysealis",
+            "88.X.3": "Distalis"
+        },
+        
     }
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
