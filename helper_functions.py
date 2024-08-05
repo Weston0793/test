@@ -1722,6 +1722,167 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "r": "Lig. deltoideum ruptúra",
             "s": "Medialis malleolus törés"
         },
+        "61B1.1": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis"
+        },     
+        "61B2.1": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis"
+        },
+        "61B2.2": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis"
+        }, 
+        "61B2.3": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis"
+        }, 
+        "61B3.1": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis"
+        },
+        "61B3.2": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis"
+        }, 
+        "61B3.3": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis"
+        }, 
+        "61C1.1": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "j": "Sacroiliacalis ízület fractura s dislocatio"            
+        },
+        "61C1.2": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "j": "Sacroiliacalis ízület fractura s dislocatio"   
+        }, 
+        "61C1.3": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "j": "Sacroiliacalis ízület fractura s dislocatio"   
+        }, 
+        "61C2.1": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "k": "Sacrum contralateralis posterior lateralis compressios laesio",           
+            "l": "Ilium (crescent) contralateralis posterior lateralis compressios laesio", 
+            "k": "Sacroiliacalis, contralateralis posterior kirotációs laesio",           
+            "l": "Dislocált fractura, contralateralis posterior kirotációs laesio"    
+        },
+        "61C2.2": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "k": "Sacrum contralateralis posterior lateralis compressios laesio",           
+            "l": "Ilium (crescent) contralateralis posterior lateralis compressios laesio", 
+            "k": "Sacroiliacalis, contralateralis posterior kirotációs laesio",           
+            "l": "Dislocált fractura, contralateralis posterior kirotációs laesio"    
+        },
+        "61C2.3": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "k": "Sacrum contralateralis posterior lateralis compressios laesio",           
+            "l": "Ilium (crescent) contralateralis posterior lateralis compressios laesio", 
+            "k": "Sacroiliacalis, contralateralis posterior kirotációs laesio",           
+            "l": "Dislocált fractura, contralateralis posterior kirotációs laesio"    
+        }, 
+        "61C3.1": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "h": "Ala ossis ili",            
+            "j": "Sacroiliacalis ízület disruptio"             
+        },
+        "61C3.2": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "h": "Ala ossis ili",            
+            "j": "Sacroiliacalis ízület disruptio"   
+        }, 
+        "61C3.3": {
+            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
+            "b": "Bilateralis ramus pubicus",
+            "c": "Contralateralis ramus pubicus",
+            "d": "Symphysis disruptio",
+            "e": "Parasymphysealis",
+            "f": "Dőlt (Tilt)",
+            "g": "Zárt (locked) symphysis",
+            "h": "Ala ossis ili",            
+            "j": "Sacroiliacalis ízület disruptio"   
+        }, 
     }
     return [f"{key} - {value}" for key, value in details.get(ao_subsubtype, {}).items()]
 
