@@ -1376,9 +1376,29 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Open book (APC1)",
         },
         "61B2": {
-            ".1": "Ala ossis ili",
-            ".2": "Unilateralis anterior ív fractura",
-            ".3": "Bilateralis anterior ív fractura"
+            ".1": "Lateralis kompressziós sacrum fractura (LC1), berotációs instabilitással (LC1)",
+            ".2": "Lateralis kompressziós ilium (crescent) fractura (LC2), berotációs instabilitással (LC1)",
+            ".3": "Open book vagy kirotációs instabilitás (APC2)"
+        },
+        "61B3": {
+            ".1": "Unilateralis berotációs instabilitás, contralateralis kirotációs instabilitással (LC3)",
+            ".2": "Bilateralis kompressziós sacrum fractura",
+            ".3": "Open book vagy kirotációs instabilitás (bilateralis APC2)"
+        },
+        "61C1": {
+            ".1": "Ilium fracturával",
+            ".2": "Sacroiliacalis ízületen át"
+            ".3": "Sacrum fracturával"
+        },
+        "61C2": {
+            ".1": "Teljes disruptio az iliumon át",
+            ".2": "Teljes disruptio a sacroiliacalis ízületen át",
+            ".3": "Sacrumon át"
+        },
+        "61C3": {
+            ".1": "Extrasacralis bilateralisan berotációs",
+            ".2": "Sacralis unilateralisan, extrasacralis contralateralisan",
+            ".3": "Sacralis bilateralisan"
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
