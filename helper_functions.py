@@ -109,10 +109,10 @@ def select_subregion(main_reg):
     regions = {
         "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
         "Alsó végtag": ["", "Pelvis", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
-        "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbalis", "Sacrum", "Coccyx"],
+        "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbalis", "Sacralis"],
         "Koponya": ["", "Arckoponya", "Mandibula", "Calvaria", "Koponyaalap", "Fog"],
-        "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív", "Mell"],
-        "Has": ["", "Máj", "Epehólyag", "Pancreas", "Lép", "Vese", "Húgyhólyag", "Gyomor", "Vékonybél", "Vastagbél" ]
+        "Mellkas": ["", "Thorax", "Tüdő", "Szív", "Mell"],
+        "Has": ["", "Gyomor", "Vékonybél", "Vastagbél", "Vese", "Húgyhólyag", "Máj", "Epehólyag", "Pancreas", "Lép"]
     }
     return st.selectbox("Régió", regions.get(main_reg, [""]))
 
@@ -132,12 +132,14 @@ def select_sub_subregion(sub_reg):
         "Láb": ["", "Calcaneus", "Naviculare", "Cuneiforme mediale", "Cuneiforme intermedium", "Cuneiforme laterale", "Cuboideum", "Metatarsus", "Hallux", "Lábujj"],
         "Cervicalis": ["", "C1-Atlas", "C2-Axis", "C3", "C4", "C5", "C6", "C7"],
         "Thoracalis": ["", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"],
-        "Lumbalis": ["", "L1", "L2", "L3", "L4", "L5"],   
+        "Lumbalis": ["", "L1", "L2", "L3", "L4", "L5"], 
+        "Sacralis": ["", "Sacrum", "Coccyx"], 
         "Arckoponya": ["", " Orrcsont", "Orbita", "Zygomaticum", "Arcus zygomaticus", "Processus alveolaris", "Panfacialis"], 
         "Mandibula": ["", "Corpus mandibulae", "Symphysis", "Szemfogtájék", "Szemfog és angulus között", "Angulus mandibulae", "Ramus mandibulae", "Processus articularis", "Processus muscularis"],  
         "Calvaria": ["", "Frontale", "Parietale", "Temporale", "Occipitale"], 
         "Koponyaalap": ["","Condylus occipitalis", "Fossa anterior", "Fossa mediale", "Fossa posterior"],
-        "Fog": ["","Szemfog", "Metszőfog", "Kisörlő", "Nagyörlő"]
+        "Fog": ["", "Szemfog", "Metszőfog", "Kisörlő", "Nagyörlő"],
+        "Thorax": ["", "Borda", "Sternum"]
     }
     return st.selectbox("Alrégió", sub_regions.get(sub_reg, [""]))
     
@@ -547,7 +549,12 @@ def ao_classification(sub_sub_reg):
             "53.5.A": "Corpus vertebrae, kompressziós sérülés",
             "53.5.B": "Tension band injury",
             "53.5.C": "Elmozdulás/Translational"      
-         }, 
+         },
+        "Sacrum": {
+            "54A": "Sacroiliacalis ízület ép, alsó szegmens sérülés",
+            "54B": "Sacroiliacalis ízület károsodott, felső szegmens sérülés",
+            "54C": "Spino-pelvicalis instabilitás"      
+         },
     }
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
