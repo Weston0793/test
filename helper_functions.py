@@ -555,6 +555,16 @@ def ao_classification(sub_sub_reg):
             "54B": "Sacroiliacalis ízület károsodott, felső szegmens sérülés",
             "54C": "Spino-pelvicalis instabilitás"      
          },
+        "Borda": {
+            "16.X.1": "Posterior (costotransversalis ízületek)",
+            "16.X.2": "Diaphysealis",
+            "16.X.3": "Anterior (costochondralis porc)"
+        },
+        "Sternum": {
+            "16.3.1": "Manubrium",
+            "16.3.2": "Corpus",
+            "16.3.3": "Xyphoideus"
+        }
     }
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
@@ -805,15 +815,30 @@ def get_ao_subtype_details(ao_type):
             "2": "Medialis malleolus",
             "3": "Posteromedialis"
         },
-        "43B": {
+        "44B": {
             "1": "Izolált fibula",
             "2": "Medialis sérüléssel",
             "3": "Medialis sérüléssel és posterolateralis peremtöréssel (Volkmann fragmentum)"
         },
-        "43C": {
+        "44C": {
             "1": "Egyszerű diaphysealis fibula",
             "2": "Ék vagy többszörös fibula",
             "3": "Proximalis fibula"
+        },
+        "61A": {
+            "1": "Avulsio",
+            "2": "Fractura",
+            "3": "Haránt törés (S3,4,5 és coccyx)"
+        },
+        "61B": {
+            "1": "Nincs rotációs instabilitás",
+            "2": "Rotációs instabilitás, unilateralis posterior sérülés",
+            "3": "Rotációs instabilitás, bilateralis sérülés"
+        },
+        "61C": {
+            "1": "Unilateralis posterior sérülés (APC3, vertikális nyírás (shear))",
+            "2": "Bilateralis posterior sérülés, hemipelvicus komplett disruptio, contralateralis hemipelvicus inkomplett disruptio (LC3)",
+            "3": "Bilateralis posterior sérülés, bilateralis komplett disruptio (APC3, vertikális nyírás (shear))"
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
@@ -1336,6 +1361,25 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Rövidülés s medialis oldal sérüléssel",
             ".3": "Medialis oldal sérüléssel s posterior malleolus törésekkel"
         },
+        "61A1": {
+            ".1": "Anterior superior spina iliaca",
+            ".2": "Anterior inferior spina iliaca",
+            ".3": "Tuber ischiadicum"
+        },
+        "61A2": {
+            ".1": "Ala ossis ili",
+            ".2": "Unilateralis anterior ív fractura",
+            ".3": "Bilateralis anterior ív fractura"
+        },
+        "61B1": {
+            ".1": "Lateralis kompressziós (LC1)",
+            ".2": "Open book (APC1)",
+        },
+        "61B2": {
+            ".1": "Ala ossis ili",
+            ".2": "Unilateralis anterior ív fractura",
+            ".3": "Bilateralis anterior ív fractura"
+        },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
 
@@ -1641,6 +1685,18 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "u": "Instabil syndesmosis"
         },
         "44C3.1": {
+            "p": "Fibula nyak törés",
+            "q": "Proximalis tibio-fibularis dislocatio",
+            "r": "Lig. deltoideum ruptúra",
+            "s": "Medialis malleolus törés"
+        },
+        "44C3.2": {
+            "p": "Fibula nyak törés",
+            "q": "Proximalis tibio-fibularis dislocatio",
+            "r": "Lig. deltoideum ruptúra",
+            "s": "Medialis malleolus törés"
+        },
+        "44C3.3": {
             "p": "Fibula nyak törés",
             "q": "Proximalis tibio-fibularis dislocatio",
             "r": "Lig. deltoideum ruptúra",
