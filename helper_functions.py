@@ -712,24 +712,15 @@ def get_ao_subtype_details(ao_type):
             "2": "Egyszerű ízületi, többszörös metaphysealis",
             "3": "Többszörös ízületi és többszörös metaphysealis"
         },
-        "4F1A": {
+        **{f"4F1{suffix}": {
             "n": "Extraarticularis",
-            "o": "Intraarticularis",
-        },
-        "4F1B": {
-            "n": "Extraarticularis",
-            "o": "Intraarticularis",
-        },
-        "4F2A": {
+            "o": "Intraarticularis"
+        } for suffix in ['A', 'B']},
+        **{f"4F2{suffix}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "4F2B": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
+        } for suffix in ['A', 'B']},
         "44A": {
             "1": "Izolált fibula",
             "2": "Medialis malleolus",
@@ -859,35 +850,25 @@ def get_ao_subtype_details(ao_type):
             "b": "Derék",
             "c": "Distalis pólus"
         },
-        "77.X.1": {
+        **{f"77.X.{i}": {
             "A": "Extraarticularis",
             "B": "Részleges ízületi",
             "C": "Teljes ízületi"
-        },
+        } for i in [1, 3]},
         "77.X.2": {
             "A": "Egyszeres",
             "B": "Ék",
             "C": "Többszörös"
         },
-        "77.X.3": {
+        **{f"78.X.X.{i}": {
             "A": "Extraarticularis",
             "B": "Részleges ízületi",
             "C": "Teljes ízületi"
-        },
-        "78.X.X.1": {
-            "A": "Extraarticularis",
-            "B": "Részleges ízületi",
-            "C": "Teljes ízületi"
-        },
+        } for i in [1, 3]},
         "78.X.X.2": {
             "A": "Egyszeres",
             "B": "Ék",
             "C": "Többszörös"
-        },
-        "78.X.X.3": {
-            "A": "Extraarticularis",
-            "B": "Részleges ízületi",
-            "C": "Teljes ízületi"
         },
         "81.1": {
             ".A": "Avulsio",
@@ -918,54 +899,34 @@ def get_ao_subtype_details(ao_type):
             "2": "Ízületi depressióval (Sanders 3)",
             "3": "Többszörös fractura (Sanders 4)"
         },  
-        "83B": {
+        **{f"83{suffix}": {
             "a": "Egyszeres",
-            "b": "Többszörös "
-        },
-        "83C": {
+            "b": "Többszörös"
+        } for suffix in ['B', 'C']},
+        **{f"84{suffix}": {
             "a": "Egyszeres",
-            "b": "Többszörös "
-        },
-        "84B": {
-            "a": "Egyszeres",
-            "b": "Többszörös "
-        },
-        "84C": {
-            "a": "Egyszeres",
-            "b": "Többszörös "
-        },
-        "87.X.1": {
+            "b": "Többszörös"
+        } for suffix in ['B', 'C']},
+        **{f"87.X.{i}": {
             "A": "Extraarticularis",
             "B": "Részleges ízületi",
             "C": "Teljes ízületi"
-        },
+        } for i in [1, 3]},
         "87.X.2": {
             "A": "Egyszeres",
             "B": "Ék",
             "C": "Többszörös"
         },
-        "87.X.3": {
+        **{f"88.X.{i}": {
             "A": "Extraarticularis",
             "B": "Részleges ízületi",
             "C": "Teljes ízületi"
-        },
-        "88.X.1": {
-            "A": "Extraarticularis",
-            "B": "Részleges ízületi",
-            "C": "Teljes ízületi"
-        },
+        } for i in [1, 3]},
         "88.X.2": {
             "A": "Egyszeres",
             "B": "Ék",
             "C": "Többszörös"
         },
-        "88.X.3": {
-            "A": "Extraarticularis",
-            "B": "Részleges ízületi",
-            "C": "Teljes ízületi"
-        },
-        
-
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
     
@@ -988,31 +949,16 @@ def get_ao_subsubseverity_details(ao_type):
             ".1": "Valgus impressiós",
             ".3": "Izolált collum anatomicum"
         },
-        "12A1": {
+        **{f"12A{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "12A2": {
+        } for i in range(1, 4)},
+        **{f"12B{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "12A3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "12B2": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "12B3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },        
+        } for i in range(2, 4)},       
         "12C2": {
             "i": "Proximalis diaphysealis-metaphysealis",
             "j": "Tisztán diaphysealis",
@@ -1066,24 +1012,15 @@ def get_ao_subsubseverity_details(ao_type):
             "2": "Ék metapysealis",
             "3": "Többszörös metapysealis"
         },
-        "14B1": {
+        **{f"14B{i}": {
             "l": "Lateralis határon át lép ki a törés",
             "m": "Medialis határon át lép ki a törés",
             "s": "Superior határon át lép ki a törés",
             "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit)",
             "x": "Coracoid P1",
             "y": "Acromion P2",
-            "x": "Mindkettő P3"
-        },        
-        "14B2": {
-            "l": "Lateralis határon át lép ki a törés",
-            "m": "Medialis határon át lép ki a törés",
-            "s": "Superior határon át lép ki a törés",
-            "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit)",
-            "x": "Coracoid P1",
-            "y": "Acromion P2",
-            "x": "Mindkettő P3"
-        },  
+            "z": "Mindkettő P3"
+        } for i in [1, 2]}, 
         "14F1": {
             ".1": "Anterior perem",
             ".2": "Posterior perem",
@@ -1108,76 +1045,36 @@ def get_ao_subsubseverity_details(ao_type):
             "p": "<50%",
             "q": "≥50%"            
         },
-        "2R2A1": {
+        **{f"2R2A{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "2R2A2": {
+        } for i in range(1, 4)},
+        **{f"2U2A{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "2R2A3": {
+        } for i in range(1, 4)},
+        **{f"2R2B{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "2U2A1": {
+        } for i in range(2, 4)},
+        **{f"2U2B{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "2U2A2": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "2U2A3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "2R2B2": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "2R2B3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "2U2B2": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "2U2B3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "2R2C2": {
+        } for i in range(2, 4)},
+        **{f"2R2C{i}": {
             "i": "Proximalis diaphysealis-metaphysealis",
             "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
-        },
-        "2R2C3": {
+        } for i in range(2, 4)},
+        **{f"2U2C{i}": {
             "i": "Proximalis diaphysealis-metaphysealis",
             "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
-        },
-        "2U2C2": {
-            "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis",
-            "k": "Distalis diaphysealis-metaphysealis"
-        },
-        "2U2C3": {
-            "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis",
-            "k": "Distalis diaphysealis-metaphysealis"
-        },
+        } for i in range(2, 4)},
         "2R3A2": {
             ".1": "Haránt, elmozdulás/dőlés nélkül (esetleg rövidülés)",
             ".2": "Dorsalis elmozdulás/dőlés (Colles)",
@@ -1259,31 +1156,16 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Benyomódott, impaktált",
             ".3": "Repedt, benyomódott"
         },
-        "32A1": {
+        **{f"32A{suffix}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "32A2": {
+        } for suffix in ['1', '2', '3']},
+        **{f"32B{suffix}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "32A3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "32B2": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "32B3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
+        } for suffix in ['2', '3']},
         "32C2": {
             "i": "Proximalis diaphysealis-metaphysealis",
             "j": "Tisztán diaphysealis",
@@ -1399,31 +1281,16 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Darabos medialis plateu",
             ".3": "Többszörös lateralis és medialis plateu"
         }, 
-        "42A1": {
+        **{f"42A{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "42A2": {
+        } for i in range(1, 4)},
+        **{f"42B{i}": {
             "a": "Proximalis 1/3",
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
-        },
-        "42A3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "42B2": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
-        "42B3": {
-            "a": "Proximalis 1/3",
-            "b": "Középső 1/3",
-            "c": "Distalis 1/3"
-        },
+        } for i in range(2, 4)},
         "42C3": {
             "i": "Proximalis diaphysealis-metaphysealis",
             "j": "Tisztán diaphysealis",
@@ -1444,21 +1311,11 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Több mint három középső darab",
             ".3": "Diaphysist is érintő"
         },
-        "43B1": {
+        **{f"43B{i}": {
             ".1": "Frontalis/coronalis",
             ".2": "Sagittalis",
-            ".3": "Darabos metaphysealis"
-        },
-        "43B2": {
-            ".1": "Frontalis/coronalis",
-            ".2": "Sagittalis",
-            ".3": "Centrális fragmentum"
-        },
-        "43B3": {
-            ".1": "Frontalis/coronalis",
-            ".2": "Sagittalis",
-            ".3": "Darabos metaphysealis"
-        },
+            ".3": "Darabos metaphysealis" if i in [1, 3] else "Centrális fragmentum"
+        } for i in range(1, 4)},
         "43C1": {
             ".1": "Impaktációmentes",
             ".2": "Epiphysealis benyomódás",
@@ -1474,16 +1331,11 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Epiphysealis-metaphysealis",
             ".3": "Epiphysealis-metaphysealis-diaphysisealis"
         },
-        "44A1": {
+        **{f"44A{i}": {
             ".1": "Lig. collaterale laterale ruptúra",
             ".2": "Lateralis malleolus csúcs avulsiós törés",
             ".3": "Lateralis malleolus haránt törés"
-        },
-        "44A2": {
-            ".1": "Lig. collaterale laterale ruptúra",
-            ".2": "Lateralis malleolus csúcs avulsiós törés",
-            ".3": "Lateralis malleolus haránt törés"
-        },
+        } for i in range(1, 3)},
         "44A3": {
             ".1": "Lig. collaterale laterale ruptúra és posteromedialis törés",
             ".2": "Lateralis malleolus csúcs avulsiós és posteromedialis törés",
@@ -1504,16 +1356,11 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Medialis malleolus töréssel",
             ".3": "Ék vagy többszörös fibula törés, medialis malleolus töréssel"
         },
-        "44C1": {
+        **{f"44C{i}": {
             ".1": "Egyszerű, lig. deltoideum ruptúra",
             ".2": "Medialis malleolus töréssel",
             ".3": "Medialis s posterior malleolus törésekkel"
-        },
-        "44C2": {
-            ".1": "Egyszerű, lig. deltoideum ruptúra",
-            ".2": "Medialis malleolus töréssel",
-            ".3": "Medialis s posterior malleolus törésekkel"
-        },
+        } for i in range(1, 3)},
         "44C3": {
             ".1": "Medialis oldal sérüléssel",
             ".2": "Rövidülés s medialis oldal sérüléssel",
@@ -1587,24 +1434,12 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Felső anterior oszlop (columna) (crista ilicán át)",
             ".3": "Alsó anterior oszlop (columna) (SIAS-on át)"
         },
-        "62C1": {
+        **{f"62C{i}": {
             "d": "Mindkét oszlop (columna)",
             "e": "Többszörös, anterior oszlop (columna)",
             "f": "Többszörös, posterior oszlop (columna)",
             "g": "Többszörös, mindkét oszlop (columna)"
-        },
-        "62C2": {
-            "d": "Mindkét oszlop (columna)",
-            "e": "Többszörös, anterior oszlop (columna)",
-            "f": "Többszörös, posterior oszlop (columna)",
-            "g": "Többszörös, mindkét oszlop (columna)"
-        },
-        "62C3": {
-            "d": "Mindkét oszlop (columna)",
-            "e": "Többszörös, anterior oszlop (columna)",
-            "f": "Többszörös, posterior oszlop (columna)",
-            "g": "Többszörös, mindkét oszlop (columna)"
-        },
+        } for i in range(1, 4)},
         **{f"81.2.{suffix}": {
             "a": "Egyszeres",
             "b": "Többszörös"
