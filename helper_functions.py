@@ -1227,7 +1227,6 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Medialis plateu",
             **({".3": "Ferde, érinti a tibia gerincét (spine) és egy plateut"} if i in [1, 3] else {})
         } for i in range(1, 4)},
-        },
         "41C1": {
             ".1": "Intercondylaris eminentia érintettség nélkül",
             ".2": "Intercondylaris eminentia érintettséggel",
