@@ -1587,7 +1587,7 @@ def get_ao_subsubseverity_details(ao_type):
             "l": "Lateralis határon át lép ki a törés",
             "m": "Medialis határon át lép ki a törés",
             "s": "Superior határon át lép ki a törés",
-            "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit),
+            "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit)",
             "x": "Coracoid P1",
             "y": "Acromion P2",
             "x": "Mindkettő P3"
@@ -1596,7 +1596,7 @@ def get_ao_subsubseverity_details(ao_type):
             "l": "Lateralis határon át lép ki a törés",
             "m": "Medialis határon át lép ki a törés",
             "s": "Superior határon át lép ki a törés",
-            "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit),
+            "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit)",
             "x": "Coracoid P1",
             "y": "Acromion P2",
             "x": "Mindkettő P3"
