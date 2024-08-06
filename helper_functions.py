@@ -1605,51 +1605,22 @@ def get_ao_subsubseverity_details(ao_type):
             "f": "Többszörös, posterior oszlop (columna)",
             "g": "Többszörös, mindkét oszlop (columna)"
         },
-        "81.2.B": {
+        **{f"81.2.{suffix}": {
             "a": "Egyszeres",
             "b": "Többszörös"
-        },        
-        "81.2.C": {
+        } for suffix in ['B', 'C', 'D']},
+        **{f"81.3.{suffix}": {
             "a": "Egyszeres",
             "b": "Többszörös"
-        },  
-        "81.2.D": {
+        } for suffix in ['B', 'C']},
+        **{f"87.X.1{suffix}": {
             "a": "Egyszeres",
             "b": "Többszörös"
-        },   
-        "81.3.B": {
+        } for suffix in ['A', 'B', 'C']},
+        **{f"87.X.3{suffix}": {
             "a": "Egyszeres",
             "b": "Többszörös"
-        },  
-        "81.3.C": {
-            "a": "Egyszeres",
-            "b": "Többszörös"
-        },   
-        "87.X.1A": {
-            "a": "Egyszeres",
-            "b": "Többszörös"
-        },
-        "87.X.1B": {
-            "a": "Egyszeres",
-            "b": "Többszörös"
-        },
-        "87.X.1C": {
-            "a": "Egyszeres",
-            "b": "Többszörös"
-        },
-        "87.X.3A": {
-            "a": "Egyszeres",
-            "b": "Többszörös"
-        },
-        "87.X.3B": {
-            "a": "Egyszeres",
-            "b": "Többszörös"
-        },
-        "87.X.3C": {
-            "a": "Egyszeres",
-            "b": "Többszörös"
-        },
-
+        } for suffix in ['A', 'B', 'C']},
         "87.X.3": {
             "A": "Extraarticularis",
             "B": "Részleges ízületi",
@@ -1776,80 +1747,42 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "o": "Anterior",
             "p": "Posterior"
         },
-        "41A3.1": {
+        **{f"41A3.{i}": {
             "f": "Lateralis",
             "h": "Medialis"
-        },
-        "41A3.2": {
-            "f": "Lateralis",
-            "h": "Medialis"
-        },
+        } for i in range(1, 3)},
         "41B1.3": {
             "f": "Lateralis",
             "h": "Medialis"
         },
-        "41B2.1": {
+        **{f"41B2.{i}": {
             "t": "Anterolateralis (AL)",
             "u": "Posterolateralis (PL)",
-            "x": "Centralis"          
-        },
-        "41B2.2": {
+            "x": "Centralis"
+        } for i in [1, 3]},
+        **{f"41B3.{i}": {
             "v": "Anteromedialis (AM)",
             "w": "Posteromedialis (PM)",
-            "x": "Centralis"          
-        },
-        "41B3.1": {
-            "t": "Anterolateralis (AL)",
-            "u": "Posterolateralis (PL)",
-            "x": "Centralis"          
-        },
-        "41B3.2": {
-            "v": "Anteromedialis (AM)",
-            "w": "Posteromedialis (PM)",
-            "x": "Centralis"          
-        },
+            "x": "Centralis"
+        } for i in [1, 2]},
         "41B3.3": {
             "f": "Lateralis",
             "h": "Medialis"
         },
-        "41C2.1": {
+        **{f"41C2.{i}": {
             "f": "Lateralis",
             "h": "Medialis"
-        },
-        "41C2.2": {
-            "f": "Lateralis",
-            "h": "Medialis"
-        },
-        "41C3.1": {
+        } for i in range(1, 3)},
+        **{f"41C3.{i}": {
             "d": "Egyszerű metaphysealis",
-            "u": "Többszörös metaphysealis",
-            "v": "Meta-diaphysealis kiterjedés",            
+            "u1": "Többszörös metaphysealis",
+            "v1": "Meta-diaphysealis kiterjedés",            
             "t": "Anterolateralis (AL)",
-            "u": "Posterolateralis (PL)",
-            "v": "Anteromedialis (AM)",
+            "u2": "Posterolateralis (PL)",
+            "v2": "Anteromedialis (AM)",
             "w": "Posteromedialis (PM)",
             "x": "Centralis"  
-        },
-        "41C3.2": {
-            "d": "Egyszerű metaphysealis",
-            "u": "Többszörös metaphysealis",
-            "v": "Meta-diaphysealis kiterjedés",            
-            "t": "Anterolateralis (AL)",
-            "u": "Posterolateralis (PL)",
-            "v": "Anteromedialis (AM)",
-            "w": "Posteromedialis (PM)",
-            "x": "Centralis"  
-        },
-        "41C3.3": {
-            "d": "Egyszerű metaphysealis",
-            "u": "Többszörös metaphysealis",
-            "v": "Meta-diaphysealis kiterjedés",            
-            "t": "Anterolateralis (AL)",
-            "u": "Posterolateralis (PL)",
-            "v": "Anteromedialis (AM)",
-            "w": "Posteromedialis (PM)",
-            "x": "Centralis"  
-        },
+        } for i in range(1, 4)},
         "43B1.1": {
             "o": "Anterior",
             "y": "Posterior Volkmann"
@@ -1874,110 +1807,53 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "f": "Lateralis",
             "h": "Medialis"
         },
-        "43C1.1": {
+        **{f"43C{i}.1": {
             "q": "Frontalis/coronalis sík",
             "r": "Sagittalis sík"
-        },
-        "43C2.1": {
-            "q": "Frontalis/coronalis sík",
-            "r": "Sagittalis sík"
-        },
-        "44B1.1": {
+        } for i in range(1, 3)},
+        **{f"44B1.{i}": {
             "n": "Tillaux-Chaput",
             "o": "Wagstaffe-Le Fort",
             "u": "Instabil syndesmosis",
-        },
-        "44B1.2": {
+        } for i in range(1, 4)},
+        **{f"44B2.{i}": {
             "n": "Tillaux-Chaput",
             "o": "Wagstaffe-Le Fort",
             "u": "Instabil syndesmosis",
-        },
-        "44B1.3": {
-            "n": "Tillaux-Chaput",
-            "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis",
-        },
-        "44B2.1": {
-            "n": "Tillaux-Chaput",
-            "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis",
-        },
-        "44B2.2": {
-            "n": "Tillaux-Chaput",
-            "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis",
-        },
+        } for i in range(1, 3)},
         "44B2.3": {
             "r": "Lig. deltoideum ruptúra",
             "s": "Medialis malleolus töréssel",
             "u": "Instabil syndesmosis"
         },
-        "44B3.1": {
+        **{f"44B3.{i}": {
             "n": "Tillaux-Chaput",
             "o": "Wagstaffe-Le Fort",
             "u": "Instabil syndesmosis"
-        },
-        "44B3.2": {
-            "n": "Tillaux-Chaput",
-            "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis"
-        },
-        "44B3.3": {
-            "n": "Tillaux-Chaput",
-            "o": "Wagstaffe-Le Fort",
-            "u": "Instabil syndesmosis"
-        },
-        "44C1.1": {
+        } for i in range(1, 4)},
+        **{f"44C1.{i}": {
             "t": "Stabil syndesmosis",
             "u": "Instabil syndesmosis"
-        },
-        "44C1.2": {
+        } for i in range(1, 4)},
+        **{f"44C2.{i}": {
             "t": "Stabil syndesmosis",
             "u": "Instabil syndesmosis"
-        },
-        "44C1.3": {
-            "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis"
-        },
-        "44C2.1": {
-            "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis"
-        },
-        "44C2.2": {
-            "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis"
-        },
-        "44C2.3": {
-            "t": "Stabil syndesmosis",
-            "u": "Instabil syndesmosis"
-        },
-        "44C3.1": {
+        } for i in range(1, 4)},
+        **{f"44C3.{i}": {
             "p": "Fibula nyak törés",
             "q": "Proximalis tibio-fibularis dislocatio",
             "r": "Lig. deltoideum ruptúra",
             "s": "Medialis malleolus törés"
-        },
-        "44C3.2": {
-            "p": "Fibula nyak törés",
-            "q": "Proximalis tibio-fibularis dislocatio",
-            "r": "Lig. deltoideum ruptúra",
-            "s": "Medialis malleolus törés"
-        },
-        "44C3.3": {
-            "p": "Fibula nyak törés",
-            "q": "Proximalis tibio-fibularis dislocatio",
-            "r": "Lig. deltoideum ruptúra",
-            "s": "Medialis malleolus törés"
-        },
-        "61B1.1": {
+        } for i in range(1, 4)},
+        **{f"61B1.{i}": {
             "a": "Ipsilateralis vagy unilateralis ramus pubicus",
             "b": "Bilateralis ramus pubicus",
             "c": "Contralateralis ramus pubicus",
             "e": "Parasymphysealis",
             "f": "Dőlt (Tilt)",
             "g": "Zárt (locked) symphysis"
-        },     
-        "61B2.1": {
+        } for i in range(1, 2)},
+        **{f"61B2.{i}": {
             "a": "Ipsilateralis vagy unilateralis ramus pubicus",
             "b": "Bilateralis ramus pubicus",
             "c": "Contralateralis ramus pubicus",
@@ -1985,50 +1861,16 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "e": "Parasymphysealis",
             "f": "Dőlt (Tilt)",
             "g": "Zárt (locked) symphysis"
-        },
-        "61B2.2": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis"
-        }, 
-        "61B2.3": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis"
-        }, 
-        "61B3.1": {
+        } for i in range(1, 4)},
+        **{f"61B3.{i}": {
             "a": "Ipsilateralis vagy unilateralis ramus pubicus",
             "b": "Bilateralis ramus pubicus",
             "d": "Symphysis disruptio",
             "e": "Parasymphysealis",
             "f": "Dőlt (Tilt)",
             "g": "Zárt (locked) symphysis"
-        },
-        "61B3.2": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis"
-        }, 
-        "61B3.3": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis"
-        }, 
-        "61C1.1": {
+        } for i in range(1, 4)},
+        **{f"61C1.{i}": {
             "a": "Ipsilateralis vagy unilateralis ramus pubicus",
             "b": "Bilateralis ramus pubicus",
             "c": "Contralateralis ramus pubicus",
@@ -2036,29 +1878,9 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "e": "Parasymphysealis",
             "f": "Dőlt (Tilt)",
             "g": "Zárt (locked) symphysis",
-            "j": "Sacroiliacalis ízület fractura s dislocatio"            
-        },
-        "61C1.2": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis",
-            "j": "Sacroiliacalis ízület fractura s dislocatio"   
-        }, 
-        "61C1.3": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis",
-            "j": "Sacroiliacalis ízület fractura s dislocatio"   
-        }, 
-        "61C2.1": {
+            "j": "Sacroiliacalis ízület fractura s dislocatio"
+        } for i in range(1, 4)},
+        **{f"61C2.{i}": {
             "a": "Ipsilateralis vagy unilateralis ramus pubicus",
             "b": "Bilateralis ramus pubicus",
             "c": "Contralateralis ramus pubicus",
@@ -2068,36 +1890,10 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "g": "Zárt (locked) symphysis",
             "k": "Sacrum contralateralis posterior lateralis compressios laesio",           
             "l": "Ilium (crescent) contralateralis posterior lateralis compressios laesio", 
-            "k": "Sacroiliacalis, contralateralis posterior kirotációs laesio",           
-            "l": "Dislocált fractura, contralateralis posterior kirotációs laesio"    
-        },
-        "61C2.2": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis",
-            "k": "Sacrum contralateralis posterior lateralis compressios laesio",           
-            "l": "Ilium (crescent) contralateralis posterior lateralis compressios laesio", 
-            "k": "Sacroiliacalis, contralateralis posterior kirotációs laesio",           
-            "l": "Dislocált fractura, contralateralis posterior kirotációs laesio"    
-        },
-        "61C2.3": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis",
-            "k": "Sacrum contralateralis posterior lateralis compressios laesio",           
-            "l": "Ilium (crescent) contralateralis posterior lateralis compressios laesio", 
-            "k": "Sacroiliacalis, contralateralis posterior kirotációs laesio",           
-            "l": "Dislocált fractura, contralateralis posterior kirotációs laesio"    
-        }, 
-        "61C3.1": {
+            "m": "Sacroiliacalis, contralateralis posterior kirotációs laesio",           
+            "n": "Dislocált fractura, contralateralis posterior kirotációs laesio"    
+        } for i in range(1, 4)},
+        **{f"61C3.{i}": {
             "a": "Ipsilateralis vagy unilateralis ramus pubicus",
             "b": "Bilateralis ramus pubicus",
             "c": "Contralateralis ramus pubicus",
@@ -2106,68 +1902,24 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "f": "Dőlt (Tilt)",
             "g": "Zárt (locked) symphysis",
             "h": "Ala ossis ili",            
-            "j": "Sacroiliacalis ízület disruptio"             
-        },
-        "61C3.2": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis",
-            "h": "Ala ossis ili",            
-            "j": "Sacroiliacalis ízület disruptio"   
-        }, 
-        "61C3.3": {
-            "a": "Ipsilateralis vagy unilateralis ramus pubicus",
-            "b": "Bilateralis ramus pubicus",
-            "c": "Contralateralis ramus pubicus",
-            "d": "Symphysis disruptio",
-            "e": "Parasymphysealis",
-            "f": "Dőlt (Tilt)",
-            "g": "Zárt (locked) symphysis",
-            "h": "Ala ossis ili",            
-            "j": "Sacroiliacalis ízület disruptio"   
-        }, 
+            "j": "Sacroiliacalis ízület disruptio"
+        } for i in range(1, 4)},
         "62A2.3": {
             "h": "Egyszeres, posterior fal",
             "i": "Többszörös, posterior fal",
             "j": "Posterior fal és marginalis impactatio"
         },
-        "62A3.1": {
+        **{f"62A3.{i}": {
             "a": "Marginalis impactatio"
-        },
-        "62A3.2": {
-            "a": "Marginalis impactatio"
-        },
-        "62A3.3": {
-            "a": "Marginalis impactatio"
-        },
-        "62B1.1": {
+        } for i in range(1, 4)},
+        **{f"62B1.{i}": {
             "b": "Posterior fal",
             "c": "Posterior fal és marginalis impactatio"
-        },
-        "62B1.2": {
+        } for i in range(1, 4)},
+        **{f"62B2.{i}": {
             "b": "Posterior fal",
             "c": "Posterior fal és marginalis impactatio"
-        },
-        "62B1.3": {
-            "b": "Posterior fal",
-            "c": "Posterior fal és marginalis impactatio"
-        },
-        "62B2.1": {
-            "b": "Posterior fal",
-            "c": "Posterior fal és marginalis impactatio"
-        },
-        "62B2.2": {
-            "b": "Posterior fal",
-            "c": "Posterior fal és marginalis impactatio"
-        },
-        "62B2.3": {
-            "b": "Posterior fal",
-            "c": "Posterior fal és marginalis impactatio"
-        },
+        } for i in range(1, 4)},
     }
     return [f"{key} - {value}" for key, value in details.get(ao_subsubtype, {}).items()]
 
