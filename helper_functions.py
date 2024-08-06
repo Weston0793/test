@@ -624,6 +624,35 @@ def get_ao_subtype_details(ao_type):
             "2": "Egyszerű ízületi, ék vagy többszörös metaphysealis",
             "3": "Többszörös ízületi, ék vagy többszörös metaphysealis"
         },
+        "14A": {
+            "1": "Coracoideus",
+            "2": "Acromion",
+            "3": "Spina scapulae"
+        },        
+        "14B": {
+            "1": "A törésvonal max. 2 helyen hagyja el a corpust",
+            "2": "A törésvonal 3 vagy több helyen hagyja el a corpust"
+        }, 
+        "14F": {
+            "0": "Az extraarticularis, subchondralis fossán át (glenoid neck)",
+            "1": "Egyszeres",
+            "2": "Többszörös (3 vagy több törésvonal)"           
+        },        
+        "15.1": {
+            "A": "Extraarticularis, epiphysealis lemezt is beleértve!",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        "15.2": {
+            "A": "Egyszeres",
+            "B": "Ék",
+            "C": "Többszörös"
+        },
+        "15.3": {
+            "A": "Extraarticularis, epiphysealis lemezt is beleértve!",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
         "2R1A": {
             "1": "Tuberositas bicipitalis avulsiós törés",
             "2": "Egyszeres nyaktörés",
@@ -955,6 +984,23 @@ def get_ao_subtype_details(ao_type):
             "B": "Részleges ízületi",
             "C": "Teljes ízületi"
         },
+        "88.X.1": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        "88.X.2": {
+            "A": "Egyszeres",
+            "B": "Ék",
+            "C": "Többszörös"
+        },
+        "88.X.3": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        
+
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
     
@@ -1055,6 +1101,38 @@ def get_ao_subsubseverity_details(ao_type):
             "2": "Ék metapysealis",
             "3": "Többszörös metapysealis"
         },
+        "14B1": {
+            "l": "Lateralis határon át lép ki a törés",
+            "m": "Medialis határon át lép ki a törés",
+            "s": "Superior határon át lép ki a törés",
+            "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit),
+            "x": "Coracoid P1",
+            "y": "Acromion P2",
+            "x": "Mindkettő P3"
+        },        
+        "14B2": {
+            "l": "Lateralis határon át lép ki a törés",
+            "m": "Medialis határon át lép ki a törés",
+            "s": "Superior határon át lép ki a törés",
+            "g": "A lateralis basisát érinti a coracoideusnak (glenoid site exit),
+            "x": "Coracoid P1",
+            "y": "Acromion P2",
+            "x": "Mindkettő P3"
+        },  
+        "14F1": {
+            ".1": "Anterior perem",
+            ".2": "Posterior perem",
+            ".3": "Haránt vagy rövid ferde"       
+        },
+        "14F2": {
+            ".1": "Fossa glenoidale",
+            ".2": "Centralis dislocált fractura",
+        },
+         "15.3A": {
+            "a": "Ép, chostocondralis ligamentalis complexum",
+            "b": "Partialisan károdosott, chostocondralis ligamentalis complexum",
+            "c": "Komplett disruptio, chostocondralis ligamentalis complexum"       
+        },       
         "2U1B1": {
             "d": "Egyszeres",
             "e": "Többszörös"
@@ -1562,6 +1640,56 @@ def get_ao_subsubseverity_details(ao_type):
             "f": "Többszörös, posterior oszlop (columna)",
             "g": "Többszörös, mindkét oszlop (columna)"
         },
+        "81.2.B": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },        
+        "81.2.C": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },  
+        "81.2.D": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },   
+        "81.3.B": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },  
+        "81.3.C": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },   
+        "87.X.1A": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },
+        "87.X.1B": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },
+        "87.X.1C": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },
+        "87.X.3A": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },
+        "87.X.3B": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },
+        "87.X.3C": {
+            "a": "Egyszeres",
+            "b": "Többszörös"
+        },
+
+        "87.X.3": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
 
@@ -1620,6 +1748,30 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "l": "Darabos",
             "u": "Ép ék"
         },
+        "14F1.1": {
+            "f": "Infraequatorialis perem az alsó kvadránsban",
+            "r": "A max. glenoidalis meridiántól anterior vagy posterior peremtörés, amely superior vagy inferior lép ki a középvonaltól",
+            "t": "Törés 2 infraequatorialis anterior vagy posterior kvadránsban, melynek oldalait a törés középvonal határozza meg",
+            "x": "Coracoid P1",
+            "y": "Acromion P2",
+            "x": "Mindkettő P3"
+        },        
+        "14F1.2": {
+            "f": "Infraequatorialis perem az alsó kvadránsban",
+            "r": "A max. glenoidalis meridiántól anterior vagy posterior peremtörés, amely superior vagy inferior lép ki a középvonaltól",
+            "t": "Törés 2 infraequatorialis anterior vagy posterior kvadránsban, melynek oldalait a törés középvonal határozza meg",
+            "x": "Coracoid P1",
+            "y": "Acromion P2",
+            "x": "Mindkettő P3"
+        },   
+        "14F1.3": {
+            "i": "Infraequatorialis ",
+            "e": "Középvonali",
+            "p": "Supraequatorialis",
+            "x": "Coracoid P1",
+            "y": "Acromion P2",
+            "x": "Mindkettő P3"
+        },   
         "2R3C1.1": {
             "t": "DRUJ stabil",
             "u": "DRUJ instabil"
