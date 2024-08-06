@@ -745,472 +745,70 @@ def get_ao_subtype_details(ao_type):
             "2": "Ék vagy többszörös fibula",
             "3": "Proximalis fibula"
         },
-        "51.1.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "51.1.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült",
-        }, 
-        "51.1.C": {
-            "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
-            "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
-            "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
-            "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
-        },
-        "51.2.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "51.2.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült",
-        }, 
-        "51.2.C": {
-            "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
-            "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
-            "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
-            "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
-        },
-        "51.3.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "51.3.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült",
-        }, 
-        "51.3.C": {
-            "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
-            "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
-            "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
-            "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
-        },
-        "51.4.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "51.4.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült",
-        }, 
-        "51.4.C": {
-            "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
-            "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
-            "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
-            "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
-        },
-        "51.5.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "51.5.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült",
-        }, 
-        "51.5.C": {
-            "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
-            "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
-            "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
-            "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
-        },
-        "51.6.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "51.6.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült",
-        }, 
-        "51.6.C": {
-            "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
-            "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
-            "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
-            "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
-        },
-        "51.7.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "51.7.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült",
-        }, 
-        "51.7.C": {
-            "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
-            "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
-            "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
-            "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
-        },
-        "52.1.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.1.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.1.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.2.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.2.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.2.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.3.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.3.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.3.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.4.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.4.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.4.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.5.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.5.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.5.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.6.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.6.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.6.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.7.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.7.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.7.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.8.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.8.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.8.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.9.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.9.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.9.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.10.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.10.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.10.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.11.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.11.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.11.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "52.12.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "52.12.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "52.12.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "53.1.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "53.1.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "53.1.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "53.2.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "53.2.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "53.2.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "53.3.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "53.3.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "53.3.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "53.4.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "53.4.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "53.4.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
-        "53.5.A": {
-            "0": "Minor, nonstruktúrális sérülés",
-            "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
-            "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
-            "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
-            "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
-        }, 
-        "53.5.B": {
-            "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
-            "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
-            "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior csontban és/vagy meniscus posterior képlet-lehorgonyzással (tethering)",
-        }, 
-        "53.5.C": {
-            "NX": "Nem vizsgálható",
-            "N0": "Neurológiailag ép",
-            "N1": "Transiens neurológiai deficit",
-            "N2": "Ideggyök sérülés",
-            "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
-            "N4": "Komplett gerincvelő sérülés"
-        },
+        **{f"51.{i}.{j}": {
+            "A": {
+                "0": "Minor, nonstruktúrális sérülés",
+                "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
+                "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
+                "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
+                "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
+            },
+            "B": {
+                "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
+                "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
+                "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült"
+            },
+            "C": {
+                "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
+                "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
+                "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
+                "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
+            }
+        } for i in range(1, 8) for j in ["A", "B", "C"]},
+        **{f"52.{i}.{j}": {
+            "A": {
+                "0": "Minor, nonstruktúrális sérülés",
+                "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
+                "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
+                "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
+                "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
+            },
+            "B": {
+                "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
+                "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
+                "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült"
+            },
+            "C": {
+                "NX": "Nem vizsgálható",
+                "N0": "Neurológiailag ép",
+                "N1": "Transiens neurológiai deficit",
+                "N2": "Ideggyök sérülés",
+                "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
+                "N4": "Komplett gerincvelő sérülés"
+            }
+        } for i in range(1, 13) for j in ["A", "B", "C"]},
+        **{f"53.{i}.{j}": {
+            "A": {
+                "0": "Minor, nonstruktúrális sérülés",
+                "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
+                "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
+                "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
+                "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
+            },
+            "B": {
+                "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
+                "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
+                "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült"
+            },
+            "C": {
+                "NX": "Nem vizsgálható",
+                "N0": "Neurológiailag ép",
+                "N1": "Transiens neurológiai deficit",
+                "N2": "Ideggyök sérülés",
+                "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
+                "N4": "Komplett gerincvelő sérülés"
+            }
+        } for i in range(1, 6) for j in ["A", "B", "C"]},
         "54A": {
             "1": "Coccygealis vagy sacralis kompresszió",
             "2": "Haránt fractura, nincs elmozdulás",
