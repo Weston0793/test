@@ -599,7 +599,7 @@ def get_ao_subtype_details(ao_type):
         "12A": {
             "1": "Spirál",
             "2": "Ferde (≥ 30°)",
-            "3": "Keresztirányú (< 30°)"
+            "3": "Haránt (< 30°)"
         },
         "12B": {
             "2": "Ép ék",
@@ -617,15 +617,15 @@ def get_ao_subtype_details(ao_type):
         "13B": {
             "1": "Laterális sagittális",
             "2": "Mediális sagittális",
-            "3": "Frontal/coronal plane"
+            "3": "Frontalis/coronalis"
         },
         "13C": {
-            "1": "Egyszerű ízületi, egyszerű metafízis",
-            "2": "Egyszerű ízületi, ék vagy többszörös metafízis",
-            "3": "Többszörös ízületi, ék vagy többszörös metafízis"
+            "1": "Egyszerű ízületi, egyszerű metaphysealis",
+            "2": "Egyszerű ízületi, ék vagy többszörös metaphysealis",
+            "3": "Többszörös ízületi, ék vagy többszörös metaphysealis"
         },
         "2R1A": {
-            "1": "Bicipitalis tuberositas avulsiós törés",
+            "1": "Tuberositas bicipitalis avulsiós törés",
             "2": "Egyszeres nyaktörés",
             "3": "Többszörös nyaktörés"
         },
@@ -839,6 +839,121 @@ def get_ao_subtype_details(ao_type):
             "1": "Unilateralis posterior sérülés (APC3, vertikális nyírás (shear))",
             "2": "Bilateralis posterior sérülés, hemipelvicus komplett disruptio, contralateralis hemipelvicus inkomplett disruptio (LC3)",
             "3": "Bilateralis posterior sérülés, bilateralis komplett disruptio (APC3, vertikális nyírás (shear))"
+        },
+        "62A": {
+            "1": "Posterior fal",
+            "2": "Posterior oszlop (columna)",
+            "3": "Anterior oszlop (columna) vagy fal"
+        },
+        "62B": {
+            "1": "Haránt fractura",
+            "2": "T fractura",
+            "3": "Anterior oszlop (columna) és posterior hemitransversalis fractura"
+        },
+        "62C": {
+            "1": "Felső anterior oszlop (columna)(a crista iliacán át)",
+            "2": "Alsó anterior oszlop (columna) (SIAS alatt)",
+            "3": "Sacroiliacalis ízületet érintő"
+        },
+        "72B": {
+            "a": "Proximalis pólus",
+            "b": "Derék",
+            "c": "Distalis pólus"
+        },
+        "72C": {
+            "a": "Proximalis pólus",
+            "b": "Derék",
+            "c": "Distalis pólus"
+        },
+        "77.X.1": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        "77.X.2": {
+            "A": "Egyszeres",
+            "B": "Ék",
+            "C": "Többszörös"
+        },
+        "77.X.3": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        "78.X.X.1": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        "78.X.X.2": {
+            "A": "Egyszeres",
+            "B": "Ék",
+            "C": "Többszörös"
+        },
+        "78.X.X.3": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        "81.1": {
+            ".A": "Avulsio",
+            ".B": "Részleges ízületi",
+            ".C": "Teljes ízületi"
+        },  
+        "81.2": {
+            ".A": "Nincs elmozdulás (Hawkins 1)",
+            ".B": "Elmozdult és subtalaris ízület subluxatio/dislocatio (Hawkins 2)",
+            ".C": "Elmozdult talus nyak és talus test dislocatio (Hawkins 3)",
+            ".D": "Elmozdult talus nyak, test és fej dislocatióval (Hawkins 4)"
+        },  
+        "81.3": {
+            ".A": "Avulsio",
+            ".B": "Részleges ízületi",
+            ".C": "Teljes ízületi"
+        },  
+        "82A": {
+            "1": "Avulsio, tuberositas posterior fractura vagy extraarticularis nyelv fractura",
+            "2": "Test fractura"
+        },  
+        "82B": {
+            "1": "Nyelv-típusú, egyszeres fractura",
+            "3": "Többszörös fractura"
+        },  
+        "82C": {
+            "1": "Ízületi depressióval (Sanders 2)",
+            "2": "Ízületi depressióval (Sanders 3)",
+            "3": "Többszörös fractura (Sanders 4)"
+        },  
+        "83B": {
+            "a": "Egyszeres",
+            "b": "Többszörös "
+        },
+        "83C": {
+            "a": "Egyszeres",
+            "b": "Többszörös "
+        },
+        "84B": {
+            "a": "Egyszeres",
+            "b": "Többszörös "
+        },
+        "84C": {
+            "a": "Egyszeres",
+            "b": "Többszörös "
+        },
+        "87.X.1": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
+        },
+        "87.X.2": {
+            "A": "Egyszeres",
+            "B": "Ék",
+            "C": "Többszörös"
+        },
+        "87.X.3": {
+            "A": "Extraarticularis",
+            "B": "Részleges ízületi",
+            "C": "Teljes ízületi"
         },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
@@ -1400,6 +1515,53 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Sacralis unilateralisan, extrasacralis contralateralisan",
             ".3": "Sacralis bilateralisan"
         },
+        "62A1": {
+            ".1": "Egyszeres",
+            ".2": "Többszörös"
+        },
+        "62A2": {
+            ".1": "Ischiumon át",
+            ".2": "Obturator gyűrűn át",
+            ".3": "Posterior fal sérüléssel"
+        },
+        "62A3": {
+            ".1": "Anterior fal",
+            ".2": "Felső anterior oszlop (columna) (crista ilicán át)",
+            ".3": "Alsó anterior oszlop (columna) (SIAS-on át)"
+        },
+        "62B1": {
+            ".1": "Infratectalis",
+            ".2": "Juxtatectalis",
+            ".3": "Transtectalis"
+        },
+        "62B2": {
+            ".1": "Infratectalis haránt komponensel",
+            ".2": "Juxtatectalis haránt komponensel",
+            ".3": "Transtectalis haránt komponensel"
+        },
+        "62B3": {
+            ".1": "Anterior fallal asszociált",
+            ".2": "Felső anterior oszlop (columna) (crista ilicán át)",
+            ".3": "Alsó anterior oszlop (columna) (SIAS-on át)"
+        },
+        "62C1": {
+            "d": "Mindkét oszlop (columna)",
+            "e": "Többszörös, anterior oszlop (columna)",
+            "f": "Többszörös, posterior oszlop (columna)",
+            "g": "Többszörös, mindkét oszlop (columna)"
+        },
+        "62C2": {
+            "d": "Mindkét oszlop (columna)",
+            "e": "Többszörös, anterior oszlop (columna)",
+            "f": "Többszörös, posterior oszlop (columna)",
+            "g": "Többszörös, mindkét oszlop (columna)"
+        },
+        "62C3": {
+            "d": "Mindkét oszlop (columna)",
+            "e": "Többszörös, anterior oszlop (columna)",
+            "f": "Többszörös, posterior oszlop (columna)",
+            "g": "Többszörös, mindkét oszlop (columna)"
+        },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
 
@@ -1883,6 +2045,44 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "h": "Ala ossis ili",            
             "j": "Sacroiliacalis ízület disruptio"   
         }, 
+        "62A2.3": {
+            "h": "Egyszeres, posterior fal",
+            "i": "Többszörös, posterior fal",
+            "j": "Posterior fal és marginalis impactatio"
+        },
+        "62A3.1": {
+            "a": "Marginalis impactatio"
+        },
+        "62A3.2": {
+            "a": "Marginalis impactatio"
+        },
+        "62A3.3": {
+            "a": "Marginalis impactatio"
+        },
+        "62B1.1": {
+            "b": "Posterior fal",
+            "c": "Posterior fal és marginalis impactatio"
+        },
+        "62B1.2": {
+            "b": "Posterior fal",
+            "c": "Posterior fal és marginalis impactatio"
+        },
+        "62B1.3": {
+            "b": "Posterior fal",
+            "c": "Posterior fal és marginalis impactatio"
+        },
+        "62B2.1": {
+            "b": "Posterior fal",
+            "c": "Posterior fal és marginalis impactatio"
+        },
+        "62B2.2": {
+            "b": "Posterior fal",
+            "c": "Posterior fal és marginalis impactatio"
+        },
+        "62B2.3": {
+            "b": "Posterior fal",
+            "c": "Posterior fal és marginalis impactatio"
+        },
     }
     return [f"{key} - {value}" for key, value in details.get(ao_subsubtype, {}).items()]
 
@@ -1895,8 +2095,8 @@ def neer_classification(sub_sub_reg):
             "IV": "Négy része érintett (fej, nyak, tuberositas majus és minor)"
         },
         "Distalis humerus": {
-            "I": "Medial Epicondyle",
-            "II": "Lateral Epicondyle",
+            "I": "Medialis epicondylus",
+            "II": "Lateralis epicondylus",
             "III": "Capitellum",
             "IV": "Trochlea"
         },
