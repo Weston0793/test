@@ -966,7 +966,7 @@ def get_ao_subsubseverity_details(ao_type):
         },
         "13A2": {
             ".1": "Spirál",
-            ".2": "Ferdev (≥ 30°)",
+            ".2": "Ferde (≥ 30°)",
             ".3": "Haránt (< 30°)"
         },
         "13A3": {
