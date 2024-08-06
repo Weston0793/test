@@ -746,19 +746,19 @@ def get_ao_subtype_details(ao_type):
             "3": "Proximalis fibula"
         },
         **{f"51.{i}": {
-            "A": {
+            ".A": {
                 "0": "Minor, nonstruktúrális sérülés",
                 "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
                 "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
                 "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
                 "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
             },
-            "B": {
+            ".B": {
                 "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
                 "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
                 "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült"
             },
-            "C": {
+            ".C": {
                 "F1": "Elmozdulás nélküli ízfelszín sérülés (fragment < 1cm és <40%-a a lateralis tömegnek)",
                 "F2": "Ízfelszín fractura, potenciális instabilitás (fragment > 1cm és >40%-a a lateralis tömegnek vagy elmozdult)",
                 "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
@@ -766,19 +766,19 @@ def get_ao_subtype_details(ao_type):
             }
         } for i in range(1, 8)},
         **{f"52.{i}": {
-            "A": {
+            ".A": {
                 "0": "Minor, nonstruktúrális sérülés",
                 "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
                 "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
                 "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
                 "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
             },
-            "B": {
+            ".B": {
                 "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
                 "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
                 "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült"
             },
-            "C": {
+            ".C": {
                 "NX": "Nem vizsgálható",
                 "N0": "Neurológiailag ép",
                 "N1": "Transiens neurológiai deficit",
@@ -788,19 +788,19 @@ def get_ao_subtype_details(ao_type):
             }
         } for i in range(1, 13)},
         **{f"53.{i}": {
-            "A": {
+            ".A": {
                 "0": "Minor, nonstruktúrális sérülés",
                 "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
                 "2": "Coronalis hasadás (split), harapófogó (pincer) típusú fractúrája mindkét véglemeznek, nem érintett a gerinc test posterior fal",
                 "3": "Inkomplett burst fractura, egy véglemez és gerinc test posterior fal sérült",
                 "4": "Komplett burst fractura, mindkét véglemez és gerinc test posterior fal sérült"
             },
-            "B": {
+            ".B": {
                 "1": "Monosegmentalis ossealis elégtelensége a posterior tension band-nek, ami érinti a gerinc testet (Chance)",
                 "2": "Posterior tension band disruptio (csont, szalag, tok, vagy kombinációjuk)",
                 "3": "Anterior tension band sérülés, fizikai disruptio vagy separatio az anterior struktúrákban és posterior tethering fractura, egy véglemez és gerinc test posterior fal sérült"
             },
-            "C": {
+            ".C": {
                 "NX": "Nem vizsgálható",
                 "N0": "Neurológiailag ép",
                 "N1": "Transiens neurológiai deficit",
