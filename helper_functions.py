@@ -745,7 +745,7 @@ def get_ao_subtype_details(ao_type):
             "2": "Ék vagy többszörös fibula",
             "3": "Proximalis fibula"
         },
-        **{f"51.{i}.{j}": {
+        **{f"51.{i}": {
             "A": {
                 "0": "Minor, nonstruktúrális sérülés",
                 "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
@@ -764,8 +764,8 @@ def get_ao_subtype_details(ao_type):
                 "F3": "Lebegő lateralis tömeg (Floating lateral mass)",
                 "F4": "Peremes (perched) vagy dislocált ízfelszin subluxatio)"
             }
-        } for i in range(1, 8) for j in ["A", "B", "C"]},
-        **{f"52.{i}.{j}": {
+        } for i in range(1, 8)},
+        **{f"52.{i}": {
             "A": {
                 "0": "Minor, nonstruktúrális sérülés",
                 "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
@@ -786,8 +786,8 @@ def get_ao_subtype_details(ao_type):
                 "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
                 "N4": "Komplett gerincvelő sérülés"
             }
-        } for i in range(1, 13) for j in ["A", "B", "C"]},
-        **{f"53.{i}.{j}": {
+        } for i in range(1, 13)},
+        **{f"53.{i}": {
             "A": {
                 "0": "Minor, nonstruktúrális sérülés",
                 "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
@@ -808,7 +808,7 @@ def get_ao_subtype_details(ao_type):
                 "N3": "Cauda equina sérülés vagy inkomplett gerincvelő sérülés",
                 "N4": "Komplett gerincvelő sérülés"
             }
-        } for i in range(1, 6) for j in ["A", "B", "C"]},
+        } for i in range(1, 6)},
         "54A": {
             "1": "Coccygealis vagy sacralis kompresszió",
             "2": "Haránt fractura, nincs elmozdulás",
