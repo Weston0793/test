@@ -1737,42 +1737,10 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "y": "Acromion P2",
             "x": "Mindkettő P3"
         },   
-        "2R3C1.1": {
+        **{f"2R3C{i}.{j}": {
             "t": "DRUJ stabil",
             "u": "DRUJ instabil"
-        },
-        "2R3C1.2": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },
-        "2R3C1.3": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },
-        "2R3C2.1": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },
-        "2R3C2.2": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },
-        "2R3C2.3": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },        
-        "2R3C2.1": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },
-        "2R3C3.2": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },
-        "2R3C3.3": {
-            "t": "DRUJ stabil",
-            "u": "DRUJ instabil"
-        },
+        } for i in range(1, 4) for j in range(1, 4)},
         "31A1.1": {
             "n": "Trochanter major",
             "o": "Trochanter minor",
