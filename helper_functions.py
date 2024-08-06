@@ -549,14 +549,10 @@ def get_ao_subtype_details(ao_type):
             "2": "Egyszeres nyaktörés",
             "3": "Többszörös nyaktörés"
         },
-        "2R1B": {
+        **{f"2R1{i}": {
             "1": "Egyszeres",
             "3": "Többszörös"
-        },
-        "2R1C": {
-            "1": "Egyszeres",
-            "3": "Többszörös"
-        },
+        } for i in ["B", "C"]},
         "2R2A": {
             "1": "Spirális",
             "2": "Ferde (≥ 30°)",
@@ -959,16 +955,11 @@ def get_ao_subsubseverity_details(ao_type):
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
         } for i in range(2, 4)},       
-        "12C2": {
+        **{f"12C{i}": {
             "i": "Proximalis diaphysealis-metaphysealis",
             "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
-        },
-        "12C3": {
-            "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis",
-            "k": "Distalis diaphysealis-metaphysealis"
-        },
+        } for i in range(2, 4)},
         "13A1": {
             ".1": "Lateralis epicondylus",
             ".2": "Medialis epicondylus"
@@ -1166,16 +1157,11 @@ def get_ao_subsubseverity_details(ao_type):
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
         } for suffix in ['2', '3']},
-        "32C2": {
+        **{f"32C{i}": {
             "i": "Proximalis diaphysealis-metaphysealis",
             "j": "Tisztán diaphysealis",
             "k": "Distalis diaphysealis-metaphysealis"
-        },
-        "32C3": {
-            "i": "Proximalis diaphysealis-metaphysealis",
-            "j": "Tisztán diaphysealis",
-            "k": "Distalis diaphysealis-metaphysealis"
-        },
+        } for i in range(2, 4)},
         "33A1": {
             ".1": "Lateralis epicondylus",
             ".2": "Medialis epicondylus"
@@ -1190,49 +1176,32 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Darabos ék",
             ".3": "Többszörös"
         },
-        "33B1": {
+        **{f"33B{i}": {
             ".1": "Egyszeres, a bevágáson (notch) keresztül",
             ".2": "Egyszeres, teherviselő felszín",
-            ".3": "Darabos"
-        },
-        "33B2": {
-            ".1": "Egyszeres, a bevágáson (notch) keresztül",
-            ".2": "Egyszeres, teherviselő felszín",
-            ".3": "Darabos"
-        },
-        "33B3": {
-            ".1": "Anterior és lateralis darabka (flake)",
-            ".2": "Posterior, unicondylaris (Hoffa)",
-            ".3": "Posterior, bicondylaris (bilateralis Hoffa)"
-        },
+            ".3": "Darabos" if i in [1, 2] else "Anterior és lateralis darabka (flake)" if i == 3 else None,
+            ".2": "Posterior, unicondylaris (Hoffa)" if i == 3 else None,
+            ".3": "Posterior, bicondylaris (bilateralis Hoffa)" if i == 3 else None,
+        } for i in range(1, 4)},
         "33C1": {
             ".1": "A transcondylaris tengely felett",
             ".3": "A transcondylaris tengelyen át vagy alatt"
         },
-        "33C2": {
-            ".1": "Ép ék, metaphysealis",
-            ".2": "Darabos ék, metaphysealis",
+        **{f"33C{i}": {
+            ".1": "Ép ék, metaphysealis" if i == 2 else "Egyszerű metaphysealis",
+            ".2": "Darabos ék, metaphysealis" if i == 2 else "Ék, metaphysealis",
             ".3": "Többszörös, metaphysealis"
-        },
-        "33C3": {
-            ".1": "Egyszerű metaphysealis",
-            ".2": "Ék, metaphysealis",
-            ".3": "Többszörös, metaphysealis"
-        },
+        } for i in range(2, 4)},
         "34A1": {
             "a": "Proximalis pólus",
             "b": "Distalis pólus",
             "c": "Lateralis oldal",
             "d": "Medialis oldal"
         },
-        "34B1": {
+        **{f"34B{i}": {
             ".1": "Egyszeres",
             ".2": "Darabos"
-        },
-        "34B2": {
-            ".1": "Egyszeres",
-            ".2": "Darabos"
-        },
+        } for i in range(1, 3)},
         "34C1": {
             ".1": "Középső 1/3",
             ".2": "Proximalis 1/3",
@@ -1253,19 +1222,11 @@ def get_ao_subsubseverity_details(ao_type):
             ".2": "Darabos ék",
             ".3": "Többszörös"
         },
-        "41B1": {
+        **{f"41B{i}": {
             ".1": "Lateralis plateu",
             ".2": "Medialis plateu",
-            ".3": "Ferde, érinti a tibia gerincét (spine) és egy plateut"
-        },
-        "41B2": {
-            ".1": "Lateralis plateu",
-            ".2": "Medialis plateu"
-        },
-        "41B3": {
-            ".1": "Lateralis plateu",
-            ".2": "Medialis plateu",
-            ".3": "Ferde, érinti a tibia gerincét (spine) és egy plateut"
+            **({".3": "Ferde, érinti a tibia gerincét (spine) és egy plateut"} if i in [1, 3] else {})
+        } for i in range(1, 4)},
         },
         "41C1": {
             ".1": "Intercondylaris eminentia érintettség nélkül",
@@ -1479,36 +1440,23 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "o": "Tuberculum minus töréssel",
             "p": "Mindkét tuberculum"
         },
-        "11C3.2": {
+        **{f"11C3.{i}": {
             "x": "Egyszerű ízületi",
             "y": "Multifragmentált, ízületi",
-        },
-        "11C3.3": {
-            "x": "Egyszerű ízületi",
-            "y": "Multifragmentált, ízületi",
-        },        
-        "13A3.1": {
+        } for i in range(2, 4)},
+        **{f"13A3.{i}": {
             "f": "Lateralis",
             "h": "Medialis",
-        },
-        "13A3.2": {
-            "f": "Lateralis",
-            "h": "Medialis",
-        },
+        } for i in range(1, 3)},
         "13B1.2": {
             "q": "Transcapitellaris",
             "r": "Capitellum s trochlea között",
         },
-        "13C2.1": {
+        **{f"13C2.{i}": {
             "f": "Lateralis",
             "h": "Medialis",
             "u": "Ép ék"
-        },
-        "13C2.2": {
-            "f": "Lateralis",
-            "h": "Medialis",
-            "u": "Ép ék"
-        },
+        } for i in range(1, 3)},
         "13C3.1": {
             "s": "Proximalis a transcondylaris tengelytől",
             "t": "Distalis a transcondylaris tengelytől",
@@ -1519,22 +1467,14 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "l": "Darabos",
             "u": "Ép ék"
         },
-        "14F1.1": {
+        **{f"14F1.{i}": {
             "f": "Infraequatorialis perem az alsó kvadránsban",
             "r": "A max. glenoidalis meridiántól anterior vagy posterior peremtörés, amely superior vagy inferior lép ki a középvonaltól",
             "t": "Törés 2 infraequatorialis anterior vagy posterior kvadránsban, melynek oldalait a törés középvonal határozza meg",
             "x": "Coracoid P1",
             "y": "Acromion P2",
-            "x": "Mindkettő P3"
-        },        
-        "14F1.2": {
-            "f": "Infraequatorialis perem az alsó kvadránsban",
-            "r": "A max. glenoidalis meridiántól anterior vagy posterior peremtörés, amely superior vagy inferior lép ki a középvonaltól",
-            "t": "Törés 2 infraequatorialis anterior vagy posterior kvadránsban, melynek oldalait a törés középvonal határozza meg",
-            "x": "Coracoid P1",
-            "y": "Acromion P2",
-            "x": "Mindkettő P3"
-        },   
+            "z": "Mindkettő P3"
+        } for i in range(1, 3)},
         "14F1.3": {
             "i": "Infraequatorialis ",
             "e": "Középvonali",
@@ -1560,14 +1500,10 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "f": "Lateralis condylus",
             "h": "Medialis condylus"
         },
-        "33C2.1": {
+        **{f"33C2.{i}": {
             "f": "Lateralis condylus",
             "h": "Medialis condylus"
-        },
-        "33C2.2": {
-            "f": "Lateralis condylus",
-            "h": "Medialis condylus"
-        },
+        } for i in range(1, 3)},
         "33C3.2": {
             "f": "Lateralis condylus",
             "h": "Medialis condylus",
@@ -1626,22 +1562,14 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "f": "Lateralis",
             "z": "Medialis ízületi felszín, medialis malleolust érintve"
         },
-        "43B2.1": {
+        **{f"43B{i}.1": {
             "o": "Anterior",
             "y": "Posterior Volkmann"
-        },
-        "43B2.2": {
+        } for i in range(2, 4)},
+        **{f"43B{i}.2": {
             "f": "Lateralis",
             "h": "Medialis"
-        },
-        "43B3.1": {
-            "o": "Anterior",
-            "y": "Posterior Volkmann"
-        },
-        "43B3.2": {
-            "f": "Lateralis",
-            "h": "Medialis"
-        },
+        } for i in range(2, 4)},
         **{f"43C{i}.1": {
             "q": "Frontalis/coronalis sík",
             "r": "Sagittalis sík"
