@@ -421,54 +421,66 @@ def ao_classification(sub_sub_reg):
             "16.3.3.B": "Ferde (partialis avulsio)",
             "16.3.3.C": "Többszörös"}
     }
-    # Ensure get_ao_subtype_details returns a non-empty list
+    # Function to extract key from "key - value" formatted string
+    def extract_key(selection):
+        return selection.split(" - ")[0] if selection else None
+    
+    # Generating options for AO főtípus selectbox
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
         return None, None, None, None, None
     
+    # Display AO főtípus selectbox
     ao_type = st.selectbox("AO főtípus", ao_type_options)
     if not ao_type:
         return None, None, None, None, None
     
-    ao_severity = ao_type.split(" - ")[0]
+    # Extract the key for AO severity
+    ao_severity = extract_key(ao_type)
     
-    # Ensure get_ao_subsubseverity_details returns a non-empty list
-    ao_subtype_options = get_ao_subtype_details(ao_severity)
+    # Generating options for AO típus selectbox
+    ao_subtype_options = [f"{key} - {value}" for key, value in get_ao_subtype_details(ao_severity).items()]
     if not ao_subtype_options:
         return None, None, None, None, None
     
+    # Display AO típus selectbox
     ao_subtype = st.selectbox("AO típus", ao_subtype_options)
     if not ao_subtype:
         return None, None, None, None, None
     
-    ao_subseverity = ao_subtype.split(" - ")[0]
+    # Extract the key for AO subsverity
+    ao_subseverity = extract_key(ao_subtype)
     
-    # Ensure get_ao_subsubsubseverity_details returns a non-empty list
-    ao_subsubtype_options = get_ao_subsubseverity_details(ao_subseverity)
+    # Generating options for AO altípus selectbox
+    ao_subsubtype_options = [f"{key} - {value}" for key, value in get_ao_subsubseverity_details(ao_subseverity).items()]
     if not ao_subsubtype_options:
         return None, None, None, None, None
     
+    # Display AO altípus selectbox
     ao_subsubtype = st.selectbox("AO altípus", ao_subsubtype_options)
     if not ao_subsubtype:
         return None, None, None, None, None
     
-    ao_subsubseverity = ao_subsubtype.split(" - ")[0]
+    # Extract the key for AO subsubseverity
+    ao_subsubseverity = extract_key(ao_subsubtype)
     
-    # Ensure get_ao_subsubsubseverity_details returns a non-empty list
-    ao_subsubsubtype_options = get_ao_subsubsubseverity_details(ao_subsubseverity)
+    # Generating options for AO részletes típus selectbox
+    ao_subsubsubtype_options = [f"{key} - {value}" for key, value in get_ao_subsubsubseverity_details(ao_subsubseverity).items()]
     if not ao_subsubsubtype_options:
         return None, None, None, None, None
     
+    # Display AO részletes típus selectbox
     ao_subsubsubtype = st.selectbox("AO részletes típus", ao_subsubsubtype_options)
     if not ao_subsubsubtype:
         return None, None, None, None, None
     
-    ao_subsubsubseverity = ao_subsubsubtype.split(" - ")[0]
+    # Extract the key for AO subsubsubseverity
+    ao_subsubsubseverity = extract_key(ao_subsubsubtype)
     
     # Save the classification
-    save_classification(classification_name, ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity)
+    save_classification("AO klasszifikáció", ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity)
     
-    return classification_name, ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity
+    return "AO klasszifikáció", ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity
 
 def get_ao_subtype_details(ao_type):
     details = {
