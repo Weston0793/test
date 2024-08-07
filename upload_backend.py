@@ -82,7 +82,7 @@ def confirm_and_upload_data(upload_data):
             if region.get("classification"):
                 for classification_name, details in region["classification"].items():
                     if "name" in details:
-                        st.markdown(f"**<span class='highlight'>Osztályozás:</span>** {details['name']}", unsafe_allow_html=True)
+                        st.markdown(f"**<span class='highlight'>Osztályozás ({classification_name}):</span>** {details['name']}", unsafe_allow_html=True)
                     if "severity" in details:
                         st.markdown(f"**<span class='highlight'>Súlyosság:</span>** {details['severity']}", unsafe_allow_html=True)
                     if "severity_value" in details:
