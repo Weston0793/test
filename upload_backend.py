@@ -81,16 +81,28 @@ def confirm_and_upload_data(upload_data):
 
             if region.get("classification"):
                 for classification_name, details in region["classification"].items():
-                    if "name" in details and "severity" in details:
+                    if "name" in details:
                         st.markdown(f"**<span class='highlight'>Osztályozás:</span>** {details['name']}", unsafe_allow_html=True)
+                    if "severity" in details:
                         st.markdown(f"**<span class='highlight'>Súlyosság:</span>** {details['severity']}", unsafe_allow_html=True)
-                        if "subseverity" in details:
-                            st.markdown(f"**<span class='highlight'>Alsúlyosság:</span>** {details['subseverity']}", unsafe_allow_html=True)
+                    if "severity_value" in details:
+                        st.markdown(f"**<span class='highlight'>Súlyosság értéke:</span>** {details['severity_value']}", unsafe_allow_html=True)
+                    if "subseverity" in details:
+                        st.markdown(f"**<span class='highlight'>Alsúlyosság:</span>** {details['subseverity']}", unsafe_allow_html=True)
+                    if "subseverity_value" in details:
+                        st.markdown(f"**<span class='highlight'>Alsúlyosság értéke:</span>** {details['subseverity_value']}", unsafe_allow_html=True)
+                    if "subsubseverity" in details:
+                        st.markdown(f"**<span class='highlight'>Alalsúlyosság:</span>** {details['subsubseverity']}", unsafe_allow_html=True)
+                    if "subsubseverity_value" in details:
+                        st.markdown(f"**<span class='highlight'>Alalsúlyosság értéke:</span>** {details['subsubseverity_value']}", unsafe_allow_html=True)
+                    if "subsubsubseverity" in details:
+                        st.markdown(f"**<span class='highlight'>Alalalsúlyosság:</span>** {details['subsubsubseverity']}", unsafe_allow_html=True)
+                    if "subsubsubseverity_value" in details:
+                        st.markdown(f"**<span class='highlight'>Alalalsúlyosság értéke:</span>** {details['subsubsubseverity_value']}", unsafe_allow_html=True)
 
     st.markdown('---')
     
     with st.container():
-        
         # Add a button for confirming and uploading
         if st.button("Megerősít és Feltölt", key="confirm_upload", help="Kattintson a feltöltés megerősítéséhez"):
             if upload_data:  # Check if upload_data exists and is not empty
