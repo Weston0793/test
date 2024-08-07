@@ -442,77 +442,61 @@ def get_ao_subtype_details(ao_type):
         "11A": {
             "1": "Tuberositas",
             "2": "Collum chirurgicum",
-            "3": "Vertikális"
-        },
+            "3": "Vertikális"},
         "11B": {
-            "1": "Collum chirurgicum"
-        },
+            "1": "Collum chirurgicum"},
         "11C": {
             "1": "Collum anatomicum",
-            "3": "Collum anatomicum metafízis töréssel"
-        },
+            "3": "Collum anatomicum metafízis töréssel"},
         "12A": {
             "1": "Spirál",
             "2": "Ferde (≥ 30°)",
-            "3": "Haránt (< 30°)"
-        },
+            "3": "Haránt (< 30°)"},
         "12B": {
             "2": "Ép ék",
-            "3": "Darabos ék"
-        },
+            "3": "Darabos ék"},
         "12C": {
             "2": "Ép szegmentális",
-            "3": "Darabos szegmentális"
-        },
+            "3": "Darabos szegmentális"},
         "13A": {
             "1": "Avulsio",
             "2": "Egyszeres",
-            "3": "Ék vagy többszörös"
-        },
+            "3": "Ék vagy többszörös"},
         "13B": {
             "1": "Laterális sagittális",
             "2": "Mediális sagittális",
-            "3": "Frontalis/coronalis"
-        },
+            "3": "Frontalis/coronalis"},
         "13C": {
             "1": "Egyszerű ízületi, egyszerű metaphysealis",
             "2": "Egyszerű ízületi, ék vagy többszörös metaphysealis",
-            "3": "Többszörös ízületi, ék vagy többszörös metaphysealis"
-        },
+            "3": "Többszörös ízületi, ék vagy többszörös metaphysealis"},
         "14A": {
             "1": "Coracoideus",
             "2": "Acromion",
-            "3": "Spina scapulae"
-        },        
+            "3": "Spina scapulae"},        
         "14B": {
             "1": "A törésvonal max. 2 helyen hagyja el a corpust",
-            "2": "A törésvonal 3 vagy több helyen hagyja el a corpust"
-        }, 
+            "2": "A törésvonal 3 vagy több helyen hagyja el a corpust"}, 
         "14F": {
             "0": "Az extraarticularis, subchondralis fossán át (glenoid neck)",
             "1": "Egyszeres",
-            "2": "Többszörös (3 vagy több törésvonal)"           
-        },        
+            "2": "Többszörös (3 vagy több törésvonal)"},        
         "15.1": {
             "A": "Extraarticularis, epiphysealis lemezt is beleértve!",
             "B": "Részleges ízületi",
-            "C": "Teljes ízületi"
-        },
+            "C": "Teljes ízületi"},
         "15.2": {
             "A": "Egyszeres",
             "B": "Ék",
-            "C": "Többszörös"
-        },
+            "C": "Többszörös"},
         "15.3": {
             "A": "Extraarticularis, epiphysealis lemezt is beleértve!",
             "B": "Részleges ízületi",
-            "C": "Teljes ízületi"
-        },
+            "C": "Teljes ízületi"},
         "2R1A": {
             "1": "Tuberositas bicipitalis avulsiós törés",
             "2": "Egyszeres nyaktörés",
-            "3": "Többszörös nyaktörés"
-        },
+            "3": "Többszörös nyaktörés"},
         **{f"2R1{i}": {
             "1": "Egyszeres",
             "3": "Többszörös"
@@ -520,158 +504,124 @@ def get_ao_subtype_details(ao_type):
         "2R2A": {
             "1": "Spirális",
             "2": "Ferde (≥ 30°)",
-            "3": "Haránt (< 30°)"
-        },
+            "3": "Haránt (< 30°)"},
         "2R2B": {
             "2": "Ép ék",
-            "3": "Darabos ék"
-        },
+            "3": "Darabos ék"},
         "2R2C": {
             "1": "Ép szegmentális",
-            "2": "Darabos szegmentális"
-        },
+            "2": "Darabos szegmentális"},
         "2R3A": {
             "1": "Processus styloideus radii avulsiós törés",
             "2": "Egyszeres",
-            "3": "Ék vagy többszörös"
-        },
+            "3": "Ék vagy többszörös"},
         "2R3B": {
             "1": "Sagittalis",
             "2": "Dorsalis perem (Barton's)",
-            "3": "Volaris perem (reverse Barton's)"
-        },
+            "3": "Volaris perem (reverse Barton's)"},
         "2R3C": {
             "1": "Egyszerű ízületi és metaphysealis",
             "2": "Többszörös metaphysealis",
-            "3": "Többszörös ízületi, egyszerű vagy többszörös metaphysealis"
-        },
+            "3": "Többszörös ízületi, egyszerű vagy többszörös metaphysealis"},
         "2U1A": {
             "1": "Triceps tapadási avulsiós törés",
             "2": "Egyszeres metaphysealis",
-            "3": "Többszörös metaphysealis"
-        },
+            "3": "Többszörös metaphysealis"},
         "2U1B": {
             "1": "Olecranon",
-            "2": "Processus coronoideus"
-        },
+            "2": "Processus coronoideus"},
         "2U1C": {
-            "3": "Olecranon és processus coronoideus"
-        },
+            "3": "Olecranon és processus coronoideus"},
         "2U2A": {
             "1": "Spirál",
             "2": "Ferde(≥ 30°)",
-            "3": "Haránt (< 30°)"
-        },
+            "3": "Haránt (< 30°)"},
         "2U2B": {
             "2": "Ép ék",
-            "3": "Darabos ék"
-        },
+            "3": "Darabos ék"},
         "2U2C": {
             "2": "Ép szegmentális",
-            "3": "Darabos szegmentális"
-        },
+            "3": "Darabos szegmentális"},
         "2U3A": {
             "1": "Processus styloideus avulsiós törés",
             "2": "Egyszeres",
-            "3": "Többszörös"
-        },
+            "3": "Többszörös"},
         "31A": {
             "1": "Egyszerű pertrochanter",
             "2": "Többszörös pertrochanter (lateralis fal elégtelen)",
-            "3": "Intertrochanter (fordított dőlésszög)"
-        },
+            "3": "Intertrochanter (fordított dőlésszög)"},
         "31B": {
             "1": "Subcapitalis",
             "2": "Transcervicalis",
-            "3": "Basicervicalis"
-        },
+            "3": "Basicervicalis"},
         "31C": {
             "1": "Hasadék",
-            "2": "Benyomódás"
-        },
+            "2": "Benyomódás"},
         "32A": {
             "1": "Spirál",
             "2": "Ferde (≥ 30°)",
-            "3": "Haránt (< 30°)"
-        },
+            "3": "Haránt (< 30°)"},
         "32B": {
             "2": "Ép ék",
-            "3": "Darabos ék"
-        },
+            "3": "Darabos ék"},
         "32C": {
             "2": "Ép szegmentális",
-            "3": "Darabos szegmentális"
-        },
+            "3": "Darabos szegmentális"},
         "33A": {
             "1": "Avulsio",
             "2": "Egyszeres",
-            "3": "Ék vagy többszörös"
-        },
+            "3": "Ék vagy többszörös"},
         "33B": {
             "1": "Lateralis condylus, sagittalis",
             "2": "Medialis condylus, sagittal",
-            "3": "Frontalis/coronalis"
-        },
+            "3": "Frontalis/coronalis"},
         "33C": {
             "1": "Egyszerű ízületi, egyszerű metaphysealis",
             "2": "Egyszerű ízületi, ék vagy többszörös metaphysealis",
-            "3": "Többszörös ízületi, egyszerű, ék vagy többszörös metafízis"
-        },
+            "3": "Többszörös ízületi, egyszerű, ék vagy többszörös metafízis"},
         "34A": {
-            "1": "Avulsio",
-        },
+            "1": "Avulsio"},
         "34B": {
             "2": "Lateralis",
-            "3": "Medialis"
-        },
+            "3": "Medialis"},
         "34C": {
             "1": "Frontalis/coronalis, egyszeres",
             "2": "Ék",
-            "3": "Többszörös"
-        },
+            "3": "Többszörös"},
         "41A": {
             "1": "Avulsio",
             "2": "Egyszerű",
-            "3": "Ék vagy többszörös"
-        },
+            "3": "Ék vagy többszörös"},
         "41B": {
             "1": "Hasadék",
             "2": "Benyomódás",
-            "3": "Hasadék benyomódással"
-        },
+            "3": "Hasadék benyomódással"},
         "41C": {
             "1": "Egyszerű ízületi, egyszerű metaphysealis",
             "2": "Egyszerű ízületi, többszörös metaphysealis",
-            "3": "Többszörös ízületi és többszörös metaphysealis"
-        },
+            "3": "Többszörös ízületi és többszörös metaphysealis"},
         "42A": {
             "1": "Spirál",
             "2": "Ferde (≥ 30°)",
-            "3": "Haránt (< 30°)"
-        },
+            "3": "Haránt (< 30°)"},
         "42B": {
             "2": "Ép ék",
-            "3": "Darabos ék"
-        },
+            "3": "Darabos ék"},
         "42C": {
             "2": "Ép szegmentális",
-            "3": "Darabos szegmentális"
-        },
+            "3": "Darabos szegmentális"},
         "43A": {
             "1": "Egyszeres",
             "2": "Ék",
-            "3": "Többszörös"
-        },
+            "3": "Többszörös"},
         "43B": {
             "1": "Hasadék",
             "2": "Hasadék benyomódással",
-            "3": "Benyomódás"
-        },
+            "3": "Benyomódás"},
         "43C": {
             "1": "Egyszerű ízületi, egyszerű metaphysealis",
             "2": "Egyszerű ízületi, többszörös metaphysealis",
-            "3": "Többszörös ízületi és többszörös metaphysealis"
-        },
+            "3": "Többszörös ízületi és többszörös metaphysealis"},
         **{f"4F1{suffix}": {
             "n": "Extraarticularis",
             "o": "Intraarticularis"
@@ -681,21 +631,15 @@ def get_ao_subtype_details(ao_type):
             "b": "Középső 1/3",
             "c": "Distalis 1/3"
         } for suffix in ['A', 'B']},
-        "44A": {
+        **{f"44{i}": {
             "1": "Izolált fibula",
-            "2": "Medialis malleolus",
-            "3": "Posteromedialis"
-        },
-        "44B": {
-            "1": "Izolált fibula",
-            "2": "Medialis sérüléssel",
-            "3": "Medialis sérüléssel és posterolateralis peremtöréssel (Volkmann fragmentum)"
-        },
+            "2": "Medialis malleolus" if i == "A" else "Medialis sérüléssel",
+            "3": "Posteromedialis" if i == "A" else "Medialis sérüléssel és posterolateralis peremtöréssel (Volkmann fragmentum)"
+        } for i in ["A", "B"]},
         "44C": {
             "1": "Egyszerű diaphysealis fibula",
             "2": "Ék vagy többszörös fibula",
-            "3": "Proximalis fibula"
-        },
+            "3": "Proximalis fibula"},
         **{f"51.{i}.A": {
             "0": "Minor, nonstruktúrális sérülés",
             "1": "Kompresszió vagy egy véglemez impaktált fractura, nem érintett a gerinc test posterior fal",
@@ -757,59 +701,45 @@ def get_ao_subtype_details(ao_type):
         "54A": {
             "1": "Coccygealis vagy sacralis kompresszió",
             "2": "Haránt fractura, nincs elmozdulás",
-            "3": "Haránt fractura, elmozdulással"
-        },
+            "3": "Haránt fractura, elmozdulással"},
        "54B": {
             "1": "Izolált verticalis centralis fractura, medialisan a foramina-tól, érinti a gerinccsatornát (Dennis III)",
             "2": "Transalaris fractura, lateralisan a foramina-tól vagy a gerinccsatornától (Dennis I)",
-            "3": "Transforaminalis fractura, érintve a foraminát de nem a gerinccsatornát (Dennis II)"
-        },       
+            "3": "Transforaminalis fractura, érintve a foraminát de nem a gerinccsatornát (Dennis II)"},       
         "54C": {
             "0": "Elmozdulás nélküli, U-variáns (alacsony energiájú elégtelenség fractura)",
             "1": "U-variáns, posterior elégtelenség nélkül",
             "2": "Bilateralis B-típusú sérülés, haránt fractura nélkül",
-            "3": "Elmozdult U-variáns",            
-        },
+            "3": "Elmozdult U-variáns",            },
         "61A": {
             "1": "Avulsio",
             "2": "Fractura",
-            "3": "Haránt törés (S3,4,5 és coccyx)"
-        },
+            "3": "Haránt törés (S3,4,5 és coccyx)"},
         "61B": {
             "1": "Nincs rotációs instabilitás",
             "2": "Rotációs instabilitás, unilateralis posterior sérülés",
-            "3": "Rotációs instabilitás, bilateralis sérülés"
-        },
+            "3": "Rotációs instabilitás, bilateralis sérülés"},
         "61C": {
             "1": "Unilateralis posterior sérülés (APC3, vertikális nyírás (shear))",
             "2": "Bilateralis posterior sérülés, hemipelvicus komplett disruptio, contralateralis hemipelvicus inkomplett disruptio (LC3)",
-            "3": "Bilateralis posterior sérülés, bilateralis komplett disruptio (APC3, vertikális nyírás (shear))"
-        },
+            "3": "Bilateralis posterior sérülés, bilateralis komplett disruptio (APC3, vertikális nyírás (shear))"},
         "62A": {
             "1": "Posterior fal",
             "2": "Posterior oszlop (columna)",
-            "3": "Anterior oszlop (columna) vagy fal"
-        },
+            "3": "Anterior oszlop (columna) vagy fal"},
         "62B": {
             "1": "Haránt fractura",
             "2": "T fractura",
-            "3": "Anterior oszlop (columna) és posterior hemitransversalis fractura"
-        },
+            "3": "Anterior oszlop (columna) és posterior hemitransversalis fractura"},
         "62C": {
             "1": "Felső anterior oszlop (columna)(a crista iliacán át)",
             "2": "Alsó anterior oszlop (columna) (SIAS alatt)",
-            "3": "Sacroiliacalis ízületet érintő"
-        },
-        "72B": {
+            "3": "Sacroiliacalis ízületet érintő"},
+        **{f"72{i}": {
             "a": "Proximalis pólus",
             "b": "Derék",
             "c": "Distalis pólus"
-        },
-        "72C": {
-            "a": "Proximalis pólus",
-            "b": "Derék",
-            "c": "Distalis pólus"
-        },
+        } for i in ["B", "C"]},
         **{f"77.X.{i}": {
             "A": "Extraarticularis",
             "B": "Részleges ízületi",
@@ -828,37 +758,30 @@ def get_ao_subtype_details(ao_type):
         "78.X.X.2": {
             "A": "Egyszeres",
             "B": "Ék",
-            "C": "Többszörös"
-        },
+            "C": "Többszörös"},
         "81.1": {
             ".A": "Avulsio",
             ".B": "Részleges ízületi",
-            ".C": "Teljes ízületi"
-        },  
+            ".C": "Teljes ízületi"},  
         "81.2": {
             ".A": "Nincs elmozdulás (Hawkins 1)",
             ".B": "Elmozdult és subtalaris ízület subluxatio/dislocatio (Hawkins 2)",
             ".C": "Elmozdult talus nyak és talus test dislocatio (Hawkins 3)",
-            ".D": "Elmozdult talus nyak, test és fej dislocatióval (Hawkins 4)"
-        },  
+            ".D": "Elmozdult talus nyak, test és fej dislocatióval (Hawkins 4)"},  
         "81.3": {
             ".A": "Avulsio",
             ".B": "Részleges ízületi",
-            ".C": "Teljes ízületi"
-        },  
+            ".C": "Teljes ízületi"},  
         "82A": {
             "1": "Avulsio, tuberositas posterior fractura vagy extraarticularis nyelv fractura",
-            "2": "Test fractura"
-        },  
+            "2": "Test fractura"},  
         "82B": {
             "1": "Nyelv-típusú, egyszeres fractura",
-            "3": "Többszörös fractura"
-        },  
+            "3": "Többszörös fractura"},  
         "82C": {
             "1": "Ízületi depressióval (Sanders 2)",
             "2": "Ízületi depressióval (Sanders 3)",
-            "3": "Többszörös fractura (Sanders 4)"
-        },  
+            "3": "Többszörös fractura (Sanders 4)"},  
         **{f"83{suffix}": {
             "a": "Egyszeres",
             "b": "Többszörös"
@@ -875,8 +798,7 @@ def get_ao_subtype_details(ao_type):
         "87.X.2": {
             "A": "Egyszeres",
             "B": "Ék",
-            "C": "Többszörös"
-        },
+            "C": "Többszörös"},
         **{f"88.X.{i}": {
             "A": "Extraarticularis",
             "B": "Részleges ízületi",
@@ -885,8 +807,22 @@ def get_ao_subtype_details(ao_type):
         "88.X.2": {
             "A": "Egyszeres",
             "B": "Ék",
+            "C": "Többszörös"},
+        **{f"16.X.{i}.1": {
+            "A": "Extraarticularis",
+            "B": "Részleges costotransversalis disruptio",
+            "C": "Teljes  costotransversalis disruptio"
+        } for i in range(1, 13)},
+         **{f"16.X.{i}.2": {
+            "A": "Egyszeres",
+            "B": "Többszörös ék",
+            "C": "Többszörös szegmentális"
+        } for i in range(1, 13)},
+         **{f"16.X.{i}.3": {
+            "A": "Egyszeres",
+            "B": "Ék",
             "C": "Többszörös"
-        },
+        } for i in range(1, 13)}
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
     
