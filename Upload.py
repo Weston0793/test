@@ -111,7 +111,7 @@ def main():
                         st.rerun()
 
             sub_sub_region = region.get('sub_sub_region', None)
-            
+
             if sub_sub_region:
                 classification_types = st.multiselect(
                     f"Válassza ki az osztályozás típusát (többet is választhat/régió) {idx+1}",
@@ -121,9 +121,15 @@ def main():
 
                 classifications = {}
                 if "AO" in classification_types:
-                    ao_name, ao_severity, ao_subseverity = ao_classification(sub_sub_region)
-                    if ao_name and ao_severity and ao_subseverity:
-                        classifications["AO"] = {"name": ao_name, "severity": ao_severity, "subseverity": ao_subseverity}
+                    ao_name, ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity = ao_classification(sub_sub_region)
+                    if ao_name and ao_severity and ao_subseverity and ao_subsubseverity and ao_subsubsubseverity:
+                        classifications["AO"] = {
+                            "name": ao_name, 
+                            "severity": ao_severity, 
+                            "subseverity": ao_subseverity, 
+                            "subsubseverity": ao_subsubseverity, 
+                            "subsubsubseverity": ao_subsubsubseverity
+                        }
 
                 if "Gartland" in classification_types:
                     gartland_name, gartland_severity, gartland_description = gartland_classification()
