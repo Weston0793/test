@@ -74,7 +74,9 @@ def main():
                     'editable': True,
                     'classification': None,
                     'severity': None,
-                    'subseverity': None
+                    'subseverity': None,
+                    'subsubseverity': None,     
+                    'subsubsubseverity': None  
                 }
                 new_region['editable'] = True  # Ensure the new region starts as editable
                 if 'regions' not in st.session_state:
