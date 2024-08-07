@@ -78,7 +78,7 @@ def confirm_and_upload_data(upload_data):
                 st.markdown(f"**<span class='highlight'>Ujj:</span>** {region['finger']}", unsafe_allow_html=True)
             if region['sub_sub_sub_sub_region']:
                 st.markdown(f"**<span class='highlight'>Legrészletesebb régió:</span>** {region['sub_sub_sub_sub_region']}", unsafe_allow_html=True)
-
+    
             if region.get("classification"):
                 for classification_name, details in region["classification"].items():
                     if "name" in details:
@@ -99,6 +99,7 @@ def confirm_and_upload_data(upload_data):
                         st.markdown(f"**<span class='highlight'>Alalalsúlyosság:</span>** {details['subsubsubseverity']}", unsafe_allow_html=True)
                     if "subsubsubseverity_value" in details:
                         st.markdown(f"**<span class='highlight'>Alalalsúlyosság értéke:</span>** {details['subsubsubseverity_value']}", unsafe_allow_html=True)
+
 
     st.markdown('---')
     
