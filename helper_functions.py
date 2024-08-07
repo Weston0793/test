@@ -424,7 +424,7 @@ def ao_classification(sub_sub_reg):
     # Function to extract key from "key - value" formatted string
     def extract_key(selection):
         return selection.split(" - ")[0] if selection else None
-    
+
     # Generating options for AO főtípus selectbox
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
