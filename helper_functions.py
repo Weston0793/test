@@ -1274,7 +1274,7 @@ def get_ao_subsubseverity_details(ao_type):
             "s": "Sorozat-bordatörés",
         } for i in range(1, 13)}
     }
-    return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
+    return [f"{key} - {value}" for key, value in details.get(ao_subseverity, {}).items()]
 
 def get_ao_subsubsubseverity_details(ao_subsubtype):
     details = {
