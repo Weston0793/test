@@ -423,64 +423,51 @@ def ao_classification(sub_sub_reg):
             "16.3.3.B": "Ferde (partialis avulsio)",
             "16.3.3.C": "Többszörös"}
     }
-    # Generate options for AO főtípus selectbox
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
         return None, None, None, None, None
-    
-    # Display AO főtípus selectbox
+
     ao_type = st.selectbox("AO főtípus", ao_type_options)
     if not ao_type:
         return None, None, None, None, None
-    
-    # Extract the key for AO severity
+
     ao_severity = extract_key(ao_type)
     ao_severity_value = ao_classes.get(sub_sub_reg, {}).get(ao_severity, "")
-    
-    # Generate options for AO típus selectbox
+
     ao_subtype_options = get_ao_subtype_details(ao_severity)
     if not ao_subtype_options:
         return None, None, None, None, None
-    
-    # Display AO típus selectbox
+
     ao_subtype = st.selectbox("AO típus", ao_subtype_options)
     if not ao_subtype:
         return None, None, None, None, None
-    
-    # Concatenate keys for AO subseverity
+
     ao_subseverity = ao_severity + extract_key(ao_subtype)
-    ao_subseverity_value = ao_subtype  # Assuming the value is directly from the selected option
-    
-    # Generate options for AO altípus selectbox
+    ao_subseverity_value = ao_subtype
+
     ao_subsubtype_options = get_ao_subsubseverity_details(ao_subseverity)
     if not ao_subsubtype_options:
         return None, None, None, None, None
-    
-    # Display AO altípus selectbox
+
     ao_subsubtype = st.selectbox("AO altípus", ao_subsubtype_options)
     if not ao_subsubtype:
         return None, None, None, None, None
-    
-    # Concatenate keys for AO subsubseverity
+
     ao_subsubseverity = ao_subseverity + extract_key(ao_subsubtype)
-    ao_subsubseverity_value = ao_subsubtype  # Assuming the value is directly from the selected option
-    
-    # Generate options for AO részletes típus selectbox
+    ao_subsubseverity_value = ao_subsubtype
+
     ao_subsubsubtype_options = get_ao_subsubsubseverity_details(ao_subsubseverity)
     if not ao_subsubsubtype_options:
         return None, None, None, None, None
-    
-    # Display AO részletes típus selectbox
+
     ao_subsubsubtype = st.selectbox("AO részletes típus", ao_subsubsubtype_options)
     if not ao_subsubsubtype:
         return None, None, None, None, None
-    
-    # Concatenate keys for AO subsubsubseverity
-    ao_subsubsubseverity = ao_subsubseverity + extract_key(ao_subsubsubtype)
-    ao_subsubsubseverity_value = ao_subsubsubtype  # Assuming the value is directly from the selected option
-    
-    return "AO klasszifikáció", (ao_severity, ao_severity_value), (ao_subseverity, ao_subseverity_value), (ao_subsubseverity, ao_subsubseverity_value), (ao_subsubsubseverity, ao_subsubsubseverity_value)
 
+    ao_subsubsubseverity = ao_subsubseverity + extract_key(ao_subsubsubtype)
+    ao_subsubsubseverity_value = ao_subsubsubtype
+
+    return "AO klasszifikáció", (ao_severity, ao_severity_value), (ao_subseverity, ao_subseverity_value), (ao_subsubseverity, ao_subsubseverity_value), (ao_subsubsubseverity, ao_subsubsubseverity_value)
 def get_ao_subtype_details(ao_type):
     details = {
         "11A": {
