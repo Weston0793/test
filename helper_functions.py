@@ -450,7 +450,7 @@ def ao_classification(sub_sub_reg):
 
     return classification_name, ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity
 
-def get_ao_subtype_details(ao_type):
+def get_ao_subtype_details(ao_subseverity):
     details = {
         "11A": {
             "1": "Tuberositas",
