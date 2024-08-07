@@ -1,4 +1,6 @@
 import streamlit as st
+def extract_key(selection):
+    return selection.split(" - ")[0] if selection else None
 
 def select_main_type():
     main_type = st.radio("Válassza ki a típusát", ["Normál", "Törött", "Egyéb"], key="main_type")
