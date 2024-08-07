@@ -431,11 +431,24 @@ def ao_classification(sub_sub_reg):
 
     ao_severity = ao_type.split(" - ")[0]
     ao_subtype = st.selectbox("AO altípus részletezése", get_ao_subtype_details(ao_severity))
-    
+    if not ao_subtype:
+        return None, None, None
+
+    ao_subseverity = ao_subtype.split(" - ")[0]
+    ao_subsubtype = st.selectbox("AO altípus részletezése", get_ao_subsubseverity_details(ao_subseverity))
+    if not ao_subsubtype:
+        return None, None, None
+
+    ao_subsubseverity = ao_subsubtype.split(" - ")[0]
+    ao_subsubsubtype = st.selectbox("AO altípus részletezése", get_ao_subsubsubseverity_details(ao_subsubseverity))
+
     classification_name = "AO klasszifikáció"
-    ao_subseverity = ao_subtype
-    
-    return classification_name, ao_severity, ao_subseverity
+    ao_subsubsubseverity = ao_subsubsubtype
+
+    # Save the classification
+    save_classification(classification_name, ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity)
+
+    return classification_name, ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity
 
 def get_ao_subtype_details(ao_type):
     details = {
