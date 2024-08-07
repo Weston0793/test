@@ -482,7 +482,6 @@ def ao_classification(sub_sub_reg):
     save_classification("AO klasszifikáció", ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity)
     
     return "AO klasszifikáció", ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity
-
     
 def get_ao_subtype_details(ao_type):
     details = {
