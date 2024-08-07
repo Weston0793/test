@@ -123,19 +123,21 @@ def main():
     
                 classifications = {}
                 if "AO" in classification_types:
-                    ao_name, ao_severity, ao_severity_value, ao_subseverity, ao_subtype_value, ao_subsubseverity, ao_subsubtype_value, ao_subsubsubseverity, ao_subsubsubtype_value = ao_classification(sub_sub_region)
-                    if ao_name and ao_severity and ao_subseverity and ao_subsubseverity and ao_subsubsubseverity:
-                        classifications["AO"] = {
-                            "name": ao_name,
-                            "severity": ao_severity,
-                            "severity_value": ao_severity_value,
-                            "subseverity": ao_subseverity,
-                            "subseverity_value": ao_subtype_value,
-                            "subsubseverity": ao_subsubseverity,
-                            "subsubseverity_value": ao_subsubtype_value,
-                            "subsubsubseverity": ao_subsubsubseverity,
-                            "subsubsubseverity_value": ao_subsubsubtype_value
-                        }
+                    ao_classification_result = ao_classification(sub_sub_region)
+                    if len(ao_classification_result) == 9:
+                        ao_name, ao_severity, ao_severity_value, ao_subseverity, ao_subtype_value, ao_subsubseverity, ao_subsubtype_value, ao_subsubsubseverity, ao_subsubsubtype_value = ao_classification_result
+                        if ao_name and ao_severity and ao_subseverity and ao_subsubseverity and ao_subsubsubseverity:
+                            classifications["AO"] = {
+                                "name": ao_name,
+                                "severity": ao_severity,
+                                "severity_value": ao_severity_value,
+                                "subseverity": ao_subseverity,
+                                "subseverity_value": ao_subtype_value,
+                                "subsubseverity": ao_subsubseverity,
+                                "subsubseverity_value": ao_subsubtype_value,
+                                "subsubsubseverity": ao_subsubsubseverity,
+                                "subsubsubseverity_value": ao_subsubsubtype_value
+                            }
     
                 if "Gartland" in classification_types:
                     gartland_name, gartland_severity, gartland_description = gartland_classification()
@@ -148,7 +150,6 @@ def main():
                         classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
     
                 region['classification'] = classifications
-
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
