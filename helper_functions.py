@@ -451,7 +451,7 @@ def ao_classification(sub_sub_reg):
 
     return classification_name, ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity
 
-def get_ao_subtype_details(ao_subseverity):
+def get_ao_subtype_details(ao_type):
     details = {
         "11A": {
             "1": "Tuberositas",
@@ -840,7 +840,7 @@ def get_ao_subtype_details(ao_subseverity):
     }
     return [f"{key} - {value}" for key, value in details.get(ao_type, {}).items()]
     
-def get_ao_subsubseverity_details(ao_type):
+def get_ao_subsubseverity_details(ao_subseverity):
     details = {
         "11A1": {
             ".1": "Tuberculum majus",
@@ -1277,7 +1277,7 @@ def get_ao_subsubseverity_details(ao_type):
     }
     return [f"{key} - {value}" for key, value in details.get(ao_subseverity, {}).items()]
 
-def get_ao_subsubsubseverity_details(ao_subsubtype):
+def get_ao_subsubsubseverity_details(ao_subsubseverity):
     details = {
         **{f"11B1.{i}": {
             "u": "Ép ék",
@@ -1523,7 +1523,7 @@ def get_ao_subsubsubseverity_details(ao_subsubtype):
             "c": "Posterior fal és marginalis impactatio"
         } for i in range(1, 4)},
     }
-    return [f"{key} - {value}" for key, value in details.get(ao_subsubtype, {}).items()]
+    return [f"{key} - {value}" for key, value in details.get(ao_subsubseverity, {}).items()]
 
 def neer_classification(sub_sub_reg):
     neer_classes = {
