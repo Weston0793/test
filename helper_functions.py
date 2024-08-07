@@ -431,8 +431,9 @@ def ao_classification(sub_sub_reg):
 
     ao_severity = ao_type.split(" - ")[0]
     ao_subtype = st.selectbox("AO altípus részletezése", get_ao_subtype_details(ao_severity))
-    if not ao_subtype:
-        return None, None, None, None, None
+    
+    classification_name = "AO klasszifikáció"
+    ao_subseverity = ao_subtype
 
     ao_subseverity = ao_subtype.split(" - ")[0]
     ao_subsubtype = st.selectbox("AO altípus részletezése", get_ao_subsubseverity_details(ao_subseverity))
