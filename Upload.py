@@ -191,7 +191,6 @@ def main():
     if st.session_state.get('confirm_data'):
         confirm_and_upload_data(st.session_state.confirm_data)
 
-
     if st.button("Reset"):
         reset_session_state()
         st.session_state.file_uploader_key = str(uuid.uuid4())
