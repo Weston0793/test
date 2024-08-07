@@ -446,8 +446,8 @@ def ao_classification(sub_sub_reg):
     if not ao_subtype:
         return None, None, None, None, None
     
-    # Extract the key for AO subsseverity
-    ao_subseverity = extract_key(ao_subtype)
+    # Concatenate keys for AO subsseverity
+    ao_subseverity = ao_severity + extract_key(ao_subtype)
     
     # Generate options for AO altípus selectbox
     ao_subsubtype_options = get_ao_subsubseverity_details(ao_subseverity)
@@ -459,8 +459,8 @@ def ao_classification(sub_sub_reg):
     if not ao_subsubtype:
         return None, None, None, None, None
     
-    # Extract the key for AO subsubseverity
-    ao_subsubseverity = extract_key(ao_subsubtype)
+    # Concatenate keys for AO subsubseverity
+    ao_subsubseverity = ao_subseverity + extract_key(ao_subsubtype)
     
     # Generate options for AO részletes típus selectbox
     ao_subsubsubtype_options = get_ao_subsubsubseverity_details(ao_subsubseverity)
@@ -472,8 +472,8 @@ def ao_classification(sub_sub_reg):
     if not ao_subsubsubtype:
         return None, None, None, None, None
     
-    # Extract the key for AO subsubsubseverity
-    ao_subsubsubseverity = extract_key(ao_subsubsubtype)
+    # Concatenate keys for AO subsubsubseverity
+    ao_subsubsubseverity = ao_subsubseverity + extract_key(ao_subsubsubtype)
     
     # Save the classification
     save_classification("AO klasszifikáció", ao_severity, ao_subseverity, ao_subsubseverity, ao_subsubsubseverity)
