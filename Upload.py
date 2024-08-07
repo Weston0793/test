@@ -148,7 +148,7 @@ def main():
                         classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
 
                 region['classification'] = classifications
-
+                
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
     age_group = ""
     if age != "NA":
