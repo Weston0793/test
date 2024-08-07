@@ -87,7 +87,7 @@ def main():
                 st.rerun()
             elif st.session_state.new_region_blocked:
                 st.error("Mentse a jelenlegi régiót mielőtt újat hozna létre.")
-    
+
     if 'regions' in st.session_state:
         for idx, region in enumerate(st.session_state.regions):
             st.markdown(f"**Régió {idx + 1}:**")
@@ -111,44 +111,42 @@ def main():
                     if st.button(f"Régió {idx + 1} törlése", key=f"delete_region_{idx}"):
                         st.session_state.regions.pop(idx)
                         st.rerun()
-    
+
             sub_sub_region = region.get('sub_sub_region', None)
-    
+
             if sub_sub_region:
                 classification_types = st.multiselect(
                     f"Válassza ki az osztályozás típusát (többet is választhat/régió) {idx+1}",
                     ["AO", "Gartland", "Neer"],
                     key=f"classification_types_{idx}"
                 )
-    
+
                 classifications = {}
                 if "AO" in classification_types:
-                    ao_classification_result = ao_classification(sub_sub_region)
-                    if len(ao_classification_result) == 9:
-                        ao_name, ao_severity, ao_severity_value, ao_subseverity, ao_subseverity_value, ao_subsubseverity, ao_subsubseverity_value, ao_subsubsubseverity, ao_subsubsubseverity_value = ao_classification_result
-                        if ao_name and ao_severity and ao_subseverity and ao_subsubseverity and ao_subsubsubseverity:
-                            classifications["AO"] = {
-                                "name": ao_name,
-                                "severity": ao_severity,
-                                "severity_value": ao_severity_value,
-                                "subseverity": ao_subseverity,
-                                "subseverity_value": ao_subseverity_value,
-                                "subsubseverity": ao_subsubseverity,
-                                "subsubseverity_value": ao_subsubseverity_value,
-                                "subsubsubseverity": ao_subsubsubseverity,
-                                "subsubsubseverity_value": ao_subsubsubseverity_value
-                            }
-    
+                    ao_name, ao_severity, ao_severity_value, ao_subseverity, ao_subtype_value, ao_subsubseverity, ao_subsubtype_value, ao_subsubsubseverity, ao_subsubsubtype_value = ao_classification(sub_sub_region)
+                    if ao_name and ao_severity and ao_subseverity and ao_subsubseverity and ao_subsubsubseverity:
+                        classifications["AO"] = {
+                            "name": ao_name,
+                            "severity": ao_severity,
+                            "severity_value": ao_severity_value,
+                            "subseverity": ao_subseverity,
+                            "subseverity_value": ao_subtype_value,
+                            "subsubseverity": ao_subsubseverity,
+                            "subsubseverity_value": ao_subsubtype_value,
+                            "subsubsubseverity": ao_subsubsubseverity,
+                            "subsubsubseverity_value": ao_subsubsubtype_value
+                        }
+
                 if "Gartland" in classification_types:
                     gartland_name, gartland_severity, gartland_description = gartland_classification()
                     if gartland_name and gartland_severity:
                         classifications["Gartland"] = {"name": gartland_name, "severity": gartland_severity, "description": gartland_description}
-    
+
                 if "Neer" in classification_types:
                     neer_name, neer_severity, neer_description = neer_classification(sub_sub_region)
                     if neer_name and neer_severity:
                         classifications["Neer"] = {"name": neer_name, "severity": neer_severity, "description": neer_description}
-    
+
                 region['classification'] = classifications
 
     age = st.select_slider("Életkor (opcionális)", options=["NA"] + list(range(0, 121)), value="NA")
