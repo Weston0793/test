@@ -107,11 +107,11 @@ def select_associated_conditions():
 
 def select_subregion(main_reg):
     regions = {
-        "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló", "Kéz"],
+        "Felső végtag": ["", "Váll", "Humerus", "Könyök", "Alkar", "Csukló/Carpus", "Kéz"],
         "Alsó végtag": ["", "Pelvis", "Femur", "Térd", "Lábszár", "Boka", "Láb"],
         "Gerinc": ["", "Cervicalis", "Thoracalis", "Lumbalis", "Sacralis"],
         "Koponya": ["", "Arckoponya", "Mandibula", "Calvaria", "Koponyaalap", "Fog"],
-        "Mellkas": ["", "Thorax", "Tüdő", "Szív", "Mell"],
+        "Mellkas": ["", "Borda", "Sternum", "Tüdő", "Szív", "Mell"],
         "Has": ["", "Gyomor", "Vékonybél", "Vastagbél", "Vese", "Húgyhólyag", "Máj", "Epehólyag", "Pancreas", "Lép"]
     }
     return st.selectbox("Régió", regions.get(main_reg, [""]))
@@ -122,7 +122,7 @@ def select_sub_subregion(sub_reg):
         "Humerus": ["", "Humerus diaphysis"],
         "Könyök": ["", "Distalis humerus", "Proximalis ulna", "Proximalis radius"],
         "Alkar": ["", "Ulna diaphysis", "Radius diaphysis", "Nightstick", "Essex-Lopresti", "Galeazzi", "Monteggia"],
-        "Csukló": ["", "Distalis radius", "Distalis ulna", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
+        "Csukló/Carpus": ["", "Distalis radius", "Distalis ulna", "Scaphoideum", "Lunatum", "Capitatum", "Triquetrum", "Pisiforme", "Hamatum", "Trapesoideum", "Trapesium"],
         "Kéz": ["", "Metacarpus", "Pollex", "Phalanx"],
         "Pelvis": ["", "Medencegyűrű",  "Acetabulum", "Anterior inferior csípőtövis avulsio",  "Anterior superior csípőtövis avulsio", "Duverney", "Malgaigne", "Windswept pelvis", "Pelvic bucket handle", "Medencei elégtelenség"],
         "Femur": ["","Proximalis femur", "Femur diaphysis", "Bisphosphonáthoz kapcsolódó"],
@@ -139,7 +139,8 @@ def select_sub_subregion(sub_reg):
         "Calvaria": ["", "Frontale", "Parietale", "Temporale", "Occipitale"], 
         "Koponyaalap": ["","Condylus occipitalis", "Fossa anterior", "Fossa mediale", "Fossa posterior"],
         "Fog": ["", "Szemfog", "Metszőfog", "Kisörlő", "Nagyörlő"],
-        "Thorax": ["", "Borda", "Sternum"]
+        "Borda": ["", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B9", "B10", "B11", "B12"],
+        "Sternum": ["", "Manubrium", "Corpus", "Xyphoideum"]
     }
     return st.selectbox("Alrégió", sub_regions.get(sub_reg, [""]))
     
@@ -176,7 +177,7 @@ def select_sub_sub_subregion(sub_sub_reg):
         "Szemfog": ["", "Korona", "Gyökér"], 
         "Metszőfog": ["", "Korona", "Gyökér"], 
         "Kisörlő": ["", "Korona", "Gyökér"], 
-        "Nagyörlő": ["", "Korona", "Gyökér"] 
+        "Nagyörlő": ["", "Korona", "Gyökér"]
     }
     return st.selectbox("Részletes régió", sub_sub_regions.get(sub_sub_reg, [""]))
 
@@ -216,215 +217,172 @@ def ao_classification(sub_sub_reg):
         "Proximalis humerus": {
             "11A": "Extraarticularis, unifokális, 2 rész",
             "11B": "Extraarticularis, bifokális, 3 rész",
-            "11C": "Ízületi vagy 4 rész",
-        },
+            "11C": "Ízületi vagy 4 rész",},
          "Humerus diaphysis": {
             "12A": "Egyszeres",
             "12B": "Ék",
-            "12C": "Többszörös"
-        },
+            "12C": "Többszörös"},
         "Distalis humerus": {
             "13A": "Extraarticularis",
             "13B": "Részleges ízületi",
-            "13C": "Teljes ízületi"
-        },
+            "13C": "Teljes ízületi"},
          "Scapula": {
             "14A": "Processus",
             "14B": "Corpus",
-            "14C": "Fossa glenoidale"
-        }, 
+            "14C": "Fossa glenoidale"}, 
          "Clavicula": {
             "15.1": "Proximalis/medialis",
             "15.2": "Diaphysealis",
-            "15.3": "Distalis/lateralis"
-        },         
+            "15.3": "Distalis/lateralis"},         
         "Proximalis radius": {
             "2R1A": "Extraarticularis",
             "2R1B": "Részleges ízületi",
-            "2R1C": "Teljes ízületi"
-        },
+            "2R1C": "Teljes ízületi"},
         "Radius diaphysis": {
             "2R2A": "Egyszeres",
             "2R2B": "Ék",
-            "2R2C": "Többszörös"
-        },
+            "2R2C": "Többszörös"},
         "Distalis radius": {
             "2R3A": "Extraarticularis",
             "2R3B": "Részleges ízületi",
-            "2R3C": "Teljes ízületi"
-        },
+            "2R3C": "Teljes ízületi"},
         "Proximalis ulna": {
             "2U1A": "Extraarticularis",
             "2U1B": "Részleges ízületi",
-            "2U1C": "Teljes ízületi"
-        },
+            "2U1C": "Teljes ízületi"},
         "Ulna diaphysis": {
             "2U2A": "Egyszeres",
             "2U2B": "Ék",
-            "2U2C": "Többszörös"
-        },
+            "2U2C": "Többszörös"},
         "Distalis ulna": {
             "2U3A": "Extraarticularis",
             "2U3B": "Részleges ízületi",
-            "2U3C": "Teljes ízületi"
-        },
+            "2U3C": "Teljes ízületi"},
         "Proximalis femur": {
             "31A": "Trochanter régió",
             "31B": "Femur nyak",
-            "31C": "Femur fej"
-        },
+            "31C": "Femur fej"},
         "Femur diaphysis": {
             "32A": "Egyszeres",
             "32B": "Ék",
-            "32C": "Többszörös"
-        },
+            "32C": "Többszörös"},
         "Distalis femur": {
             "33A": "Extraarticularis",
             "33B": "Részleges ízületi",
-            "33C": "Teljes ízületi"
-        },
+            "33C": "Teljes ízületi"},
         "Patella": {
             "34A": "Extraarticularis",
             "34B": "Részleges ízületi, sagittalis",
-            "34C": "Teljes ízületi, frontalis/coronalis"
-        },
+            "34C": "Teljes ízületi, frontalis/coronalis"},
         "Proximalis tibia": {
             "41A": "Extraarticularis",
             "41B": "Részleges ízületi",
-            "41C": "Teljes ízületi"
-        },
+            "41C": "Teljes ízületi"},
         "Tibia diaphysis": {
             "42A": "Egyszeres",
             "42B": "Ék",
-            "42C": "Többszörös"
-        },
+            "42C": "Többszörös"},
         "Distalis tibia": {
             "43A": "Extraarticularis",
             "43B": "Részleges ízületi",
-            "43C": "Teljes ízületi"
-        },
+            "43C": "Teljes ízületi"},
         "Proximalis fibula": {
             "4F1A": "Egyszeres",
-            "4F1B": "Többszörös",
-        },
+            "4F1B": "Többszörös",},
         "Fibula diaphysis": {
             "4F2A": "Egyszeres",
-            "4F2B": "Ék vagy többszörös",
-        },
+            "4F2B": "Ék vagy többszörös",},
         "Distalis fibula": {
             "4F3A": "Egyszeres",
-            "4F3B": "Ék vagy többszörös",
-        },
+            "4F3B": "Ék vagy többszörös",},
         "Malleolaris": {
             "44A": "Infrasyndesmoticus fibula",
             "44B": "Transsyndesmoticus fibula",
-            "44C": "Suprasyndesmoticus fibula"
-        },
+            "44C": "Suprasyndesmoticus fibula"},
         "Medencegyűrű": {
             "61A": "Ép posterior ív",
             "61B": "Inkomplett posterior ív disruptio",
-            "61C": "Komplett posterior ív disruptio"
-        },
+            "61C": "Komplett posterior ív disruptio"},
         "Acetabulum": {
             "62A": "Részleges ízületi, izolált oszlop és/vagy fal",
             "62B": "Részleges ízületi, haránt",
-            "62C": "Teljes ízületi, mindkét oszlop"
-        },
+            "62C": "Teljes ízületi, mindkét oszlop"},
         "Lunatum": {
             "71A": "Avulsiós",
             "71B": "Egyszerű",
-            "71C": "Többszörös"
-        }, 
+            "71C": "Többszörös"}, 
         "Scaphoideum": {
             "72A": "Avulsiós",
             "72B": "Egyszerű",
-            "72C": "Többszörös"
-        },
+            "72C": "Többszörös"},
         "Capitatum": { 
             "73A": "Avulsiós",
             "73B": "Egyszerű",
-            "73C": "Többszörös"
-        }, 
+            "73C": "Többszörös"}, 
         "Hamatum": {
             "74A": "Avulsiós",
             "74B": "Egyszerű",
-            "74C": "Többszörös"
-        },
+            "74C": "Többszörös"},
         "Trapesium": {
             "75A": "Avulsiós",
             "75B": "Egyszerű",
-            "75C": "Többszörös"
-        },
+            "75C": "Többszörös"},
         "Pisiforme": {
             "76.1.A": "Avulsiós",
             "76.1.B": "Egyszerű",
-            "76.1.C": "Többszörös"
-        },
+            "76.1.C": "Többszörös"},
         "Triquetrum": {
             "76.2.A": "Avulsiós",
             "76.2.B": "Egyszerű",
-            "76.2.C": "Többszörös"
-        },
+            "76.2.C": "Többszörös"},
         "Trapesoideum": {
             "76.3.A": "Avulsiós",
             "76.3.B": "Egyszerű",
-            "76.3.C": "Többszörös"
-        },
+            "76.3.C": "Többszörös"},
         "Metacarpus": {
             "77.X.1": "Proximalis",
             "77.X.2": "Diaphysealis",
-            "77.X.3": "Distalis"
-        },
+            "77.X.3": "Distalis"},
         "Phalanx": {
             "78.X.X.1": "Proximalis",
             "78.X.X.2": "Diaphysealis",
-            "78.X.X.3": "Distalis"
-        },
+            "78.X.X.3": "Distalis"},
         "Talus": {
             "81.1": "Corpus",
             "81.2": "Collum",
-            "81.3": "Caput"
-        },
+            "81.3": "Caput"},
         "Calcaneus": {
             "82A": "Extraarticularis",
             "82B": "Nyelv-típusú, facies talaris posteriorig terjedő",
-            "82C": "Teljes ízületi"
-        },
+            "82C": "Teljes ízületi"},
         "Naviculare": {
             "83A": "Avulsiós",
             "83B": "Részleges ízületi",
-            "83C": "Teljes ízületi"
-        },
+            "83C": "Teljes ízületi"},
         "Cuboideum": {
             "84A": "Avulsiós",
             "84B": "Részleges ízületi",
-            "84C": "Teljes ízületi"
-        },
+            "84C": "Teljes ízületi"},
         "Cuneiforme mediale": {
             "85.1.A": "Avulsiós",
             "85.1.B": "Részleges ízületi",
-            "85.1.C": "Teljes ízületi"
-        },
+            "85.1.C": "Teljes ízületi"},
         "Cuneiforme intermedium": {
             "85.2.A": "Avulsiós",
             "85.2.B": "Részleges ízületi",
-            "85.2.C": "Teljes ízületi"
-        },
+            "85.2.C": "Teljes ízületi"},
         "Cuneiforme laterale": {
             "85.3.A": "Avulsiós",
             "85.3.B": "Részleges ízületi",
-            "85.3.C": "Teljes ízületi"
-        },
+            "85.3.C": "Teljes ízületi"},
         "Metatarsus": {
             "87.X.1": "Proximalis",
             "87.X.2": "Diaphysealis",
-            "87.X.3": "Distalis"
-        },
+            "87.X.3": "Distalis"},
         "Lábujj": {
             "88.X.1": "Proximalis",
             "88.X.2": "Diaphysealis",
-            "88.X.3": "Distalis"
-        },
+            "88.X.3": "Distalis"},
         **{f"C{i}": {
             f"51.{i}.A": "Corpus vertebrae, kompressziós sérülés",
             f"51.{i}.B": "Tension band injury",
@@ -440,22 +398,28 @@ def ao_classification(sub_sub_reg):
             f"53.{i}.B": "Tension band injury",
             f"53.{i}.C": "Elmozdulás/Translational"      
         } for i in range(1, 6)},
-
         "Sacrum": {
             "54A": "Sacroiliacalis ízület ép, alsó szegmens sérülés",
             "54B": "Sacroiliacalis ízület károsodott, felső szegmens sérülés",
             "54C": "Spino-pelvicalis instabilitás"      
          },
-        "Borda": {
-            "16.X.1": "Posterior (costotransversalis ízületek)",
-            "16.X.2": "Diaphysealis",
-            "16.X.3": "Anterior (costochondralis porc)"
-        },
-        "Sternum": {
-            "16.3.1": "Manubrium",
-            "16.3.2": "Corpus",
-            "16.3.3": "Xyphoideus"
-        }
+        **{f"B{i}": {
+            f"16.X.{i}.1": "Posterior végszegmens",
+            f"16.X.{i}.2": "Diaphysealis (shaft)",
+            f"16.X.{i}.3": "Anterior végszegmens"      
+        } for i in range(1, 13)},
+        "Manubrium": {
+            "16.3.1.A": "Haránt",
+            "16.3.1.B": "Ferde",
+            "16.3.1.C": "Többszörös"},
+        "Corpus": { 
+            "16.3.2.A": "Haránt (saggitalis instabilitas)",
+            "16.3.2.B": "Ferde",
+            "16.3.2.C": "Többszörös"},
+        "Xyphoideus": {  
+            "16.3.3.A": "Haránt fractura vagy avulsio (saggitalis instabilitas)",
+            "16.3.3.B": "Ferde (partialis avulsio)",
+            "16.3.3.C": "Többszörös"}
     }
     ao_type_options = [f"{key} - {value}" for key, value in ao_classes.get(sub_sub_reg, {}).items()]
     if not ao_type_options:
